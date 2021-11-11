@@ -1,13 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { ThemeProvider } from "./context";
+import Head from "next/head";
+import { Navbar } from "../components/Navbar";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+function HomePage() {
+  return (
+    <div>
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Navbar />
+      <div>Welcome to Next.js!</div>
+    </div>
+  );
+}
+
+export default HomePage;
