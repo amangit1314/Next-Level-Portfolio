@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 
@@ -23,23 +22,41 @@ export default function Home() {
       <div className={styles.nav} />
 
       {/* Intro Banner */}
-      <div className="object-contains bg-blue-bg-purple-600 bg-opacity-75 h-100 p-20  w-100">
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <p className="text-blue font-mono font-bold text-5xl colors.blue">
+      <div className="object-contains bg-blue-bg-purple-600 bg-opacity-75 h-100 p-20 w-100">
+        <div class="grid grid-cols-2 gap-6">
+          <div className="">
+            <p className="text-blue-500 font-bold text-4xl pr-20  pt-30 colors.blue">
               I build & craft amazing experiences
+            </p>
+            <p className="text-blue-500 text-xl colors.blue pt-10">
+              My name's Aman Soni. I craft user interfaces using modern frontend
+              framework's such as Flutter, React and other web technologie's.
             </p>
           </div>
           <div>
             <div class="bg-rose-300">
               <img
-                src="./images/svg/aman_soni.svg"
-                class="object-contain h-48 w-full"
+                src="./images/svg/cool.jpg"
+                class="object-contain h-62 w-full"
               ></img>
             </div>
           </div>
         </div>
       </div>
+
+      {/* JSX for Fonts */}
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family: Poppins;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </div>
   );
 }
