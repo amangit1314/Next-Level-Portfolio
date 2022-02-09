@@ -1,54 +1,60 @@
-import HeaderItem from "./HeaderItem";
+import HeaderItem from './HeaderItem'
 
 function Header() {
   return (
-    <div className="shadow-xl bg-pink-500 bg-opacity-100">
-      <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-3">
-        <div class="block lg:hidden">
-          <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-            <svg
-              class="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="./images/svg/aman_soni.svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
-        <div class="w-full block pl-10 flex-grow lg:flex lg:items-center lg:w-auto">
-          <div class="text-sm lg:flex-grow ">
-            <a
-              href="#responsive-header"
-              class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              Docs
-            </a>
-            <a
-              href="#responsive-header"
-              class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            >
-              Examples
-            </a>
-            <a
-              href="#responsive-header"
-              class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-            >
-              Blog
-            </a>
-          </div>
-          <div>
-            <a
-              href="#"
-              class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-black mt-4 lg:mt-0"
-            >
-              Resume
-            </a>
-          </div>
-        </div>
-      </nav>
+    <div className=" ml-24 mr-24 pt-8">
+      <header className="flex justify-between">
+        <a
+          href="/"
+          class="bg-clip-text font-bold ml-22 text-2xl text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500"
+        >
+          Aman
+          <span> Soni</span>
+        </a>
+        {/* <nav className="fixed r-0 t-0 h-screen w-1/2 bg-white z-99 uppercase ease-in-out translate-x-1">
+          <svg
+            className="float-right w-10 m-8 cursor-pointer close"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C10.0222 2 8.08879 2.58649 6.4443 3.6853C4.79981 4.78412 3.51809 6.3459 2.76121 8.17317C2.00433 10.0004 1.8063 12.0111 2.19215 13.9509C2.578 15.8907 3.53041 17.6725 4.92894 19.0711C6.32746 20.4696 8.10929 21.422 10.0491 21.8079C11.9889 22.1937 13.9996 21.9957 15.8268 21.2388C17.6541 20.4819 19.2159 19.2002 20.3147 17.5557C21.4135 15.9112 22 13.9778 22 12C22 10.6868 21.7413 9.38642 21.2388 8.17317C20.7363 6.95991 19.9997 5.85752 19.0711 4.92893C18.1425 4.00035 17.0401 3.26375 15.8268 2.7612C14.6136 2.25866 13.3132 2 12 2V2ZM14.71 13.29C14.8037 13.383 14.8781 13.4936 14.9289 13.6154C14.9797 13.7373 15.0058 13.868 15.0058 14C15.0058 14.132 14.9797 14.2627 14.9289 14.3846C14.8781 14.5064 14.8037 14.617 14.71 14.71C14.617 14.8037 14.5064 14.8781 14.3846 14.9289C14.2627 14.9797 14.132 15.0058 14 15.0058C13.868 15.0058 13.7373 14.9797 13.6154 14.9289C13.4936 14.8781 13.383 14.8037 13.29 14.71L12 13.41L10.71 14.71C10.617 14.8037 10.5064 14.8781 10.3846 14.9289C10.2627 14.9797 10.132 15.0058 10 15.0058C9.86799 15.0058 9.73729 14.9797 9.61543 14.9289C9.49357 14.8781 9.38297 14.8037 9.29 14.71C9.19628 14.617 9.12188 14.5064 9.07111 14.3846C9.02034 14.2627 8.99421 14.132 8.99421 14C8.99421 13.868 9.02034 13.7373 9.07111 13.6154C9.12188 13.4936 9.19628 13.383 9.29 13.29L10.59 12L9.29 10.71C9.1017 10.5217 8.99591 10.2663 8.99591 10C8.99591 9.7337 9.1017 9.4783 9.29 9.29C9.47831 9.1017 9.7337 8.99591 10 8.99591C10.2663 8.99591 10.5217 9.1017 10.71 9.29L12 10.59L13.29 9.29C13.4783 9.1017 13.7337 8.99591 14 8.99591C14.2663 8.99591 14.5217 9.1017 14.71 9.29C14.8983 9.4783 15.0041 9.7337 15.0041 10C15.0041 10.2663 14.8983 10.5217 14.71 10.71L13.41 12L14.71 13.29Z"
+              fill="black"
+            />
+          </svg>
+          <ul className="list-none p-0 mt-48">
+            <li>
+              <a className="text-black py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+                Skills
+              </a>
+            </li>
+            <li>
+              <a className="text-black py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+                Projects
+              </a>
+            </li>
+            <li>
+              <a className="text-black py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </nav> */}
+        <svg
+          className="w-9 -mt-2 cursor-pointer from-indigo-600 to-purple-500"
+          viewBox="0 0 48 32"
+          fill="black"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 32H0V26.6667H24V32ZM48 18.6667H0V13.3333H48V18.6667ZM48 5.33333H24V0H48V5.33333Z"
+            fill="black"
+          />
+        </svg>
+      </header>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header
