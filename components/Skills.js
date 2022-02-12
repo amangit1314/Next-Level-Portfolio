@@ -1,4 +1,5 @@
 import React from 'react'
+import SkillsTile from './SkillsTile'
 
 function Skills() {
   return (
@@ -17,11 +18,15 @@ function Skills() {
             applications
           </div>
         </div>
-        <div className="skills-right grid grid-cols-1 grid-rows-2 gap-4 relative flex-1 object-fill rounded mb-24 ml-12 mr-24 h-0">
-          <div className="mobile bg-yellow-300 w-9/12 mb-4 h-10  ">Mobile</div>
-          <div className="Web bg-green-300 w-9/12 h-10">Web</div>
-          <div className="Web bg-red-300 w-9/12 h-10">DevOps</div>
-          <div className="Web bg-blue-300 w-9/12 h-10">Design</div>
+        <div className="skills-right flex mt-8 bg-gray-50 h-50 w-12/12 relative flex-1 object-fill rounded ml-12 mr-24 h-0">
+          <div className="flex flex-col flex-1">
+            <SkillsTile />
+            <SkillsTile />
+          </div>
+          <div className="flex flex-col flex-1">
+            <SkillsTile />
+            <SkillsTile />
+          </div>
         </div>
       </section>
     </div>
