@@ -3,6 +3,9 @@ import HeroSection from '../components/HeroSection'
 import Header from '../components/Header'
 import AboutSection from '../components/AboutSection'
 import Skills from '../components/Skills'
+import Projects from '../components/Projects'
+import Footer from '../components/Footer'
+import Testimonials from '../components/Testimonials'
 export default function Home() {
   return (
     <div className="bg-black text-white">
@@ -23,12 +26,19 @@ export default function Home() {
       <HeroSection />
 
       {/* About Section */}
-      {/* <AboutSection /> */}
+      <AboutSection />
 
       {/* Skills Section */}
       <Skills />
 
+      {/* Projects Section */}
+      <Projects />
+
+      {/*  Testimonials */}
+      <Testimonials />
+
       {/* Footer */}
+      <Footer />
 
       {/* JSX for Fonts */}
       <style jsx global>{`
@@ -36,7 +46,7 @@ export default function Home() {
         body {
           padding: 0;
           margin: 0;
-          font-family: Playfair Display, sans-serif;
+          font-family: Poppins, sans-serif;
         }
 
         * {

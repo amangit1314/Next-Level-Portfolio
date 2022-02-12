@@ -8,7 +8,7 @@ function HeroSection() {
         className="h-auto w-100 flex flex-row justify-between  mt-8"
       >
         <div className="devInfo mt-20 flex flex-1 flex-col">
-          <div className="about  w-9/12 font-semibold mt-8 text-4xl text-pink-500 ">
+          <div className="about  w-9/12 font-semibold text-4xl text-pink-500 ">
             I build and craft amazing experiences
           </div>
 
@@ -18,7 +18,7 @@ function HeroSection() {
           </div>
 
           <svg
-            className="down-arrow bottom-12 w-4 mt-24  absolute stroke-white animate-bounce "
+            className="down-arrow bottom-12 w-4 absolute stroke-white animate-bounce "
             viewBox="0 0 16 132"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
