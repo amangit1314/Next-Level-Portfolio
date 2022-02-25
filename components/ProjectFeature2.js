@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProjectFeature2() {
   return (
-    <div className="feature flex text-left mr-24">
+    <div className="feature flex text-left mr-24 cursor-pointer">
       <div className="content flex-1 w-80 text-right">
         <p className="title text-xl font-semibold">
           Fresh Instagram Ui [Mobile + Web]{' '}

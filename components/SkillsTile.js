@@ -1,12 +1,14 @@
 import React from 'react'
 import { BeakerIcon } from '@heroicons/react/solid'
 
-function SkillsTile({ skill, desc, icon }) {
+function SkillsTile({ skill, percent, icon }) {
   return (
-    <div className="flex-1 cursor-pointer hover:bg-pink-500 hover:text-white bg-gray-900 p-6 m-6 shadow-lg rounded-lg text-left">
-      <BeakerIcon className="w-12 h-12 " />
-      <p className="text-white-500 mt-2 text-xl">{skill}</p>
-      <p className="text-gray-500 mt-2">{desc}</p>
+    <div className="items-center mr-10 text-center">
+      <div className="flex-1 cursor-pointer hover:bg-indigo-500 hover:text-white bg-blue-300 p-6 shadow-sm rounded-full text-left">
+        <img className="h-10 w-10 rounded-full" src={icon} />
+        <p className="text-gray-100 mt-4 text-sm text-center">{percent}</p>
+      </div>
+      <div className="mt-2">{skill}</div>
     </div>
   )
 }

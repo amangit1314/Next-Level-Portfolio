@@ -1,11 +1,12 @@
 import Head from 'next/head'
-import HeroSection from '../components/HeroSection'
 import Header from '../components/Header'
 import AboutSection from '../components/AboutSection'
 import Skills from '../components/Skills'
 import Projects from '../components/Projects'
 import Footer from '../components/Footer'
 import Testimonials from '../components/Testimonials'
+import HeroSection from '../components/HeroSection'
+
 export default function Home() {
   return (
     <div className="bg-black text-white">
@@ -21,8 +22,10 @@ export default function Home() {
         />
       </Head>
 
+      {/* Header */}
       <Header />
-      {/* Hero Section */}
+
+      {/* Home Section */}
       <HeroSection />
 
       {/* About Section */}

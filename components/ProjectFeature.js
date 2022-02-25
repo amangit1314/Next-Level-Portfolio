@@ -2,20 +2,20 @@ import React from 'react'
 
 function ProjectFeature({ title, desc, img }) {
   return (
-    <div className="feature grid gap-12 grid-cols-2">
-      <div className="content text-left">
+    <div className="feature flex justify-between items-cente">
+      <div className="content text-left mt-10">
         <p className="title text-xl font-semibold">
           {/* TODO web and mobile both */}
           {title}
         </p>
-        <p className="desc leading-6 w-80 pt-6">
+        <p className="desc leading-6 w-5/12 pt-6">
           {/*  */}
           {desc}
         </p>
       </div>
-      {/* https://bashooka.com/wp-content/uploads/2018/11/to-do-app-ui-design-2.jpg */}
+
       <img
-        className="w-8/12 rounded-lg h-40 object-fill"
+        className="w-4/12 rounded-lg h-60 object-cover cursor-pointer"
         src={img}
         alt="Another shoe"
       />

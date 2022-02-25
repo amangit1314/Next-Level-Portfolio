@@ -5,7 +5,7 @@ function HeroSection() {
     <div className="h-screen mr-24 ml-24">
       <section
         id="hero-sect "
-        className="h-auto w-100 flex flex-row justify-between  mt-8"
+        className="h-auto w-100 flex justify-between  mt-8"
       >
         <div className="devInfo mt-20 flex flex-1 flex-col">
           <div className="about  w-9/12 font-semibold text-4xl text-pink-500 ">
@@ -30,12 +30,12 @@ function HeroSection() {
           </svg>
         </div>
         {/* bg-gradient-to-r from-purple-500 to-pink-500 */}
-        <div className="devPic relative flex-1 object-fill max-w-1 rounded mt-24  mb-24 ml-24 mr-4 h-0">
-          {/* <img
-            className="dev-pic absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg"
-            src="./images/jpg/aman.jpg"
+        <div className="devPic relative flex-1 object-fit max-w-1 rounded ml-24 mr-4 ">
+          <img
+            className="dev-pic absolute inset-0 w-400 h-100 object-cover rounded-lg shadow-lg"
+            src="../images/png/support.png"
             alt=""
-          /> */}
+          />
           <a href="https://icons8.com/illustrations/author/5f32934501d0360017af905d"></a>
         </div>
       </section>

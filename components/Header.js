@@ -41,17 +41,34 @@ function Header() {
             </li>
           </ul>
         </nav> */}
-        <svg
+        {/* <svg
           className="w-9 -mt-2 cursor-pointer from-indigo-600 to-purple-500"
           viewBox="0 0 48 32"
-          fill="black"
+          fill="white"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M24 32H0V26.6667H24V32ZM48 18.6667H0V13.3333H48V18.6667ZM48 5.33333H24V0H48V5.33333Z"
-            fill="black"
+            fill="white"
           />
-        </svg>
+        </svg> */}
+        <ul className="list-none p-0 flex justify-between">
+          <li>
+            <a className="text-white py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+              Skills
+            </a>
+          </li>
+          <li>
+            <a className="text-white py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a className="text-white py-3 px-12 text-xl hover:bg-slate-400 cursor-pointer">
+              Contact
+            </a>
+          </li>
+        </ul>
       </header>
     </div>
   )
