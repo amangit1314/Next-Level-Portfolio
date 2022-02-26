@@ -25,8 +25,8 @@ function Skills() {
             </div>
           </div>
         </div>
-        <div className="skills-right  flex-col  mt-24 mb-24 bg-gray-50 h-50 w-12/12 relative flex-1 object-fill rounded ml-12 justify-between mr-24 h-0">
-          <div className="flex-col">
+        <div className="skills-right pl-24 flex-col flex-1 items-center mt-24 mb-24 bg-gray-50 h-50 w-12/12 relative object-fill rounded justify-between mr-24 h-0">
+          <div className="flex-col ml-24">
             <div className="text-lg text-white font-semibold mb-7 mt-5">
               Mobile Technologies
             </div>
@@ -35,50 +35,50 @@ function Skills() {
                 icon={
                   'https://cdn.iconscout.com/icon/free/png-256/flutter-2038877-1720090.png'
                 }
-                percent={'90%'}
+                type={'Mobile'}
                 skill={'Flutter'}
               />
               <SkillsTile
                 icon={
                   'https://thumbs.dreamstime.com/b/kotlin-icon-logo-vector-cross-platform-statically-typed-general-purpose-programming-language-type-inference-238617269.jpg'
                 }
-                percent={'90%'}
+                type={'Native'}
                 skill={'Kotlin'}
               />
               <SkillsTile
                 icon={
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9L5GIawim9buDyWHonhIOxbPtt12nla1lgQ&usqp=CAU'
                 }
-                percent={'70%'}
+                type={'BaaS'}
                 skill={'Firebase'}
               />
             </div>
           </div>
-          <div className="flex-col">
-            <div className="text-lg text-white font-semibold mb-7 mt-10">
+          <div className="flex-col ml-24">
+            <div className="text-lg text-white font-semibold mb-7 mt-20">
               Web Technologies
             </div>
             <div className="flex">
               <SkillsTile
                 icon={
-                  'https://thumbs.dreamstime.com/b/kotlin-icon-logo-vector-cross-platform-statically-typed-general-purpose-programming-language-type-inference-238617269.jpg'
+                  'https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png'
                 }
-                percent={'90%'}
-                skill={'Kotlin'}
+                type={'Library'}
+                skill={'React.js'}
               />
               <SkillsTile
                 icon={
                   'https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/nextjs.png'
                 }
-                percent={'80%'}
+                type={'FSFWK'}
                 skill={'Next.js'}
               />
               <SkillsTile
                 icon={
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9L5GIawim9buDyWHonhIOxbPtt12nla1lgQ&usqp=CAU'
+                  'https://developers.redhat.com/sites/default/files/blog/2018/03/nodejs-new-pantone-black.png'
                 }
-                percent={'70%'}
-                skill={'Firebase'}
+                type={'BeFWS'}
+                skill={'Node.js'}
               />
             </div>
           </div>
