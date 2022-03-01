@@ -35,27 +35,27 @@ function Skills() {
                 icon={
                   'https://cdn.iconscout.com/icon/free/png-256/flutter-2038877-1720090.png'
                 }
-                type={'Mobile'}
+                type={'Mobile Hybrid'}
                 skill={'Flutter'}
               />
               <SkillsTile
                 icon={
                   'https://thumbs.dreamstime.com/b/kotlin-icon-logo-vector-cross-platform-statically-typed-general-purpose-programming-language-type-inference-238617269.jpg'
                 }
-                type={'Native'}
+                type={'Mobile Native'}
                 skill={'Kotlin'}
               />
               <SkillsTile
                 icon={
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9L5GIawim9buDyWHonhIOxbPtt12nla1lgQ&usqp=CAU'
                 }
-                type={'BaaS'}
+                type={'NoSQL DB'}
                 skill={'Firebase'}
               />
             </div>
           </div>
           <div className="flex-col ml-24">
-            <div className="text-lg text-white font-semibold mb-7 mt-20">
+            <div className="text-lg text-white font-semibold mb-7 mt-16 ">
               Web Technologies
             </div>
             <div className="flex">
@@ -63,21 +63,21 @@ function Skills() {
                 icon={
                   'https://cdn.iconscout.com/icon/free/png-256/react-1-282599.png'
                 }
-                type={'Library'}
+                type={'Web Library'}
                 skill={'React.js'}
               />
               <SkillsTile
                 icon={
                   'https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/nextjs.png'
                 }
-                type={'FSFWK'}
+                type={'Full Stack '}
                 skill={'Next.js'}
               />
               <SkillsTile
                 icon={
-                  'https://developers.redhat.com/sites/default/files/blog/2018/03/nodejs-new-pantone-black.png'
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsZbdaPK52q0MClGcJozC5rcPwcRq54oTdVHVL_yGjnzD1DzZG76gVOLdvkHVhpSyZ95o&usqp=CAU'
                 }
-                type={'BeFWS'}
+                type={'Back End'}
                 skill={'Node.js'}
               />
             </div>

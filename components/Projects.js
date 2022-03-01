@@ -4,7 +4,7 @@ import ProjectFeature2 from './ProjectFeature2'
 
 function Projects() {
   return (
-    <div className="projects ml-24 mr-24 mt-24 pb-24">
+    <div className="projects ml-24 mr-24 mt-24 mb-24">
       <section className="more-info" id="projects">
         <h1 className="proj-txt text-4xl mb-24 font-bold">Projects</h1>
         <ProjectFeature
@@ -32,7 +32,7 @@ function Projects() {
         <ProjectFeature
           title={'Instagram Clone'}
           desc={
-            'A Instagram Clone mobile application build with Flutter, Firebase Auth, Cloud Firestore and a lot of patience and love. Hope you will found this build interesting.'
+            'A Instagram Clone mobile application build with Flutter, Firebase Auth, Cloud Firestore and a lot of patience and love.'
           }
           img={
             'https://cdn.dribbble.com/users/1133834/screenshots/14693648/media/aae45e859d7f96e16c6213f90a8ded93.png?compress=1&resize=1200x900&vertical=top'

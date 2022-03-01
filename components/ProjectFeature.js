@@ -3,12 +3,12 @@ import React from 'react'
 function ProjectFeature({ title, desc, img }) {
   return (
     <div className="feature flex justify-between items-cente">
-      <div className="content text-left mt-10">
+      <div className="content w-6/12 text-left mt-10 justify-between">
         <p className="title text-xl font-semibold">
           {/* TODO web and mobile both */}
           {title}
         </p>
-        <p className="desc leading-6 w-5/12 pt-6">
+        <p className="desc leading-6 w-6/12 pt-6">
           {/*  */}
           {desc}
         </p>
@@ -17,7 +17,7 @@ function ProjectFeature({ title, desc, img }) {
       <img
         className="w-4/12 rounded-lg h-60 object-cover cursor-pointer"
         src={img}
-        alt="Another shoe"
+        alt="Loading..."
       />
     </div>
   )

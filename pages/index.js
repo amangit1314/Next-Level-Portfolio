@@ -6,6 +6,7 @@ import Projects from '../components/Projects'
 import Footer from '../components/Footer'
 import Testimonials from '../components/Testimonials'
 import HeroSection from '../components/HeroSection'
+import contacts from '../components/contacts'
 
 export default function Home() {
   return (
@@ -39,6 +40,9 @@ export default function Home() {
 
       {/*  Testimonials */}
       <Testimonials />
+
+      {/* Contacts */}
+      <contacts />
 
       {/* Footer */}
       <Footer />
