@@ -17,23 +17,17 @@ module.exports = {
       tablet: '920px',
       // => @media (min-width: 920px) { ... }
 
-      desktop: '1024px',
+      desktop: '1280px',
       // => @media (min-width: 1280px) { ... }
 
-      monitor: '1600px',
+      monitor: '1536px',
       // => @media (min-width: 1536px) { ... }
     },
     extend: {},
-    fontfamily: {
-      // display: ['Player Display', 'sans-serif'],
-      // body: ['Poppins', 'sans-serif'],
-    },
+    fontfamily: {},
   },
   variants: {
-    extend: {
-      // ...
-      //fontFamily: ["hover", "focus"],
-    },
+    extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }

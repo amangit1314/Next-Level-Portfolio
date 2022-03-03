@@ -5,8 +5,9 @@ import Skills from '../components/Skills'
 import Projects from '../components/Projects'
 import Footer from '../components/Footer'
 import Testimonials from '../components/Testimonials'
-import HeroSection from '../components/HeroSection'
-import contacts from '../components/contacts'
+import HomeSection from '../components/HeroSection'
+import Contacts from '../components/Contacts'
+import Script from 'next/script'
 
 export default function Home() {
   return (
@@ -21,13 +22,19 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500&family=Josefin+Sans:wght@100;400&family=Playfair+Display:wght@500;600&family=Poppins:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+        />
       </Head>
+
+      <Script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" />
 
       {/* Header */}
       <Header />
 
       {/* Home Section */}
-      <HeroSection />
+      <HomeSection />
 
       {/* About Section */}
       <AboutSection />
@@ -42,7 +49,7 @@ export default function Home() {
       <Testimonials />
 
       {/* Contacts */}
-      <contacts />
+      <Contacts />
 
       {/* Footer */}
       <Footer />

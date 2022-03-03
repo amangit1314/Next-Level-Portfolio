@@ -1,6 +1,6 @@
 import React from 'react'
 
-function HeroSection() {
+function HomeSection() {
   return (
     <div
       className="h-screen mr-24 ml-24 mb-24 w-100 flex justify-between"
@@ -31,11 +31,11 @@ function HeroSection() {
         </svg>
       </div>
       <img
-        className="h-3/6 w-5/12 mt-auto mb-auto rounded-lg object-contain"
+        className="h-3/6 w-5/12 mt-40 rounded-lg object-contain"
         src="https://videohive.img.customer.envatousercontent.com/files/f3ba701a-5a31-40ec-80df-c390390d0c08/inline_image_preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=5afba6a57e913c5a454f9e76e91ccb3b"
       />
     </div>
   )
 }
 
-export default HeroSection
+export default HomeSection

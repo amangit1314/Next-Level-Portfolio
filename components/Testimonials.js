@@ -1,20 +1,89 @@
 import React from 'react'
+import TestimonialItem from './TestimonialItem'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/css'
 
 function Testimonials() {
   return (
     <div className="">
       <h1 className="font-bold text-3xl ml-24 mb-12 ">Testimonials</h1>
-      {/* <div className="flex flex-col bg-indigo-400 w-3/12 rounded-lg py-4 ml-24 items-center">
-        <img
-          className="h-20 w-20 rounded-full mb-2 "
-          src="../images/jpg/7.jpg"
-        />
-        <h3 className="text-xl mb-2">GenioPay</h3>
-        <p className="text-sm w-8/12">
-          A really good job, all aspects of the project were followed step by
-          step and with good results.
-        </p>
-      </div> */}
+      <div className="ml-24">
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={3}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <TestimonialItem
+              url={
+                'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/desnsw3yxrxlbzrwx3d9'
+              }
+              name={'GenioPay'}
+              comment={
+                'We have tried to work with aman but he had declined the offer from  us.'
+              }
+            />
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
   )
 }
