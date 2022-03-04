@@ -5,7 +5,7 @@ import Skills from '../components/Skills'
 import Projects from '../components/Projects'
 import Footer from '../components/Footer'
 import Testimonials from '../components/Testimonials'
-import HomeSection from '../components/HomeSection'
+import HeroSection from '../components/HeroSection'
 import Contacts from '../components/Contacts'
 import Script from 'next/script'
 
@@ -34,7 +34,7 @@ export default function Home() {
       <Header />
 
       {/* Home Section */}
-      <HomeSection />
+      <HeroSection />
 
       {/* About Section */}
       <AboutSection />

@@ -1,25 +1,25 @@
 import React from 'react'
 
-function HomeSection() {
+function HeroSection() {
   return (
     <div
-      className="h-screen mr-24 ml-24 mb-24 w-100 flex justify-between"
+      className="flex justify-between h-screen mb-24 ml-24 mr-24 w-100"
       id="hero-sect "
     >
-      <div className="h-auto  devInfo mt-40 flex flex-1 flex-col">
-        <div className="about w-9/12 font-semibold text-4xl">
-          <a className="bg-clip-text  text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500">
+      <div className="flex flex-col flex-1 h-auto mt-40 devInfo">
+        <div className="w-9/12 text-4xl font-semibold about">
+          <a className="text-transparent bg-purple-500 bg-clip-text bg-gradient-to-r from-pink-500 to">
             I build and craft amazing experiences
           </a>
         </div>
 
-        <div className="moreAbout w-9/12 mt-12 text-xl">
+        <div className="w-9/12 mt-12 text-xl moreAbout">
           My name's Aman Soni. I craft user interfaces using modern frontend
           framework's such as Next.js, Flutter & React Native.
         </div>
 
         <svg
-          className="down-arrow bottom-10 w-4 absolute stroke-white animate-bounce "
+          className="absolute w-4 down-arrow bottom-10 stroke-white animate-bounce "
           viewBox="0 0 16 132"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,11 +31,11 @@ function HomeSection() {
         </svg>
       </div>
       <img
-        className="h-3/6 w-5/12 mt-40 rounded-lg object-contain"
+        className="object-contain w-5/12 mt-40 rounded-lg h-3/6"
         src="https://videohive.img.customer.envatousercontent.com/files/f3ba701a-5a31-40ec-80df-c390390d0c08/inline_image_preview.jpg?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=5afba6a57e913c5a454f9e76e91ccb3b"
       />
     </div>
   )
 }
 
-export default HomeSection
+export default HeroSection
