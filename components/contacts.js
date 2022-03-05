@@ -2,7 +2,7 @@ import React from 'react'
 import Input from './Input.tsx'
 import Textarea from './Textarea.tsx'
 
-function Contacts() {
+function Contact() {
   return (
     <div id="contacts mt-24">
       <h1 className="mt-24 mb-12 ml-24 text-3xl font-bold">Contact Me</h1>
@@ -37,4 +37,4 @@ function Contacts() {
   )
 }
 
-export default Contacts
+export default Contact
