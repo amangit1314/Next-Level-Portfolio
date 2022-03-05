@@ -6,7 +6,7 @@ import Projects from '../components/Projects'
 import Footer from '../components/Footer'
 import Testimonials from '../components/Testimonials'
 import HeroSection from '../components/HeroSection'
-import Contacts from '../components/Contacts'
+import Contacts from "../components/Contacts"
 import Script from 'next/script'
 
 export default function Home() {
