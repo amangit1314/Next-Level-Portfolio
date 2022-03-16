@@ -3,13 +3,13 @@ import SkillsTile from './SkillsTile'
 
 function Skills() {
   return (
-    <div className="bg-pink-600">
+    <div className="bg-purple-600">
       <section
         id="skills-sect"
-        className="h-screen w-100 flex flex-row justify-between "
+        className="flex flex-row justify-between h-screen w-100 "
       >
-        <div className="skills-left flex flex-1 flex-col z-2">
-          <div className="title  ml-24 mt-24 w-4/12 font-semibold  text-4xl text-white-500 ">
+        <div className="flex flex-col flex-1 skills-left z-2">
+          <div className="w-4/12 mt-24 ml-24 text-4xl font-semibold title text-white-500 ">
             Skills & Experience
           </div>
           <div className="w-7/12 mt-12 ml-24 text-xl text-white-400">
@@ -17,17 +17,17 @@ function Skills() {
             years and have build some awesome looking experiences and
             applications
           </div>
-          <div className="ml-24 mt-20">
-            <span className="font-semibold text-white text-7xl mb-24">2+</span>
-            <div className="text-lg w-7/12 mt-10">
+          <div className="mt-20 ml-24">
+            <span className="mb-24 font-semibold text-white text-7xl">2+</span>
+            <div className="w-7/12 mt-10 text-lg">
               Years of Experience of working in Software Industry, mostly worked
               with Mobile technologies
             </div>
           </div>
         </div>
-        <div className="skills-right pl-24 flex-col flex-1 items-center mt-24 mb-24 bg-gray-50 h-50 w-12/12 relative object-fill rounded justify-between mr-24 h-0">
+        <div className="relative flex-col items-center justify-between flex-1 object-fill h-0 pl-24 mt-24 mb-24 mr-24 rounded skills-right bg-gray-50 h-50 w-12/12">
           <div className="flex-col ml-24">
-            <div className="text-lg text-white font-semibold mb-7 mt-5">
+            <div className="mt-5 text-lg font-semibold text-white mb-7">
               Mobile Technologies
             </div>
             <div className="flex">
@@ -55,7 +55,7 @@ function Skills() {
             </div>
           </div>
           <div className="flex-col ml-24">
-            <div className="text-lg text-white font-semibold mb-7 mt-16 ">
+            <div className="mt-16 text-lg font-semibold text-white mb-7 ">
               Web Technologies
             </div>
             <div className="flex">

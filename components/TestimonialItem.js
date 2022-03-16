@@ -7,15 +7,10 @@ import React from 'react'
  */
 function TestimonialItem({ name, comment, url }) {
   return (
-    <div className="flex">
-      <div className="flex flex-col w-6/12 px-4 py-4 align-middle bg-purple-400 rounded-lg">
-        <img
-          className="items-center w-20 h-20 p-4 mb-2 rounded-full"
-          src={url}
-        />
-        <h3 className="pl-4 mb-2 text-xl font-bold">{name}</h3>
-        <p className="w-auto p-4 text-sm">{comment}</p>
-      </div>
+    <div className="flex flex-col w-2/12 px-4 py-4 mr-12 align-middle rounded-lg cursor-pointer bg-slate-600 hover:shadow-sm hover:shadow-purple-600">
+      <img className="items-center w-20 h-20 p-4 mb-2 rounded-full" src={url} />
+      <h3 className="pl-4 mb-2 text-xl font-bold">{name}</h3>
+      <p className="w-auto p-4 text-sm">{comment}</p>
     </div>
   )
 }

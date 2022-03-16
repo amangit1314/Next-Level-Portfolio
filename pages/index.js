@@ -27,6 +27,7 @@ export default function Home() {
           href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
         />
       </Head>
+      <Script src="https://unpkg.com/@rive-app/webgl" />
 
       <Script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" />
 
