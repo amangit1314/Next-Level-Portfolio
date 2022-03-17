@@ -52,6 +52,13 @@ function Skills() {
                 type={'NoSQL DB'}
                 skill={'Firebase'}
               />
+              <SkillsTile
+                icon={
+                  'https://cdn.sanity.io/images/599r6htc/localized/46a76c802176eb17b04e12108de7e7e0f3736dc6-1024x1024.png?w=670&h=670&q=75&fit=max&auto=format'
+                }
+                type={'Design Tool'}
+                skill={'Figma'}
+              />
             </div>
           </div>
           <div className="flex-col ml-24">
@@ -79,6 +86,13 @@ function Skills() {
                 }
                 type={'Back End'}
                 skill={'Node.js'}
+              />
+              <SkillsTile
+                icon={
+                  'https://pbs.twimg.com/profile_images/1452637606559326217/GFz_P-5e_400x400.png'
+                }
+                type={'NoSQL DB'}
+                skill={'MongoDB'}
               />
             </div>
           </div>

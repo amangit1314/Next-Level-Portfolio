@@ -8,6 +8,7 @@ import Testimonials from '../components/Testimonials'
 import HeroSection from '../components/HeroSection'
 import Contact from '../components/contacts'
 import Script from 'next/script'
+import MiscSkills from '../components/MiscSkills'
 
 export default function Home() {
   return (
@@ -42,6 +43,9 @@ export default function Home() {
 
       {/* Skills Section */}
       <Skills />
+
+      {/* Misc Skills */}
+      <MiscSkills />
 
       {/* Projects Section */}
       <Projects />

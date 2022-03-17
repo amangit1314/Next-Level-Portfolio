@@ -14,14 +14,14 @@ module.exports = {
       },
     },
     screens: {
-      // mobile: '680px',
+      // sm: '680px',
       // // => @media (min-width: 680px) { ... }
-      // tablet: '920px',
+      // md: '920px',
       // // => @media (min-width: 920px) { ... }
-      // desktop: '1280px',
+      // lg: '1o24px',
       // // => @media (min-width: 1280px) { ... }
-      // monitor: '1536px',
-      // => @media (min-width: 1536px) { ... }
+      // xl: '1536px',
+      // // => @media (min-width: 1536px) { ... }
     },
     extend: {},
     fontfamily: {},
