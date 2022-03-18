@@ -2,41 +2,51 @@ import HeaderItem from './HeaderItem'
 
 function Header() {
   return (
-    <div className="pt-8 ml-24 mr-24 ">
-      <header className="sticky flex justify-between">
-        <a
-          href="/"
-          class="bg-clip-text font-bold ml-22 text-2xl text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500"
-        >
-          Aman
-          <span> Soni</span>
-        </a>
+    <header className="flex justify-between ml-6 mr-6 md:ml-24 lg:ml-24 xl:ml-24 md:mr-24 md:pt-8 ">
+      <a
+        href="/"
+        class="bg-clip-text mt-6 font-bold text-xl md:text-2xl lg:mt-3 lg:text-2xl text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500"
+      >
+        Aman
+        <span> Soni</span>
+      </a>
 
-        <ul className="flex p-0 list-none">
-          <li className="mr-8 ">
-            <a
-              className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
-              href="#skills-sect"
-            >
-              Skills
-            </a>
-          </li>
-          <li className="mr-8">
-            <a
-              className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
-              href="#projects"
-            >
-              Projects
-            </a>
-          </li>
-          <li className="mr-8 font-bold cursor-pointer hover:shadow-lg">
-            <a className="py-3 text-lg text-purple-500" href="#contacts">
-              Contact
-            </a>
-          </li>
-        </ul>
-      </header>
-    </div>
+      <ul className="invisible p-0 list-none md:flex lg:felx xl:flex">
+        <li className="mr-8 ">
+          <a
+            className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
+            href="#skills-sect"
+          >
+            Skills
+          </a>
+        </li>
+        <li className="mr-8">
+          <a
+            className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
+            href="#projects"
+          >
+            Projects
+          </a>
+        </li>
+        <li className="mr-8 font-bold cursor-pointer hover:shadow-lg">
+          <a className="py-3 text-lg text-purple-500" href="#contacts">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+      <svg
+        className="w-8 h-8 mt-3 cursor-pointer menu lg:invisible xl:invisible"
+        viewBox="0 0 48 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M24 32H0V26.6667H24V32ZM48 18.6667H0V13.3333H48V18.6667ZM48 5.33333H24V0H48V5.33333Z"
+          fill="white"
+        />
+      </svg>
+    </header>
   )
 }
 
