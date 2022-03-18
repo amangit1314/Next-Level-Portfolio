@@ -1,23 +1,25 @@
 import React from 'react'
 import Image from 'next/image'
+import Avatar from './Avatar'
 
 function HeroSection() {
   return (
-    <div className="w-full h-full bg-image: url(">
+    <div className="w-full h-full">
       <div
-        className="flex justify-between h-screen mb-24 ml-24 mr-24 w-100"
+        className="w-screen h-screen mb-12 ml-6 mr-6 lg:mb-24 xl:mb-20 lg:justify-between xl:justify-between xl:w-12/12 lg:w-12/12 lg:flex xl:flex lg:ml-24 xl:ml-24 xl:mr-24 lg:mr-24"
         id="hero-sect "
       >
-        <div className="flex flex-col flex-1 h-auto mt-40 devInfo">
-          <div className="w-9/12 text-4xl font-semibold about">
-            <a className="text-transparent bg-purple-500 bg-clip-text bg-gradient-to-r from-pink-500 to">
+        <div className="h-auto mt-10 lg:flex lg:flex-col xl:flex xl:flex-col lg:flex-1 md:flex-1 xl:selection:flex-1 devInfo">
+          <div className="w-full text-3xl font-semibold lg:text-4xl xl:text-4xl lg:w-9/12 xl:w-9/12 about">
+            <Avatar className="" src="/images/svg/boy.svg" />
+            <a className="mt-20 text-transparent bg-purple-500 lg:mt-0 xl:mt-0 bg-clip-text bg-gradient-to-r from-pink-500 ">
               I build and craft amazing experiences
             </a>
           </div>
 
-          <div className="w-9/12 mt-12 text-xl moreAbout">
+          <div className="w-full mt-8 text-lg xl:text-xl lg:text-xl lg:w-9/12 moreAbout">
             My name's Aman Soni. I craft user interfaces using modern frontend
-            framework's such as Next.js, Flutter & React Native.
+            framework's such as Next.js & Flutter.
           </div>
 
           <svg
@@ -32,9 +34,9 @@ function HeroSection() {
             />
           </svg>
         </div>
-        <img />
+        {/* <img /> */}
         <Image
-          className="object-contain w-7/12 mt-40 rounded-lg h-3/6"
+          className="invisible lg:object-contain xl:object-contain lg:w-7/12 xl:w-7/12 lg:mt-40 xl:mt-40 lg:rounded-lg lg:h-3/6 xl-h-3/6 lg:visible xl:visible"
           src="/images/jpg/sm.webp"
           alt="Loading..."
           height={700}
