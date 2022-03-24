@@ -4,7 +4,7 @@ import Textarea from './Textarea.tsx'
 
 function Contact() {
   return (
-    <div className="mt-24 mb-10 contacts">
+    <section id="contact" className="mt-24 mb-10 contacts">
       <h1 className="mt-24 mb-12 ml-24 text-3xl font-bold">Contact Me</h1>
       <div className="w-1/3 px-3 ml-24">
         <form className="flex flex-col items-center mx-auto width-full">
@@ -41,7 +41,7 @@ function Contact() {
       <div>
         <img src="" />
       </div>
-    </div>
+    </section>
   )
 }
 
