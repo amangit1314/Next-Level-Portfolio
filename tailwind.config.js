@@ -13,6 +13,11 @@ module.exports = {
         'regal-blue': '#243c5a',
       },
     },
+
+    backdropFilter: {
+      none: 'none',
+      blur: 'blur(20px)',
+    },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms', 'tailwindcss-filters')],
 }

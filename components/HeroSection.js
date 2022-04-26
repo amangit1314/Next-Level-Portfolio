@@ -17,14 +17,14 @@ function HeroSection() {
         /> */}
 
         <div className="w-full mt-16 ml-6 text-3xl font-semibold lg:max-w-md xl:max-w-md lg:text-4xl lg:ml-24 xl:text-4xl xl:ml-24 lg:w-9/12 xl:w-9/12 about">
-          <a className="mt-20 text-transparent bg-purple-500 lg:mt-0 xl:mt-0 bg-clip-text bg-gradient-to-r from-pink-500 ">
+          <a className="mt-8 text-transparent bg-purple-500 lg:mt-0 xl:mt-0 bg-clip-text bg-gradient-to-r from-pink-500 ">
             I build and craft amazing experiences
           </a>
         </div>
 
         {/* lg:text-4xl xl:text-4xl lg:w-9/12 xl:w-9/12 about lg:mt-0 xl:mt-0 bg-clip-text bg-gradient-to-r from-pink-500 */}
 
-        <div className="w-full mt-8 ml-6 mr-8 text-lg lg:text-xl lg:ml-24 lg:max-w-md xl:text-xl xl:ml-24 xl:max-w-md">
+        <div className="w-full mt-8 ml-6 text-lg lg:text-xl lg:ml-24 lg:max-w-md xl:text-xl xl:ml-24 xl:max-w-md">
           My name's Aman Soni. I craft user interfaces using modern frontend
           framework's such as Next.js & Flutter.
         </div>

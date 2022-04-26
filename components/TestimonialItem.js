@@ -5,12 +5,14 @@ import React from 'react'
  * A really good job, all aspects of the project were followed step by step
         and with good results.
  */
-function TestimonialItem({ name, comment, url }) {
+function TestimonialItem({ name, post, url }) {
   return (
-    <div className="flex flex-col w-2/12 px-4 py-4 mr-12 align-middle rounded-lg cursor-pointer bg-slate-600 hover:shadow-sm hover:shadow-purple-600">
-      <img className="items-center w-20 h-20 p-4 mb-2 rounded-full" src={url} />
-      <h3 className="pl-4 mb-2 text-xl font-bold">{name}</h3>
-      <p className="w-auto p-4 text-sm">{comment}</p>
+    <div className="flex items-center w-3/12 p-2 px-6 m-6 rounded-lg cursor-pointer align-center bg-slate-800 bg-opacity-60 bg-clip-padding hover:shadow-sm hover:shadow-pink-600 backdrop-filter-blur">
+      <img className="items-center bg-white rounded-full w-14 h-14" src={url} />
+      <div className="flex flex-col justify-between ">
+        <h3 className="pl-4 text-lg font-semibold ">{name}</h3>
+        <p className="w-auto pb-4 pl-4 text-sm">{post}</p>
+      </div>
     </div>
   )
 }

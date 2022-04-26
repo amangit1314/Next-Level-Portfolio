@@ -57,7 +57,7 @@ export default function Home() {
       <Contact />
 
       {/* Footer */}
-      <Footer />
+      <Footer className="invisible" />
 
       {/* JSX for Fonts */}
       <style jsx global>{`
