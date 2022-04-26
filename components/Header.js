@@ -2,7 +2,7 @@ import HeaderItem from './HeaderItem'
 
 function Header() {
   return (
-    <header className="flex justify-between ml-6 mr-6 space-x-50 md:ml-24 lg:ml-24 xl:ml-24 md:mr-24 md:pt-8 xl:max-w-full">
+    <header className="flex justify-between max-w-{800} ml-6 mr-6 space-x-50 md:ml-24 lg:ml-24 xl:ml-24 md:mr-24 md:pt-8 xl:max-w-full">
       <a
         href="/"
         class="bg-clip-text mt-6 font-bold text-xl md:text-2xl lg:mt-3 lg:text-2xl text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500"
@@ -11,7 +11,7 @@ function Header() {
         <span> Soni</span>
       </a>
 
-      <ul className="invisible p-0 mt-3 list-none md:flex lg:felx lg:invisible xl:invisible xl:flex">
+      <ul className="invisible p-0 mt-3 list-none md:flex lg:felx lg:visible xl:visible xl:flex">
         <li className="mr-8 ">
           <a
             className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
