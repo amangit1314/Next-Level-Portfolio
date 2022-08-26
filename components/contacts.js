@@ -1,13 +1,16 @@
-import React from 'react'
+//import profilePic from 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM0Bd5IGFnXGaIhkWqickkeI7v5ZmUIvsMdQ&usqp=CAU'
 import Input from './Input.tsx'
 import Textarea from './Textarea.tsx'
 
 function Contact() {
   return (
-    <section id="contact" className="mt-24 mb-10 contacts">
-      <h1 className="mt-24 mb-12 ml-24 text-3xl font-bold">Contact Me</h1>
-      <div className="w-1/3 px-3 ml-24">
-        <form className="flex flex-col items-center mx-auto width-full">
+    <section id="contact" className="flex items-center justify-between mt-24 mb-10 contacts">
+
+      {/* From + Heading */}
+      <div className="flex flex-col items-start w-1/2 h-full px-3 ml-24 xl:w-1/2 ">
+        <h1 className="mt-24 mb-12 text-3xl font-bold">Contact Me</h1>
+        
+        <form className="flex flex-col w-full ">
           <Input
             id="id"
             name="name"
@@ -25,21 +28,22 @@ function Contact() {
           <Textarea
             id="message"
             name="message"
-            placeholder="Write your commnet here..."
+            placeholder="Write your coment here..."
             label="Your Message"
-            className="mt-1 rounded-md"
+            className="mt-1 mb-4 rounded-md"
           />
-          <button
-            className="w-full py-2 mt-6 text-lg text-white bg-purple-600 rounded-md outline-none active:bg-purple-700 focus:ring-2 focus:ring-purple-400 disabled:bg-opacity-50 disabled:cursor-not-allowed"
+          <div
             type="submit"
-            // disabled={true}
+            className="w-8/12 py-2 mt-2 text-lg text-center text-white bg-purple-600 rounded-md outline-none xl:w-1/2 active:bg-purple-700 focus:ring-2 focus:ring-purple-400 disabled:bg-opacity-50 disabled:cursor-not-allowed"
           >
             Submit
-          </button>
+          </div>
         </form>
+
       </div>
-      <div>
-        <img src="" />
+      {/* Image */}
+      <div className='w-1/2'>
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/contact-us-3483601-2912018.png" alt="" />
       </div>
     </section>
   )

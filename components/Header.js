@@ -1,5 +1,3 @@
-import HeaderItem from './HeaderItem'
-
 function Header() {
   return (
     <header className="flex justify-between max-w-{800} ml-6 mr-6 space-x-50 md:ml-24 lg:ml-24 xl:ml-24 md:mr-24 md:pt-8 xl:max-w-full">
@@ -12,6 +10,11 @@ function Header() {
       </a>
 
       <ul className="invisible p-0 mt-3 list-none md:flex lg:felx lg:visible xl:visible xl:flex">
+        <li className="mr-8 font-bold cursor-pointer hover:shadow-lg">
+          <a className="py-3 text-lg text-purple-500" href="#contact">
+            About
+          </a>
+        </li>
         <li className="mr-8 ">
           <a
             className="py-3 text-lg font-bold text-purple-500 cursor-pointer hover:shadow-lg"
@@ -28,6 +31,12 @@ function Header() {
             Projects
           </a>
         </li>
+
+        {/* <li className="mr-8 font-bold cursor-pointer hover:shadow-lg">
+          <a className="py-3 text-lg text-purple-500" href="#contact">
+            Blogs
+          </a>
+        </li> */}
         <li className="mr-8 font-bold cursor-pointer hover:shadow-lg">
           <a className="py-3 text-lg text-purple-500" href="#contact">
             Contact
@@ -35,7 +44,7 @@ function Header() {
         </li>
       </ul>
 
-      <svg
+      {/* <svg
         className="w-8 h-8 mt-3 cursor-pointer menu lg:invisible xl:invisible"
         viewBox="0 0 48 32"
         fill="none"
@@ -45,7 +54,7 @@ function Header() {
           d="M24 32H0V26.6667H24V32ZM48 18.6667H0V13.3333H48V18.6667ZM48 5.33333H24V0H48V5.33333Z"
           fill="white"
         />
-      </svg>
+      </svg> */}
     </header>
   )
 }
