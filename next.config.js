@@ -17,3 +17,10 @@ module.exports = {
     return config
   },
 }
+
+// module.exports = withTM()
+// const withTM = require('next-transpile-modules')([
+//   'three',
+//   'react-three-fiber',
+//   'drei',
+// ])

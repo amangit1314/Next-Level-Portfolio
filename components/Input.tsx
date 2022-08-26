@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 interface InputProps {
   id: string
@@ -9,7 +9,7 @@ interface InputProps {
 
 const Input = ({ id, name, label, placeholder, ...props }: InputProps) => {
   return (
-    <div className='w-full mb-3'>
+    <div className='w-auto mb-3'>
       <label className='block text-lg' htmlFor={id}>{label}</label>
       <input
         autoCapitalize='off'

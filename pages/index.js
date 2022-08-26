@@ -1,14 +1,13 @@
 import Head from 'next/head'
-import Header from '../components/Header'
-import AboutSection from '../components/AboutSection'
-import Skills from '../components/Skills'
-import Projects from '../components/Projects'
-import Footer from '../components/Footer'
-import Testimonials from '../components/Testimonials'
-import HeroSection from '../components/HeroSection'
-import Contact from '../components/contacts'
 import Script from 'next/script'
-import MiscSkills from '../components/MiscSkills'
+import AboutSection from '../components/AboutSection'
+import Contact from "../components/Contacts"
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import HeroSection from '../components/HeroSection'
+import Projects from '../components/Projects'
+import Skills from '../components/Skills'
+import Testimonials from '../components/Testimonials'
 
 export default function Home() {
   return (
@@ -45,7 +44,9 @@ export default function Home() {
       <Skills />
 
       {/* Misc Skills */}
-      <MiscSkills />
+      {/* <MiscSkills /> */}
+
+      <proj_tab />
 
       {/* Projects Section */}
       <Projects />
@@ -57,7 +58,7 @@ export default function Home() {
       <Contact />
 
       {/* Footer */}
-      <Footer className="invisible" />
+      <Footer />
 
       {/* JSX for Fonts */}
       <style jsx global>{`

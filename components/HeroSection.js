@@ -1,7 +1,6 @@
-import React from 'react'
-import Image from 'next/image'
-import Avatar from './Avatar'
-
+// import Lights from '@/components/Light'
+// import Model from '@/components/Model'
+// import { Canvas } from '@react-three/fiber'
 function HeroSection() {
   return (
     // pb-12 pl-6 pr-6 max-w-700 lg:mb-24 xl:mb-20 md:justify-between lg:justify-between xl:justify-between xl:w-12/12 lg:w-12/12 lg:flex xl:flex md:flex lg:ml-24 xl:ml-24 xl:mr-24 lg:mr-24
@@ -43,7 +42,7 @@ function HeroSection() {
       </div>
 
       <div className="mb-24 xl:mt-10 xl:mr-24">
-        <Image
+        {/* <Image
           className="visible w-40 h-40 lg:w-20 lg:h-20 xl:h-20 xl:w-20 md:invisible lg:mr-24 lg:visible lg:mt-40 lg:max-h-md lg:max-w-md xl:mr-24 xl:object-contain xl:visible"
           //src="/images/jpg/sm.webp"
           src="https://avatars.dicebear.com/api/miniavs/hulk.svg"
@@ -51,7 +50,11 @@ function HeroSection() {
           height={400}
           width={400}
           objectFit="contain"
-        />
+        /> */}
+        {/* <Canvas colorManagement camera={{ position: [0, 0, 100] }}>
+          <Lights />
+          <Model />
+        </Canvas> */}
       </div>
     </div>
   )
