@@ -1,5 +1,4 @@
 import React from 'react'
-import { ShowAvatar } from './ShowAvatar'
 
 function HeroSection() {
   return (
@@ -51,7 +50,7 @@ function HeroSection() {
           width={400}
           objectFit="contain"
         /> */}
-        <ShowAvatar />
+        {/* <ShowAvatar /> */}
       </div>
     </div>
   )
