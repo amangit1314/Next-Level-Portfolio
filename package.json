@@ -19,7 +19,8 @@
     "postcss-cli": "^9.0.2",
     "react": "latest",
     "react-dom": "latest",
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.0",
