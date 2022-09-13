@@ -1,6 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
-import Avatar from './Avatar'
+import { ShowAvatar } from './ShowAvatar'
 
 function HeroSection() {
   return (
@@ -43,7 +42,7 @@ function HeroSection() {
       </div>
 
       <div className="mb-24 xl:mt-10 xl:mr-24">
-        <Image
+        {/* <Image
           className="visible w-40 h-40 lg:w-20 lg:h-20 xl:h-20 xl:w-20 md:invisible lg:mr-24 lg:visible lg:mt-40 lg:max-h-md lg:max-w-md xl:mr-24 xl:object-contain xl:visible"
           //src="/images/jpg/sm.webp"
           src="https://avatars.dicebear.com/api/miniavs/hulk.svg"
@@ -51,7 +50,8 @@ function HeroSection() {
           height={400}
           width={400}
           objectFit="contain"
-        />
+        /> */}
+        <ShowAvatar />
       </div>
     </div>
   )
