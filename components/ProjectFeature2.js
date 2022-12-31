@@ -1,24 +1,33 @@
-import React from 'react'
-
-function ProjectFeature2() {
+import { motion } from "framer-motion";
+import React from "react";
+function ProjectFeature2({ title, desc, img }) {
   return (
-    <div className="feature flex text-left mr-24 cursor-pointer">
-      <div className="content flex-1 w-80 text-right">
-        <p className="title text-xl font-semibold">
-          Fresh Instagram Ui [Mobile + Web]{' '}
-        </p>
-        <p className="desc mt-8 text-right">
-          Upper mesh material provides proper ventilation and reduction in the
-          weight of the shoes.
-        </p>
-      </div>
+    <div className="feature flex flex-row-reverse max-w-7xl justify-between items-center my-12">
       <img
-        className="w-8/12 flex-1 rounded-lg"
-        src="https://cdn.dribbble.com/users/1133834/screenshots/14689590/media/5eb2b619a3c212d3a9e1bdfc05262d77.png?compress=1&resize=400x300"
-        alt="Another shoe"
+        className="w-4/12 rounded-lg h-60 object-cover cursor-pointer"
+        src={img}
+        alt="Loading..."
       />
+
+      <motion.div
+        initial={{
+          x: 500,
+          opacity: 0,
+          scale: 0.5,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ duration: 1.5 }}
+        className="content w-6/12 text-left items-center justify-between"
+      >
+        <p className="title text-xl font-semibold">{title}</p>
+        <p className="desc leading-6 w-6/12 pt-6">{desc}</p>
+      </motion.div>
     </div>
-  )
+  );
 }
 
-export default ProjectFeature2
+export default ProjectFeature2;
