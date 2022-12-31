@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 type Props = {}
 
@@ -17,7 +17,7 @@ function Model({ }: Props) {
     return (
         <Suspense>
             fallback={null}
-            <primitive object={loader} />
+            {/* <primitive object={loader} /> */}
         </Suspense>
     );
 }
