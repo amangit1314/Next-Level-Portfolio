@@ -34,9 +34,7 @@ export default function Home() {
 
       <Header />
 
-      {/* <section id="hero" className="snap-center"> */}
       <HeroSection />
-      {/* </section> */}
 
       <AboutSection />
 
