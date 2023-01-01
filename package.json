@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",
+    "@sanity/client": "^3.4.1",
     "babel": "^6.23.0",
     "eslint-plugin-react": "^7.29.3",
     "framer-motion": "^7.3.6",
