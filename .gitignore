@@ -13,7 +13,8 @@
 # next.js
 /.next/
 /out/
-/schemas/
+/aman-next-level-portfolio/
+/aman-next-level-portfolio
 
 # production
 /build
