@@ -5,65 +5,55 @@ import TestimonialItem from "./TestimonialItem";
 import "swiper/css";
 
 export default function Testimonials() {
-  // function itemDetail() {
-  //   React.useState();
-  // }
-
   return (
-    <div className="flex flex-col items-center mx-auto p-8 max-w-7xl justify-between">
-      <h1 className="mb-12 text-3xl font-bold ">Testimonials</h1>
-      <div className="flex w-full">
-        <div className="flex flex-col justify-between w-9/12 flex-2">
+    <div className="flex flex-col items-center justify-between p-8 mx-auto max-w-7xl">
+      <section>
+        <h1 className="pb-12 text-3xl font-bold ">Testimonials</h1>
+        <div className="flex items-center justify-between flex-1 w-full pb-20">
+          <h3 className="w-7/12 pt-3">
+            I always try to put my 100 percent to do the work and give the value
+            for the same. For me the delivery of the demanded thing is
+            necessary.
+          </h3>
+          <div className="w-12 h-10 bg-black"></div>
+        </div>
+        <div className="flex justify-between w-full flex-2">
           <TestimonialItem
-            //onClick = {itemDetail}
             className="ml-24"
-            url={
-              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Shiv_Nadar1.jpg/1200px-Shiv_Nadar1.jpg"
+            imgUrl={
+              "https://omlogistics.co.in/wp-content/uploads/2015/09/Randheer-sharma-359X233-848X335.jpg"
             }
-            name={"Naresh Mital"}
-            post={"Sales Manger, Verzo"}
-            // comment={
-            //   'A generous person who has a passion to work with different mindsets $ also lead them too according to their calabour, this person is a hard working personality.'
-            // }
+            name={"Vikas Kumawat"}
+            role={"HR Manger, Om Logistics."}
+            comment={
+              "A generous person who has a passion to work with different mindsets and also lead them too according to their calabour, this person is a hard working personality."
+            }
           />
 
           <TestimonialItem
-            url={
+            imgUrl={
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQICSVq9-BAcWmscgA5pQyPPxdeJGu6p6w-0Q&usqp=CAU"
             }
             name={"James D"}
-            post={"Global Team Lead, Slack"}
-            // comment={
-            //   'A generous person who has a passion to work with different mindsets $ also lead them too according to their calabour, this person is a hard working personality.'
-            // }
+            role={"Global Team Lead, Slack"}
+            comment={
+              "A generous person who has a passion to work with different mindsets and also lead them too according to their calabour, this person is a hard working personality."
+            }
           />
 
           <TestimonialItem
             className="mr-24"
-            url={
+            imgUrl={
               "https://www.seekpng.com/png/detail/402-4024748_how-to-apply-the-porefessional-face-primer-persons.png"
             }
             name={"John Doe"}
-            post={"HR Manger, Hacker Rank"}
-            // comment={
-            //   'A generous person who has a passion to work with different mindsets $ also lead them too according to their calabour, this person is a hard working personality.'
-            // }
+            role={"HR Manger, Hacker Rank"}
+            comment={
+              "A generous person who has a passion to work with different mindsets and also lead them too according to their calabour, this person is a hard working personality."
+            }
           />
         </div>
-
-        <div className="flex flex-col flex-1 w-6/12 ">
-          {/* onClick={headingText} */}
-          <div className="mb-1 text-xl font-bold">Heading</div>
-          {/* onClick={subHeadingText} */}
-          <div className="mb-4 text-lg font-medium">Sub-Text</div>
-          <div>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus,
-            voluptatum quod aliquid aut voluptatem voluptate quia deleniti
-            eveniet ducimus consequuntur sapiente in! Quis placeat blanditiis,
-            minus magnam sed veritatis soluta sequi voluptates nesciunt eum.
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
