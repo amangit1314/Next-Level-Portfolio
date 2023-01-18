@@ -2,13 +2,7 @@ import { motion } from "framer-motion";
 import React from "react";
 function ProjectFeature2({ title, desc, img }) {
   return (
-    <div className="feature flex flex-row-reverse max-w-7xl justify-between items-center my-12">
-      <img
-        className="w-4/12 rounded-lg h-60 object-cover cursor-pointer"
-        src={img}
-        alt="Loading..."
-      />
-
+    <div>
       <motion.div
         initial={{
           x: 500,
@@ -21,10 +15,49 @@ function ProjectFeature2({ title, desc, img }) {
           scale: 1,
         }}
         transition={{ duration: 1.5 }}
-        className="content w-6/12 text-left items-center justify-between"
+        className="justify-between visible w-auto my-1 rounded-lg xl:flex xl:items-center xl:w-6/12 xl:text-left xl:bg-transparent xl:invisible "
       >
-        <p className="title text-xl font-semibold">{title}</p>
-        <p className="desc leading-6 w-6/12 pt-6">{desc}</p>
+        <motion.div
+          initial={{
+            x: -500,
+            opacity: 0,
+            scale: 0.5,
+          }}
+          animate={{
+            x: 0,
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{ duration: 1.5 }}
+          className="relative flex visible w-auto p-4 xl:invisible"
+        >
+          <img
+            className="absolute object-cover rounded-lg cursor-pointer w-12/12 h-60 bottom hover:shadow-sm hover:z-1 hover:shadow-purple-400"
+            src={img}
+            alt="Loading..."
+          />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        initial={{
+          x: -500,
+          opacity: 0,
+          scale: 0.5,
+        }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{ duration: 1.5 }}
+        className="relative flex invisible w-auto p-4 xl-visible"
+      >
+        <img
+          className="invisible object-cover w-10/12 rounded-lg cursor-pointer xl:visible h-60"
+          src={img}
+          alt="Loading..."
+        />
       </motion.div>
     </div>
   );

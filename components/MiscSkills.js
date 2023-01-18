@@ -2,9 +2,9 @@ import React from "react";
 
 function MiscSkills() {
   return (
-    <div className="flex flex-col my-8 items-center mx-auto p-8 max-w-7xl justify-between">
+    <div className="flex flex-col items-center justify-between p-8 mx-auto my-8 max-w-7xl">
       <h1 className="text-3xl font-bold proj-txt">Languages & Tools</h1>
-      <div className="flex mt-12">
+      <div className="grid grid-cols-6 gap-4 mt-12 xl:flex xl:gap-1">
         <a href="https://developer.android.com" target="_blank">
           <img
             src="https://www.svgrepo.com/show/217740/android.svg"

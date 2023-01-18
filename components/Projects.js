@@ -1,13 +1,16 @@
 import React from "react";
-import ProjectFeature from "./ProjectFeature";
 import ProjectFeature2 from "./ProjectFeature2";
 
 function Projects() {
   return (
-    <div className="projects flex flex-col items-center mx-auto p-8 max-w-7xl justify-between">
-      <section className="more-info" id="projects">
-        <h1 className="proj-txt text-4xl my-12 font-bold">Projects</h1>
-        <ProjectFeature
+    <section
+      className="flex-col items-center justify-between p-8 mx-auto projects max-w-7xl"
+      id="projects"
+    >
+      <h1 className="flex my-12 text-4xl font-bold proj-txt">Projects</h1>
+
+      <div className="grid content-center grid-cols-2 gap-4 xl:grid-cols-3">
+        <ProjectFeature2
           title={"Food Ordering App"}
           desc={
             "A food ordering application build with flutter, firebase auth and a lot of patience and love. Hope you will found this design usefull."
@@ -15,7 +18,7 @@ function Projects() {
           img={
             "https://i.pinimg.com/originals/b8/6d/81/b86d81815b0a4b766e46693e7c678f43.jpg"
           }
-        ></ProjectFeature>
+        ></ProjectFeature2>
         <ProjectFeature2
           title={"Medium Clone"}
           desc={
@@ -26,7 +29,7 @@ function Projects() {
             "https://dpbnri2zg3lc2.cloudfront.net/en/wp-content/uploads/old-blog-uploads/user-interface-website-examples-best-ui-designs.jpg"
           }
         ></ProjectFeature2>
-        <ProjectFeature
+        <ProjectFeature2
           title={"Instagram Clone"}
           desc={
             "A Instagram Clone mobile application build with Flutter, Firebase Auth, Cloud Firestore and a lot of patience and love."
@@ -34,9 +37,9 @@ function Projects() {
           img={
             "https://cdn.dribbble.com/users/1133834/screenshots/14693648/media/aae45e859d7f96e16c6213f90a8ded93.png?compress=1&resize=1200x900&vertical=top"
           }
-        ></ProjectFeature>
-      </section>
-    </div>
+        ></ProjectFeature2>
+      </div>
+    </section>
   );
 }
 
