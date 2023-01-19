@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+"compilerOptions": {
     "types": ["node"],
     "target": "es5",
     "lib": [
