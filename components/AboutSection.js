@@ -25,8 +25,8 @@ function AboutSection() {
           />
         </div>
 
-        <div className="flex-col text-white xl:w-8/12 felx about-right">
-          <div className="flex justify-center w-8/12 h-auto mb-10 rounded-lg xl:flex xl:ml-24 hover:shadow-md">
+        <div className="flex-col text-white xl:w-8/12 xl:flex about-right">
+          <div className="flex justify-center w-8/12 h-auto mb-10 rounded-lg xl:ml-24 hover:shadow-md">
             <div className="w-auto h-auto p-2 m-2 text-gray-100 transition duration-200 ease-in-out delay-150 bg-gray-600 rounded-lg cursor-pointer xl:h-40 hover:-translate-y-1 hover:scale-110 hover:bg-purple-500 hover:text-white xl:w-65">
               <button className="items-center mt-2 ml-3">
                 {" "}
@@ -67,7 +67,7 @@ function AboutSection() {
             happy with the projects carried out.
           </p>
 
-          <button className="px-4 py-2 mx-auto mt-12 text-white transition duration-300 ease-in-out delay-150 bg-purple-600 rounded-lg xl:ml-20 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500">
+          <button className="px-4 py-2 mx-auto mt-12 text-white transition duration-300 ease-in-out delay-150 bg-purple-600 rounded-lg xl:ml-24 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500">
             Contact Me
           </button>
         </div>

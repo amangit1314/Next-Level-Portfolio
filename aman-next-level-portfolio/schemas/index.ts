@@ -8,4 +8,4 @@ import project from './project'
 import skill from './skill'
 import social from './social'
 
-export const schemaTypes = [post, author, category, blockContent, experience, pageInfo, post, project, skill, social]
+export const schemaTypes = [post, author, category, blockContent, experience, pageInfo, project, skill, social]
