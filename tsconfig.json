@@ -27,5 +27,5 @@
     "./node_modules/@sanity/base/types/**/*.ts",
     "./**/*.ts",
     "./**/*.tsx"
-  ],
+, "components/MiscSkills.jsx"  ],
 }

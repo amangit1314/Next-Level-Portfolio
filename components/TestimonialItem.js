@@ -15,8 +15,8 @@ export default function TestimonialItem({
       />
       <div className="flex flex-col justify-between pt-4 ">
         <h3 className="pb-1 text-lg font-semibold ">{name}</h3>
-        <p className="w-auto pb-4 text-sm text-gray-300">{role}</p>
-        <h4 className="text-sm text-gray-400">{comment}</h4>
+        <p className="w-auto pb-4 text-sm text-gray-100">{role}</p>
+        <h4 className="text-sm text-gray-200">{comment}</h4>
         <h5 className="pt-4 text-sm underline" href={projectUrl}>
           View project
         </h5>

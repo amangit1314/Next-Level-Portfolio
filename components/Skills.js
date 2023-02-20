@@ -1,7 +1,7 @@
 import React from "react";
 import SkillsTile from "./SkillsTile";
 
-function Skills() {
+function Skills({}) {
   return (
     <div className="bg-purple-600">
       <section
@@ -77,9 +77,7 @@ function Skills() {
                 skill={"React.js"}
               />
               <SkillsTile
-                icon={
-                  "https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/nextjs.png"
-                }
+                icon={"/next.png"}
                 type={"Full Stack "}
                 skill={"Next.js"}
               />

@@ -1,5 +1,5 @@
+import { motion } from "framer-motion";
 import React from "react";
-import ProjectFeature2 from "./ProjectFeature2";
 
 function Projects() {
   return (
@@ -9,7 +9,7 @@ function Projects() {
     >
       <h1 className="flex my-12 text-4xl font-bold proj-txt">Projects</h1>
 
-      <div className="grid content-center grid-cols-2 gap-4 xl:grid-cols-3">
+      {/* <div className="grid grid-cols-2 gap-5 xl:grid-cols-3">
         <ProjectFeature2
           title={"Food Ordering App"}
           desc={
@@ -38,6 +38,45 @@ function Projects() {
             "https://cdn.dribbble.com/users/1133834/screenshots/14693648/media/aae45e859d7f96e16c6213f90a8ded93.png?compress=1&resize=1200x900&vertical=top"
           }
         ></ProjectFeature2>
+      </div> */}
+
+      <div className="flex flex-col gap-10 py-10 lg:flex-row lg:flex-wrap">
+        <div className="flex-1 basis-1/3 ">
+          <motion.img
+            className="object-cover rounded-lg"
+            width={"100%"}
+            height={"100%"}
+            layout="responsive"
+            src="images/png/adam.png"
+          />
+        </div>
+        <div className="flex-1 basis-1/3 ">
+          <motion.img
+            className="object-cover rounded-lg"
+            width={"100%"}
+            height={"100%"}
+            layout="responsive"
+            src="images/jpg/chat.jpg"
+          />
+        </div>
+        <div className="flex-1 basis-1/3 ">
+          <motion.img
+            className="object-cover rounded-lg"
+            width={"100%"}
+            height={"100%"}
+            layout="responsive"
+            src="images/jpg/images.jpg"
+          />
+        </div>
+        <div className="flex-1 basis-1/3 ">
+          <motion.img
+            className="object-cover rounded-lg"
+            width={"100%"}
+            height={"100%"}
+            layout="responsive"
+            src="images/jpg/sm.webp"
+          />
+        </div>
       </div>
     </section>
   );

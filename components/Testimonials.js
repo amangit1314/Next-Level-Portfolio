@@ -6,16 +6,16 @@ import "swiper/css";
 
 export default function Testimonials() {
   return (
-    <section className="flex-col items-center justify-between p-8 mx-auto  max-w-7xl">
-      <h1 className="pb-12 text-3xl font-bold ">Testimonials</h1>
+    <section className="flex-col items-center justify-between mx-auto max-w-7xl">
+      <h1 className="p-8 text-3xl font-bold ">Testimonials</h1>
       <div className="flex items-center justify-between flex-1 w-full pb-20">
-        <h3 className="w-auto pt-3 xl:w-7/12">
+        <h3 className="w-auto p-8 xl:w-7/12">
           I always try to put my 100 percent to do the work and give the value
           for the same. For me the delivery of the demanded thing is necessary.
         </h3>
         <div className="w-12 h-10 bg-black"></div>
       </div>
-      <div className="justify-between w-full xl:flex xl:flex-2">
+      <div className="flex justify-between w-full px-8 xl:flex-2">
         <TestimonialItem
           className="xl:ml-24"
           imgUrl={
