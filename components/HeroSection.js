@@ -17,67 +17,68 @@ export default function HeroSection() {
   });
 
   return (
-    // Main div
-    <section
-      id="hero-sect "
-      // className="grid justify-around h-screen grid-cols-1 grid-rows-1 p-8 mx-auto xl:gap-10 xl:justify-between lg:grid-cols-2 xl:grid-cols-2 lg:flex-row max-w-7xl"
-      className="flex flex-col justify-center h-auto px-8 mx-auto xl:justify-between xl:flex-row lg:flex-row max-w-7xl"
-    >
-      {/* Column */}
-      <div className="items-start content-center justify-center my-16 ">
-        {/* Bold Text */}
-        <motion.div
-          className="items-center w-full mx-0 text-3xl font-semibold text-center lg:max-w-7xl xl:max-w-7xl lg:text-4xl lg:text-left xl:text-left xl:text-5xl about lg:mx-0 lg:mb-16 lg:mt-12 xl:mx-0 xl:mb-16"
-          initial={{
-            x: -500,
-            opacity: 0,
-            scale: 0.5,
-          }}
-          animate={{
-            x: 0,
-            opacity: 1,
-            scale: 1,
-          }}
-          transition={{ duration: 1.5 }}
-        >
-          <a className="mt-20 text-transparent bg-purple-500 bg-clip-text bg-gradient-to-r from-pink-500 ">
-            I build and craft <br /> <span>{text}</span>
-          </a>
-          <Cursor cursorColor="#6745FF" />
-        </motion.div>
+    <div>
+      // Main div
+      <section
+        id="hero-sect "
+        // className="grid justify-around h-screen grid-cols-1 grid-rows-1 p-8 mx-auto xl:gap-10 xl:justify-between lg:grid-cols-2 xl:grid-cols-2 lg:flex-row max-w-7xl"
+        className="flex flex-col justify-center h-auto px-8 mx-auto xl:justify-between xl:flex-row lg:flex-row max-w-7xl"
+      >
+        {/* Column */}
+        <div className="items-start content-center justify-center my-16 ">
+          {/* Bold Text */}
+          <motion.div
+            className="items-center w-full mx-0 text-3xl font-semibold text-center lg:max-w-7xl xl:max-w-7xl lg:text-4xl lg:text-left xl:text-left xl:text-5xl about lg:mx-0 lg:mb-16 lg:mt-12 xl:mx-0 xl:mb-16"
+            initial={{
+              x: -500,
+              opacity: 0,
+              scale: 0.5,
+            }}
+            animate={{
+              x: 0,
+              opacity: 1,
+              scale: 1,
+            }}
+            transition={{ duration: 1.5 }}
+          >
+            <a className="mt-20 text-transparent bg-purple-500 bg-clip-text bg-gradient-to-r from-pink-500 ">
+              I build and craft <br /> <span>{text}</span>
+            </a>
+            <Cursor cursorColor="#6745FF" />
+          </motion.div>
 
-        {/* Sub Text */}
-        <motion.div className="w-full mt-8 text-center text-md lg:text-xl lg:max-w-md lg:text-left xl:text-left xl:text-xl xl:max-w-md">
-          <a>
-            My name's Aman Soni. I craft user interfaces using modern frontend
-            framework's such as Next.js & Flutter.
-          </a>
-        </motion.div>
+          {/* Sub Text */}
+          <motion.div className="w-full mt-8 text-center text-md lg:text-xl lg:max-w-md lg:text-left xl:text-left xl:text-xl xl:max-w-md">
+            <a>
+              My name's Aman Soni. I craft user interfaces using modern frontend
+              framework's such as Next.js & Flutter.
+            </a>
+          </motion.div>
 
-        {/* Buttons */}
-        <div className="flex items-center justify-center mx-auto xl:justify-start lg:justify-start md:justify-center xl:mx-0 align-center mt-14 ">
-          <AiFillLinkedin
-            href=""
-            className="w-8 h-8 mr-8 bg-transparent hover:pointer-curson rounded-xl"
-          />
-          <AiFillGithub
-            href=""
-            className="w-8 mr-8 bg-transparent h-9 hover:pointer-cursor rounded-xl"
-          />
-          <AiFillTwitterCircle
-            href=""
-            className="w-8 h-8 mr-8 bg-transparent hover:pointer-cursor rounded-xl"
-          />
-          <AiFillYoutube
-            href=""
-            className="w-8 mr-8 bg-transparent h-9 hover:pointer-cursor rounded-xl"
-          />
+          {/* Buttons */}
+          <div className="flex items-center justify-center mx-auto xl:justify-start lg:justify-start md:justify-center xl:mx-0 align-center mt-14 ">
+            <AiFillLinkedin
+              href=""
+              className="w-8 h-8 mr-8 bg-transparent hover:pointer-curson rounded-xl"
+            />
+            <AiFillGithub
+              href=""
+              className="w-8 mr-8 bg-transparent h-9 hover:pointer-cursor rounded-xl"
+            />
+            <AiFillTwitterCircle
+              href=""
+              className="w-8 h-8 mr-8 bg-transparent hover:pointer-cursor rounded-xl"
+            />
+            <AiFillYoutube
+              href=""
+              className="w-8 mr-8 bg-transparent h-9 hover:pointer-cursor rounded-xl"
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Image */}
-      <div className="items-center justify-center bg-transparent rounded-full w-100 xl:bg-transparet">
-        {/* <svg
+        {/* Image */}
+        <div className="items-center justify-center bg-transparent rounded-full w-100 xl:bg-transparet">
+          {/* <svg
           viewBox="0 0 200 200"
           className="absolute z-0"
           xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@ export default function HeroSection() {
           />
         </svg> */}
 
-        {/* <svg
+          {/* <svg
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 500 500"
@@ -119,15 +120,16 @@ export default function HeroSection() {
             ></animate>{" "}
           </path>{" "}
         </svg> */}
-        <Image
-          className="justify-center h-auto mx-auto overflow-hidden rounded-lg xl:mx-0 z-1 xl:visible w-80"
-          src="/aman_animated2.png"
-          objectFit="cover"
-          alt="Aman Soni"
-          height={300}
-          width={100}
-        />
-      </div>
-    </section>
+          <Image
+            className="justify-center h-auto mx-auto overflow-hidden rounded-lg xl:mx-0 z-1 xl:visible w-80"
+            src="/aman_animated2.png"
+            objectFit="cover"
+            alt="Aman Soni"
+            height={300}
+            width={100}
+          />
+        </div>
+      </section>
+    </div>
   );
 }

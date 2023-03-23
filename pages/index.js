@@ -27,10 +27,21 @@ export default function Home() {
           rel="stylesheet"
           href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
         />
+        <script
+          defer
+          src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
       </Head>
 
       <Script src="https://unpkg.com/@rive-app/webgl" />
-      <Script src="https://unpkg.com/swiper@8/swiper-bundle.min.js" />
+      <Script type="module">
+        import Swiper from
+        'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
+        const swiper = new Swiper(...)
+      </Script>
+
+      <Script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js" />
 
       <Header />
 
