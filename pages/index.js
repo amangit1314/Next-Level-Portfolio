@@ -40,7 +40,6 @@ export default function Home() {
         'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
         const swiper = new Swiper(...)
       </Script>
-
       <Script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js" />
 
       <Header />

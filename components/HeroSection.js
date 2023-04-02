@@ -18,7 +18,6 @@ export default function HeroSection() {
 
   return (
     <div>
-      // Main div
       <section
         id="hero-sect "
         // className="grid justify-around h-screen grid-cols-1 grid-rows-1 p-8 mx-auto xl:gap-10 xl:justify-between lg:grid-cols-2 xl:grid-cols-2 lg:flex-row max-w-7xl"
