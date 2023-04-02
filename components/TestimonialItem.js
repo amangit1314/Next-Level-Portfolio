@@ -8,7 +8,7 @@ export default function TestimonialItem({
   projectUrl,
 }) {
   return (
-    <div className="flex-col items-center w-auto p-6 m-6 transition duration-200 ease-in-out delay-150 rounded-lg cursor-pointer hover:scale-110 hover:bg-purple-500 xl:w-6/12 align-center bg-slate-800 bg-opacity-60 bg-clip-padding hover:shadow-lg hover:shadow-grey-500/50 backdrop-filter-blur">
+    <div className="flex-col items-center w-auto p-6 m-6 transition duration-200 ease-in-out delay-150 rounded-lg cursor-pointer hover:scale-110 hover:bg-purple-500 align-center bg-slate-800 bg-opacity-60 bg-clip-padding hover:shadow-lg hover:shadow-grey-500/50 backdrop-filter-blur">
       <img
         className="items-center bg-white rounded-full w-14 h-14"
         src={imgUrl}
