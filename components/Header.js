@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 function Header() {
   return (
@@ -85,7 +86,7 @@ function Header() {
               <BsFillMoonStarsFill />
             </li>
             <li className="py-3 text-lg font-bold text-purple-500 duration-500 cursor-pointer hover:shadow-lg">
-              Resume
+              <Link href="/api/getRESUME">Resume</Link>
             </li>
           </ul>
         </motion.div>
