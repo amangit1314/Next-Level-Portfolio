@@ -18,7 +18,7 @@ function Header() {
           }}
           transition={{ duration: 1.5 }}
           href="/"
-          class="bg-clip-text cursor-pointer font-bold text-xl md:text-2xl lg:text-2xl xl:text-2xl text-transparent bg-gradient-to-r from-pink-500 to bg-purple-500"
+          className="text-xl font-bold text-transparent bg-purple-500 cursor-pointer bg-clip-text md:text-2xl lg:text-2xl xl:text-2xl bg-gradient-to-r from-pink-500 to"
         >
           Aman
           <span className="invisible xl:visible md:invisible lg:visible">
