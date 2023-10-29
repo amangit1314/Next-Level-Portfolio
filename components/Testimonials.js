@@ -29,7 +29,8 @@ export default function Testimonials() {
     <div>
       <section className="flex-col items-center justify-between mx-auto max-w-7xl">
         <h1 className="p-8 text-3xl font-bold">Testimonials</h1>
-        {isSmallScreen || isMediumScreen ? (
+        
+        {/* {isSmallScreen || isMediumScreen ? (
           <Swiper
             slidesPerView={1}
             className="flex content-center justify-between w-full p-8 mx-auto swiper-wrapper"
@@ -74,7 +75,8 @@ export default function Testimonials() {
             </SwiperSlide>
           </Swiper>
         ) : (
-          <div className="flex justify-between w-full px-8 md:hidden lg:hidden xl:flex-2">
+             */}
+          <div className="flex justify-between w-full px-8 md:hidden xl:flex-2">
             <TestimonialItem
               className="xl:ml-24"
               imgUrl={
@@ -108,7 +110,7 @@ export default function Testimonials() {
               }
             />
           </div>
-        )}
+         {/* )} */}
       </section>
     </div>
   );
