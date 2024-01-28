@@ -3,24 +3,25 @@ import SkillsTile from "./SkillsTile";
 
 function Skills({}) {
   return (
-    <div className="bg-purple-600">
+    <div className="bg-purple-600 lg:px-[5rem] lg:pb-[2rem]">
       <section
         id="skills-sect"
         className="h-auto mx-auto xl:flex xl:flex-row xl:justify-between max-w-7xl "
       >
         {/* Text Section */}
         <div className="flex flex-col flex-1 pl-8 skills-left z-2">
-          <div className="w-4/12 mt-20 text-4xl font-semibold title text-white-500 ">
+          <div className="w-2/3 mt-20 text-4xl font-semibold title text-white-500 ">
             Skills & Experience
           </div>
-          <div className="pr-8 mt-12 text-xl xl:w-7/12 text-white-400">
+          {/* xl:w-7/12 */}
+          <div className=" mt-12 text-lg pr-8 lg:pr-0  text-white-400">
             I have been working on mobile and web technologies from past two
             years and have build some awesome looking experiences and
             applications
           </div>
           <div className="mt-20 ">
             <span className="mb-24 font-semibold text-white text-7xl">2+</span>
-            <div className="pr-8 mt-10 mb-20 text-lg xl:w-7/12">
+            <div className="mt-10 mb-20 text-lg pr-8 lg:pr-0 ">
               Years of Experience of building applications and projects, mostly
               worked with Mobile technologies
             </div>
@@ -28,7 +29,7 @@ function Skills({}) {
         </div>
 
         {/* Skills Section */}
-        <div className="relative flex-col items-center justify-between flex-1 invisible object-fill h-0 mt-24 mb-24 mr-24 rounded xl:visible skills-right bg-gray-50 h-50 w-12/12">
+        <div className="relative flex-col items-center justify-between flex-1 invisible object-fill h-0 mt-20 mb-20 mr-24 rounded xl:visible skills-right bg-gray-50 h-50 w-12/12">
           <div className="flex-col ml-24">
             <div className="mt-5 text-lg font-semibold text-white mb-7">
               Mobile Technologies
@@ -43,7 +44,7 @@ function Skills({}) {
               />
               <SkillsTile
                 icon={
-                  "https://thumbs.dreamstime.com/b/kotlin-icon-logo-vector-cross-platform-statically-typed-general-purpose-programming-language-type-inference-238617269.jpg"
+                  "https://thumbs.dreamstime.com/b/kotlin-icon-logo-vector-cross-plathtmlForm-statically-typed-general-purpose-programming-language-type-inference-238617269.jpg"
                 }
                 type={"Mobile Native"}
                 skill={"Kotlin"}
@@ -57,7 +58,7 @@ function Skills({}) {
               />
               <SkillsTile
                 icon={
-                  "https://cdn.sanity.io/images/599r6htc/localized/46a76c802176eb17b04e12108de7e7e0f3736dc6-1024x1024.png?w=670&h=670&q=75&fit=max&auto=format"
+                  "https://cdn.sanity.io/images/599r6htc/localized/46a76c802176eb17b04e12108de7e7e0f3736dc6-1024x1024.png?w=670&h=670&q=75&fit=max&auto=htmlFormat"
                 }
                 type={"Design Tool"}
                 skill={"Figma"}

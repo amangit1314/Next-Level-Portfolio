@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ProjectFeature2 from "../components/ProjectFeature2";
+import Link from "next/link";
 
 function Projects() {
   const [activeTab, setActiveTab] = useState("app"); // Initialize activeTab state with "app"
@@ -11,13 +12,21 @@ function Projects() {
   return (
     <div>
       <section
-        className="flex-col items-center justify-between p-8 mx-auto projects max-w-7xl"
+        className="flex-col items-center justify-center p-8 mx-auto projects max-w-7xl"
         id="projects"
       >
-        <h1 className="flex my-12 text-4xl font-bold proj-txt">Projects</h1>
+        {/* <h1 className="flex my-12 text-3xl font-semibold">Projects</h1> */}
+        <div className="space-y-1 my-9">
+          <p className="text-base font-normal text-center ">
+            See my work below
+          </p>
+          <p className="text-3xl font-semibold text-center xl:text-4xl xl:mb-24">
+            Projects
+          </p>
+        </div>
 
-        <div className="p-8 mx-auto max-w-7xl sm:px-0">
-          <div className="sm:w-9/12 sm:mx-auto">
+        <div className="w-full md:p-8 md:mx-auto md:max-w-7xl sm:px-0">
+          <div className="w-[80vw] mx-auto">
             {/* Tabs */}
             <div
               role="tablist"
@@ -38,9 +47,9 @@ function Projects() {
                 }`}
                 onClick={() => handleTabClick("app")}
               >
-                <a href="#appContent">
+                <Link href="#appContent">
                   <span className="text-white">App</span>
-                </a>
+                </Link>
               </button>
               <button
                 role="tab"
@@ -75,18 +84,18 @@ function Projects() {
                 </a>
               </button>
             </div>
+
             {/* Tab content */}
             <div className="relative mt-6 rounded-3xl bg-gray-500/20">
               <div
                 role="tabpanel"
                 id="appContent"
-                className={`grid grid-cols-2 gap-6 p-6 transition duration-300 tabpanel ${
+                className={`grid grid-cols-1 md:grid-cols-2 md:gap-6  transition duration-300 tabpanel ${
                   activeTab === "app"
                     ? "visible opacity-100"
                     : "invisible opacity-0"
                 }`}
               >
-                {/* App content here */}
                 <ProjectFeature2
                   title={"Instagram Clone"}
                   desc={

@@ -8,10 +8,13 @@ const Contact = () => {
       <section className="p-8 mx-auto my-24 text-gray-800 max-w-7xl">
         {/* Contact Text */}
         <h1 className="text-3xl font-bold text-white ">Contact Me</h1>
+        
         {/* Contact Section description */}
         <h3 className="w-auto pt-12 text-white xl:w-7/12">
-          Send a mail to me for contacting, or you can use below social handles
+          Send a mail to me htmlFor contacting, or you can use below social handles
         </h3>
+        
+        {/*  bg image*/}
         <div
           className="relative mt-20 overflow-hidden bg-no-repeat bg-cover"
           style={{
@@ -32,11 +35,11 @@ const Contact = () => {
           >
             <div className="flex flex-wrap">
               <div className="w-full px-3 mb-12 grow-0 shrink-0 basis-auto xl:w-5/12 lg:px-6 xl:mb-0">
-                <form>
-                  <div className="mb-6 form-group">
+                <htmlForm>
+                  <div className="mb-6 htmlForm-group">
                     <input
                       type="text"
-                      className="form-control block
+                      className="htmlForm-control block
                 w-full
                 px-3
                 py-1.5
@@ -54,10 +57,10 @@ const Contact = () => {
                       placeholder="Name"
                     />
                   </div>
-                  <div className="mb-6 form-group">
+                  <div className="mb-6 htmlForm-group">
                     <input
                       type="email"
-                      className="form-control block
+                      className="htmlForm-control block
                 w-full
                 px-3
                 py-1.5
@@ -75,10 +78,10 @@ const Contact = () => {
                       placeholder="Email address"
                     />
                   </div>
-                  <div className="mb-6 form-group">
+                  <div className="mb-6 htmlForm-group">
                     <textarea
                       className="
-                form-control
+                htmlForm-control
                 block
                 w-full
                 px-3
@@ -94,21 +97,21 @@ const Contact = () => {
                 m-0
                 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none
               "
-                      id="exampleFormControlTextarea13"
+                      id="examplehtmlFormControlTextarea13"
                       rows="3"
                       placeholder="Message"
                     ></textarea>
                   </div>
-                  <div className="mb-6 text-center form-group form-check">
+                  <div className="mb-6 text-center htmlForm-group htmlForm-check">
                     <input
                       type="checkbox"
-                      className="w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-sm appearance-none cursor-pointer form-check-input checked:bg-purple-600 checked:border-purple-600 focus:outline-none"
+                      className="w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-sm appearance-none cursor-pointer htmlForm-check-input checked:bg-purple-600 checked:border-purple-600 focus:outline-none"
                       id="exampleCheck87"
                       checked
                     />
                     <label
-                      className="inline-block text-gray-800 form-check-label"
-                      for="exampleCheck87"
+                      className="inline-block text-gray-800 htmlForm-check-label"
+                      htmlFor="exampleCheck87"
                     >
                       Send me a copy of this message
                     </label>
@@ -136,7 +139,7 @@ const Contact = () => {
                   >
                     Send
                   </button>
-                </form>
+                </htmlForm>
               </div>
               <div className="w-full grow-0 shrink-0 basis-auto xl:w-7/12">
                 <div className="flex flex-wrap">

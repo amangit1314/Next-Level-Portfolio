@@ -1,4 +1,3 @@
-import React from 'react'
 type Props = {}
 
 function BackgroundCircles({ }: Props) {
