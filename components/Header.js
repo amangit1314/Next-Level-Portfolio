@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 function Header() {
   return (
-    <nav className="sticky top-0 flex items-center justify-between mx-[5rem] backdrop-blur-sm max-w-screen">
+    <nav className="sticky top-0 flex items-center justify-between xl:mx-[5rem] backdrop-blur-sm max-w-screen">
       {/* aman soni text */}
       <motion.div
         initial={{
@@ -32,7 +32,7 @@ function Header() {
       </motion.div>
 
       {/* nav links */}
-      <ul className="flex justify-center items-center space-x-4  py-4">
+      <ul className="items-center justify-center hidden py-4 space-x-4 md:flex">
         <li>
           <div
             className="text-[1rem] font-semibold hover:text-purple-400 duration-300 cursor-pointer hover:shadow-lg"
@@ -88,13 +88,13 @@ function Header() {
           scale: 1,
         }}
         transition={{ duration: 1.5 }}
-        className="flex items-center list-none md:inline-flex lg:visible xl:visible  py-4"
+        className="flex items-center py-4 ml-auto list-none md:inline-flex lg:visible xl:visible"
       >
         <ul className="flex items-center space-x-4">
-          <li className="">
+          {/* <li className="">
             <BsFillMoonStarsFill />
-          </li>
-          <li className=" text-[1rem] font-bold text-purple-500 duration-500 cursor-pointer hover:shadow-lg">
+          </li> */}
+          <li className=" text-[1rem] pr-[24px] hover:underline hover:text-pink-600 translate-x-1 font-bold text-purple-500 duration-500 cursor-pointer hover:shadow-lg">
             <Link href="/api/getRESUME">Resume</Link>
           </li>
         </ul>

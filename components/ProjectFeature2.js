@@ -15,7 +15,7 @@ function ProjectFeature2({ title, desc, img }) {
           scale: 1,
         }}
         transition={{ duration: 1.5 }}
-        className="justify-between visible w-auto my-1 rounded-lg xl:flex xl:items-center xl:w-6/12 xl:text-left xl:bg-transparent xl:invisible "
+        className="justify-between visible w-auto my-1 rounded-xl xl:flex xl:items-center xl:w-6/12 xl:text-left xl:bg-transparent xl:invisible "
       >
         <motion.div
           initial={{
@@ -54,7 +54,7 @@ function ProjectFeature2({ title, desc, img }) {
         className="relative flex invisible w-auto p-4 xl-visible"
       >
         <img
-          className="invisible object-cover w-10/12 rounded-lg cursor-pointer xl:visible h-60"
+          className="invisible object-cover w-full rounded-lg cursor-pointer xl:visible h-60"
           src={img}
           alt="Loading..."
         />

@@ -19,8 +19,8 @@ function MiscSkills({ directionLeft }: Props) {
       </div>
 
       {/* skills grid */}
-      <div className="flex justify-center items-center">
-        <div className="space-x-8 flex flex-wrap">
+      <div className="grid items-center grid-cols-3 md:flex md:justify-center">
+        <div className="flex flex-wrap space-x-8">
           {skillsData.map((skill) => (
             <div key={skill.altText} className="p-8">
               <SkillWidget {...skill} directionLeft={directionLeft} />

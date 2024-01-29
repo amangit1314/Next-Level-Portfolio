@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import ProjectFeature2 from "../components/ProjectFeature2";
 import Link from "next/link";
+// import { Tabs, TabsList, TabsTrigger, div } from "@radix-ui/react-tabs";
 
 function Projects() {
-  const [activeTab, setActiveTab] = useState("app"); // Initialize activeTab state with "app"
+  const [activeTab, setActiveTab] = useState("App"); // Initialize activeTab state with "app"
 
   const handleTabClick = (tab) => {
     setActiveTab(tab); // Update the activeTab state when a tab is clicked
   };
+
+  const tabs = ["App", "Web", "Other"];
 
   return (
     <div>
@@ -15,7 +18,6 @@ function Projects() {
         className="flex-col items-center justify-center p-8 mx-auto projects max-w-7xl"
         id="projects"
       >
-        {/* <h1 className="flex my-12 text-3xl font-semibold">Projects</h1> */}
         <div className="space-y-1 my-9">
           <p className="text-base font-normal text-center ">
             See my work below
@@ -26,7 +28,7 @@ function Projects() {
         </div>
 
         <div className="w-full md:p-8 md:mx-auto md:max-w-7xl sm:px-0">
-          <div className="w-[80vw] mx-auto">
+          <div className="w-auto lg:w-[25rem] mx-auto">
             {/* Tabs */}
             <div
               role="tablist"
@@ -35,23 +37,24 @@ function Projects() {
                 relative w-[3xl] mx-auto h-12 grid grid-cols-3 px-[3xl] rounded-full overflow-hidden shadow-2xl shadow-900/20 transition items-center bg-gray-600/20
               "
             >
-              <button
-                role="tab"
-                aria-controls="appContent"
-                id="tab-1"
-                tabIndex="1"
-                className={`relative block h-10 px-6 rounded-full tab ${
-                  activeTab === "app"
-                    ? "bg-purple-500 shadow-lg"
-                    : "text-blue-500 hover:text-blue-800"
-                }`}
-                onClick={() => handleTabClick("app")}
-              >
-                <Link href="#appContent">
-                  <span className="text-white">App</span>
-                </Link>
-              </button>
-              <button
+              {tabs.map((tab, index) => {
+                return (
+                  <div
+                    role="tab"
+                    id={index}
+                    tabIndex={tab}
+                    className={`relative cursor-pointer h-10 px-6 rounded-full tab items-center flex justify-center ${
+                      activeTab === tab
+                        ? "bg-purple-500 shadow-xl z-20"
+                        : "text-blue-500 hover:text-blue-800"
+                    }`}
+                    onClick={() => handleTabClick({ tab })}
+                  >
+                    <span className="text-white">{tab}</span>
+                  </div>
+                );
+              })}
+              {/* <button
                 role="tab"
                 aria-controls="webContent"
                 id="tab-2"
@@ -82,16 +85,17 @@ function Projects() {
                 <a href="#otherContent">
                   <span className="text-white">Other</span>
                 </a>
-              </button>
+              </button> */}
             </div>
 
             {/* Tab content */}
             <div className="relative mt-6 rounded-3xl bg-gray-500/20">
               <div
+                value="App"
                 role="tabpanel"
-                id="appContent"
-                className={`grid grid-cols-1 md:grid-cols-2 md:gap-6  transition duration-300 tabpanel ${
-                  activeTab === "app"
+                id="App"
+                className={`grid grid-cols-1 md:grid-cols-2 md:gap-2  transition duration-300 tabpanel ${
+                  activeTab === "App"
                     ? "visible opacity-100"
                     : "invisible opacity-0"
                 }`}
@@ -125,10 +129,11 @@ function Projects() {
                 />
               </div>
               <div
+                value="Web"
                 role="tabpanel"
-                id="webContent"
+                id="Web"
                 className={`grid grid-cols-2 gap-6 absolute top-0 left-0 w-full p-6 transition duration-300 ${
-                  activeTab === "web"
+                  activeTab === "Web"
                     ? "visible opacity-100"
                     : "invisible opacity-0"
                 }`}
@@ -163,10 +168,11 @@ function Projects() {
                 />
               </div>
               <div
+                value="Other"
                 role="tabpanel"
-                id="otherContent"
+                id="Other"
                 className={`grid grid-cols-2 gap-6 absolute top-0 left-0 w-full p-6 transition duration-300 ${
-                  activeTab === "other"
+                  activeTab === "Other"
                     ? "visible opacity-100"
                     : "invisible opacity-0"
                 }`}

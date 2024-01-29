@@ -1,23 +1,16 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import { useEffect } from 'react'; // Import useEffect to initialize Swiper
 import AboutSection  from '../components/AboutSection';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
-import ProjectsSection from '../components/ProjectsSection';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Testimonials from '../components/Testimonials';
 import MiscSkills from '../components/MiscSkills';
 
 export default function Home() {
-  // useEffect(() => {
-  //   // Initialize Swiper here
-  //   const swiper = new Swiper(); // Replace with actual Swiper initialization
-  // }, []); // Empty dependency array ensures the effect runs only once
-
   return (
     <div className="h-screen overflow-x-hidden text-white bg-black snap-y snap-mandatory">
       <Head>
@@ -40,6 +33,7 @@ export default function Home() {
       <Testimonials />
       <Contact />
       <Footer />
+      
       {/* JSX for Fonts */}
       <style jsx global>{`
         html,
