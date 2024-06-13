@@ -3,9 +3,8 @@
 # dependencies
 /node_modules
 /.pnp
-/swc
-
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -13,8 +12,6 @@
 # next.js
 /.next/
 /out/
-/aman-next-level-portfolio/
-/aman-next-level-portfolio
 
 # production
 /build
@@ -29,10 +26,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # vercel
 .vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
