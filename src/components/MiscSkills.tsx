@@ -250,7 +250,7 @@ function MiscSkills({ directionLeft }: Props) {
 
         {/* Golang  */}
         <div className="flex justify-center items-center relative group cursor-pointer transition-all duration-300 rounded-2xl border-4 border-neutral-800 p-4 ">
-          <FaGolang  className="text-7xl text-cyan-500" />
+          <FaGolang className="text-7xl text-cyan-500" />
 
           <div className="absolute z-0 px-7 py-10 w-22 h-22 transition-all duration-300 ease-in-out rounded-2xl opacity-0 group-hover:bg-purple-500 group-hover:opacity-95">
             <div className="flex items-center justify-center h-full">

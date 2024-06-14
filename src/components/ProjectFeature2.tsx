@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
-function ProjectFeature2({ title, desc, img }) {
+
+function ProjectFeature2({ title, desc, img }: any) {
   return (
     <div>
       <motion.div
@@ -31,8 +33,10 @@ function ProjectFeature2({ title, desc, img }) {
           transition={{ duration: 1.5 }}
           className="relative flex visible w-auto p-4 xl:invisible"
         >
-          <img
-            className="absolute object-cover rounded-lg cursor-pointer w-12/12 h-60 bottom hover:shadow-sm hover:z-1 hover:shadow-purple-400"
+          <Image
+            height={240}
+            width={240}
+            className="absolute object-cover rounded-lg cursor-pointer  h-60 bottom hover:shadow-sm hover:z-1 hover:shadow-purple-400"
             src={img}
             alt="Loading..."
           />
@@ -53,7 +57,9 @@ function ProjectFeature2({ title, desc, img }) {
         transition={{ duration: 1.5 }}
         className="relative flex invisible w-auto p-4 xl-visible"
       >
-        <img
+        <Image
+          height={240}
+          width={240}
           className="invisible object-cover w-full rounded-lg cursor-pointer xl:visible h-60"
           src={img}
           alt="Loading..."

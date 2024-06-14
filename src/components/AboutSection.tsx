@@ -49,7 +49,7 @@ function AboutSection() {
 
                 <Image
                   className="h-40 w-[15rem] lg:w-96 lg:h-96 rounded-lg relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] ease-in-out object-cover transition-all duration-300 hover:scale-105"
-                  src="/images/jpg/2.jpg"
+                  src="/images/jpg/aman_professional.jfif"
                   alt="Profile"
                   width={320}
                   height={320}

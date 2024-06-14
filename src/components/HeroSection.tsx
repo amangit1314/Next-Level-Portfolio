@@ -101,7 +101,7 @@ const HeroSection = () => {
               height={100}
               width={320}
               quality={100}
-              src="/images/jpg/2.jpg"
+              src="/images/jpg/aman_professional.jfif"
               alt="Aman Soni"
             />
           </div>

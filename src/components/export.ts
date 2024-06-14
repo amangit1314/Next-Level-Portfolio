@@ -6,7 +6,6 @@ import HeroSection from "./HeroSection";
 import MiscSkills from "./MiscSkills";
 import Projects from "./Projects";
 import Skills from "./Skills";
-import Testimonials from "./Testimonials";
 
 export {
   AboutSection,
@@ -14,7 +13,6 @@ export {
   Footer,
   Projects,
   Skills,
-  Testimonials,
   Header,
   HeroSection,
   MiscSkills,

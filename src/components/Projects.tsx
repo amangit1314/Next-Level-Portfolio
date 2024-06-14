@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function Projects() {
   const [activeTab, setActiveTab] = useState("App");
-  const handleTabClick = (tab) => {
+  const handleTabClick = (tab: any) => {
     setActiveTab(tab);
   };
 
@@ -38,9 +38,10 @@ function Projects() {
               {tabs.map((tab, index) => {
                 return (
                   <div
+                    key={index}
                     role="tab"
-                    id={index}
-                    tabIndex={tab}
+                    id={tab}
+                    tabIndex={index}
                     className={`relative cursor-pointer h-10 px-6 rounded-full tab items-center flex justify-center ${
                       activeTab === tab
                         ? "bg-purple-500 shadow-xl z-20"
@@ -89,7 +90,7 @@ function Projects() {
             {/* Tab content */}
             <div className="relative mt-6 rounded-3xl bg-gray-500/20">
               <div
-                value="App"
+                // value="App"
                 role="tabpanel"
                 id="App"
                 className={`grid grid-cols-1 md:grid-cols-2 md:gap-2  transition duration-300 tabpanel ${
@@ -127,7 +128,7 @@ function Projects() {
                 />
               </div>
               <div
-                value="Web"
+                // value="Web"
                 role="tabpanel"
                 id="Web"
                 className={`grid grid-cols-2 gap-6 absolute top-0 left-0 w-full p-6 transition duration-300 ${
@@ -166,7 +167,7 @@ function Projects() {
                 />
               </div>
               <div
-                value="Other"
+                // value="Other"
                 role="tabpanel"
                 id="Other"
                 className={`grid grid-cols-2 gap-6 absolute top-0 left-0 w-full p-6 transition duration-300 ${

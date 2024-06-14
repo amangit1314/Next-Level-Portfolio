@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 import React from "react";
-function ProjectFeature({ title, desc, img }) {
+
+function ProjectFeature({ title, desc, img }: any) {
   return (
     <div className="feature flex flex-row justify-between items-center my-12">
       <motion.div
@@ -34,7 +36,9 @@ function ProjectFeature({ title, desc, img }) {
         }}
         transition={{ duration: 1.5 }}
       >
-        <img
+        <Image
+          height={240}
+          width={240}
           className="w-10/12 rounded-lg h-60 object-cover cursor-pointer"
           src={img}
           alt="Loading..."
