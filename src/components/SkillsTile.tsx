@@ -1,7 +1,7 @@
 import React from 'react'
-import { BeakerIcon } from '@heroicons/react/solid'
+// import { BeakerIcon } from '@heroicons/react/solid'
 
-function SkillsTile({ skill, type, icon }) {
+function SkillsTile({ skill, type, icon }: any) {
   return (
     <div className="items-center mr-10 text-center">
       <div className="flex-1 p-6 text-left bg-purple-400 rounded-full shadow-sm cursor-pointer hover:bg-purple-500 hover:text-white">
