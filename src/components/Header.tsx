@@ -100,7 +100,7 @@ export const Header = () => {
       {/* </div> */}
 
       <div>
-        <AnimatedHamburger />
+        {/* <AnimatedHamburger /> */}
       </div>
     </div>
   );

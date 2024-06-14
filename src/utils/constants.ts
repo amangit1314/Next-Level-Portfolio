@@ -23,7 +23,7 @@ export const PROJECTS = [
     {
         title: "E-Commerce Website",
         image: "/images/jpg/ecommerce.jpg",
-        link: '',
+        link: 'https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store',
         description:
             "A fully functional e-commerce website with features like product listing, shopping cart, and user authentication.",
         technologies: ["Next.js", "Tailwins", "React", "Node.js", "PostgreSQL", "Stripe", "SendGrid"],
@@ -39,7 +39,7 @@ export const PROJECTS = [
     {
         title: "Portfolio Website",
         image: "/images/png/portfolio.png",
-        link: '',
+        link: 'https://next-level-portfolio.vercel.app/',
         description:
             "A personal portfolio website showcasing projects, skills, and contact information.",
         technologies: ["Next.js", "Tailwind", "TypeScript", "SendGrid", "Sanity", "Framer"],

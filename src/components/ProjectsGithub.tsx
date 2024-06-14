@@ -21,7 +21,10 @@ const Project = () => {
             key={index}
             className="mb-8 flex flex-col md:flex-row md:justify-center"
           >
-            <Link href={project.link} className="hidden lg:visible lg:flex w-full lg:w-1/4">
+            <Link
+              href={project.link}
+              className="hidden lg:visible lg:flex w-full lg:w-1/4"
+            >
               <Image
                 src={project.image}
                 width={150}
@@ -31,8 +34,11 @@ const Project = () => {
               />
             </Link>
 
-            <Link href={project.link} className="visible lg:hidden w-full h-[350px] max-w-screen">
-            <Image
+            <Link
+              href={project.link}
+              className="visible lg:hidden w-full h-[350px] max-w-screen"
+            >
+              <Image
                 src={project.image}
                 width={450}
                 height={100}
