@@ -4,11 +4,11 @@
 // import project4 from "../assets/projects/project-4.jpg";
 
 export const EXPERIENCES = [{
-    year: "Jan 2023 - Present",
+    year: "Jan 2023 - Mar 2024",
     role: "Software Engineer",
     company: "Tempospace",
     description: "I was working as a sofware engineer at tempospace and my main work was to work on their rest api and backend architecture to maintain it and optimize it",
-    technologies: ["Node.js", "Express.js", "AWS", "Typsecript"]
+    technologies: ["React", "Next.js", "Node.js", "Express.js", "AWS", "Typsecript"]
 },
 {
     year: "Aug 2022 - Jan 2023",
@@ -16,6 +16,13 @@ export const EXPERIENCES = [{
     company: "E2V - Employment Express Verband",
     description: "I was working as a sofware dev intern at E2V on their online app where they sell their courses and manage students and all their coupon codes there.",
     technologies: ["Node.js", "Express.js", "AWS", "Typsecript"]
+},
+{
+    year: "Jun 2022 - Aug 2022",
+    role: "Mobile App Dev Intern",
+    company: "Om Logistics Ltd.",
+    description: "Developed a visitor management app for the OM Logistics internship using Flutter. Streamlined visitor registration and enhanced security measures. ",
+    technologies: ["Flutter", "Dart", "Node.js", "Typsecript", "AWS"]
 }
 ]
 
@@ -44,13 +51,21 @@ export const PROJECTS = [
             "A personal portfolio website showcasing projects, skills, and contact information.",
         technologies: ["Next.js", "Tailwind", "TypeScript", "SendGrid", "Sanity", "Framer"],
     },
+    // {
+    //     title: "Blogging Platform",
+    //     image: "/images/jpg/blog.jpg",
+    //     link: '',
+    //     description:
+    //         "A platform for creating and publishing blog posts, with features like rich text editing, commenting, and user profiles.",
+    //     technologies: ["Next.js", "Tailwind", "React.js", "Prisma", "PostgreSQL"],
+    // },
     {
-        title: "Blogging Platform",
-        image: "/images/jpg/blog.jpg",
-        link: '',
+        title: "SnapCart App",
+        image: "/images/webp/ecomm-app.webp",
+        link: 'https://github.com/amangit1314/Ecommerce-App',
         description:
-            "A platform for creating and publishing blog posts, with features like rich text editing, commenting, and user profiles.",
-        technologies: ["Next.js", "Tailwind", "React.js", "Prisma", "PostgreSQL"],
+            "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
+        technologies: ["Flutter", "Dart", "Provider", "Firebase"],
     },
 ];
 

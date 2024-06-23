@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Experience = () => {
   return (
-    <div className="border-b border-neutral-900 pb-4">
+    <div className="flex flex-col items-center justify-between px-8 mx-30">
       <div className="flex flex-col items-center justify-between p-8 mx-[5rem] my-8">
         <p className="mt-12 text-base font-normal text-center text-gray-300 ">
           My relevant work
@@ -14,7 +14,7 @@ const Experience = () => {
         </p>
       </div>
 
-      <div>
+      <div className="p-8 md:p-0">
         {EXPERIENCES.map((experience, index) => (
           <div
             key={index}

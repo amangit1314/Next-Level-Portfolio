@@ -13,11 +13,12 @@ import { Contact } from "@/components/export";
 import Project from "@/components/ProjectsGithub";
 import { FaGithub, FaInstagram, FaX, FaYoutube } from "react-icons/fa6";
 import { FaMailBulk } from "react-icons/fa";
+import Link from "next/link";
 
 const Home = () => {
   return (
-    <main className="flex flex-col items-center overflow-x-hidden justify-between min-h-screen px-8 bg-black">
-      <div className="flex justify-center items-center z-10 w-full text-sm md:max-w-7xl">
+    <main className="flex flex-col items-center overflow-x-hidden justify-between min-h-screen md:px-8 bg-zinc-950">
+      <div className="flex sticky fixed justify-center items-center z-10 w-full text-sm md:max-w-7xl">
         <Header />
       </div>
 
@@ -76,19 +77,30 @@ const Home = () => {
       </div>
 
       {/* <Contact /> */}
-      <div className="flex justify-center items-center w-full max-w-7xl space-y-8">
+      <div className="flex justify-center items-center w-full max-w-7xl space-y-8 p-8 md:p-0">
         <div className="max-w-4xl w-full rounded-2xl p-6 space-y-6 text-gray-400 bg-zinc-900">
           <h1 className="flex border-b border-stroke border-neutral-800 justify-center items-center text-3xl font-bold tracking-tight mx-auto text-white">
             Contact{" "}
             <span className="text-5xl text-purple-500 pl-1 pb-2">.</span>
           </h1>
 
-          <p className="text-center">
+          <p className="text-center text-sm md:text-base ">
             Shoot me an email if you want to connect! <br /> You can also find
             me on{" "}
-            <span className="text-indigo-500 cursor-pointer">Linkedin</span> or{" "}
-            <span className="text-sky-500 cursor-pointer">X</span> if
-            that&apos;s more your speed.{" "}
+            <Link
+              href={"https://www.linkedin.com/in/aman-soni1"}
+              className="text-indigo-500 cursor-pointer  hover:text-purple-600 transition-all "
+            >
+              Linkedin
+            </Link>{" "}
+            or{" "}
+            <Link
+              href={"https://x.com/Hulk131469"}
+              className="text-sky-500 hover:text-purple-600 transition-all cursor-pointer"
+            >
+              X
+            </Link>{" "}
+            if that&apos;s more your speed.{" "}
           </p>
 
           <div className="flex justify-center items-center space-x-2">

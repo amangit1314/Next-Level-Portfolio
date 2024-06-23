@@ -15,7 +15,7 @@ const Project = () => {
         </p>
       </div>
 
-      <div>
+      <div className="p-8 md:p-0">
         {PROJECTS.map((project, index) => (
           <div
             key={index}

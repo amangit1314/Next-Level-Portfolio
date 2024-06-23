@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { TestimonialItem } from "./TestimonialItem";
 import { TESTIMONIALS } from "@/utils/constants";
+import Image from "next/image";
 
 export const Testimonials = () => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -39,22 +40,20 @@ export const Testimonials = () => {
         <div
           // slidesPerView={isMobile ? 1 : 3}
           // swiper-wrapper
-          className="grid md:grid-cols-2 justify-center items-center max-w-7xl w-full  mx-auto gap-2"
+          className="grid grid-cols-1 md:grid-cols-2 justify-center items-center p-8 md:p-0 max-w-7xl w-full  mx-auto gap-2"
         >
-          {TESTIMONIALS.map((testimonailItem, index) => {
-            return (
-              // <SwiperSlide key={index} className="mr-[8px]">
-              <div key={index}>
-                <TestimonialItem
-                  imgUrl={testimonailItem.personImg}
-                  name={testimonailItem.personName}
-                  role={testimonailItem.personRole}
-                  comment={testimonailItem.comment}
-                />
-              </div>
-              // </SwiperSlide>
-            );
-          })}
+          {TESTIMONIALS.map((testimonailItem, index) => (
+            // <SwiperSlide key={index} className="mr-[8px]">
+            <div key={index}>
+              <NewTestimonailItem
+                image={testimonailItem.personImg}
+                name={testimonailItem.personName}
+                post={testimonailItem.personRole}
+                comment={testimonailItem.comment}
+              />
+            </div>
+            // </SwiperSlide>
+          ))}
         </div>
         {/* <div className="">
           
@@ -104,6 +103,43 @@ export const Testimonials = () => {
           </SwiperSlide>
         </Swiper> */}
       </div>
+    </div>
+  );
+};
+
+type Testimonail = {
+  comment: string;
+  name: string;
+  post: string;
+  image: string;
+};
+
+const NewTestimonailItem = ({ comment, name, post, image }: Testimonail) => {
+  return (
+    <div className="grid grid-flow-row md:grid-cols-3 p-4 rounded-3xl py-6 md:space-x-6 bg-zinc-900 space-y-6 md:space-y-0">
+      <div className="flex flex-col items-center align-middle justify-center col-span-1 space-y-4">
+        <div>
+          <Image
+            className="w-40 h-40 rounded-3xl object-cover"
+            height={160}
+            width={160}
+            quality={100}
+            src={image}
+            alt={name}
+          />
+        </div>
+
+        <div>
+          <p className="text-lg tracking-tight text-white md:text-center">
+            {name}
+          </p>
+          <p className="text-sm text-gray-200 md:text-center line-clamp-1 text-ellipsis">
+            {post}
+          </p>
+        </div>
+      </div>
+
+      <div className="text-gray-200 col-span-2 ">{comment}</div>
     </div>
   );
 };
