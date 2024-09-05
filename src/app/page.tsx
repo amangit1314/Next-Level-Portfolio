@@ -89,14 +89,21 @@ const Home = () => {
             me on{" "}
             <Link
               href={"https://www.linkedin.com/in/aman-soni1"}
-              className="text-indigo-500 cursor-pointer  hover:text-purple-600 transition-all "
+              className="text-indigo-500 cursor-pointer  hover:text-indigo-600 transition-all "
             >
               Linkedin
+            </Link>
+            ,{" "}
+            <Link
+              href={"https://www.instagram.com/soni.amanic"}
+              className="text-rose-500 cursor-pointer  hover:text-rose-800 transition-all "
+            >
+              Instagram
             </Link>{" "}
             or{" "}
             <Link
               href={"https://x.com/Hulk131469"}
-              className="text-sky-500 hover:text-purple-600 transition-all cursor-pointer"
+              className="text-sky-500 hover:text-blue-600 transition-all cursor-pointer"
             >
               X
             </Link>{" "}

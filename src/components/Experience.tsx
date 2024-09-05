@@ -1,6 +1,7 @@
 import { EXPERIENCES } from "@/utils/constants";
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Experience = () => {
   return (
@@ -26,11 +27,12 @@ const Experience = () => {
 
             <div className="w-full max-w-xl lg:w-3/4">
               <h6 className="mb-2 font-semibold text-gray-300">
-                {experience.role} -{" "}
-                <span className="cursor-pointer text-sm text-purple-400 transition-colors hover:text-purple-500">
+                {experience.role} @{" "}
+                <Link href={experience.companyLink} className="cursor-pointer text-sm text-purple-600 transition-colors hover:text-purple-700">
                   {experience.company}
-                </span>
+                </Link>
               </h6>
+              
               <p className="mb-4 text-neutral-400">{experience.description}</p>
               <div className="flex flex-wrap">
                 {experience.technologies.map((tech, index) => (

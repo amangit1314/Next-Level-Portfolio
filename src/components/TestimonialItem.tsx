@@ -18,7 +18,7 @@ export const TestimonialItem = ({
     <div className="flex-col items-center p-6 max-h-26 md:max-h-[15rem] h-full cursor-pointer rounded-xl max-w-sm w-full align-center bg-neutral-900 bg-opacity-80 bg-clip-padding backdrop-filter-blur space-y-4">
       <div className="flex flex-col md:flex-row justify-start items-center text-center md:text-left w-full md:space-x-4 space-y-2 md:space-y-0">
         <Image
-          className="w-14 h-14 rounded-full object-cover"
+          className="w-14 h-14 rounded-lg object-cover"
           height={14}
           width={14}
           quality={100}

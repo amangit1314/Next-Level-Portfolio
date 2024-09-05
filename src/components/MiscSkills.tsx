@@ -95,7 +95,7 @@ function MiscSkills({ directionLeft }: Props) {
       </div>
 
       {/* skills list */}
-      <div className="grid grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center gap-4">
+      <div className="grid grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center gap-4 p-12 md:p-0">
         {/* javascript */}
         <div className="flex justify-center items-center relative group cursor-pointer transition-all duration-300 rounded-2xl border-4 border-neutral-800 p-4 ">
           <IoLogoJavascript className="text-7xl text-yellow-400" />

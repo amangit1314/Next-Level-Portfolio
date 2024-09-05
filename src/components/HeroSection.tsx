@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Black_Han_Sans, Space_Mono } from "next/font/google";
 import Image from "next/image";
 import React from "react";
 // import { Cursor, useTypewriter } from "react-simple-typewriter";
 // import Lottie from "lottie-react";
+const blackHanSans = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 
 const HeroSection = () => {
+
   // const [text, helper] = useTypewriter({
   //   words: ["Amazing Experiences", "Beautiful Apps", "Amazing Dapps"],
   //   loop: true,
@@ -47,9 +53,12 @@ const HeroSection = () => {
               <p className="w-full tracking-tight text-xl text-center text-transparent lg:text-left lg:w-5xl bg-clip-text bg-gradient-to-r from-white  to-gray-500 animate-text">
                 I build and craft
               </p>
-              <span className="w-full tracking-tight text-4xl text-center text-transparent lg:text-left lg:w-5xl bg-clip-text bg-gradient-to-r from-pink-500 via-orange-500 to-purple-500 animate-text">
-                Amazing Experiences
-              </span>
+
+              <div className={blackHanSans.className}>
+                <span className="w-full tracking-tighter text-4xl text-center text-transparent lg:text-left lg:w-5xl bg-clip-text bg-gradient-to-r from-pink-500 via-orange-500 to-purple-500 animate-text">
+                  Amazing Experiences
+                </span>
+              </div>
             </div>
           </motion.div>
 
