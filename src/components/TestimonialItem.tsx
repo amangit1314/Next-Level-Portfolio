@@ -27,10 +27,10 @@ export const TestimonialItem = ({
         />
 
         <figcaption className="font-medium">
-          <div className="text-base text-gray-100 dark:text-slate-100 tracking-tight">
+          <div className="text-base text-left line-clamp-1 text-gray-100 dark:text-slate-100 tracking-tight">
             {name}
           </div>
-          <div className="text-gray-300 line-clamp-2 text-sm font-thin">{role}</div>
+          <div className="text-gray-300 text-left line-clamp-2 text-sm font-thin">{role}</div>
         </figcaption>
       </div>
 

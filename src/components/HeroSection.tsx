@@ -73,7 +73,7 @@ const HeroSection = () => {
             <p className="hidden lg:flex">
               My name is Aman Soni and I am a Full Stack Developer. As a
               full-stack developer, I create full stack expereince with
-              beautiful UI / UX with my 2 years of experience building projects
+              beautiful UI / UX with my 3 years of experience building projects
               my clients are happy with the projects carried out. So I can
               provide you ensurance and quality both in my work.
             </p>
@@ -82,16 +82,17 @@ const HeroSection = () => {
 
         {/* Image */}
         <div className="relative hidden w-full max-w-xs mx-auto md:block md:visible lg:mt-0 lg:mx-0 h-80 lg:w-96 lg:h-96 lg:max-w-xl">
-          <div className="relative w-full h-full mt-12 overflow-hidden shadow-lg lg:mt-0 rounded-xl lg:rounded-2xl">
+            <div className="relative w-full h-full mt-12 overflow-hidden shadow-lg lg:mt-0 rounded-xl lg:rounded-2xl">
             <Image
               className="object-cover w-full h-full duration-300 ease-in-out transition-transform hover:scale-105"
               height={100}
               width={320}
               quality={100}
-              src="/images/aman-pro.jfif"
+              src="/images/aman_gibly.png"
               alt="Aman Soni"
+              style={{ objectPosition: "top" }}
             />
-          </div>
+            </div>
         </div>
       </div>
     </div>
