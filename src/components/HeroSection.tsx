@@ -11,7 +11,7 @@ const blackHanSans = Space_Mono({
   subsets: ["latin"],
 });
 
-const HeroSection = () => {
+export const HeroSection = () => {
 
   // const [text, helper] = useTypewriter({
   //   words: ["Amazing Experiences", "Beautiful Apps", "Amazing Dapps"],
@@ -98,5 +98,3 @@ const HeroSection = () => {
     </div>
   );
 };
-
-export default HeroSection;

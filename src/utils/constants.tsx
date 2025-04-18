@@ -1,7 +1,10 @@
-// import project1 from "../assets/projects/project-1.jpg";
-// import project2 from "../assets/projects/project-2.jpg";
-// import project3 from "../assets/projects/project-3.jpg";
-// import project4 from "../assets/projects/project-4.jpg";
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaYoutube,
+} from "react-icons/fa6";
 
 export const EXPERIENCES = [
   {
@@ -93,21 +96,7 @@ export const PROJECTS = [
       "Stripe",
     ],
   },
-  //   {
-  //     title: "Portfolio Website",
-  //     image: "/images/png/portfolio.png",
-  //     link: "https://next-level-portfolio.vercel.app/",
-  //     description:
-  //       "A personal portfolio website showcasing projects, skills, and contact information.",
-  //     technologies: [
-  //       "Next.js",
-  //       "Tailwind",
-  //       "TypeScript",
-  //       "SendGrid",
-  //       "Sanity",
-  //       "Framer",
-  //     ],
-  //   },
+
   {
     title: "LuxeTick",
     image: "/images/png/watch2.png",
@@ -140,7 +129,7 @@ export const TESTIMONIALS = [
     personName: "Rajat Dabral",
     personRole: "Co-Founder & CTO, Tempo",
     comment:
-      "A amazing person to work with who give his best shot on every opportunity and brings different and inovative solutions to the problem statment. He can also lead team of different midsets and take the best out of them according to their calabour. I'm confident that Aman will be a valuable asset to any team he join.",
+      "A amazing person to work with who give his best shot on every opportunity and brings different and inovative solutions to the problem statment. He can also lead team of different midsets and take the best out of them according to their calabour.",
   },
   {
     personImg:
@@ -148,7 +137,7 @@ export const TESTIMONIALS = [
     personName: "Ankit Sharma",
     personRole: "Founder & CEO, E2V",
     comment:
-      "Aman is not just a skilled developer but also a fantastic team player. Hi's collaborative spirit and positive attitude made work with him joyfull. I'm confident that Aman will be a valuable asset to any team he join. I'm confident that Aman will be a valuable asset to any team he join.  I'm confident that Aman will be a valuable asset to any team he join.",
+      "Aman is not just a skilled developer but also a fantastic team player. Hi's collaborative spirit and positive attitude made work with him joyfull. I'm confident that Aman will be a valuable asset to any team he join. I'm confident that Aman will be a valuable asset to any team he join.",
   },
   {
     personImg:
@@ -156,7 +145,40 @@ export const TESTIMONIALS = [
     personName: "Vikas Kumar Sinha",
     personRole: "Manager, Om Logistics",
     comment:
-      "A generous person who has a passion to work with different mindsets and also lead them too according to their calabour, this person is a hard working personality.  I'm confident that Aman will be a valuable asset to any team he join. I'm confident that Aman will be a valuable asset to any team he join.",
+      "A generous person who has a passion to work with different mindsets and also lead them too according to their calabour, this person is a hard working personality.  I'm confident that Aman will be a valuable asset to any team he join.",
+  },
+];
+
+export const SOCIAL_LINKS = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/aman-soni1",
+    icon: <FaLinkedin className="text-xl" />,
+    color: "text-indigo-400 hover:text-indigo-300",
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/amangit1314",
+    icon: <FaGithub className="text-xl" />,
+    color: "text-gray-400 hover:text-white",
+  },
+  {
+    name: "YouTube",
+    url: "https://youtube.com/yourchannel",
+    icon: <FaYoutube className="text-xl" />,
+    color: "text-red-500 hover:text-red-400",
+  },
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/soni.amanic",
+    icon: <FaInstagram className="text-xl" />,
+    color: "text-rose-400 hover:text-rose-300",
+  },
+  {
+    name: "X",
+    url: "https://x.com/Hulk131469",
+    icon: <FaTwitter className="text-xl" />,
+    color: "text-sky-400 hover:text-sky-300",
   },
 ];
 

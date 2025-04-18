@@ -81,7 +81,7 @@ const skills: Skill[] = [
   { icon: FaGithub, name: `GitHub`, proficiency: 100, color: "white" }, // Special case for white background
 ];
 
-function MiscSkills({ directionLeft }: Props) {
+export const MiscSkills = ({ directionLeft }: Props) => {
   return (
     <div className="flex flex-col items-center justify-between p-8 mx-[5rem]">
       {/* tech stack text and headline */}
@@ -303,9 +303,7 @@ function MiscSkills({ directionLeft }: Props) {
           <div className="absolute z-0 px-11 py-12 w-22 h-22 transition-all duration-300 ease-in-out rounded-2xl opacity-0 group-hover:bg-zinc-600 group-hover:opacity-95">
             <div className="flex items-center justify-center h-full">
               <div className="text-center space-y-1">
-                <p className="text-xs font-thin uppercase text-white">
-                  SQL
-                </p>
+                <p className="text-xs font-thin uppercase text-white">SQL</p>
                 {/* <p className="text-xl font-bold text-white opacity-100">100%</p> */}
               </div>
             </div>
@@ -483,9 +481,7 @@ function MiscSkills({ directionLeft }: Props) {
       </div> */}
     </div>
   );
-}
-
-export default MiscSkills;
+};
 
 const NewSkillItem = (icon: any) => {
   return (

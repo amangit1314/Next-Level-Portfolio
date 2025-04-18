@@ -271,17 +271,17 @@ export const Header = () => {
         <a
           href="/assets/aman_resume_new.pdf"
           download
-          className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-orange-600 rounded-lg shadow hover:scale-105 transition-transform duration-300"
+          className="px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-pink-500 to-orange-600 rounded-lg shadow hover:scale-105 transition-transform duration-300 md:mr-4"
         >
           Resume
         </a>
 
         {/* Mobile Hamburger */}
         <div className="md:hidden">
-          <AnimatedHamburger
+          {/* <AnimatedHamburger
             active={mobileMenuOpen}
             setActive={setMobileMenuOpen}
-          />
+          /> */}
         </div>
       </motion.div>
 

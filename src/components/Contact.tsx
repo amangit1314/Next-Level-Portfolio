@@ -1,285 +1,138 @@
-"use client";
+import { SOCIAL_LINKS } from "@/utils/constants";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { FaMailBulk } from "react-icons/fa";
 
-import React from "react";
-import { AiFillGithub, AiFillLinkedin, AiOutlineMail } from "react-icons/ai";
-import { MdLocationPin } from "react-icons/md";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid Gmail address i.e (username@gmail.com).",
-  }),
-  message: z.string().max(250, {
-    message: "Message cannot be longer than 250 characters.",
-  }),
-});
-
-const Contact = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-      message: "",
+export const Contact = () => {
+  // Animation variants
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
     },
-  });
+  };
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
   return (
-    <div>
-      <section className="p-8 mx-auto my-24 text-gray-800 max-w-7xl w-full">
-        {/* sub-title, title */}
-        <div className="flex flex-col items-center justify-between p-8 mx-[5rem] my-8">
-          <p className="mt-12 text-base font-normal text-center text-gray-300 ">
-            Send a mail to me for contacting, or you can use below social
-            handles
-          </p>
-          <p className="mt-2 text-3xl font-semibold text-center xl:text-4xl text-white">
-            Contact Me
-          </p>
-        </div>
+    <section
+      id="contact"
+      className="relative py-16 md:py-24 bg-gradient-to-b bg-transparent overflow-hidden"
+    >
+      {/* Background glow effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-purple-600/20 blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-cyan-600/20 blur-3xl"></div>
+      </div>
 
-        {/*  bg image*/}
-        <div
-          className="relative mt-20 overflow-hidden bg-no-repeat bg-cover rounded-t-lg"
-          style={{
-            backgroundPosition: "50%",
-            backgroundImage:
-              'url("https://mdbootstrap.com/img/new/textures/full/284.jpg")',
-            height: "300px",
-          }}
-        />
-
-        {/* blue container */}
-        <div className="container px-4 text-gray-800 md:px-6">
-          <div
-            className="block px-2 py-10 rounded-lg shadow-lg md:py-12 md:px-6 backdrop-blur-xl"
-            style={{
-              marginTop: "-100px",
-              background: "hsla(0, 0%, 100%, 0.8)",
-              backdropFilter: "blur(30px)",
-            }}
+      <div className="container px-4 mx-auto relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
+          {/* Contact Card */}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="visible"
+            className="relative bg-neutral-900/70 backdrop-blur-sm border border-neutral-800 rounded-2xl p-8 md:p-10 overflow-hidden"
           >
-            <div className="flex flex-wrap">
-              {/* form */}
-              <div className="w-full px-3 mb-12 grow-0 shrink-0 basis-auto md:w-5/12 lg:px-6 xl:mb-0 space-y-6">
-                {/* form */}
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <FormField
-                      control={form.control}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Username</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="text"
-                              className="block w-full px-3 py-1.5 text-sm font-normal text-zinc-800  bg-white bg-clip-padding border border-solid border-gray-300 rounded  transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
-                              placeholder="Your Name"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Please enter your full name here.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                    {/* email */}
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="email"
-                              className="form-control block w-full px-3 py-1.5 text-sm font-normal text-zinc-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded  transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
-                              placeholder="Your Email ..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Please enter your email address here.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+            {/* Header */}
+            <motion.div
+              variants={item}
+              className="relative mb-8 pb-6 border-b border-neutral-800"
+            >
+              <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center justify-center">
+                Get In Touch{" "}
+                <motion.span
+                  className="text-purple-500 ml-1"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  .
+                </motion.span>
+              </h1>
+            </motion.div>
 
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Message</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              className="form-control block w-full px-3 py-1.5 text-sm font-normal text-zinc-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
-                              placeholder="Enter your message ..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Please enter your message here.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+            {/* Content */}
+            <div className="relative space-y-8">
+              <motion.p
+                variants={item}
+                className="text-center text-neutral-400 text-sm md:text-base"
+              >
+                Have a project in mind or want to collaborate? Feel free to
+                reach out!
+              </motion.p>
 
-                    {/* message */}
-                    {/* <div className="mb-6 form-group">
-                      <Textarea
-                        className="form-control block w-full px-3 py-1.5 text-sm font-normal text-zinc-800 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-purple-600 focus:outline-none"
-                        rows={3}
-                        placeholder="Message"
-                      />
-                    </div> */}
-
-                    {/* checkbox */}
-                    {/* <div className="mb-6 text-center htmlForm-group htmlForm-check">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-sm appearance-none cursor-pointer htmlForm-check-input checked:bg-purple-600 checked:border-purple-600 focus:outline-none"
-                      id="exampleCheck87"
-                      checked
-                    />
-
-                    
-                    <label
-                      className="inline-block text-gray-800 htmlForm-check-label"
-                      htmlFor="exampleCheck87"
+              {/* Social Links Grid */}
+              <motion.div
+                variants={container}
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
+              >
+                {SOCIAL_LINKS.map((social, index) => (
+                  <motion.div
+                    key={index}
+                    variants={item}
+                    whileHover={{ y: -5, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex justify-center"
+                  >
+                    <Link
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${social.color} transition-all duration-300 flex flex-col items-center gap-2`}
                     >
-                      Send me a copy of this message
-                    </label>
-                  </div> */}
-
-                    {/* submit button */}
-                    <button
-                      type="submit"
-                      className="w-full  px-6  py-2.5 bg-purple-600 text-white
-              font-medium  text-xs leading-tight  uppercase rounded  shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg
-              transition duration-150 ease-in-out"
-                    >
-                      Send
-                    </button>
-                  </form>
-                </Form>
-              </div>
-
-              {/* social contact info */}
-              <div className="w-full grow-0 shrink-0 basis-auto md:w-7/12">
-                {/* md:grid md:grid-cols-2 md:gap-x-16 */}
-                <div className="flex flex-wrap ">
-                  {/* mail item */}
-                  <div className="w-full px-3 mb-12 grow-0 shrink-0 basis-auto md:w-6/12 lg:px-6">
-                    <div className="flex items-start">
-                      <div className="shrink-0">
-                        <div className="flex items-center justify-center p-2 bg-purple-600 rounded-md shadow-md w-14 h-14">
-                          <AiOutlineMail className="text-white" />
-                        </div>
+                      <div className="p-3 rounded-full bg-neutral-800 hover:bg-neutral-700 transition-colors duration-300">
+                        {social.icon}
                       </div>
+                      <span className="text-xs font-medium">{social.name}</span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </motion.div>
 
-                      {/* contact mail */}
-                      <div className="ml-4 grow">
-                        <p className="mb-1 text-md text-base font-semibold tracking-tight">
-                          Contact Mail
-                        </p>
-                        <p className="w-[2rem] text-sm tracking-tight">
-                          gitaman8481@gmail.com
-                        </p>
-                        <p className="text-sm">+91 964977393</p>
-                      </div>
-                    </div>
+              {/* Email Section */}
+              <motion.div
+                variants={item}
+                className="flex flex-col items-center gap-4 mt-8 pt-6 border-t border-neutral-800"
+              >
+                <p className="text-neutral-400 text-sm">
+                  Or send me an email at:
+                </p>
+                <div className="flex items-center gap-3 bg-neutral-800/50 px-6 py-3 rounded-full">
+                  <div className="p-2 rounded-full bg-purple-500/10">
+                    <FaMailBulk className="text-purple-400" />
                   </div>
-
-                  {/* location */}
-                  <div className="w-full px-3 mb-12 grow-0 shrink-0 basis-auto md:w-6/12 lg:px-6">
-                    <div className="flex items-start">
-                      <div className="shrink-0">
-                        <div className="flex items-center justify-center p-2 bg-purple-600 rounded-md shadow-md w-14 h-14">
-                          <MdLocationPin className="text-white" />
-                        </div>
-                      </div>
-                      <div className="ml-4 grow">
-                        <p className="mb-1 text-md text-base font-semibold tracking-tight">
-                          Location
-                        </p>
-                        <p className="text-ellipsis text-sm overflow-clip tracking-tight">
-                          Rajasthan, India
-                        </p>
-                        <p className="text-sm">PIN-331001</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* linked in */}
-                  <div className="w-full px-3 mb-12 md:mb-0 grow-0 shrink-0 basis-auto md:w-6/12 lg:px-6">
-                    <div className="flex align-start">
-                      <div className="shrink-0">
-                        <div className="flex items-center justify-center p-2 bg-purple-600 rounded-md shadow-md w-14 h-14">
-                          <AiFillLinkedin className="text-white" />
-                        </div>
-                      </div>
-                      <div className="ml-4 grow">
-                        <p className="mb-1 font-semibold tracking-tight text-md text-base">
-                          LinkedIn
-                        </p>
-                        <p className="tracking-tight text-sm">Aman Soni</p>
-                        <p className="text-sm">4500+ connections</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* github */}
-                  <div className="w-full px-3 mb-12 md:mb-0 grow-0 shrink-0 basis-auto md:w-6/12 lg:px-6">
-                    <div className="flex align-start">
-                      <div className="shrink-0">
-                        <div className="flex items-center justify-center p-2 bg-purple-600 rounded-md shadow-md w-14 h-14">
-                          <AiFillGithub className="text-white" />
-                        </div>
-                      </div>
-                      <div className="ml-4 grow">
-                        <p className="mb-1 font-semibold tracking-tight text-md text-base">
-                          GitHub
-                        </p>
-                        <p className="tracking-tight text-sm">amangit1314</p>
-                        <p className="text-sm">114+ Repositories</p>
-                      </div>
-                    </div>
-                  </div>
+                  <a
+                    href="mailto:amansoni53453@gmail.com"
+                    className="text-base md:text-lg text-white hover:text-purple-400 transition-colors duration-300"
+                  >
+                    amansoni53453@gmail.com
+                  </a>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
-      </section>
-    </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
-
-export default Contact;

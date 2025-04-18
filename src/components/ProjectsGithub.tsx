@@ -1,101 +1,56 @@
-
-// import React from "react";
-// import { PROJECTS } from "@/utils/constants";
-// import Image from "next/image";
-// import Link from "next/link";
-
-// const Project = () => {
-//   return (
-//     <div className="border-b border-neutral-900 pb-4">
-//       <div className="flex flex-col items-center justify-between px-4 md:px-8 xl:px-20 mt-8">
-//         <p className="text-base font-normal text-center text-gray-300">
-//           See all my projects below
-//         </p>
-//         <p className="mt-2 text-3xl font-semibold text-center xl:text-4xl text-white">
-//           Projects
-//         </p>
-//       </div>
-
-//       <div className="px-4 md:px-8 xl:px-20 py-8 space-y-10">
-//         {PROJECTS.map((project, index) => (
-//           <div
-//             key={index}
-//             className="flex flex-col md:flex-row md:items-start md:space-x-10 space-y-4 md:space-y-0"
-//           >
-//             <Link
-//               href={project.link}
-//               className="w-full md:w-[40%] lg:w-[30%] flex-shrink-0"
-//             >
-//               <Image
-//                 src={project.image}
-//                 width={600}
-//                 height={300}
-//                 alt={project.title}
-//                 className="rounded-xl w-full h-[200px] sm:h-[250px] md:h-[220px] object-cover transition-all duration-300"
-//               />
-//             </Link>
-
-//             <div className="w-full">
-//               <Link href={project.link}>
-//                 <h6 className="mb-2 text-xl font-semibold text-white cursor-pointer hover:underline transition-all duration-300">
-//                   {project.title}
-//                 </h6>
-//               </Link>
-//               <p className="mb-4 text-sm text-gray-300">
-//                 {project.description}
-//               </p>
-
-//               <div className="flex flex-wrap gap-2">
-//                 {project.technologies.map((tech, index) => (
-//                   <span
-//                     key={index}
-//                     className="rounded bg-neutral-900 text-gray-300 px-2 py-1 text-sm font-medium"
-//                   >
-//                     {tech}
-//                   </span>
-//                 ))}
-//               </div>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Project;
-
 import React from "react";
 import { PROJECTS } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const Project = () => {
+export const Project = () => {
   // Animation variants
   const container = {
     hidden: { opacity: 0 },
-    show: {
+    visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
-  const item = {
+  const projectItem = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      y: -5,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const glowVariant = {
+    initial: { opacity: 0, scale: 0.95 },
+    hover: { opacity: 0.3, scale: 1.02 },
   };
 
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b  bg-transparent">
-      <div className="container px-4 mx-auto">
+    <section className="relative py-16 md:py-24 bg-gradient-to-b bg-transparent overflow-hidden">
+      {/* Background glow elements */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+        <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-purple-600 blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 rounded-full bg-cyan-600 blur-3xl"></div>
+      </div>
+
+      <div className="container px-4 mx-auto relative">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center mb-16"
         >
           <p className="text-sm md:text-base text-purple-400 font-mono mb-2">
@@ -113,19 +68,32 @@ const Project = () => {
         <motion.div
           variants={container}
           initial="hidden"
-          animate="show"
+          animate="visible"
           className="grid grid-cols-1 gap-8 md:gap-12"
         >
           {PROJECTS.map((project, index) => (
             <motion.div 
               key={index}
-              variants={item}
-              className="group relative overflow-hidden rounded-2xl bg-neutral-800 hover:bg-neutral-700 transition-all duration-300 border border-neutral-700 hover:border-purple-400/20"
+              variants={projectItem}
+              whileHover="hover"
+              className="group relative overflow-hidden rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700 hover:border-purple-400/30 transition-all duration-300"
             >
+              {/* Glossy overlay effect */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-400/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(110deg,_transparent_0%,_rgba(192,132,252,0.03)_20%,_transparent_40%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+
+              {/* Glow effect container */}
+              <motion.div
+                variants={glowVariant}
+                className="absolute inset-0 rounded-2xl bg-purple-500/20 pointer-events-none"
+              />
+
               <div className="flex flex-col md:flex-row h-full">
                 {/* Image */}
                 <div className="md:w-1/2 lg:w-2/5 relative overflow-hidden">
-                  <Link href={project.link}>
+                  <Link href={project.link} className="relative block h-full">
                     <Image
                       src={project.image}
                       width={800}
@@ -138,13 +106,8 @@ const Project = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 md:p-8 md:w-1/2 lg:w-3/5 flex flex-col justify-center">
+                <div className="p-6 md:p-8 md:w-1/2 lg:w-3/5 flex flex-col justify-center relative z-10">
                   <div className="mb-4 flex items-center space-x-2">
-                    {/* {project.featured && (
-                      <span className="text-xs font-mono px-2 py-1 bg-purple-400/10 text-purple-400 rounded">
-                        Featured
-                      </span>
-                    )} */}
                     <span className="text-xs font-mono text-neutral-400">
                       Project {index + 1}
                     </span>
@@ -163,12 +126,16 @@ const Project = () => {
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.technologies.map((tech, techIndex) => (
-                      <span
+                      <motion.span
                         key={techIndex}
-                        className="text-xs font-mono px-3 py-1 bg-neutral-900 text-neutral-300 rounded-full border border-neutral-700"
+                        className="text-xs font-mono px-3 py-1 bg-neutral-900 text-neutral-300 rounded-full border border-neutral-700 hover:border-purple-400 hover:text-purple-400 transition-all duration-300"
+                        whileHover={{
+                          scale: 1.1,
+                          backgroundColor: "rgba(192, 132, 252, 0.1)",
+                        }}
                       >
                         {tech}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
 
@@ -229,5 +196,3 @@ const Project = () => {
     </section>
   );
 };
-
-export default Project;
