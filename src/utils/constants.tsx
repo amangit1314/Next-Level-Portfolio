@@ -61,6 +61,24 @@ export const EXPERIENCES = [
       "Developed a visitor management app for the OM Logistics internship using Flutter. Streamlined visitor registration and enhanced security measures. ",
     technologies: ["Flutter", "Dart", "Node.js", "Typsecript", "AWS"],
   },
+  {
+    year: "Jun 2019 - August 2023",
+    role: "B.Tech in Computer Science",
+    company: "B K Birla Institute of Engineering & Technology",
+    companyLink: "https://bkbiet.ac.in/",
+    description:
+      "During my college journey, I developed a strong foundation in computer science fundamentals while actively learning and practicing various programming languages and technologies. Gained hands-on experience in Java, Node.js, Express, Kotlin, Flutter, and Next.js through academic projects and self-directed learning.",
+    technologies: [
+      "Java",
+      "Node.js",
+      "Express",
+      "Kotlin",
+      "Flutter",
+      "Next.js",
+      "JavaScript",
+      "TypeScript",
+    ],
+  },
 ];
 
 export const PROJECTS = [

@@ -51,7 +51,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="fixed bottom-8 left-4 right-4 z-50 lg:hidden"
+          className="fixed bottom-6 left-4 right-4 z-50 lg:hidden"
         >
           {/* Floating Navigation Bar */}
           <div className="bg-zinc-900/95 backdrop-blur-xl border border-zinc-700/50 rounded-2xl shadow-2xl px-4 py-3">
