@@ -290,7 +290,7 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export const Projects = () => {
+const Projects = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -398,7 +398,7 @@ export const Projects = () => {
               </span>
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
             </motion.div> */}
-              <motion.div
+            <motion.div
               className="flex items-center justify-center space-x-3 mb-6"
               variants={floatingVariants}
               animate="float"
@@ -567,3 +567,5 @@ export const Projects = () => {
     </section>
   );
 };
+
+export default Projects;
