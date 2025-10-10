@@ -874,7 +874,7 @@ export const AboutSection = () => {
                     <p
                       className={`text-gray-300/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
                     >
-                      I'm{" "}
+                      I&apos;m{" "}
                       <span
                         className={`${poppins.className} text-purple-400 font-semibold`}
                       >
@@ -1002,7 +1002,7 @@ export const AboutSection = () => {
                     {/* Shine Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                     <span className={`relative z-10 ${poppins.className}`}>
-                      Let's Build Something Amazing
+                      Let&apos;s Build Something Amazing
                     </span>
                     <FiArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />{" "}
                     {/* FIXED: Responsive icon */}

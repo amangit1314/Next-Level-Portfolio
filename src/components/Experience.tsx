@@ -456,7 +456,7 @@ export const Experience = () => {
                 <p
                   className={`text-gray-400/90 text-lg mb-8 max-w-md mx-auto ${inter.className}`}
                 >
-                  Let's discuss how my experience can help bring your next
+                  Let&apos;s discuss how my experience can help bring your next
                   project to life.
                 </p>
                 <motion.div
@@ -488,7 +488,7 @@ export const Experience = () => {
                     <span
                       className={`text-lg ${poppins.className} relative z-10`}
                     >
-                      Let's Work Together
+                      Let&apos;s Work Together
                     </span>
                     <FiArrowRight className="w-5 h-5 relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
                   </Link>
