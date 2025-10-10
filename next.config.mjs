@@ -12,6 +12,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "play-lh.googleusercontent.com",
+      },
+      {
+        protocol: "https",
         hostname: "www.pexels.com",
       },
       {
@@ -54,7 +58,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "vectorified.com",
       },
-         {
+      {
         protocol: "https",
         hostname: "images.pexels.com",
       },

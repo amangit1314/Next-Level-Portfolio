@@ -8,7 +8,7 @@ import {
 
 export const EXPERIENCES = [
   {
-    year: "Aug 2024 - Present",
+    year: "Aug 2024 - June 2025",
     role: "Associate Software Engineer",
     company: "NineHertz",
     companyLink: "https://theninehertz.com/",
@@ -65,25 +65,30 @@ export const EXPERIENCES = [
 
 export const PROJECTS = [
   {
-    title: "SnapCart: E-Commerce Platform",
+    id: "proj_01",
+    title: "Pulse: Sessions and Ticket Platform",
     image: "/images/jpg/ecommerce.jpg",
     link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
+    code: "",
     description:
-      "A fully functional e-commerce platform with features like product listing, shopping cart, and user authentication.",
+      "Your ticket and event gateway to the world of music, art, and more. Buy, sell, and discover events happening in your area.",
     technologies: [
       "Next.js",
-      "Tailwins",
+      "Tailwind",
       "React",
       "Node.js",
       "PostgreSQL",
       "Stripe",
       "SendGrid",
     ],
+    duration: "6 months",
   },
   {
-    title: "Coursewave: Learning Platform",
+    id: "proj_02",
+    title: "Eden: Personal Management System",
     image: "/images/png/lms.png",
     link: "https://www.coursewave.in",
+    code: "",
     description:
       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
     technologies: [
@@ -95,12 +100,125 @@ export const PROJECTS = [
       "Zustand",
       "Stripe",
     ],
+    duration: "6 months",
   },
-
   {
+    id: "proj_03",
+    title: "SnapCart: E-Commerce Platform",
+    image: "/images/jpg/ecommerce.jpg",
+    link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
+    code: "",
+    description:
+      "A fully functional e-commerce platform with features like product listing, shopping cart, and user authentication.",
+    technologies: [
+      "Next.js",
+      "Tailwind",
+      "React",
+      "Node.js",
+      "PostgreSQL",
+      "Stripe",
+      "SendGrid",
+    ],
+    duration: "6 months",
+  },
+  {
+    id: "proj_04",
+    title: "Coursewave: Learning Platform",
+    image: "/images/png/lms.png",
+    link: "https://www.coursewave.in",
+    code: "",
+    description:
+      "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+    technologies: [
+      "Next.js",
+      "Taiwlind",
+      "PostgreSQL",
+      "Supabase",
+      "Prisma",
+      "Zustand",
+      "Stripe",
+    ],
+    duration: "6 months",
+  },
+  {
+    id: "proj_05",
+    title: "Foodio: Food Ordering Platform",
+    image: "/images/png/lms.png",
+    link: "https://www.coursewave.in",
+    code: "",
+    description:
+      "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+    technologies: [
+      "Next.js",
+      "Taiwlind",
+      "PostgreSQL",
+      "Supabase",
+      "Prisma",
+      "Zustand",
+      "Stripe",
+    ],
+    duration: "6 months",
+  },
+  {
+    id: "proj_06",
+    title: "Weatherly: Weather Platform",
+    image: "/images/png/lms.png",
+    link: "https://www.coursewave.in",
+    code: "",
+    description:
+      "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+    technologies: ["React.js", "Taiwlind", "Weather API"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_07",
+    title: "Twodays: Explore chat and locate",
+    image: "/images/webp/twodays.webp",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: [
+      "Flutter",
+      "Dart",
+      "BLoc",
+      "Google Maps",
+      "Firebase",
+      "HTTP",
+      "iOS",
+    ],
+    duration: "6 months",
+  },
+  {
+    id: "proj_08",
+    title: "NOW: Notes of Worship",
+    image:
+      "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_09",
+    title: "TTYL: Talk To You Later",
+    image:
+      "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_10",
     title: "LuxeTick",
     image: "/images/png/watch2.png",
     link: "https://amangit1314.github.io/watches_web/",
+    code: "",
     description:
       "An exclusive online platform dedicated to luxury timepieces. Catering to discerning watch enthusiasts and collectors. Key Features: Curated luxury collection, Exclusive Auctions, Virtual try-on, Watch Customization, Collector's Hub, Expert Reviews & Articles.",
     technologies: [
@@ -111,14 +229,87 @@ export const PROJECTS = [
       "Sanity",
       "Framer",
     ],
+    duration: "6 months",
   },
   {
-    title: "SnapCart: E-Commerce App",
+    id: "proj_11",
+    title: "Convo: Chat application",
+    image: "/images/webp/convo.webp",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_12",
+    title: "BeyongStudy: Online Education Platform App",
     image: "/images/webp/ecomm-app.webp",
     link: "https://github.com/amangit1314/Ecommerce-App",
+    code: "",
     description:
       "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_13",
+    title: "MyMentor: Online Mentorship Platform",
+    image: "/images/webp/mymentor.webp",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_14",
+    title: "Fizzle: Social Media Platform",
+    image:
+      "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_15",
+    title: "SnapCart: E-Commerce App",
+    image: "/images/webp/ecomm-app.webp",
+    link: "https://github.com/amangit1314/Ecommerce-App",
+    code: "",
+    description:
+      "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_16",
+    title: "MovieMania: Movies Catelog & Ticket Booking App",
+    image:
+      "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+    duration: "6 months",
+  },
+  {
+    id: "proj_17",
+    title: "ReadTogether: Collaborative Reading Platform",
+    image:
+      "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+    link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+    code: "",
+    description:
+      "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+    technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+    duration: "6 months",
   },
 ];
 
