@@ -246,7 +246,7 @@ export const Contact = () => {
               {/* Social Links Grid */}
               <motion.div
                 variants={containerVariants}
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
+                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
               >
                 {SOCIAL_LINKS.map((social, index) => (
                   <motion.div

@@ -501,7 +501,7 @@ export const Project = () => {
           viewport={{ once: true }}
           className="text-center mt-20"
         >
-          <Link
+          <a
             href="/projects"
             className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-500"
           >
@@ -523,7 +523,7 @@ export const Project = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>
