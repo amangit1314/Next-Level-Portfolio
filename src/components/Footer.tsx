@@ -1,25 +1,22 @@
-// export const Footer = () => {
-//   return (
-//     <div className="bg-black">
-//       <footer>
-//         <p className="text-center bg-black text-white py-2 px-4 md:px-8">
-//           &copy; 2022 Aman Soni. All rights reserved.
-//         </p>
-//       </footer>
-//     </div>
-//   )
-// }
 "use client";
 
 import { motion } from "framer-motion";
-import { FiHeart, FiCoffee, FiMail, FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from "react-icons/fi";
+import {
+  FiHeart,
+  FiCoffee,
+  FiMail,
+  FiGithub,
+  FiLinkedin,
+  FiTwitter,
+  FiArrowUp,
+} from "react-icons/fi";
 import { SiNextdotjs, SiVercel } from "react-icons/si";
 
-export const Footer = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const socialLinks = [
@@ -51,9 +48,9 @@ export const Footer = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -62,9 +59,9 @@ export const Footer = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6
-      }
-    }
+        duration: 0.6,
+      },
+    },
   };
 
   return (
@@ -85,13 +82,16 @@ export const Footer = () => {
           className="py-16 grid grid-cols-1 lg:grid-cols-4 gap-12"
         >
           {/* Brand Section */}
-          <motion.div variants={itemVariants} className="lg:col-span-2 space-y-6">
+          <motion.div
+            variants={itemVariants}
+            className="lg:col-span-2 space-y-6"
+          >
             <div className="space-y-4">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
                 Let&apos;s Build Something Amazing
               </h3>
               <p className="text-zinc-400 max-w-md leading-relaxed">
-                Passionate full-stack developer crafting digital experiences 
+                Passionate full-stack developer crafting digital experiences
                 with modern technologies and creative solutions.
               </p>
             </div>
@@ -133,7 +133,7 @@ export const Footer = () => {
                       element.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="block text-zinc-400 hover:text-white transition-colors duration-300 text-left hover:translate-x-1 transform transition-transform"
+                  className="block text-zinc-400 hover:text-white transition-all duration-300 text-left hover:translate-x-1 transform "
                 >
                   {link.name}
                 </button>
@@ -186,3 +186,5 @@ export const Footer = () => {
     </footer>
   );
 };
+
+export default Footer;

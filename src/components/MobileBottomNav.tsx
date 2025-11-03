@@ -2,14 +2,13 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  FiHome, 
-  FiUser, 
-  FiCode, 
-  FiBriefcase, 
-  FiMail, 
-  FiDownload,
-  FiGithub
+import {
+  FiHome,
+  FiUser,
+  FiCode,
+  FiBriefcase,
+  FiMail,
+  FiGithub,
 } from "react-icons/fi";
 
 const navLinks = [
@@ -26,9 +25,9 @@ interface MobileBottomNavProps {
   onNavClick: (path: string) => void;
 }
 
-export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ 
-  activeSection, 
-  onNavClick 
+const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
+  activeSection,
+  onNavClick,
 }) => {
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -37,10 +36,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     const checkMobile = () => {
       setIsVisible(window.innerWidth < 1024);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (
@@ -70,16 +69,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                     }`}
                   >
                     <link.icon className="w-5 h-5 mb-1" />
-                    
-                    {/* Active Indicator */}
-                    {/* {activeSection === link.path.substring(1) && (
-                      <motion.div
-                        layoutId="activeBottomNav"
-                        className="w-1.5 h-1.5 bg-purple-400 rounded-full"
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                      />
-                    )} */}
-                    
+
                     {/* Label for active item only */}
                     <AnimatePresence>
                       {activeSection === link.path.substring(1) && (
@@ -95,17 +85,6 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                     </AnimatePresence>
                   </motion.button>
                 ))}
-                
-                {/* Resume Download Button */}
-                {/* <motion.a
-                  href="/assets/aman_resume_new.pdf"
-                  download
-                  whileTap={{ scale: 0.9 }}
-                  className="flex flex-col items-center p-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300 min-w-[50px]"
-                >
-                  <FiDownload className="w-5 h-5 mb-1" />
-                  <span className="text-[10px] font-medium mt-1">Resume</span>
-                </motion.a> */}
               </div>
             </div>
           </div>
@@ -114,3 +93,5 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     </AnimatePresence>
   );
 };
+
+export default MobileBottomNav;
