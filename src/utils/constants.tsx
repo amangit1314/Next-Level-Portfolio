@@ -969,17 +969,18 @@ export const SKILLS: Skill[] = [
   },
 
   // Database
-  {
-    icon: DiMongodb,
-    name: "MongoDB",
-    color: "from-green-600 to-green-800",
-    category: "Database",
-    proficiency: 85,
-  },
+  
   {
     icon: BiLogoPostgresql,
     name: "PostgreSQL",
     color: "from-blue-600 to-indigo-700",
+    category: "Database",
+    proficiency: 85,
+  },
+  {
+    icon: DiMongodb,
+    name: "MongoDB",
+    color: "from-green-600 to-green-800",
     category: "Database",
     proficiency: 80,
   },
@@ -1013,13 +1014,13 @@ export const SKILLS: Skill[] = [
     category: "DevOps",
     proficiency: 80,
   },
-  {
-    icon: SiKubernetes,
-    name: "Kubernetes",
-    color: "from-blue-600 to-purple-600",
-    category: "DevOps",
-    proficiency: 70,
-  },
+  // {
+  //   icon: SiKubernetes,
+  //   name: "Kubernetes",
+  //   color: "from-blue-600 to-purple-600",
+  //   category: "DevOps",
+  //   proficiency: 70,
+  // },
   {
     icon: FaGitAlt,
     name: "Git",
