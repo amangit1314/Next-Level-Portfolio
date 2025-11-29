@@ -1,5 +1,6 @@
 "use client";
 
+import { poppins } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import {
   FiHeart,
@@ -87,7 +88,7 @@ const Footer = () => {
             className="lg:col-span-2 space-y-6"
           >
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
+              <h3 className={`${poppins.className} text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent`}>
                 Let&apos;s Build Something Amazing
               </h3>
               <p className="text-zinc-400 max-w-md leading-relaxed">
@@ -116,7 +117,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+            <h4 className={`${poppins.className} text-lg font-semibold text-white`}>Quick Links</h4>
             <div className="space-y-3">
               {[
                 { name: "Home", path: "#home" },
@@ -143,7 +144,7 @@ const Footer = () => {
 
           {/* Tech Stack */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className="text-lg font-semibold text-white">Built With</h4>
+            <h4 className={`${poppins.className} text-lg font-semibold text-white`}>Built With</h4>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 p-3 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:scale-105 transition-transform duration-300">
                 <SiNextdotjs className="w-6 h-6 text-white" />

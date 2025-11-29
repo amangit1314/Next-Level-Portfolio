@@ -49,7 +49,7 @@ const TestimonialCard = ({
               alt={name}
               width={60}
               height={60}
-              className="rounded-full object-cover border-2 border-zinc-600 group-hover:border-purple-500/50 transition-all duration-300 shadow-lg"
+              className="w-[60px] h-[60px] rounded-full object-cover flex-shrink-0 border-2 border-zinc-600 group-hover:border-purple-500/50 transition-all duration-300 shadow-lg"
             />
             {/* Online Indicator */}
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-800" />

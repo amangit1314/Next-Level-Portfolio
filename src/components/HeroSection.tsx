@@ -323,7 +323,7 @@ const HeroSection = () => {
             {/* Main Image Container */}
             <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden">
               <Image
-                src="/images/aman_gibly.png"
+                src="/images/aman_avatar.webp"
                 alt="Aman Soni - Full Stack Developer"
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"

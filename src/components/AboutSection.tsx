@@ -137,7 +137,7 @@ export const AboutSection = () => {
                     {/* FIXED: Added mx-auto */}
                     <div className="relative w-full h-full rounded-xl overflow-hidden border border-zinc-700/50">
                       <Image
-                        src="/images/aman_gibly.png"
+                        src="/images/aman_avatar.webp"
                         alt="Aman Soni - Full Stack Developer"
                         fill
                         className="object-cover object-top transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1"
