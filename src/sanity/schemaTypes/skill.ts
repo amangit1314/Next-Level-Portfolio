@@ -1,6 +1,6 @@
 import { defineField, defineType } from "sanity";
 
-export const skill = defineType({
+export default defineType({
     name: "skill",
     title: "Skill",
     type: "document",
