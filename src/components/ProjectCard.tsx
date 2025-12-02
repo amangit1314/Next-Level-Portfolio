@@ -1,9 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
-// import { Project } from "next/dist/build/swc/types";
 import Link from "next/link";
 import Image from "next/image";
-import { righteous, unbounded } from "@/lib/fonts";
-import { Project } from "@/types/project";
+import { unbounded } from "@/lib/fonts";
 
 interface ProjectCardProps {
   index: number;
@@ -54,7 +54,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       <div className="relative flex flex-col lg:flex-row">
         {/* Enhanced Image Container */}
         <div className="lg:w-1/2 relative overflow-hidden h-64 md:h-80 lg:h-auto">
-          <Link href={project.link} className="relative block h-full">
+          <Link href={project.link || ""} className="relative block h-full">
             {/* Image wrapper with effects */}
             <div className="relative h-full overflow-hidden">
               <Image
@@ -99,7 +99,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             </span>
           </motion.div>
 
-          <Link href={project.link}>
+          <Link href={project.link || ""}>
             <motion.h3
               className={`text-3xl md:text-4xl font-bold text-theme-text-primary mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-theme-primary group-hover:to-theme-secondary group-hover:bg-clip-text transition-all duration-300 ${unbounded.className}`}
             >
