@@ -1,17 +1,16 @@
 "use client";
 
-import { EXPERIENCES } from "@/utils/constants";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Inter, Poppins } from "next/font/google";
 import {
   FiExternalLink,
   FiCalendar,
-  FiMapPin,
   FiArrowRight,
 } from "react-icons/fi";
 import { inter, poppins } from "@/lib/fonts";
+import { client } from "@/sanity/lib/client";
+import { experiencesQuery } from "@/sanity/lib/queries";
 
 const floatingVariants = {
   float: {
@@ -25,6 +24,16 @@ const floatingVariants = {
 };
 
 const Experience = () => {
+  const [experiences, setExperiences] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      const data = await client.fetch(experiencesQuery);
+      setExperiences(data);
+    };
+    fetchExperiences();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -111,13 +120,12 @@ const Experience = () => {
             />
 
             <div className="space-y-12">
-              {EXPERIENCES.map((experience, index) => (
+              {experiences.map((experience, index) => (
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  className={`relative flex flex-col lg:flex-row ${
-                    index % 2 === 0 ? "lg:flex-row-reverse" : ""
-                  } gap-8 lg:gap-16 items-start`}
+                  className={`relative flex flex-col lg:flex-row ${index % 2 === 0 ? "lg:flex-row-reverse" : ""
+                    } gap-8 lg:gap-16 items-start`}
                 >
                   {/* Timeline Dot */}
                   <motion.div
@@ -145,9 +153,8 @@ const Experience = () => {
                         damping: 25,
                       },
                     }}
-                    className={`group relative flex-1 bg-zinc-800/40 backdrop-blur-md rounded-3xl border border-zinc-700/50 hover:border-purple-500/50 p-8 lg:p-10 transition-all duration-500 ${
-                      index % 2 === 0 ? "lg:mr-16" : "lg:ml-16"
-                    }`}
+                    className={`group relative flex-1 bg-zinc-800/40 backdrop-blur-md rounded-3xl border border-zinc-700/50 hover:border-purple-500/50 p-8 lg:p-10 transition-all duration-500 ${index % 2 === 0 ? "lg:mr-16" : "lg:ml-16"
+                      }`}
                   >
                     {/* Gradient Background on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-orange-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -169,7 +176,7 @@ const Experience = () => {
                           </div>
                           <div className="flex items-center space-x-3">
                             <Link
-                              href={experience.companyLink}
+                              href={experience.companyLink || "#"}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="group/link inline-flex items-center space-x-3 text-purple-400 hover:text-pink-400 transition-all duration-300"
@@ -220,7 +227,7 @@ const Experience = () => {
                           </h4>
                         </div>
                         <div className="flex flex-wrap gap-3">
-                          {experience.technologies.map((tech, techIndex) => (
+                          {experience.technologies?.map((tech: string, techIndex: number) => (
                             <motion.span
                               key={techIndex}
                               initial={{ opacity: 0, scale: 0.8 }}
@@ -259,17 +266,15 @@ const Experience = () => {
 
                   {/* Year Indicator for Desktop */}
                   <div
-                    className={`hidden lg:flex flex-1 items-center justify-center ${
-                      index % 2 === 0 ? "lg:justify-start" : "lg:justify-end"
-                    }`}
+                    className={`hidden lg:flex flex-1 items-center justify-center ${index % 2 === 0 ? "lg:justify-start" : "lg:justify-end"
+                      }`}
                   >
                     <motion.div
                       initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className={`px-6 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm ${
-                        index % 2 === 0 ? "text-left" : "text-right"
-                      }`}
+                      className={`px-6 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm ${index % 2 === 0 ? "text-left" : "text-right"
+                        }`}
                     >
                       <div
                         className={`${poppins.className} text-sm  font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent `}
@@ -311,19 +316,6 @@ const Experience = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {/* <Link
-                    href="#contact"
-                    className="group/cta inline-flex items-center space-x-4 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 rounded-2xl font-bold text-white shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden"
-                  >
-                    
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover/cta:translate-x-full transition-transform duration-1000" />
-                    
-                    <span className={`text-lg ${poppins.className} relative z-10`}>
-                      Let's Work Together
-                    </span>
-                    <FiArrowRight className="w-5 h-5 relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
-                  </Link> */}
-
                   <Link
                     href="#contact"
                     className="group/cta relative inline-flex items-center space-x-4 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 rounded-2xl font-bold text-white shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden"

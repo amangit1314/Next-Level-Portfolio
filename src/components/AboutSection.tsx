@@ -14,6 +14,16 @@ import {
   FiTrendingUp,
   FiChevronRight,
 } from "react-icons/fi";
+import ExperienceCard from "./ExperienceCard";
+import { inter, poppins } from "@/lib/fonts";
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
+import { profileQuery } from "@/sanity/lib/queries";
+import * as SiIcons from "react-icons/si";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import { IconType } from "react-icons/lib";
+
 import {
   SiReact,
   SiNodedotjs,
@@ -22,9 +32,41 @@ import {
   SiNextdotjs,
   SiTailwindcss,
   SiFramer,
+  SiGithub,
+  SiGit,
+  SiSupabase,
+  SiPostgresql,
+  SiRedis,
+  SiJavascript,
+  SiExpress,
 } from "react-icons/si";
-import ExperienceCard from "./ExperienceCard";
-import { inter, poppins } from "@/lib/fonts";
+// Add NestJS icon if available, or use a fallback
+import { SiNestjs } from "react-icons/si"; // Check if this exists
+
+// Skill to icon component mapping
+const skillToIconMap: { [key: string]: any } = {
+  "Next.js": SiNextdotjs,
+  "NestJS": SiNestjs || SiNodedotjs, // Fallback to Node.js if NestJS not available
+  "Node.js": SiNodedotjs,
+  "React.js": SiReact,
+  "Javascript": SiJavascript,
+  "JavaScript": SiJavascript,
+  "Typescript": SiTypescript,
+  "TypeScript": SiTypescript,
+  "GitHub": SiGithub,
+  "Git": SiGit,
+  "React Query": SiReact, // Or find/use specific tanstack query icon
+  "Zustand": SiReact, // State management fallback to React
+  "Supabase": SiSupabase,
+  "PostgreSQL": SiPostgresql,
+  "SQL": SiPostgresql, // Generic SQL fallback
+  "MongoDB": SiMongodb,
+  "Redis": SiRedis,
+  "Express.js": SiExpress,
+  // Add more as needed
+  "TailwindCSS": SiTailwindcss,
+  "Framer": SiFramer,
+};
 
 // Enhanced Animation variants
 const containerVariants = {
@@ -45,7 +87,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1],
+      // ease: [0.25, 0.1, 0.25, 1],
     },
   },
 };
@@ -56,12 +98,32 @@ const floatingVariants = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut",
+      // ease: "easeInOut",
     },
   },
 };
 
 export const AboutSection = () => {
+  const [profile, setProfile] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const data = await client.fetch(profileQuery);
+      setProfile(data);
+    };
+    fetchProfile();
+  }, []);
+
+  const getTechIcon = (techName: string) => {
+    // Normalize skill name (trim, handle common variations)
+    const normalizedSkill = techName.trim();
+
+    // Return mapped icon or fallback
+    return skillToIconMap[normalizedSkill] || SiJavascript;
+  };
+
+  if (!profile) return null;
+
   return (
     <section
       id="about"
@@ -137,8 +199,8 @@ export const AboutSection = () => {
                     {/* FIXED: Added mx-auto */}
                     <div className="relative w-full h-full rounded-xl overflow-hidden border border-zinc-700/50">
                       <Image
-                        src="/images/aman_avatar.webp"
-                        alt="Aman Soni - Full Stack Developer"
+                        src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
+                        alt={`${profile.name} - ${profile.role}`}
                         fill
                         className="object-cover object-top transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1"
                         quality={100}
@@ -156,16 +218,16 @@ export const AboutSection = () => {
                         transition={{ duration: 1.2, ease: "easeInOut" }}
                       />
 
-                      {/* Enhanced Stats Overlay */}
+                      {/* (todo: make them dynamic) Enhanced Stats Overlay */}
                       <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 grid grid-cols-3 gap-2 sm:gap-3">
                         {" "}
                         {/* FIXED: Responsive spacing */}
                         {[
-                          { icon: FiAward, value: "3+", label: "Years Exp" },
-                          { icon: FiUsers, value: "15+", label: "Projects" },
+                          { icon: FiAward, value: profile.stats?.experienceYears, label: "Years Exp" },
+                          { icon: FiUsers, value: profile.stats?.projectsCount, label: "Projects" },
                           {
                             icon: FiTrendingUp,
-                            value: "100%",
+                            value: profile.stats?.clientSatisfaction,
                             label: "Success",
                           },
                         ].map((stat, index) => (
@@ -228,7 +290,7 @@ export const AboutSection = () => {
                   transition={{
                     duration: 6,
                     repeat: Infinity,
-                    ease: "easeInOut",
+                    // ease: "easeInOut",
                   }}
                 >
                   <SiFramer className="w-4 h-4 sm:w-6 sm:h-6 text-white" />{" "}
@@ -245,26 +307,27 @@ export const AboutSection = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <ExperienceCard
                   field="Full Stack"
-                  duration="3+ Years"
+                  duration={profile?.experienceAreas?.fullStack || "3+ Years"}
                   icon={<FiCode className="w-6 h-6 sm:w-7 sm:h-7" />}
                   gradient="from-purple-500 to-blue-500"
                   description="End-to-end solutions"
                 />
                 <ExperienceCard
                   field="Backend"
-                  duration="3+ Years"
+                  duration={profile?.experienceAreas?.backend || "3+ Years"}
                   icon={<FiServer className="w-6 h-6 sm:w-7 sm:h-7" />}
                   gradient="from-blue-500 to-cyan-500"
                   description="Robust APIs & Systems"
                 />
                 <ExperienceCard
                   field="Mobile"
-                  duration="2+ Years"
+                  duration={profile?.experienceAreas?.mobile || "2+ Years"}
                   icon={<FiSmartphone className="w-6 h-6 sm:w-7 sm:h-7" />}
                   gradient="from-cyan-500 to-green-500"
                   description="Cross-platform apps"
                 />
               </div>
+
               {/* Enhanced Description */}
               <div className="space-y-6 sm:space-y-8">
                 {" "}
@@ -290,13 +353,13 @@ export const AboutSection = () => {
                       <span
                         className={`${poppins.className} text-purple-400 font-semibold`}
                       >
-                        Aman Soni
+                        {profile.name}
                       </span>
-                      , a passionate Full Stack Developer with{" "}
+                      , a passionate {profile.role} with{" "}
                       <span
                         className={`${poppins.className} text-pink-400 font-semibold`}
                       >
-                        3+ years
+                        {profile.stats?.experienceYears}
                       </span>{" "}
                       of experience building scalable web applications and
                       cutting-edge digital solutions.
@@ -304,10 +367,7 @@ export const AboutSection = () => {
                     <p
                       className={`text-gray-300/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
                     >
-                      I specialize in creating seamless user experiences with
-                      modern technologies, clean architecture, and
-                      performance-optimized code that delivers real business
-                      value.
+                      {profile.longBio}
                     </p>
                   </div>
                 </div>
@@ -315,14 +375,7 @@ export const AboutSection = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {" "}
                   {/* FIXED: Responsive gap */}
-                  {[
-                    "Modern Tech Stack",
-                    "Clean Code Architecture",
-                    "Performance Optimization",
-                    "User-Centric Design",
-                    "Agile Development",
-                    "Continuous Learning",
-                  ].map((strength, index) => (
+                  {profile.keyStrengths?.map((strength: string, index: number) => (
                     <motion.div
                       key={index}
                       className="flex items-center space-x-2 sm:space-x-3 group" // FIXED: Responsive spacing
@@ -358,47 +411,28 @@ export const AboutSection = () => {
                   <div className="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6 flex-wrap gap-3 sm:gap-0">
                     {" "}
                     {/* FIXED: Responsive layout */}
-                    {[
-                      {
-                        icon: SiNextdotjs,
-                        color: "text-white",
-                        name: "Next.js",
-                      },
-                      {
-                        icon: SiTypescript,
-                        color: "text-blue-400",
-                        name: "TypeScript",
-                      },
-                      {
-                        icon: SiMongodb,
-                        color: "text-green-400",
-                        name: "MongoDB",
-                      },
-                      {
-                        icon: SiTailwindcss,
-                        color: "text-cyan-400",
-                        name: "Tailwind",
-                      },
-                      { icon: SiReact, color: "text-cyan-300", name: "React" },
-                    ].map((tech, index) => (
-                      <motion.div
-                        key={index}
-                        whileHover={{ scale: 1.3, y: -5 }}
-                        className="flex flex-col items-center space-y-1 sm:space-y-2 group/tech" // FIXED: Responsive spacing
-                      >
-                        <div
-                          className={`${tech.color} opacity-80 group-hover/tech:opacity-100 transition-all duration-300`}
+                    {profile.techStackPreview?.map((techName: string, index: number) => {
+                      const Icon = getTechIcon(techName);
+                      return (
+                        <motion.div
+                          key={index}
+                          whileHover={{ scale: 1.3, y: -5 }}
+                          className="flex flex-col items-center space-y-1 sm:space-y-2 group/tech" // FIXED: Responsive spacing
                         >
-                          <tech.icon className="w-5 h-5 sm:w-7 sm:h-7" />{" "}
-                          {/* FIXED: Responsive icon */}
-                        </div>
-                        <span className="text-[10px] sm:text-xs text-gray-400 font-medium opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300">
-                          {" "}
-                          {/* FIXED: Responsive text */}
-                          {tech.name}
-                        </span>
-                      </motion.div>
-                    ))}
+                          <div
+                            className={`text-white opacity-80 group-hover/tech:opacity-100 transition-all duration-300`}
+                          >
+                            <Icon className="w-5 h-5 sm:w-7 sm:h-7" />{" "}
+                            {/* FIXED: Responsive icon */}
+                          </div>
+                          <span className="text-[10px] sm:text-xs text-gray-400 font-medium opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300">
+                            {" "}
+                            {/* FIXED: Responsive text */}
+                            {techName}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </motion.div>
                 {/* Enhanced CTA Button */}

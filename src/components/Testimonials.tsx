@@ -1,14 +1,25 @@
 "use client";
 
 import "swiper/css";
-import React from "react";
-import { TESTIMONIALS } from "@/utils/constants";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { inter, jetbrainsMono } from "@/lib/fonts";
+import { inter, jetbrainsMono, righteous, unbounded } from "@/lib/fonts";
 import Marquee from "./magicui/marquee";
 import TestimonialCard from "./TestimonialCard";
+import { client } from "@/sanity/lib/client";
+import { testimonialsQuery } from "@/sanity/lib/queries";
 
 const Testimonials = () => {
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      const data = await client.fetch(testimonialsQuery);
+      setTestimonials(data);
+    };
+    fetchTestimonials();
+  }, []);
+
   return (
     <section
       id="testimonials"
@@ -40,7 +51,7 @@ const Testimonials = () => {
             <div className="w-8 h-px bg-gradient-to-r from-pink-500 to-purple-500" />
           </div>
           <h2
-            className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent ${inter.className}`}
+            className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent ${unbounded.className}`}
           >
             Testimonials
           </h2>
@@ -59,10 +70,10 @@ const Testimonials = () => {
           className="relative w-full overflow-hidden"
         >
           <Marquee pauseOnHover className="[--duration:25s] py-4">
-            {TESTIMONIALS.map((testimonialItem, index) => (
+            {testimonials.map((testimonialItem, index) => (
               <div key={index} className="mx-4">
                 <TestimonialCard
-                  image={testimonialItem.personImg}
+                  image={testimonialItem.personImg?.asset?.url || "/placeholder.png"}
                   name={testimonialItem.personName}
                   post={testimonialItem.personRole}
                   comment={testimonialItem.comment}

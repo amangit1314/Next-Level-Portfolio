@@ -2,9 +2,29 @@
 
 import { motion } from "framer-motion";
 import { FiChevronRight, FiStar } from "react-icons/fi";
-import { PROJECTS, SKILLS } from "@/utils/constants";
+import { PROJECTS } from "@/utils/constants";
 import { inter, poppins } from "@/lib/fonts";
 import SkillCard from "./SkillCard";
+import { useEffect, useState } from "react";
+import { client } from "@/sanity/lib/client";
+import { skillsQuery, profileQuery } from "@/sanity/lib/queries";
+import {
+  SiReact,
+  SiNodedotjs,
+  SiMongodb,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiFramer,
+  SiGithub,
+  SiGit,
+  SiSupabase,
+  SiPostgresql,
+  SiRedis,
+  SiJavascript,
+  SiExpress,
+  SiNestjs,
+} from "react-icons/si";
 
 const categories = ["Frontend", "Backend", "Mobile", "Database", "DevOps"];
 
@@ -14,12 +34,58 @@ const floatingVariants = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut",
+      // ease: "easeInOut",
     },
   },
 };
 
+// Skill to icon component mapping
+const skillToIconMap: { [key: string]: any } = {
+  "Next.js": SiNextdotjs,
+  "NestJS": SiNestjs || SiNodedotjs, // Fallback to Node.js if NestJS not available
+  "Node.js": SiNodedotjs,
+  "React.js": SiReact,
+  "Javascript": SiJavascript,
+  "JavaScript": SiJavascript,
+  "Typescript": SiTypescript,
+  "TypeScript": SiTypescript,
+  "GitHub": SiGithub,
+  "Git": SiGit,
+  "React Query": SiReact, // Or find/use specific tanstack query icon
+  "Zustand": SiReact, // State management fallback to React
+  "Supabase": SiSupabase,
+  "PostgreSQL": SiPostgresql,
+  "SQL": SiPostgresql, // Generic SQL fallback
+  "MongoDB": SiMongodb,
+  "Redis": SiRedis,
+  "Express.js": SiExpress,
+  // Add more as needed
+  "TailwindCSS": SiTailwindcss,
+  "Framer": SiFramer,
+};
+
+const getTechIcon = (techName: string) => {
+  // Normalize skill name (trim, handle common variations)
+  const normalizedSkill = techName.trim();
+
+  // Return mapped icon or fallback
+  return skillToIconMap[normalizedSkill] || SiJavascript;
+};
+
 const Skills = () => {
+  const [skills, setSkills] = useState<any[]>([]);
+  const [profile, setProfile] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const skillsData = await client.fetch(skillsQuery);
+      const profileData = await client.fetch(profileQuery);
+      setSkills(skillsData);
+      setProfile(profileData);
+    };
+    fetchData();
+  }, []);
+
   return (
     <section
       id="skills"
@@ -104,7 +170,7 @@ const Skills = () => {
 
                 {/* Enhanced Skills Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                  {SKILLS.filter((skill) => skill.category === category).map(
+                  {skills.filter((skill) => skill.category === category).map(
                     (skill, index) => (
                       <SkillCard key={skill.name} skill={skill} index={index} />
                     )
@@ -127,32 +193,62 @@ const Skills = () => {
 
             <div className="relative bg-zinc-800/40 backdrop-blur-md rounded-3xl border border-zinc-700/50 hover:border-blue-500/30 p-8 lg:p-12 transition-all duration-500">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                {[
-                  {
-                    value: "3+",
-                    label: "Years Experience",
-                    color: "from-purple-400 to-pink-400",
-                    icon: FiStar,
-                  },
-                  {
-                    value: `${SKILLS.length}+`,
-                    label: "Technologies",
-                    color: "from-blue-400 to-cyan-400",
-                    icon: FiStar,
-                  },
-                  {
-                    value: PROJECTS.length,
-                    label: "Projects Built",
-                    color: "from-green-400 to-teal-400",
-                    icon: FiStar,
-                  },
-                  {
-                    value: "100%",
-                    label: "Client Satisfaction",
-                    color: "from-orange-400 to-red-400",
-                    icon: FiStar,
-                  },
-                ].map((stat, index) => (
+                {(profile?.stats
+                  ? [
+                    {
+                      value: profile.stats.experienceYears || "3+",
+                      label: "Years Experience",
+                      color: "from-purple-400 to-pink-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value:
+                        profile.stats.technologiesCount ||
+                        `${skills.length}+`,
+                      label: "Technologies",
+                      color: "from-blue-400 to-cyan-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: profile.stats.projectsCount || PROJECTS.length,
+                      label: "Projects Built",
+                      color: "from-green-400 to-teal-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: profile.stats.clientSatisfaction || "100%",
+                      label: "Client Satisfaction",
+                      color: "from-orange-400 to-red-400",
+                      icon: FiStar,
+                    },
+                  ]
+                  : [
+                    {
+                      value: "3+",
+                      label: "Years Experience",
+                      color: "from-purple-400 to-pink-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: `${skills.length}+`,
+                      label: "Technologies",
+                      color: "from-blue-400 to-cyan-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: PROJECTS.length,
+                      label: "Projects Built",
+                      color: "from-green-400 to-teal-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: "100%",
+                      label: "Client Satisfaction",
+                      color: "from-orange-400 to-red-400",
+                      icon: FiStar,
+                    },
+                  ]
+                ).map((stat, index) => (
                   <motion.div
                     key={index}
                     whileHover={{ scale: 1.05, y: -5 }}

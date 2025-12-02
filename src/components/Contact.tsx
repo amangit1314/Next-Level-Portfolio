@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FaMailBulk } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import React from "react";
-import { inter, jetbrainsMono } from "@/lib/fonts";
+import { inter, jetbrainsMono, unbounded } from "@/lib/fonts";
 
 const Contact = () => {
   const containerVariants = {
@@ -63,7 +63,7 @@ const Contact = () => {
               <div className="w-8 h-px bg-gradient-to-r from-pink-500 to-purple-500" />
             </div>
             <h2
-              className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent ${inter.className}`}
+              className={`text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent ${unbounded.className}`}
             >
               Get In Touch
             </h2>
@@ -122,7 +122,7 @@ const Contact = () => {
                               "w-6 h-6 text-gray-300 group-hover/link:text-purple-400 transition-colors duration-300",
                           })}
                         </div>
-                        <span className="text-sm font-medium text-gray-300 group-hover/link:text-white transition-colors duration-300">
+                        <span className={`text-sm font-medium text-gray-300 group-hover/link:text-white transition-colors duration-300 ${unbounded.className}`}>
                           {social.name}
                         </span>
                       </motion.div>
@@ -149,7 +149,7 @@ const Contact = () => {
                   </div>
                   <Link
                     href="mailto:amansoni53453@gmail.com"
-                    className="text-base sm:text-lg font-semibold text-white hover:text-purple-300 transition-colors duration-300 flex items-center gap-2 break-all text-center sm:text-left"
+                    className={`text-base sm:text-lg font-semibold text-white hover:text-purple-300 transition-colors duration-300 flex items-center gap-2 break-all text-center sm:text-left ${unbounded.className}`}
                   >
                     amansoni53453@gmail.com
                     <FiArrowUpRight className="w-4 h-4 opacity-0 group-hover/email:opacity-100 transition-opacity duration-300 flex-shrink-0" />

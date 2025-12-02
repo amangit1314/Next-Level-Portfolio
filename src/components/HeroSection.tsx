@@ -1,35 +1,36 @@
 "use client";
 
-import { inter, poppins } from "@/lib/fonts";
-import { PROJECTS } from "@/utils/constants";
+import { inter, poppins, righteous, unbounded } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
   FiArrowDown,
-  FiGithub,
-  FiLinkedin,
-  FiMail,
   FiExternalLink,
 } from "react-icons/fi";
-
-const typewriterTexts = [
-  "Building Seamless Full-Stack Experiences (Next.js + Node.js)",
-  "Crafting Scalable React & TypeScript Architectures",
-  "Blending AI with Real-Time Magic ✨",
-  "Turning Milliseconds into Masterpieces ⚡",
-  // "Engineering E-Commerce & EdTech Platforms that Convert",
-  "Designing Interfaces People *Love* to Use ❤️",
-];
+import { client } from "@/sanity/lib/client";
+import { profileQuery } from "@/sanity/lib/queries";
+import * as Icons from "react-icons/fi";
 
 const HeroSection = () => {
+  const [profile, setProfile] = useState<any>(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const data = await client.fetch(profileQuery);
+      setProfile(data);
+    };
+    fetchProfile();
+  }, []);
+
   // Typewriter effect
   useEffect(() => {
-    const currentText = typewriterTexts[currentTextIndex];
+    if (!profile?.typewriterTexts?.length) return;
+
+    const currentText = profile.typewriterTexts[currentTextIndex];
     let timeout: NodeJS.Timeout;
 
     if (isTyping) {
@@ -46,13 +47,13 @@ const HeroSection = () => {
           setDisplayedText(displayedText.slice(0, -1));
         }, 50);
       } else {
-        setCurrentTextIndex((prev) => (prev + 1) % typewriterTexts.length);
+        setCurrentTextIndex((prev) => (prev + 1) % profile.typewriterTexts.length);
         setIsTyping(true);
       }
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedText, isTyping, currentTextIndex]);
+  }, [displayedText, isTyping, currentTextIndex, profile]);
 
   const handleScrollToProjects = () => {
     const projectsSection = document.querySelector("#projects");
@@ -60,6 +61,14 @@ const HeroSection = () => {
       projectsSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const getIconComponent = (iconName: string) => {
+    // @ts-ignore
+    return Icons[iconName] || Icons.FiLink;
+  };
+
+  // Don't render until profile data is loaded from Sanity
+  if (!profile) return null;
 
   return (
     <section
@@ -99,6 +108,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
       </div>
 
+      {/* Main content */}
       <div className="relative z-10 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center max-w-7xl mx-auto px-4 py-20">
         {/* Text Content - Left Side */}
         <motion.div
@@ -122,45 +132,6 @@ const HeroSection = () => {
             </span>
           </motion.div>
 
-          {/* <div className="space-y-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="space-y-4"
-            >
-              <h1
-                className={`text-3xl lg:text-4xl space-x-2 xl:text-8xl font-bold leading-tight tracking-tight ${poppins.className}`}
-              >
-                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Aman
-                </span>
-               
-                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                  Soni
-                </span>
-              </h1>
-            </motion.div>
-
-          
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="space-y-2"
-            >
-              <div
-                className={`text-2xl lg:text-3xl font-semibold text-gray-300 ${poppins.className}`}
-              >
-                I am a{" "}
-                <span className="text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
-                  {displayedText}
-                  <span className="animate-pulse text-purple-400">|</span>
-                </span>
-              </div>
-            </motion.div>
-          </div> */}
-
           <div className="space-y-4">
             {/* Main Heading */}
             <motion.div
@@ -170,13 +141,13 @@ const HeroSection = () => {
               className="space-y-2"
             >
               <h1
-                className={`font-bold leading-[1.1] tracking-tighter text-4xl sm:text-5xl lg:text-7xl xl:text-8xl ${poppins.className}`}
+                className={`font-bold leading-[1.1] tracking-tighter text-4xl sm:text-5xl lg:text-7xl xl:text-8xl ${unbounded.className}`}
               >
                 <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Aman
+                  {profile.name?.split(" ")[0]}
                 </span>{" "}
                 <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                  Soni
+                  {profile.name?.split(" ")[1]}
                 </span>
               </h1>
             </motion.div>
@@ -209,11 +180,7 @@ const HeroSection = () => {
             <p
               className={`text-gray-400 text-lg leading-relaxed ${inter.className}`}
             >
-              With{" "}
-              <span className="text-purple-400 font-semibold">3+ years</span> of
-              experience, I create digital experiences that blend beautiful
-              design with robust functionality. Passionate about building
-              scalable applications using modern technologies.
+              {profile.shortBio}
             </p>
           </motion.div>
 
@@ -225,9 +192,9 @@ const HeroSection = () => {
             className="grid grid-cols-3 gap-8"
           >
             {[
-              { number: "3+", label: "Years Experience" },
-              { number: PROJECTS.length, label: "Projects" },
-              { number: "100%", label: "Client Satisfaction" },
+              { number: profile.stats?.experienceYears, label: "Years Experience" },
+              { number: profile.stats?.projectsCount, label: "Projects" },
+              { number: profile.stats?.clientSatisfaction, label: "Client Satisfaction" },
             ].map((stat, index) => (
               <div key={stat.label} className="text-center lg:text-left">
                 <div
@@ -262,7 +229,7 @@ const HeroSection = () => {
             </motion.button>
 
             <motion.a
-              href="/resume.pdf"
+              href={profile.resume?.asset?.url}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -280,35 +247,22 @@ const HeroSection = () => {
             transition={{ delay: 1.4, duration: 0.6 }}
             className="flex items-center justify-center lg:justify-start space-x-4 pt-6"
           >
-            {[
-              {
-                icon: FiGithub,
-                href: "https://github.com/yourusername",
-                label: "GitHub",
-              },
-              {
-                icon: FiLinkedin,
-                href: "https://linkedin.com/in/yourusername",
-                label: "LinkedIn",
-              },
-              {
-                icon: FiMail,
-                href: "mailto:your.email@example.com",
-                label: "Email",
-              },
-            ].map((social, index) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                className="p-3 bg-zinc-800/50 hover:bg-zinc-700 border border-zinc-700/50 hover:border-purple-500/50 rounded-xl transition-all duration-300 group"
-              >
-                <social.icon className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-300" />
-              </motion.a>
-            ))}
+            {profile.socialLinks?.map((social: any, index: number) => {
+              const Icon = getIconComponent(social.iconName);
+              return (
+                <motion.a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="p-3 bg-zinc-800/50 hover:bg-zinc-700 border border-zinc-700/50 hover:border-purple-500/50 rounded-xl transition-all duration-300 group"
+                >
+                  <Icon className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors duration-300" />
+                </motion.a>
+              );
+            })}
           </motion.div>
         </motion.div>
 
@@ -323,8 +277,8 @@ const HeroSection = () => {
             {/* Main Image Container */}
             <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden">
               <Image
-                src="/images/aman_avatar.webp"
-                alt="Aman Soni - Full Stack Developer"
+                src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
+                alt={`${profile.name} - ${profile.role}`}
                 fill
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 quality={95}
@@ -360,7 +314,7 @@ const HeroSection = () => {
               className="absolute -bottom-4 -left-4 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl shadow-lg"
             >
               <div className={`text-white font-semibold ${poppins.className}`}>
-                <div className="text-sm">3+ Years</div>
+                <div className="text-sm">{profile.stats?.experienceYears}</div>
                 <div className="text-xs opacity-90">Experience</div>
               </div>
             </motion.div>

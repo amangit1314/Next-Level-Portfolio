@@ -1,33 +1,93 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { PROJECTS } from "@/utils/constants";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { Inter, Poppins } from "next/font/google";
-import { FiArrowRight, FiExternalLink, FiGithub } from "react-icons/fi";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
+import { client } from "@/sanity/lib/client";
+import { projectsQuery, profileQuery } from "@/sanity/lib/queries";
+import { unbounded, inter } from "@/lib/fonts";
+import Header from "@/components/Header";
 
-const inter = Inter({
-  weight: ["300", "400", "500", "600"],
-  subsets: ["latin"],
-});
+interface Project {
+  _id: string;
+  title: string;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+  };
+  link?: string;
+  code?: string;
+  description: string;
+  technologies: string[];
+  duration?: string;
+  role?: string;
+  achievements?: string[];
+}
 
-const poppins = Poppins({
-  weight: ["400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-});
+interface ProfileStats {
+  projectsCompleted?: number;
+  yearsExperience?: number;
+  technologies?: number;
+}
 
 const Projects = () => {
-  const containerRef = useRef(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [stats, setStats] = useState<ProfileStats>({});
+  const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // const containerRef = useRef(null);
+
+  // // Only initialize useScroll after component is mounted to avoid hydration errors
+  // const { scrollYProgress } = useScroll({
+  //   target: isMounted ? containerRef : undefined,
+  //   offset: ["start end", "end start"],
+  // });
+
+  const containerRef = useRef<HTMLElement | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    // on the server this will be `false`, so target = undefined
+    // target: isClient ? containerRef : undefined,
     offset: ["start end", "end start"],
   });
 
   // Parallax transforms
   const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const bgY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+
+  // Handle mounting
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Fetch data from Sanity
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [projectsData, profileData] = await Promise.all([
+          client.fetch(projectsQuery),
+          client.fetch(profileQuery),
+        ]);
+        setProjects(projectsData);
+        setStats(profileData?.stats || {});
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Animation variants
   const containerVariants = {
@@ -48,18 +108,6 @@ const Projects = () => {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
-
-  const floatingVariants = {
-    float: {
-      y: [-10, 10, -10],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
       },
     },
   };
@@ -82,12 +130,13 @@ const Projects = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const stats = [
-    { number: PROJECTS.length, label: "Projects Completed" },
-    { number: "3+", label: "Years Experience" },
-    { number: "15+", label: "Technologies" },
-    { number: "100%", label: "Client Satisfaction" },
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <section
@@ -106,10 +155,10 @@ const Projects = () => {
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-blue-600/5 rounded-full blur-3xl" />
 
-        {/* Grid Pattern - Darker */}
+        {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
 
-        {/* Dark overlay to ensure darkness */}
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
@@ -121,17 +170,19 @@ const Projects = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="space-y-20"
         >
+          <Header />
+          <div className="mt-10" />
           {/* Enhanced Section Header */}
-          <ProjectsHeader />
+          <ProjectsHeader projectCount={projects.length} stats={stats} />
 
           {/* Enhanced Projects Grid */}
           <motion.div
             variants={containerVariants}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
-            {PROJECTS.map((project, index) => (
+            {projects.map((project, index) => (
               <motion.div
-                key={project.id}
+                key={project._id}
                 variants={itemVariants}
                 className="project-card group relative bg-zinc-900/80 backdrop-blur-md rounded-3xl border border-zinc-800/70 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
                 style={{
@@ -150,12 +201,14 @@ const Projects = () => {
 
                 {/* Project Image */}
                 <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-all duration-700 group-hover:scale-110"
-                  />
+                  {project.image?.asset?.url && (
+                    <Image
+                      src={project.image.asset.url}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-all duration-700 group-hover:scale-110"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/40 to-transparent" />
 
                   {/* Project Number */}
@@ -165,7 +218,7 @@ const Projects = () => {
                     transition={{ delay: index * 0.1 }}
                     className="absolute top-4 left-4 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full border border-purple-500/30"
                   >
-                    <span className="text-xs font-mono text-purple-400">
+                    <span className={`text-xs font-mono text-purple-400 ${unbounded.className}`}>
                       #{String(index + 1).padStart(2, "0")}
                     </span>
                   </motion.div>
@@ -175,6 +228,8 @@ const Projects = () => {
                     {project.code && (
                       <motion.a
                         href={project.code}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{ scale: 1.1 }}
                         className="p-2 bg-black/80 backdrop-blur-md rounded-lg border border-zinc-700/70 hover:border-purple-500/50 transition-all duration-300"
                       >
@@ -184,6 +239,8 @@ const Projects = () => {
                     {project.link && (
                       <motion.a
                         href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{ scale: 1.1 }}
                         className="p-2 bg-black/80 backdrop-blur-md rounded-lg border border-zinc-700/70 hover:border-purple-500/50 transition-all duration-300"
                       >
@@ -197,13 +254,13 @@ const Projects = () => {
                 <div className="p-6 space-y-4">
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-px bg-gradient-to-r from-purple-500 to-transparent" />
-                    <span className="text-xs font-mono text-purple-400 uppercase tracking-wider">
+                    <span className={`text-xs font-mono text-purple-400 uppercase tracking-wider ${unbounded.className}`}>
                       Case Study
                     </span>
                   </div>
 
                   <h3
-                    className={`text-2xl font-bold text-white ${poppins.className} group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300`}
+                    className={`text-2xl font-bold text-white ${unbounded.className} group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300`}
                   >
                     {project.title}
                   </h3>
@@ -216,30 +273,19 @@ const Projects = () => {
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 pt-2">
-                    {project.technologies.map((tech, techIndex) => (
+                    {project.technologies?.map((tech, techIndex) => (
                       <motion.span
                         key={techIndex}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: techIndex * 0.05 }}
                         whileHover={{ scale: 1.05, y: -2 }}
-                        className="px-3 py-1 bg-zinc-800/80 text-gray-300 rounded-lg border border-zinc-700/70 hover:border-purple-500/50 hover:text-purple-300 transition-all duration-300 text-sm font-medium backdrop-blur-sm"
+                        className={`px-3 py-1 bg-zinc-800/80 text-gray-300 rounded-lg border border-zinc-700/70 hover:border-purple-500/50 hover:text-purple-300 transition-all duration-300 text-sm font-medium backdrop-blur-sm ${unbounded.className}`}
                       >
                         {tech}
                       </motion.span>
                     ))}
                   </div>
-
-                  {/* CTA Button */}
-                  {/* <motion.div className="pt-4" whileHover={{ x: 5 }}>
-                    <Link
-                      href={project.link || "#"}
-                      className="group/btn inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-xl font-medium transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
-                    >
-                      <span>Explore Project</span>
-                      <FiArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
-                    </Link>
-                  </motion.div> */}
                 </div>
               </motion.div>
             ))}
@@ -252,13 +298,16 @@ const Projects = () => {
 
 export default Projects;
 
-const ProjectsHeader = () => {
+interface ProjectsHeaderProps {
+  projectCount: number;
+  stats: ProfileStats;
+}
 
-  const stats = [
-    { number: `${PROJECTS.length}+`, label: "Projects" },
-    { number: "3+", label: "Years" },
-    // { number: "50K+", label: "Lines of Code" },
-    { number: "15+", label: "Technologies" },
+const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) => {
+  const headerStats = [
+    { number: `${projectCount}+`, label: "Projects" },
+    { number: `${stats.yearsExperience || 3}+`, label: "Years" },
+    { number: `${stats.technologies || 15}+`, label: "Technologies" },
   ];
 
   return (
@@ -287,7 +336,6 @@ const ProjectsHeader = () => {
           transition={{
             duration: 8,
             repeat: Infinity,
-            ease: "easeInOut",
           }}
           className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/30 blur-[120px] rounded-full"
         />
@@ -299,7 +347,6 @@ const ProjectsHeader = () => {
           transition={{
             duration: 10,
             repeat: Infinity,
-            ease: "easeInOut",
             delay: 1,
           }}
           className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/30 blur-[120px] rounded-full"
@@ -312,7 +359,6 @@ const ProjectsHeader = () => {
           transition={{
             duration: 7,
             repeat: Infinity,
-            ease: "easeInOut",
             delay: 2,
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-pink-500/20 blur-[100px] rounded-full"
@@ -356,7 +402,7 @@ const ProjectsHeader = () => {
             transition={{ delay: 0.2 }}
             className="flex justify-center mb-8"
           >
-            <ol className="flex items-center space-x-3 text-sm backdrop-blur-sm bg-white/5 px-6 py-3 rounded-full border border-white/10">
+            <ol className={`flex items-center space-x-3 text-sm backdrop-blur-sm bg-white/5 px-6 py-3 rounded-full border border-white/10 ${unbounded.className}`}>
               <li>
                 <a
                   href="/"
@@ -372,14 +418,14 @@ const ProjectsHeader = () => {
             </ol>
           </motion.nav>
 
-          {/* Enhanced Title with Glitch Effect */}
+          {/* Enhanced Title */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mb-8"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight">
+            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 tracking-tight ${unbounded.className}`}>
               <span className="inline-block bg-gradient-to-r pb-3 from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
                 Projects
               </span>
@@ -399,14 +445,14 @@ const ProjectsHeader = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-xl md:text-2xl text-neutral-300 max-w-4xl mx-auto mb-16 leading-relaxed"
+            className={`text-xl md:text-2xl text-neutral-300 max-w-4xl mx-auto mb-16 leading-relaxed ${inter.className}`}
           >
             Showcasing{" "}
-            <span className="text-purple-400 font-semibold">
-              {PROJECTS.length}+ projects
+            <span className={`text-purple-400 font-semibold ${unbounded.className}`}>
+              {projectCount}+ projects
             </span>{" "}
             built over{" "}
-            <span className="text-cyan-400 font-semibold">3 years</span> of
+            <span className={`text-cyan-400 font-semibold ${unbounded.className}`}>{stats.yearsExperience || 3} years</span> of
             professional development experience.
             <br className="hidden md:block" />
             <span className="text-neutral-400">
@@ -416,7 +462,7 @@ const ProjectsHeader = () => {
 
           {/* Enhanced Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
+            {headerStats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -434,7 +480,7 @@ const ProjectsHeader = () => {
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent rounded-full" />
 
                   <motion.div
-                    className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-purple-200 mb-3"
+                    className={`text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-purple-200 mb-3 ${unbounded.className}`}
                     initial={{ scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.8 + index * 0.1, type: "spring" }}
@@ -442,7 +488,7 @@ const ProjectsHeader = () => {
                     {stat.number}
                   </motion.div>
 
-                  <div className="text-sm font-medium text-neutral-400 uppercase tracking-wider">
+                  <div className={`text-sm font-medium text-neutral-400 uppercase tracking-wider ${unbounded.className}`}>
                     {stat.label}
                   </div>
 
@@ -463,7 +509,7 @@ const ProjectsHeader = () => {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="inline-flex flex-col items-center text-neutral-500 hover:text-purple-400 transition-colors cursor-pointer"
+              className={`inline-flex flex-col items-center text-neutral-500 hover:text-purple-400 transition-colors cursor-pointer ${unbounded.className}`}
             >
               <span className="text-xs uppercase tracking-wider mb-2">
                 Scroll to explore

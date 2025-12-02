@@ -178,7 +178,7 @@ const Footer = () => {
               onClick={scrollToTop}
               className="flex items-center space-x-2 px-4 py-2 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:border-purple-500/50 text-zinc-400 hover:text-white transition-all duration-300 hover:scale-105"
             >
-              <span className="text-sm">Back to Top</span>
+              <span className={`${poppins.className} text-xs`}>Back to Top</span>
               <FiArrowUp className="w-4 h-4" />
             </button>
           </div>

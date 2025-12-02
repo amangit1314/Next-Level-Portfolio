@@ -1,15 +1,40 @@
-import React, { useRef, useEffect } from "react";
-import { PROJECTS } from "@/utils/constants";
-import Image from "next/image";
-import Link from "next/link";
+import React, { useRef, useEffect, useState } from "react";
+// import Image from "next/image";
+// import Link from "next/link";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { client } from "@/sanity/lib/client";
+import { projectsQuery } from "@/sanity/lib/queries";
+import { poppins } from "@/lib/fonts";
+import ProjectCard from "./ProjectCard";
 
 const Projects = () => {
-  const containerRef = useRef(null);
+  const [projects, setProjects] = useState<any[]>([]);
+  // const containerRef = useRef(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: containerRef,
+  //   offset: ["start end", "end start"],
+  // });
+
+  const containerRef = useRef<HTMLElement | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    // on the server this will be `false`, so target = undefined
+    // target: isClient ? containerRef : undefined,
     offset: ["start end", "end start"],
   });
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const data = await client.fetch(projectsQuery);
+      setProjects(data);
+    };
+    fetchProjects();
+  }, []);
 
   // Parallax transforms for background elements
   const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -28,18 +53,7 @@ const Projects = () => {
     },
   };
 
-  const projectItem = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: [0.215, 0.61, 0.355, 1], // Custom easing
-      },
-    },
-  };
+
 
   const glowPulse = {
     initial: { opacity: 0.3 },
@@ -48,7 +62,7 @@ const Projects = () => {
       transition: {
         duration: 3,
         repeat: Infinity,
-        ease: "easeInOut",
+        // ease: "easeInOut",
       },
     },
   };
@@ -141,11 +155,11 @@ const Projects = () => {
             </p>
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-            <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+            <span className={`bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent ${poppins.className}`}>
               Featured Projects
             </span>
-          </h2>
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
@@ -166,130 +180,8 @@ const Projects = () => {
           viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 gap-10 md:gap-16"
         >
-          {PROJECTS.slice(0, 4).map((project, index) => (
-            <motion.div
-              key={index}
-              variants={projectItem}
-              className="project-card group relative overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900/90 via-neutral-900/50 to-neutral-900/90 backdrop-blur-xl border border-neutral-800 hover:border-purple-500/50 transition-all duration-500"
-              style={{
-                background: `
-                  radial-gradient(
-                    600px circle at var(--mouse-x) var(--mouse-y),
-                    rgba(168, 85, 247, 0.06),
-                    transparent 40%
-                  ),
-                  linear-gradient(135deg, rgba(17, 17, 17, 0.9) 0%, rgba(17, 17, 17, 0.7) 100%)
-                `,
-              }}
-            >
-              {/* Animated border gradient */}
-              <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                <div className="absolute inset-[-2px] bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
-              </div>
-
-              {/* Shine effect */}
-              <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
-              </div>
-
-              <div className="relative flex flex-col lg:flex-row">
-                {/* Enhanced Image Container */}
-                <div className="lg:w-1/2 relative overflow-hidden h-64 md:h-80 lg:h-auto">
-                  <Link href={project.link} className="relative block h-full">
-                    {/* Image wrapper with effects */}
-                    <div className="relative h-full overflow-hidden">
-                      <Image
-                        src={project.image}
-                        width={800}
-                        height={500}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
-                      />
-
-                      {/* Overlay effects */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-transparent to-cyan-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay" />
-
-                      {/* Project number badge */}
-                      <motion.div
-                        initial={{ x: -100, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 * index, duration: 0.5 }}
-                        className="absolute top-6 left-6 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full border border-purple-500/30"
-                      >
-                        <span className="text-xs font-mono text-purple-400">
-                          #{String(index + 1).padStart(2, "0")}
-                        </span>
-                      </motion.div>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* Enhanced Content */}
-                <div className="p-8 lg:p-10 lg:w-1/2 flex flex-col justify-center relative">
-                  {/* Category badge */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="mb-4 inline-flex items-center gap-2 self-start"
-                  >
-                    <div className="h-px w-8 bg-gradient-to-r from-purple-500 to-transparent" />
-                    <span className="text-xs font-mono text-purple-400 uppercase tracking-wider">
-                      Case Study
-                    </span>
-                  </motion.div>
-
-                  <Link href={project.link}>
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-300">
-                      {project.title}
-                    </h3>
-                  </Link>
-
-                  <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Enhanced Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.technologies.map((tech, techIndex) => (
-                      <motion.span
-                        key={techIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.05 * techIndex }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className="px-4 py-2 bg-gradient-to-br from-neutral-800/80 to-neutral-900/80 text-neutral-300 rounded-xl border border-neutral-700/50 hover:border-purple-500/50 hover:text-purple-300 transition-all duration-300 text-sm font-medium backdrop-blur-sm"
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-
-                  {/* Enhanced CTA Button */}
-                  {/* <motion.div className="mt-auto" whileHover={{ x: 5 }}>
-                    <Link
-                      href={project.link}
-                      className="group/btn inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-xl font-medium transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
-                    >
-                      <span>Explore Project</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:rotate-[-45deg]"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </Link>
-                  </motion.div> */}
-                </div>
-              </div>
-            </motion.div>
+          {projects.slice(0, 4).map((project, index) => (
+            <ProjectCard key={`project_${index}`} index={index} project={project} />
           ))}
         </motion.div>
 
@@ -308,7 +200,7 @@ const Projects = () => {
             {/* Animated background */}
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-purple-600/20 to-purple-600/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
 
-            <span className="relative text-lg font-medium text-purple-400 group-hover:text-purple-300">
+            <span className={`relative text-xs font-medium text-purple-400 group-hover:text-purple-300 ${poppins.className}`}>
               Discover All Projects
             </span>
             <svg

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { FaQuoteLeft } from "react-icons/fa6";
 import Image from "next/image";
+import { unbounded } from "@/lib/fonts";
 
 const TestimonialCard = ({
   comment,
@@ -56,7 +57,7 @@ const TestimonialCard = ({
           </div>
 
           <div className="flex-1 text-left">
-            <p className="text-white font-semibold text-base group-hover:text-purple-100 transition-colors duration-300">
+            <p className={`text-white font-semibold text-base group-hover:text-purple-100 transition-colors duration-300 ${unbounded.className}`}>
               {name}
             </p>
             <p className="text-sm text-gray-400 group-hover:text-pink-400 transition-colors duration-300">
