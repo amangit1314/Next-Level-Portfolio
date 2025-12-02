@@ -1,3 +1,4 @@
+import React, { JSX } from "react";
 import { poppins } from "@/lib/fonts";
 import { motion } from "framer-motion";
 
@@ -18,7 +19,7 @@ const ExperienceCard = ({
   return (
     <motion.div
       whileHover={{ scale: 1.05, y: -4 }}
-      className="group relative bg-zinc-800/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-zinc-700/50 hover:border-purple-500/50 transition-all duration-500 cursor-pointer" // FIXED: Responsive padding
+      className="group relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-theme-border/50 hover:border-theme-primary/50 transition-all duration-500 cursor-pointer" // FIXED: Responsive padding
     >
       {/* Animated Gradient Background */}
       <div
@@ -41,17 +42,17 @@ const ExperienceCard = ({
         <div className="space-y-1 sm:space-y-3">
           <div className="">
             <div
-              className={`font-bold text-white text-base sm:text-lg ${poppins.className}`}
+              className={`font-bold text-theme-text-primary text-base sm:text-lg ${poppins.className}`}
             >
               {field}
             </div>
             <div
-              className={`font-semibold text-gray-300 text-sm sm:text-base ${poppins.className}`}
+              className={`font-semibold text-theme-text-secondary text-sm sm:text-base ${poppins.className}`}
             >
               {duration}
             </div>
           </div>
-          {/* <div className="text-xs sm:text-sm text-gray-400 font-medium">
+          {/* <div className="text-xs sm:text-sm text-theme-text-muted font-medium">
             {description}
           </div> */}
         </div>

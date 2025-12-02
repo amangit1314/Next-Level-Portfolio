@@ -16,6 +16,8 @@ const inter = Inter({
   variable: "--font-inter", // Add this line
 });
 
+import { ThemeProvider } from "@/contexts/ThemeContext";
+
 export const metadata: Metadata = {
   title: "Aman Soni",
   description: "Aman Soni development portfolio",
@@ -33,7 +35,9 @@ export default function RootLayout({
       className={`${poppins.variable} ${inter.variable}`}
     >
       <body className="font-inter" suppressHydrationWarning>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

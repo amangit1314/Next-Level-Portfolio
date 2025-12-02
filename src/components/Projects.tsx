@@ -89,7 +89,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={containerRef}
-      className="relative py-20 px-4 md:px-8 md:py-32 bg-gradient-to-b from-black via-neutral-950 to-black overflow-hidden"
+      className="relative py-20 px-4 md:px-8 md:py-32 bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary overflow-hidden"
     >
       {/* Advanced animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -102,7 +102,7 @@ const Projects = () => {
             variants={glowPulse}
             initial="initial"
             animate="animate"
-            className="w-full h-full rounded-full bg-purple-600/30 blur-[100px]"
+            className="w-full h-full rounded-full bg-theme-primary/30 blur-[100px]"
           />
         </motion.div>
 
@@ -114,7 +114,7 @@ const Projects = () => {
             variants={glowPulse}
             initial="initial"
             animate="animate"
-            className="w-full h-full rounded-full bg-cyan-500/30 blur-[100px]"
+            className="w-full h-full rounded-full bg-theme-secondary/30 blur-[100px]"
             style={{ animationDelay: "1.5s" }}
           />
         </motion.div>
@@ -124,7 +124,7 @@ const Projects = () => {
           style={{ rotate: bgRotate }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]"
         >
-          <div className="w-full h-full rounded-full border border-purple-500/10 bg-gradient-to-r from-purple-500/5 via-transparent to-cyan-500/5" />
+          <div className="w-full h-full rounded-full border border-theme-primary/10 bg-gradient-to-r from-theme-primary/5 via-transparent to-theme-secondary/5" />
         </motion.div>
 
         {/* Grid pattern overlay */}
@@ -144,19 +144,19 @@ const Projects = () => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-purple-500/20 bg-purple-500/5 backdrop-blur-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-theme-primary/20 bg-theme-primary/5 backdrop-blur-sm"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-theme-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-theme-primary"></span>
             </span>
-            <p className="text-sm font-mono text-purple-400">
+            <p className="text-sm font-mono text-theme-primary">
               Portfolio Showcase
             </p>
           </motion.div>
 
-          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-            <span className={`bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent ${poppins.className}`}>
+          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-theme-text-primary mb-6">
+            <span className={`theme-text-gradient bg-clip-text text-transparent ${poppins.className}`}>
               Featured Projects
             </span>
           </motion.h2>
@@ -165,7 +165,7 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="max-w-2xl mx-auto text-lg text-neutral-400"
+            className="max-w-2xl mx-auto text-lg text-theme-text-muted"
           >
             Crafting digital experiences with modern technologies and creative
             solutions
@@ -195,19 +195,19 @@ const Projects = () => {
         >
           <a
             href="/projects"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 border border-purple-500/30 hover:border-purple-400/50 transition-all duration-500"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-gradient-to-br from-theme-bg-secondary to-theme-bg-tertiary border border-theme-primary/30 hover:border-theme-primary/50 transition-all duration-500"
           >
             {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 via-purple-600/20 to-purple-600/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/0 via-theme-primary/20 to-theme-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
 
-            <span className={`relative text-xs font-medium text-purple-400 group-hover:text-purple-300 ${poppins.className}`}>
+            <span className={`relative text-xs font-medium text-theme-primary group-hover:text-theme-primary-light ${poppins.className}`}>
               Discover All Projects
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="relative w-5 h-5 text-purple-400 group-hover:text-purple-300 transition-all duration-300 group-hover:translate-x-1"
+              className="relative w-5 h-5 text-theme-primary group-hover:text-theme-primary-light transition-all duration-300 group-hover:translate-x-1"
             >
               <path
                 fillRule="evenodd"

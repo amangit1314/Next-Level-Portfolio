@@ -25,19 +25,19 @@ const TestimonialCard = ({
         y: -5,
         transition: { duration: 0.2 },
       }}
-      className="group relative w-[320px] sm:w-[360px] md:w-[400px] bg-zinc-800/40 backdrop-blur-sm p-8 rounded-2xl border border-zinc-700/30 hover:border-purple-500/30 transition-all duration-300 shadow-lg"
+      className="group relative w-[320px] sm:w-[360px] md:w-[400px] bg-theme-bg-secondary/40 backdrop-blur-sm p-8 rounded-2xl border border-theme-border/30 hover:border-theme-primary/30 transition-all duration-300 shadow-lg"
     >
       {/* Gradient Background on Hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-pink-500/5 to-orange-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className="relative z-10">
         {/* Quote Icon */}
-        <div className="text-purple-500 text-3xl mb-6 group-hover:text-pink-500 transition-colors duration-300">
+        <div className="text-theme-primary text-3xl mb-6 group-hover:text-theme-secondary transition-colors duration-300">
           <FaQuoteLeft />
         </div>
 
         {/* Comment */}
-        <p className="text-gray-300 text-sm leading-relaxed mb-6 line-clamp-6">
+        <p className="text-theme-text-secondary text-sm leading-relaxed mb-6 line-clamp-6">
           {comment}
         </p>
 
@@ -50,25 +50,25 @@ const TestimonialCard = ({
               alt={name}
               width={60}
               height={60}
-              className="w-[60px] h-[60px] rounded-full object-cover flex-shrink-0 border-2 border-zinc-600 group-hover:border-purple-500/50 transition-all duration-300 shadow-lg"
+              className="w-[60px] h-[60px] rounded-full object-cover flex-shrink-0 border-2 border-theme-border group-hover:border-theme-primary/50 transition-all duration-300 shadow-lg"
             />
             {/* Online Indicator */}
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-zinc-800" />
+            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-theme-bg-secondary" />
           </div>
 
           <div className="flex-1 text-left">
-            <p className={`text-white font-semibold text-base group-hover:text-purple-100 transition-colors duration-300 ${unbounded.className}`}>
+            <p className={`text-theme-text-primary font-semibold text-base group-hover:text-theme-primary-light transition-colors duration-300 ${unbounded.className}`}>
               {name}
             </p>
-            <p className="text-sm text-gray-400 group-hover:text-pink-400 transition-colors duration-300">
+            <p className="text-sm text-theme-text-muted group-hover:text-theme-secondary transition-colors duration-300">
               {post}
             </p>
           </div>
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-purple-500/30 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-pink-500/30 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-theme-primary/30 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-theme-secondary/30 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </motion.div>
   );

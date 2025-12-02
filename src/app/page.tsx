@@ -55,7 +55,7 @@ const Home = () => {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-white overflow-x-hidden">
+    <main className="flex flex-col min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary overflow-x-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
         <Header />

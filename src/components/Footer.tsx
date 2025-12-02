@@ -66,11 +66,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-zinc-900 to-black border-t border-zinc-800/50 overflow-hidden">
+    <footer className="relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary border-t border-theme-border/50 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-20 left-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 right-1/4 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl" />
+        <div className="absolute -top-20 left-1/4 w-64 h-64 bg-theme-primary/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 right-1/4 w-64 h-64 bg-theme-secondary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
@@ -88,10 +88,10 @@ const Footer = () => {
             className="lg:col-span-2 space-y-6"
           >
             <div className="space-y-4">
-              <h3 className={`${poppins.className} text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent`}>
+              <h3 className={`${poppins.className} text-2xl font-bold theme-text-gradient bg-clip-text text-transparent`}>
                 Let&apos;s Build Something Amazing
               </h3>
-              <p className="text-zinc-400 max-w-md leading-relaxed">
+              <p className="text-theme-text-muted max-w-md leading-relaxed">
                 Passionate full-stack developer crafting digital experiences
                 with modern technologies and creative solutions.
               </p>
@@ -107,7 +107,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   variants={itemVariants}
                   whileHover={{ scale: 1.1, y: -2 }}
-                  className="p-3 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:border-purple-500/50 text-zinc-400 hover:text-white transition-all duration-300"
+                  className="p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
                 </motion.a>
@@ -117,7 +117,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className={`${poppins.className} text-lg font-semibold text-white`}>Quick Links</h4>
+            <h4 className={`${poppins.className} text-lg font-semibold text-theme-text-primary`}>Quick Links</h4>
             <div className="space-y-3">
               {[
                 { name: "Home", path: "#home" },
@@ -134,7 +134,7 @@ const Footer = () => {
                       element.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="block text-zinc-400 hover:text-white transition-all duration-300 text-left hover:translate-x-1 transform "
+                  className="block text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 text-left hover:translate-x-1 transform "
                 >
                   {link.name}
                 </button>
@@ -144,25 +144,25 @@ const Footer = () => {
 
           {/* Tech Stack */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className={`${poppins.className} text-lg font-semibold text-white`}>Built With</h4>
+            <h4 className={`${poppins.className} text-lg font-semibold text-theme-text-primary`}>Built With</h4>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 p-3 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:scale-105 transition-transform duration-300">
-                <SiNextdotjs className="w-6 h-6 text-white" />
-                <span className="text-sm text-zinc-300">Next.js</span>
+              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:scale-105 transition-transform duration-300">
+                <SiNextdotjs className="w-6 h-6 text-theme-text-primary" />
+                <span className="text-sm text-theme-text-secondary">Next.js</span>
               </div>
-              <div className="flex items-center space-x-2 p-3 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:scale-105 transition-transform duration-300">
-                <SiVercel className="w-6 h-6 text-white" />
-                <span className="text-sm text-zinc-300">Vercel</span>
+              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:scale-105 transition-transform duration-300">
+                <SiVercel className="w-6 h-6 text-theme-text-primary" />
+                <span className="text-sm text-theme-text-secondary">Vercel</span>
               </div>
             </div>
           </motion.div>
         </motion.div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-zinc-800/50 py-8">
+        <div className="border-t border-theme-border/50 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             {/* Copyright */}
-            <div className="flex items-center space-x-2 text-zinc-400 text-sm">
+            <div className="flex items-center space-x-2 text-theme-text-muted text-sm">
               <span>&copy; {currentYear} Aman Soni. All rights reserved.</span>
               <span className="hidden sm:inline">•</span>
               <div className="flex items-center space-x-1">
@@ -176,7 +176,7 @@ const Footer = () => {
             {/* Back to Top */}
             <button
               onClick={scrollToTop}
-              className="flex items-center space-x-2 px-4 py-2 bg-zinc-800/50 backdrop-blur-sm rounded-xl border border-zinc-700/50 hover:border-purple-500/50 text-zinc-400 hover:text-white transition-all duration-300 hover:scale-105"
+              className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
             >
               <span className={`${poppins.className} text-xs`}>Back to Top</span>
               <FiArrowUp className="w-4 h-4" />

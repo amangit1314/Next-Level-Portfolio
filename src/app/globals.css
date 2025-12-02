@@ -32,6 +32,28 @@
   --color-border: hsl(214.3 31.8% 91.4%);
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(222.2 84% 4.9%);
+
+  /* Multi-Theme System Mappings */
+  --color-theme-primary: var(--theme-primary);
+  --color-theme-primary-dark: var(--theme-primary-dark);
+  --color-theme-primary-light: var(--theme-primary-light);
+  
+  --color-theme-secondary: var(--theme-secondary);
+  --color-theme-secondary-dark: var(--theme-secondary-dark);
+  --color-theme-secondary-light: var(--theme-secondary-light);
+  
+  --color-theme-accent: var(--theme-accent);
+  
+  --color-theme-bg-primary: var(--theme-bg-primary);
+  --color-theme-bg-secondary: var(--theme-bg-secondary);
+  --color-theme-bg-tertiary: var(--theme-bg-tertiary);
+  --color-theme-bg-hover: var(--theme-bg-hover);
+  
+  --color-theme-text-primary: var(--theme-text-primary);
+  --color-theme-text-secondary: var(--theme-text-secondary);
+  --color-theme-text-muted: var(--theme-text-muted);
+  
+  --color-theme-border: var(--theme-border);
 }
 
 @layer base {
@@ -105,7 +127,6 @@
   }
 }
 
-/* for logo animation */
 @keyframes gradient-x {
   0% {
     background-position: 0% 50%;
@@ -123,4 +144,80 @@
 /* for logo animation */
 .animate-gradient-x {
   animation: gradient-x 2.5s ease-in-out infinite;
+}
+
+/* ========================================
+   MULTI-THEME SYSTEM CSS VARIABLES
+   ======================================== */
+
+:root {
+  /* Theme mode */
+  --theme-mode: 'dark';
+  
+  /* Primary colors - Default: Purple Dream */
+  --theme-primary-light: #C084FC;
+  --theme-primary-light-rgb: 192, 132, 252;
+  --theme-primary: #A855F7;
+  --theme-primary-rgb: 168, 85, 247;
+  --theme-primary-dark: #9333EA;
+  --theme-primary-dark-rgb: 147, 51, 234;
+  
+  /* Secondary colors */
+  --theme-secondary-light: #F472B6;
+  --theme-secondary-light-rgb: 244, 114, 182;
+  --theme-secondary: #EC4899;
+  --theme-secondary-rgb: 236, 72, 153;
+  --theme-secondary-dark: #DB2777;
+  --theme-secondary-dark-rgb: 219, 39, 119;
+  
+  /* Accent color */
+  --theme-accent: #F97316;
+  --theme-accent-rgb: 249, 115, 22;
+  
+  /* Background colors */
+  --theme-bg-primary: #09090B;
+  --theme-bg-secondary: #18181B;
+  --theme-bg-tertiary: #27272A;
+  --theme-bg-hover: #3F3F46;
+  --theme-bg-light: #52525B;
+  
+  /* Text colors */
+  --theme-text-primary: #FAFAFA;
+  --theme-text-secondary: #D4D4D8;
+  --theme-text-muted: #A1A1AA;
+  
+  /* Border colors */
+  --theme-border: #3F3F46;
+  --theme-border-light: #52525B;
+}
+
+/* Light theme shadow adjustments */
+:root[data-theme-mode="light"] {
+  --theme-shadow: rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme-mode="dark"] {
+  --theme-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Theme utility classes */
+.bg-theme-primary { background-color: var(--theme-primary); }
+.text-theme-primary { color: var(--theme-primary); }
+
+/* Theme gradient utilities */
+@layer utilities {
+  .theme-gradient-primary {
+    background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+  }
+  
+  .theme-gradient-accent {
+    background: linear-gradient(to right, var(--theme-primary-dark), var(--theme-secondary-dark), var(--theme-accent));
+  }
+  
+  .theme-text-gradient {
+    background: linear-gradient(to right, var(--theme-primary-light), var(--theme-secondary-light));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 }

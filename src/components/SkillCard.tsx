@@ -51,7 +51,7 @@
 //         {/* Name & Proficiency */}
 //         <div className="space-y-3">
 //           <div
-//             className={`font-bold text-white text-sm group-hover:text-white transition-colors duration-300 ${poppins.className}`}
+//             className={`font-bold text-white text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${poppins.className}`}
 //           >
 //             {skill.name}
 //           </div>
@@ -89,7 +89,7 @@
 //         {[...Array(3)].map((_, i) => (
 //           <motion.div
 //             key={i}
-//             className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100"
+//             className="absolute w-1 h-1 bg-theme-text-primary rounded-full opacity-0 group-hover:opacity-100"
 //             initial={{
 //               x: Math.random() * 100 - 50,
 //               y: Math.random() * 100 - 50,
@@ -134,7 +134,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         y: -8,
         transition: { type: "spring", stiffness: 400, damping: 25 },
       }}
-      className="group relative bg-zinc-800/40 backdrop-blur-md rounded-2xl border border-zinc-700/50 hover:border-blue-500/50 p-6 cursor-pointer overflow-hidden transition-all duration-500"
+      className="group relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl border border-theme-border/50 hover:border-theme-primary/50 p-6 cursor-pointer overflow-hidden transition-all duration-500"
     >
       {/* Animated Gradient Background */}
       <div
@@ -150,7 +150,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
       <div
         className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
       >
-        <div className="absolute inset-[1px] rounded-2xl bg-zinc-900" />
+        <div className="absolute inset-[1px] rounded-2xl bg-theme-bg-primary" />
       </div>
 
       {/* Skill Content */}
@@ -165,7 +165,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
             {IconComponent ? (
               <IconComponent className="w-8 h-8 text-white drop-shadow-lg" />
             ) : (
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+              <div className="w-8 h-8 bg-theme-text-primary/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
                 <span className="text-xs font-bold text-white/80">?</span>
               </div>
             )}
@@ -175,7 +175,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         {/* Name & Proficiency */}
         <div className="space-y-3">
           <div
-            className={`font-bold text-white text-sm group-hover:text-white transition-colors duration-300 ${poppins.className}`}
+            className={`font-bold text-theme-text-primary text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${poppins.className}`}
           >
             {skill.name}
           </div>
@@ -183,7 +183,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
           {/* Proficiency Bar */}
           {skill.proficiency && (
             <div className="space-y-2">
-              <div className="w-full bg-zinc-700/50 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-theme-bg-tertiary/50 rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${skill.proficiency}%` }}
@@ -196,10 +196,10 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
                 />
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-400 font-medium">
+                <span className="text-xs text-theme-text-muted font-medium">
                   Proficiency
                 </span>
-                <span className="text-xs font-bold text-white">
+                <span className="text-xs font-bold text-theme-text-primary">
                   {skill.proficiency}%
                 </span>
               </div>
@@ -213,7 +213,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100"
+            className="absolute w-1 h-1 bg-theme-text-primary rounded-full opacity-0 group-hover:opacity-100"
             initial={{
               x: Math.random() * 100 - 50,
               y: Math.random() * 100 - 50,

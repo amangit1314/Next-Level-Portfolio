@@ -18,7 +18,7 @@ const floatingVariants = {
     transition: {
       duration: 4,
       repeat: Infinity,
-      ease: "easeInOut",
+      // ease: "easeInOut",
     },
   },
 };
@@ -52,7 +52,7 @@ const Experience = () => {
       x: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
+        // ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
@@ -60,13 +60,13 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-zinc-950 via-transparent to-purple-950/10"
+      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-theme-accent/5 rounded-full blur-3xl" />
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
@@ -87,22 +87,22 @@ const Experience = () => {
               variants={floatingVariants}
               animate="float"
             >
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
-                className={`text-sm font-semibold text-purple-400/90 tracking-widest uppercase ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${poppins.className}`}
               >
                 My Career Journey
               </span>
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
             </motion.div>
             <h2
-              className={`${poppins.className} text-5xl lg:text-7xl font-black bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight`}
+              className={`${poppins.className} text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
             >
               Professional Experience
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full" />
+            <div className="w-24 h-1 theme-gradient-primary mx-auto rounded-full" />
             <p
-              className={`text-gray-400/90 text-lg max-w-2xl mx-auto ${inter.className}`}
+              className={`text-theme-text-muted/90 text-lg max-w-2xl mx-auto ${inter.className}`}
             >
               My journey through the tech industry, building innovative
               solutions and growing as a developer
@@ -116,7 +116,7 @@ const Experience = () => {
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-transparent origin-top"
+              className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-0.5 bg-linear-to-b from-theme-primary via-theme-secondary to-transparent origin-top"
             />
 
             <div className="space-y-12">
@@ -137,9 +137,9 @@ const Experience = () => {
                       type: "spring",
                       stiffness: 200,
                     }}
-                    className="absolute left-6 lg:left-1/2 top-8 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 border-4 border-zinc-900 z-20 shadow-2xl shadow-purple-500/25"
+                    className="absolute left-6 lg:left-1/2 top-8 -translate-x-1/2 w-6 h-6 rounded-full theme-gradient-primary border-4 border-theme-bg-primary z-20 shadow-2xl shadow-theme-primary/25"
                   >
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-sm opacity-75 animate-pulse" />
+                    <div className="absolute inset-0 rounded-full theme-gradient-primary blur-sm opacity-75 animate-pulse" />
                   </motion.div>
 
                   {/* Enhanced Experience Card */}
@@ -153,23 +153,23 @@ const Experience = () => {
                         damping: 25,
                       },
                     }}
-                    className={`group relative flex-1 bg-zinc-800/40 backdrop-blur-md rounded-3xl border border-zinc-700/50 hover:border-purple-500/50 p-8 lg:p-10 transition-all duration-500 ${index % 2 === 0 ? "lg:mr-16" : "lg:ml-16"
+                    className={`group relative flex-1 bg-theme-bg-secondary/40 backdrop-blur-md rounded-3xl border border-theme-border/50 hover:border-theme-primary/50 p-8 lg:p-10 transition-all duration-500 ${index % 2 === 0 ? "lg:mr-16" : "lg:ml-16"
                       }`}
                   >
                     {/* Gradient Background on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-orange-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/10 via-theme-secondary/10 to-theme-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
 
                     <div className="relative z-10 space-y-8">
                       {/* Enhanced Header */}
                       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                         <div className="space-y-4">
                           <div className="flex items-center space-x-4">
-                            <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex-shrink-0" />
+                            <div className="w-3 h-3 theme-gradient-primary rounded-full flex-shrink-0" />
                             <h3
-                              className={`text-2xl lg:text-3xl font-black text-white group-hover:bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent transition-all duration-500 ${poppins.className}`}
+                              className={`text-2xl lg:text-3xl font-black text-theme-primary group-hover:theme-text-gradient bg-clip-text text-transparent transition-all duration-500 ${poppins.className}`}
                             >
                               {experience.role}
                             </h3>
@@ -179,7 +179,7 @@ const Experience = () => {
                               href={experience.companyLink || "#"}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/link inline-flex items-center space-x-3 text-purple-400 hover:text-pink-400 transition-all duration-300"
+                              className="group/link inline-flex items-center space-x-3 text-theme-primary hover:text-theme-secondary transition-all duration-300"
                             >
                               <span
                                 className={`font-bold text-lg ${poppins.className}`}
@@ -191,24 +191,24 @@ const Experience = () => {
                           </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-4 text-sm">
+                        {/* <div className="flex flex-col sm:flex-row gap-4 text-sm">
                           <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="flex items-center space-x-3 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-xl"
+                            className="flex items-center space-x-3 px-4 py-2 bg-theme-primary/10 border border-theme-primary/20 rounded-xl"
                           >
-                            <FiCalendar className="w-4 h-4 text-purple-400" />
+                            <FiCalendar className="w-4 h-4 text-theme-primary" />
                             <span
-                              className={`text-purple-300 font-semibold ${poppins.className}`}
+                              className={`text-theme-primary-light font-semibold ${poppins.className}`}
                             >
                               {experience.year}
                             </span>
                           </motion.div>
-                        </div>
+                        </div> */}
                       </div>
 
                       {/* Enhanced Description */}
                       <motion.p
-                        className={`text-gray-300/90 leading-relaxed text-lg ${inter.className}`}
+                        className={`text-theme-text-secondary/90 leading-relaxed text-lg ${inter.className}`}
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: index * 0.1 + 0.3 }}
@@ -219,9 +219,9 @@ const Experience = () => {
                       {/* Enhanced Technologies */}
                       <div className="space-y-4">
                         <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" />
+                          <div className="w-2 h-2 theme-gradient-primary rounded-full" />
                           <h4
-                            className={`text-sm font-bold text-purple-400 uppercase tracking-wider ${poppins.className}`}
+                            className={`text-sm font-bold text-theme-primary uppercase tracking-wider ${poppins.className}`}
                           >
                             Technologies Used
                           </h4>
@@ -241,7 +241,7 @@ const Experience = () => {
                                 y: -2,
                                 transition: { type: "spring", stiffness: 400 },
                               }}
-                              className={`px-4 py-2 text-sm font-semibold bg-zinc-700/50 text-gray-300 rounded-xl border border-zinc-600/30 hover:border-purple-500/50 hover:bg-purple-500/10 hover:text-purple-300 transition-all duration-300 cursor-default backdrop-blur-sm ${poppins.className}`}
+                              className={`px-4 py-2 text-sm font-semibold bg-theme-bg-tertiary/50 text-theme-text-secondary rounded-xl border border-theme-border/30 hover:border-theme-primary/50 hover:bg-theme-primary/10 hover:text-theme-primary-light transition-all duration-300 cursor-default backdrop-blur-sm ${poppins.className}`}
                             >
                               {tech}
                             </motion.span>
@@ -258,7 +258,7 @@ const Experience = () => {
                             repeat: Infinity,
                             ease: "linear",
                           }}
-                          className="w-8 h-8 border-2 border-purple-500/30 rounded-full"
+                          className="w-8 h-8 border-2 border-theme-primary/30 rounded-full"
                         />
                       </div>
                     </div>
@@ -273,15 +273,15 @@ const Experience = () => {
                       initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className={`px-6 py-3 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl backdrop-blur-sm ${index % 2 === 0 ? "text-left" : "text-right"
+                      className={`px-6 py-3 bg-gradient-to-r from-theme-primary/10 to-theme-secondary/10 border border-theme-primary/20 rounded-2xl backdrop-blur-sm ${index % 2 === 0 ? "text-left" : "text-right"
                         }`}
                     >
                       <div
-                        className={`${poppins.className} text-sm  font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent `}
+                        className={`${poppins.className} text-sm  font-black theme-text-gradient bg-clip-text text-transparent `}
                       >
                         {experience.year}
                       </div>
-                      <div className="text-sm text-gray-400 font-medium">
+                      <div className="text-sm text-theme-text-muted font-medium">
                         Duration
                       </div>
                     </motion.div>
@@ -295,19 +295,19 @@ const Experience = () => {
           <motion.div variants={itemVariants} className="text-center pt-12">
             <div className="relative group">
               {/* Background Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-orange-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/10 via-theme-secondary/10 to-theme-accent/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="relative bg-zinc-800/40 backdrop-blur-md rounded-3xl border border-zinc-700/50 hover:border-purple-500/30 p-12 transition-all duration-500">
+              <div className="relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-3xl border border-theme-border/50 hover:border-theme-primary/30 p-12 transition-all duration-500">
                 <h3
-                  className={`text-3xl lg:text-4xl font-black text-white mb-6 ${poppins.className}`}
+                  className={`text-3xl lg:text-4xl font-black text-theme-text-primary mb-6 ${poppins.className}`}
                 >
                   Ready to Build Something{" "}
-                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  <span className="theme-text-gradient bg-clip-text text-transparent">
                     Amazing?
                   </span>
                 </h3>
                 <p
-                  className={`text-gray-400/90 text-lg mb-8 max-w-md mx-auto ${inter.className}`}
+                  className={`text-theme-text-muted/90 text-lg mb-8 max-w-md mx-auto ${inter.className}`}
                 >
                   Let&apos;s discuss how my experience can help bring your next
                   project to life.
@@ -318,7 +318,7 @@ const Experience = () => {
                 >
                   <Link
                     href="#contact"
-                    className="group/cta relative inline-flex items-center space-x-4 px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 rounded-2xl font-bold text-white shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden"
+                    className="group/cta relative inline-flex items-center space-x-4 px-8 py-4 theme-gradient-accent rounded-2xl font-bold text-theme-text-primary shadow-2xl hover:shadow-theme-primary/30 transition-all duration-500 overflow-hidden"
                   >
                     {/* More Consistent Shine */}
                     <div className="absolute inset-0 overflow-hidden rounded-2xl">

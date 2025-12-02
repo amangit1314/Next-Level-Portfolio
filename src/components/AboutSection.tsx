@@ -19,10 +19,6 @@ import { inter, poppins } from "@/lib/fonts";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
 import { profileQuery } from "@/sanity/lib/queries";
-import * as SiIcons from "react-icons/si";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import { IconType } from "react-icons/lib";
 
 import {
   SiReact,
@@ -127,13 +123,13 @@ export const AboutSection = () => {
   return (
     <section
       id="about"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-zinc-950 via-transparent to-purple-950/10"
+      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-theme-accent/5 rounded-full blur-3xl" />
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
@@ -161,20 +157,20 @@ export const AboutSection = () => {
               variants={floatingVariants}
               animate="float"
             >
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent" />
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
-                className={`text-sm font-semibold text-purple-400/90 tracking-widest uppercase ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${poppins.className}`}
               >
                 Discover My Journey
               </span>
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent" />
+              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
             </motion.div>
             <h2
-              className={`${poppins.className} text-4xl sm:text-5xl lg:text-7xl font-black bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight px-2`}
+              className={`${poppins.className} text-4xl sm:text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight px-2`}
             >
               About Me
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full" />
+            <div className="w-24 h-1 theme-gradient-primary mx-auto rounded-full" />
           </motion.div>
 
           {/* Enhanced Main Content - FIXED RIGHT SPACING */}
@@ -191,13 +187,13 @@ export const AboutSection = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
                   {/* Outer Glow */}
-                  <div className="absolute -inset-4 sm:-inset-6 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-all duration-700" />{" "}
+                  <div className="absolute -inset-4 sm:-inset-6 theme-gradient-accent rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-all duration-700" />{" "}
                   {/* FIXED: Responsive inset */}
                   {/* Main Image Container */}
-                  <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-zinc-800 to-zinc-900 p-2 shadow-2xl mx-auto">
+                  <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-theme-bg-secondary to-theme-bg-tertiary p-2 shadow-2xl mx-auto">
                     {" "}
                     {/* FIXED: Added mx-auto */}
-                    <div className="relative w-full h-full rounded-xl overflow-hidden border border-zinc-700/50">
+                    <div className="relative w-full h-full rounded-xl overflow-hidden border border-theme-border/50">
                       <Image
                         src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
                         alt={`${profile.name} - ${profile.role}`}
@@ -208,11 +204,11 @@ export const AboutSection = () => {
                       />
 
                       {/* Advanced Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/80 via-zinc-900/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-theme-bg-primary/80 via-theme-bg-primary/20 to-transparent" />
 
                       {/* Animated Scan Line */}
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/10 to-transparent"
+                        className="absolute inset-0 bg-gradient-to-b from-transparent via-theme-primary/10 to-transparent"
                         initial={{ y: "-100%" }}
                         whileHover={{ y: "100%" }}
                         transition={{ duration: 1.2, ease: "easeInOut" }}
@@ -234,16 +230,16 @@ export const AboutSection = () => {
                           <motion.div
                             key={index}
                             whileHover={{ scale: 1.05, y: -2 }}
-                            className="bg-zinc-900/90 backdrop-blur-md rounded-xl p-2 sm:p-3 text-center border border-zinc-700/50 hover:border-purple-500/50 transition-all duration-300" // FIXED: Responsive padding
+                            className="bg-theme-bg-secondary/90 backdrop-blur-md rounded-xl p-2 sm:p-3 text-center border border-theme-border/50 hover:border-theme-primary/50 transition-all duration-300" // FIXED: Responsive padding
                           >
-                            <stat.icon className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400 mx-auto mb-1 sm:mb-2" />{" "}
+                            <stat.icon className="w-3 h-3 sm:w-4 sm:h-4 text-theme-primary mx-auto mb-1 sm:mb-2" />{" "}
                             {/* FIXED: Responsive icon size */}
                             <div
-                              className={`text-xs sm:text-sm font-bold text-white ${poppins.className}`} // FIXED: Responsive text
+                              className={`text-xs sm:text-sm font-bold text-theme-text-primary ${poppins.className}`} // FIXED: Responsive text
                             >
                               {stat.value}
                             </div>
-                            <div className="text-[10px] sm:text-xs text-gray-400 font-medium">
+                            <div className="text-[10px] sm:text-xs text-theme-text-muted font-medium">
                               {" "}
                               {/* FIXED: Responsive text */}
                               {stat.label}
@@ -257,7 +253,7 @@ export const AboutSection = () => {
 
                 {/* Enhanced Floating Tech Icons - FIXED: Responsive positioning */}
                 <motion.div
-                  className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-2xl shadow-purple-500/25" // FIXED: Responsive size and position
+                  className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 w-12 h-12 sm:w-16 sm:h-16 theme-gradient-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-theme-primary/25" // FIXED: Responsive size and position
                   animate={{
                     rotate: 360,
                     scale: [1, 1.1, 1],
@@ -336,10 +332,10 @@ export const AboutSection = () => {
                   {" "}
                   {/* FIXED: Responsive spacing */}
                   <h3
-                    className={`text-2xl sm:text-3xl lg:text-4xl font-black text-white ${poppins.className}`} // FIXED: Responsive text
+                    className={`text-2xl sm:text-3xl lg:text-4xl font-black text-theme-text-primary ${poppins.className}`} // FIXED: Responsive text
                   >
                     Crafting Digital{" "}
-                    <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <span className="theme-text-gradient">
                       Excellence
                     </span>
                   </h3>
@@ -347,17 +343,17 @@ export const AboutSection = () => {
                     {" "}
                     {/* FIXED: Responsive spacing */}
                     <p
-                      className={`text-gray-300/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
+                      className={`text-theme-text-secondary/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
                     >
                       I&apos;m{" "}
                       <span
-                        className={`${poppins.className} text-purple-400 font-semibold`}
+                        className={`${poppins.className} text-theme-primary font-semibold`}
                       >
                         {profile.name}
                       </span>
                       , a passionate {profile.role} with{" "}
                       <span
-                        className={`${poppins.className} text-pink-400 font-semibold`}
+                        className={`${poppins.className} text-theme-secondary font-semibold`}
                       >
                         {profile.stats?.experienceYears}
                       </span>{" "}
@@ -365,7 +361,7 @@ export const AboutSection = () => {
                       cutting-edge digital solutions.
                     </p>
                     <p
-                      className={`text-gray-300/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
+                      className={`text-theme-text-secondary/90 leading-relaxed text-base sm:text-lg ${inter.className}`} // FIXED: Responsive text
                     >
                       {profile.longBio}
                     </p>
@@ -382,10 +378,10 @@ export const AboutSection = () => {
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex-shrink-0 group-hover:scale-125 transition-transform duration-300" />{" "}
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 theme-gradient-primary rounded-full flex-shrink-0 group-hover:scale-125 transition-transform duration-300" />{" "}
                       {/* FIXED: Responsive dot size */}
                       <span
-                        className={`text-gray-300 font-medium text-sm sm:text-base ${inter.className} group-hover:text-white transition-colors duration-300`} // FIXED: Responsive text
+                        className={`text-theme-text-secondary font-medium text-sm sm:text-base ${inter.className} group-hover:text-theme-text-primary transition-colors duration-300`} // FIXED: Responsive text
                       >
                         {strength}
                       </span>
@@ -394,18 +390,18 @@ export const AboutSection = () => {
                 </div>
                 {/* Enhanced Tech Stack Preview */}
                 <motion.div
-                  className="p-4 sm:p-6 bg-zinc-800/40 backdrop-blur-md rounded-2xl border border-zinc-700/50 hover:border-purple-500/30 transition-all duration-500 group" // FIXED: Responsive padding
+                  className="p-4 sm:p-6 bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl border border-theme-border/50 hover:border-theme-primary/30 transition-all duration-500 group" // FIXED: Responsive padding
                   whileHover={{ scale: 1.02 }}
                 >
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
                     {" "}
                     {/* FIXED: Responsive spacing */}
                     <span
-                      className={`${poppins.className} text-base sm:text-lg font-semibold text-white`} // FIXED: Responsive text
+                      className={`${poppins.className} text-base sm:text-lg font-semibold text-theme-text-primary`} // FIXED: Responsive text
                     >
                       Tech Stack
                     </span>
-                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 group-hover:translate-x-1 transition-transform duration-300" />{" "}
+                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-theme-primary group-hover:translate-x-1 transition-transform duration-300" />{" "}
                     {/* FIXED: Responsive icon */}
                   </div>
                   <div className="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6 flex-wrap gap-3 sm:gap-0">
@@ -425,7 +421,7 @@ export const AboutSection = () => {
                             <Icon className="w-5 h-5 sm:w-7 sm:h-7" />{" "}
                             {/* FIXED: Responsive icon */}
                           </div>
-                          <span className="text-[10px] sm:text-xs text-gray-400 font-medium opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300">
+                          <span className="text-[10px] sm:text-xs text-theme-text-muted font-medium opacity-0 group-hover/tech:opacity-100 transition-opacity duration-300">
                             {" "}
                             {/* FIXED: Responsive text */}
                             {techName}
@@ -443,7 +439,7 @@ export const AboutSection = () => {
                 >
                   <Link
                     href="#contact"
-                    className="group relative inline-flex items-center space-x-3 sm:space-x-4 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 rounded-2xl font-bold text-white shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden text-base sm:text-lg" // FIXED: Responsive sizing
+                    className="group relative inline-flex items-center space-x-3 sm:space-x-4 px-6 sm:px-8 py-3 sm:py-4 theme-gradient-accent rounded-2xl font-bold text-white shadow-2xl hover:shadow-theme-primary/30 transition-all duration-500 overflow-hidden text-base sm:text-lg" // FIXED: Responsive sizing
                   >
                     {/* Shine Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
