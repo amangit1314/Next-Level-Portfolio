@@ -29,7 +29,7 @@ const ProjectCard = (props: ProjectCardProps) => {
     <motion.div
       key={index}
       variants={projectItem}
-      className="project-card group relative overflow-hidden rounded-3xl bg-gradient-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
+      className="project-card group relative overflow-hidden rounded-3xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
       style={{
         background: `
                   radial-gradient(
@@ -48,7 +48,7 @@ const ProjectCard = (props: ProjectCardProps) => {
 
       {/* Shine effect */}
       <div className="absolute inset-0 overflow-hidden rounded-3xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
+        <div className="absolute inset-0 bg-linear-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
       </div>
 
       <div className="relative flex flex-col lg:flex-row">
@@ -67,7 +67,7 @@ const ProjectCard = (props: ProjectCardProps) => {
 
               {/* Overlay effects */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/20 via-transparent to-theme-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-linear-to-br from-theme-primary/20 via-transparent to-theme-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-overlay" />
 
               {/* Project number badge */}
               <motion.div
@@ -120,7 +120,7 @@ const ProjectCard = (props: ProjectCardProps) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.05 * techIndex }}
                 whileHover={{ scale: 1.05, y: -2 }}
-                className={`px-4 py-2 bg-gradient-to-br from-theme-bg-tertiary/80 to-theme-bg-primary/80 text-theme-text-secondary rounded-xl border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium backdrop-blur-sm ${unbounded.className}`}
+                className={`px-4 py-2 bg-linear-to-br from-theme-bg-tertiary/80 to-theme-bg-primary/80 text-theme-text-secondary rounded-xl border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium backdrop-blur-sm ${unbounded.className}`}
               >
                 {tech}
               </motion.span>

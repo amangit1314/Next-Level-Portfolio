@@ -28,7 +28,7 @@ const TestimonialCard = ({
       className="group relative w-[320px] sm:w-[360px] md:w-[400px] bg-theme-bg-secondary/40 backdrop-blur-sm p-8 rounded-2xl border border-theme-border/30 hover:border-theme-primary/30 transition-all duration-300 shadow-lg"
     >
       {/* Gradient Background on Hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-linear-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className="relative z-10">
         {/* Quote Icon */}
@@ -53,7 +53,7 @@ const TestimonialCard = ({
               className="w-[60px] h-[60px] rounded-full object-cover flex-shrink-0 border-2 border-theme-border group-hover:border-theme-primary/50 transition-all duration-300 shadow-lg"
             />
             {/* Online Indicator */}
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-theme-bg-secondary" />
+            {/* <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-theme-bg-secondary" /> */}
           </div>
 
           <div className="flex-1 text-left">

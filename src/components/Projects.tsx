@@ -195,7 +195,7 @@ const Projects = () => {
         >
           <a
             href="/projects"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-gradient-to-br from-theme-bg-secondary to-theme-bg-tertiary border border-theme-primary/30 hover:border-theme-primary/50 transition-all duration-500"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-linear-to-br from-theme-bg-secondary to-theme-bg-tertiary border border-theme-primary/30 hover:border-theme-primary/50 transition-all duration-500"
           >
             {/* Animated background */}
             <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/0 via-theme-primary/20 to-theme-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />

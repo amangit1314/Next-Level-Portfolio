@@ -42,26 +42,26 @@ const floatingVariants = {
 // Skill to icon component mapping
 const skillToIconMap: { [key: string]: any } = {
   "Next.js": SiNextdotjs,
-  "NestJS": SiNestjs || SiNodedotjs, // Fallback to Node.js if NestJS not available
+  NestJS: SiNestjs || SiNodedotjs, // Fallback to Node.js if NestJS not available
   "Node.js": SiNodedotjs,
   "React.js": SiReact,
-  "Javascript": SiJavascript,
-  "JavaScript": SiJavascript,
-  "Typescript": SiTypescript,
-  "TypeScript": SiTypescript,
-  "GitHub": SiGithub,
-  "Git": SiGit,
+  Javascript: SiJavascript,
+  JavaScript: SiJavascript,
+  Typescript: SiTypescript,
+  TypeScript: SiTypescript,
+  GitHub: SiGithub,
+  Git: SiGit,
   "React Query": SiReact, // Or find/use specific tanstack query icon
-  "Zustand": SiReact, // State management fallback to React
-  "Supabase": SiSupabase,
-  "PostgreSQL": SiPostgresql,
-  "SQL": SiPostgresql, // Generic SQL fallback
-  "MongoDB": SiMongodb,
-  "Redis": SiRedis,
+  Zustand: SiReact, // State management fallback to React
+  Supabase: SiSupabase,
+  PostgreSQL: SiPostgresql,
+  SQL: SiPostgresql, // Generic SQL fallback
+  MongoDB: SiMongodb,
+  Redis: SiRedis,
   "Express.js": SiExpress,
   // Add more as needed
-  "TailwindCSS": SiTailwindcss,
-  "Framer": SiFramer,
+  TailwindCSS: SiTailwindcss,
+  Framer: SiFramer,
 };
 
 const getTechIcon = (techName: string) => {
@@ -86,10 +86,11 @@ const Skills = () => {
     fetchData();
   }, []);
 
+  console.log("Fetched skills:", JSON.stringify(skills, null, 2));
   return (
     <section
       id="skills"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
+      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-linear-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -159,7 +160,7 @@ const Skills = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-3 h-3 theme-gradient-primary rounded-full group-hover:scale-150 transition-transform duration-300" />
                     <h3
-                      className={`text-2xl lg:text-3xl font-black text-theme-text-primary ${poppins.className} group-hover:theme-text-gradient bg-clip-text text-transparent transition-all duration-500`}
+                      className={`text-2xl lg:text-3xl font-black text-theme-text-primary ${poppins.className} group-hover:theme-text-gradient group-hover:bg-clip-text group-hover:theme-text-gradient transition-all duration-500`}
                     >
                       {category}
                     </h3>
@@ -170,11 +171,11 @@ const Skills = () => {
 
                 {/* Enhanced Skills Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                  {skills.filter((skill) => skill.category === category).map(
-                    (skill, index) => (
+                  {skills
+                    .filter((skill) => skill.category === category)
+                    .map((skill, index) => (
                       <SkillCard key={skill.name} skill={skill} index={index} />
-                    )
-                  )}
+                    ))}
                 </div>
               </motion.div>
             ))}
@@ -195,59 +196,59 @@ const Skills = () => {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {(profile?.stats
                   ? [
-                    {
-                      value: profile.stats.experienceYears || "3+",
-                      label: "Years Experience",
-                      color: "from-purple-400 to-pink-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value:
-                        profile.stats.technologiesCount ||
-                        `${skills.length}+`,
-                      label: "Technologies",
-                      color: "from-blue-400 to-cyan-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value: profile.stats.projectsCount || PROJECTS.length,
-                      label: "Projects Built",
-                      color: "from-green-400 to-teal-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value: profile.stats.clientSatisfaction || "100%",
-                      label: "Client Satisfaction",
-                      color: "from-orange-400 to-red-400",
-                      icon: FiStar,
-                    },
-                  ]
+                      {
+                        value: profile.stats.experienceYears || "3+",
+                        label: "Years Experience",
+                        color: "from-purple-400 to-pink-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value:
+                          profile.stats.technologiesCount ||
+                          `${skills.length}+`,
+                        label: "Technologies",
+                        color: "from-blue-400 to-cyan-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value: profile.stats.projectsCount || PROJECTS.length,
+                        label: "Projects Built",
+                        color: "from-green-400 to-teal-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value: profile.stats.clientSatisfaction || "100%",
+                        label: "Client Satisfaction",
+                        color: "from-orange-400 to-red-400",
+                        icon: FiStar,
+                      },
+                    ]
                   : [
-                    {
-                      value: "3+",
-                      label: "Years Experience",
-                      color: "from-purple-400 to-pink-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value: `${skills.length}+`,
-                      label: "Technologies",
-                      color: "from-blue-400 to-cyan-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value: PROJECTS.length,
-                      label: "Projects Built",
-                      color: "from-green-400 to-teal-400",
-                      icon: FiStar,
-                    },
-                    {
-                      value: "100%",
-                      label: "Client Satisfaction",
-                      color: "from-orange-400 to-red-400",
-                      icon: FiStar,
-                    },
-                  ]
+                      {
+                        value: "3+",
+                        label: "Years Experience",
+                        color: "from-purple-400 to-pink-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value: `${skills.length}+`,
+                        label: "Technologies",
+                        color: "from-blue-400 to-cyan-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value: PROJECTS.length,
+                        label: "Projects Built",
+                        color: "from-green-400 to-teal-400",
+                        icon: FiStar,
+                      },
+                      {
+                        value: "100%",
+                        label: "Client Satisfaction",
+                        color: "from-orange-400 to-red-400",
+                        icon: FiStar,
+                      },
+                    ]
                 ).map((stat, index) => (
                   <motion.div
                     key={index}

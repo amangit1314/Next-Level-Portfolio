@@ -10,12 +10,14 @@ import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
 import { ProfileStats } from "@/types/profile-stats";
 import ProjectsHeader from "./_components/ProjectsHeader";
+import Footer from "@/components/Footer";
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [stats, setStats] = useState<ProfileStats>({});
   const [loading, setLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const containerRef = useRef<HTMLElement | null>(null);
   const [isClient, setIsClient] = useState(false);
@@ -25,8 +27,6 @@ const Projects = () => {
   }, []);
 
   const { scrollYProgress } = useScroll({
-    // on the server this will be `false`, so target = undefined
-    // target: isClient ? containerRef : undefined,
     offset: ["start end", "end start"],
   });
 
@@ -102,8 +102,8 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-theme-bg-primary flex items-center justify-center">
+        <div className="text-theme-text-primary text-xl">Loading...</div>
       </div>
     );
   }
@@ -111,25 +111,25 @@ const Projects = () => {
   return (
     <section
       ref={containerRef}
-      className="relative py-24 lg:py-0 lg:pb-32 overflow-hidden px-4 md:px-0 bg-gradient-to-br from-black via-zinc-950 to-purple-950/20"
+      className="relative min-h-screen overflow-hidden bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           style={{ y: bgY1 }}
-          className="absolute top-1/4 -right-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"
+          className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl"
         />
         <motion.div
           style={{ y: bgY2 }}
-          className="absolute bottom-1/3 -left-20 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl"
+          className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/10 rounded-full blur-3xl"
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-theme-primary/5 rounded-full blur-3xl" />
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
 
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-theme-bg-primary/40" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
@@ -140,130 +140,135 @@ const Projects = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="space-y-20"
         >
-          <Header />
+          <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
           <div className="mt-10" />
           {/* Enhanced Section Header */}
           <ProjectsHeader projectCount={projects.length} stats={stats} />
 
           {/* Enhanced Projects Grid */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-          >
-            {projects.map((project, index) => (
-              <motion.div
-                key={project._id}
-                variants={itemVariants}
-                className="project-card group relative bg-zinc-900/80 backdrop-blur-md rounded-3xl border border-zinc-800/70 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
-                style={{
-                  background: `
-                    radial-gradient(
-                      600px circle at var(--mouse-x) var(--mouse-y),
-                      rgba(168, 85, 247, 0.08),
-                      transparent 40%
-                    ),
-                    linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(24, 24, 27, 0.85) 100%)
-                  `,
-                }}
-              >
-                {/* Hover Glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            >
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project._id}
+                  variants={itemVariants}
+                  className="project-card group relative bg-theme-bg-secondary/90 backdrop-blur-md rounded-3xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500 overflow-hidden"
+                  // style={{
+                  //   background: `
+                  //     radial-gradient(
+                  //       600px circle at var(--mouse-x) var(--mouse-y),
+                  //       rgba(168, 85, 247, 0.08),
+                  //       transparent 40%
+                  //     ),
+                  //     linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(24, 24, 27, 0.85) 100%)
+                  //   `,
+                  // }}
+                >
+                  {/* Hover Glow */}
+                  <div className="absolute inset-0 theme-gradient-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Project Image */}
-                <div className="relative h-64 overflow-hidden">
-                  {project.image?.asset?.url && (
-                    <Image
-                      src={project.image.asset.url}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/40 to-transparent" />
-
-                  {/* Project Number */}
-                  <motion.div
-                    initial={{ x: -20, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="absolute top-4 left-4 px-3 py-1 bg-black/80 backdrop-blur-md rounded-full border border-purple-500/30"
-                  >
-                    <span
-                      className={`text-xs font-mono text-purple-400 ${unbounded.className}`}
-                    >
-                      #{String(index + 1).padStart(2, "0")}
-                    </span>
-                  </motion.div>
-
-                  {/* Overlay Links */}
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    {project.code && (
-                      <motion.a
-                        href={project.code}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        className="p-2 bg-black/80 backdrop-blur-md rounded-lg border border-zinc-700/70 hover:border-purple-500/50 transition-all duration-300"
-                      >
-                        <FiGithub className="w-4 h-4 text-white" />
-                      </motion.a>
+                  {/* Project Image */}
+                  <div className="relative h-64 overflow-hidden">
+                    {project.image?.asset?.url && (
+                      <Image
+                        src={project.image.asset.url}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-all duration-700 group-hover:scale-110"
+                      />
                     )}
-                    {project.link && (
-                      <motion.a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1 }}
-                        className="p-2 bg-black/80 backdrop-blur-md rounded-lg border border-zinc-700/70 hover:border-purple-500/50 transition-all duration-300"
-                      >
-                        <FiExternalLink className="w-4 h-4 text-white" />
-                      </motion.a>
-                    )}
-                  </div>
-                </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-theme-bg-primary/90 via-theme-bg-primary/40 to-transparent" />
 
-                {/* Project Content */}
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-px bg-gradient-to-r from-purple-500 to-transparent" />
-                    <span
-                      className={`text-xs font-mono text-purple-400 uppercase tracking-wider ${unbounded.className}`}
+                    {/* Project Number */}
+                    <motion.div
+                      initial={{ x: -20, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="absolute top-4 left-4 px-3 py-1 bg-theme-bg-primary/80 backdrop-blur-md rounded-full border border-theme-primary/30"
                     >
-                      Case Study
-                    </span>
-                  </div>
-
-                  <h3
-                    className={`text-2xl font-bold text-white ${unbounded.className} group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300`}
-                  >
-                    {project.title}
-                  </h3>
-
-                  <p
-                    className={`text-gray-300/90 leading-relaxed ${inter.className}`}
-                  >
-                    {project.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.technologies?.map((tech, techIndex) => (
-                      <motion.span
-                        key={techIndex}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: techIndex * 0.05 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className={`px-3 py-1 bg-zinc-800/80 text-gray-300 rounded-lg border border-zinc-700/70 hover:border-purple-500/50 hover:text-purple-300 transition-all duration-300 text-sm font-medium backdrop-blur-sm ${unbounded.className}`}
+                      <span
+                        className={`text-xs font-mono text-theme-primary ${unbounded.className}`}
                       >
-                        {tech}
-                      </motion.span>
-                    ))}
+                        #{String(index + 1).padStart(2, "0")}
+                      </span>
+                    </motion.div>
+
+                    {/* Overlay Links */}
+                    <div className="absolute top-4 right-4 flex gap-2 group-hover:z-50">
+                      {project.code && (
+                        <motion.a
+                          href={project.code}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300"
+                        >
+                          <FiGithub className="w-4 h-4 text-theme-text-primary" />
+                        </motion.a>
+                      )}
+                      {project.link && (
+                        <motion.a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300"
+                        >
+                          <FiExternalLink className="w-4 h-4 text-theme-text-primary" />
+                        </motion.a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+
+                  {/* Project Content */}
+                  <div className="p-6 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent" />
+                      <span
+                        className={`text-xs font-mono text-theme-primary uppercase tracking-wider ${unbounded.className}`}
+                      >
+                        Case Study
+                      </span>
+                    </div>
+
+                    <h3
+                      className={`text-2xl font-bold text-theme-text-primary group-hover:text-white ${unbounded.className} group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text transition-all duration-300`}
+                    >
+                      {project.title}
+                    </h3>
+
+                    <p
+                      className={`text-theme-text-secondary/90 group-hover:text-white leading-relaxed ${inter.className}`}
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {project.technologies?.map((tech, techIndex) => (
+                        <motion.span
+                          key={techIndex}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: techIndex * 0.05 }}
+                          whileHover={{ scale: 1.05, y: -2 }}
+                          className={`px-3 py-1 bg-theme-bg-tertiary/80 text-theme-text-secondary rounded-lg border border-theme-border hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-sm font-medium backdrop-blur-sm ${unbounded.className}`}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Footer */}
+          <Footer />
         </motion.div>
       </div>
     </section>

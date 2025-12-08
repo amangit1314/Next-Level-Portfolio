@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import { poppins } from "@/lib/fonts";
 
 export default function BlogLayout({
@@ -6,8 +7,9 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>{children}</body>
-    </html>
+    <div className={poppins.className}>
+      {children}
+      <Footer />
+    </div>
   );
 }

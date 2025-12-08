@@ -73,7 +73,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex px-4 md:px-8 items-center justify-center overflow-hidden bg-gradient-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
+      className="relative min-h-screen flex px-4 md:px-8 items-center justify-center overflow-hidden bg-linear-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">

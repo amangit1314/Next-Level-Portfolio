@@ -82,7 +82,7 @@ const Contact = () => {
             className="relative bg-theme-bg-secondary/40 backdrop-blur-sm rounded-2xl border border-theme-border/30 p-6 md:p-12 overflow-hidden group"
           >
             {/* Gradient Background on Hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-linear-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10 space-y-8">
               {/* Intro Text */}

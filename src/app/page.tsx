@@ -17,6 +17,7 @@ import {
 
 const Home = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // NEW
 
   // Handle active section detection
   useEffect(() => {
@@ -58,7 +59,7 @@ const Home = () => {
     <main className="flex flex-col min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary overflow-x-hidden">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
-        <Header />
+        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       </header>
 
       {/* Main content */}
@@ -101,10 +102,12 @@ const Home = () => {
       </footer>
 
       {/* Mobile Bottom Navigation */}
-      <MobileBottomNav
-        activeSection={activeSection}
-        onNavClick={handleNavClick}
-      />
+      {!isMenuOpen && ( // HIDE WHEN MENU OPEN
+        <MobileBottomNav
+          activeSection={activeSection}
+          onNavClick={handleNavClick}
+        />
+      )}
     </main>
   );
 };

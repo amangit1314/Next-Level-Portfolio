@@ -60,7 +60,7 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-gradient-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
+      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-linear-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -326,11 +326,11 @@ const Experience = () => {
                     </div>
 
                     <span
-                      className={`text-lg ${poppins.className} relative z-10`}
+                      className={`text-lg ${poppins.className} relative z-10 text-white`}
                     >
                       Let&apos;s Work Together
                     </span>
-                    <FiArrowRight className="w-5 h-5 relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
+                    <FiArrowRight className="w-5 h-5 text-white relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
                   </Link>
                 </motion.div>
               </div>

@@ -37,22 +37,22 @@
   --color-theme-primary: var(--theme-primary);
   --color-theme-primary-dark: var(--theme-primary-dark);
   --color-theme-primary-light: var(--theme-primary-light);
-  
+
   --color-theme-secondary: var(--theme-secondary);
   --color-theme-secondary-dark: var(--theme-secondary-dark);
   --color-theme-secondary-light: var(--theme-secondary-light);
-  
+
   --color-theme-accent: var(--theme-accent);
-  
+
   --color-theme-bg-primary: var(--theme-bg-primary);
   --color-theme-bg-secondary: var(--theme-bg-secondary);
   --color-theme-bg-tertiary: var(--theme-bg-tertiary);
   --color-theme-bg-hover: var(--theme-bg-hover);
-  
+
   --color-theme-text-primary: var(--theme-text-primary);
   --color-theme-text-secondary: var(--theme-text-secondary);
   --color-theme-text-muted: var(--theme-text-muted);
-  
+
   --color-theme-border: var(--theme-border);
 }
 
@@ -152,43 +152,43 @@
 
 :root {
   /* Theme mode */
-  --theme-mode: 'dark';
-  
+  --theme-mode: "dark";
+
   /* Primary colors - Default: Purple Dream */
-  --theme-primary-light: #C084FC;
+  --theme-primary-light: #c084fc;
   --theme-primary-light-rgb: 192, 132, 252;
-  --theme-primary: #A855F7;
+  --theme-primary: #a855f7;
   --theme-primary-rgb: 168, 85, 247;
-  --theme-primary-dark: #9333EA;
+  --theme-primary-dark: #9333ea;
   --theme-primary-dark-rgb: 147, 51, 234;
-  
+
   /* Secondary colors */
-  --theme-secondary-light: #F472B6;
+  --theme-secondary-light: #f472b6;
   --theme-secondary-light-rgb: 244, 114, 182;
-  --theme-secondary: #EC4899;
+  --theme-secondary: #ec4899;
   --theme-secondary-rgb: 236, 72, 153;
-  --theme-secondary-dark: #DB2777;
+  --theme-secondary-dark: #db2777;
   --theme-secondary-dark-rgb: 219, 39, 119;
-  
+
   /* Accent color */
-  --theme-accent: #F97316;
+  --theme-accent: #f97316;
   --theme-accent-rgb: 249, 115, 22;
-  
+
   /* Background colors */
-  --theme-bg-primary: #09090B;
-  --theme-bg-secondary: #18181B;
-  --theme-bg-tertiary: #27272A;
-  --theme-bg-hover: #3F3F46;
-  --theme-bg-light: #52525B;
-  
+  --theme-bg-primary: #09090b;
+  --theme-bg-secondary: #18181b;
+  --theme-bg-tertiary: #27272a;
+  --theme-bg-hover: #3f3f46;
+  --theme-bg-light: #52525b;
+
   /* Text colors */
-  --theme-text-primary: #FAFAFA;
-  --theme-text-secondary: #D4D4D8;
-  --theme-text-muted: #A1A1AA;
-  
+  --theme-text-primary: #fafafa;
+  --theme-text-secondary: #d4d4d8;
+  --theme-text-muted: #a1a1aa;
+
   /* Border colors */
-  --theme-border: #3F3F46;
-  --theme-border-light: #52525B;
+  --theme-border: #3f3f46;
+  --theme-border-light: #52525b;
 }
 
 /* Light theme shadow adjustments */
@@ -201,23 +201,68 @@
 }
 
 /* Theme utility classes */
-.bg-theme-primary { background-color: var(--theme-primary); }
-.text-theme-primary { color: var(--theme-primary); }
+.bg-theme-primary {
+  background-color: var(--theme-primary);
+}
+.text-theme-primary {
+  color: var(--theme-primary);
+}
 
 /* Theme gradient utilities */
 @layer utilities {
   .theme-gradient-primary {
-    background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+    background: linear-gradient(
+      to right,
+      var(--theme-primary),
+      var(--theme-secondary)
+    );
   }
-  
+
   .theme-gradient-accent {
-    background: linear-gradient(to right, var(--theme-primary-dark), var(--theme-secondary-dark), var(--theme-accent));
+    background: linear-gradient(
+      to right,
+      var(--theme-primary-dark),
+      var(--theme-secondary-dark),
+      var(--theme-accent)
+    );
   }
-  
+
   .theme-text-gradient {
-    background: linear-gradient(to right, var(--theme-primary-light), var(--theme-secondary-light));
+    background: linear-gradient(
+      to right,
+      var(--theme-primary-light),
+      var(--theme-secondary-light)
+    );
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+  }
+}
+
+@layer utilities {
+  @keyframes marquee-x {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-y {
+    0% {
+      transform: translateY(0%);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee-x var(--duration, 40s) linear infinite;
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-y var(--duration, 40s) linear infinite;
   }
 }

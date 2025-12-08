@@ -8,6 +8,32 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import {
+  SiTypescript,
+  SiNextdotjs,
+  SiExpress,
+  SiFlutter,
+  SiKotlin,
+  SiKubernetes,
+  SiDart,
+  SiNestjs,
+  SiFastapi,
+  SiJavascript,
+} from "react-icons/si";
+import {
+  FaAws,
+  FaDocker,
+  FaGitAlt,
+  FaJava,
+  FaNodeJs,
+  FaPython,
+  FaReact,
+} from "react-icons/fa";
+import { DiMongodb, DiRedis } from "react-icons/di";
+import { RiTailwindCssLine } from "react-icons/ri";
+import { BiLogoPostgresql } from "react-icons/bi";
+import { IoLogoJavascript } from "react-icons/io";
+import { TbBrandReactNative, TbSql } from "react-icons/tb";
 
 export const EXPERIENCES = [
   {
@@ -83,300 +109,6 @@ export const EXPERIENCES = [
     ],
   },
 ];
-
-// export const PROJECTS = [
-//   {
-//     id: "proj_01",
-//     title: "Pulse: Event Management Platform",
-//     image:
-//       "https://cdn.dribbble.com/userupload/15504937/file/original-b951ae1c5ce45932ac0f62ec2d672208.png?resize=1504x1128&vertical=center",
-//     link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
-//     code: "",
-//     description:
-//       "Led the development of a full-stack event management platform enabling users to discover, book, and manage event tickets. Implemented secure payment processing and real-time seat availability.",
-//     technologies: [
-//       "Next.js",
-//       "Tailwind CSS",
-//       "React",
-//       "Node.js",
-//       "PostgreSQL",
-//       "Stripe",
-//       "SendGrid",
-//     ],
-//     duration: "6 months",
-//     role: "Full Stack Developer & Team Lead",
-//     achievements: [
-//       "Architected scalable booking system handling 10k+ concurrent users",
-//       "Integrated secure payment processing reducing failed transactions by 30%",
-//       "Mentored 3 junior developers in agile development practices",
-//     ],
-//   },
-//   {
-//     id: "proj_02",
-//     title: "Eden: Personal Productivity OS",
-//     image:
-//       "https://cdn.dribbble.com/userupload/14316123/file/original-7e466c32372a1ab5da51234b3e9f9e98.png?resize=2048x1536&vertical=center",
-//     link: "",
-//     code: "",
-//     description:
-//       "Architected a personal operating system that unifies task management, learning, and community features into a single cohesive platform. Provides users with a centralized hub for productivity and knowledge sharing.",
-//     technologies: [
-//       "Next.js",
-//       "Tailwind CSS",
-//       "PostgreSQL",
-//       "Supabase",
-//       "Prisma",
-//       "Zustand",
-//       "Stripe",
-//     ],
-//     duration: "6 months",
-//     role: "Associate Software Engineer & Technical Lead",
-//     achievements: [
-//       "Directed team through high-pressure launch, delivering 2 weeks ahead of schedule",
-//       "Designed unified dashboard integrating multiple productivity modules",
-//       "Built scalable community features supporting 5k+ concurrent users",
-//       "Implemented adaptive UI that personalizes based on user workflow",
-//     ],
-//   },
-//   {
-//     id: "proj_03",
-//     title: "SnapCart: E-Commerce Platform",
-//     image: "/images/jpg/ecommerce.jpg",
-//     link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
-//     code: "",
-//     description:
-//       "A fully functional e-commerce platform with features like product listing, shopping cart, and user authentication.",
-//     technologies: [
-//       "Next.js",
-//       "Tailwind",
-//       "React",
-//       "TypeScript",
-//       "Node.js",
-//       "PostgreSQL",
-//       "Stripe",
-//       "SendGrid",
-//     ],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_04",
-//     title: "Coursewave: Learning Platform",
-//     image: "/images/png/lms.png",
-//     link: "https://www.coursewave.in",
-//     code: "",
-//     description:
-//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
-//     technologies: [
-//       "Next.js",
-//       "Taiwlind",
-//       "PostgreSQL",
-//       "Supabase",
-//       "Prisma",
-//       "Zustand",
-//       "Stripe",
-//       "TypeScript",
-//     ],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_05",
-//     title: "Foodio: Food Ordering Platform",
-//     image: "https://cdn.dribbble.com/userupload/9093003/file/original-fee1a2c945a901f2e85a4b4bfb67eb35.png?resize=2048x1545&vertical=center",
-//     link: "https://www.coursewave.in",
-//     code: "",
-//     description:
-//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
-//     technologies: [
-//       "Next.js",
-//       "Taiwlind",
-//       "PostgreSQL",
-//       "Supabase",
-//       "Prisma",
-//       "Zustand",
-//       "Stripe",
-//     ],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_06",
-//     title: "Weatherly: Weather Platform",
-//     image: "https://cdn.dribbble.com/userupload/22504079/file/still-c9363e288b7820ed12a91f82e032d5f6.gif?format=webp&resize=400x300&vertical=center",
-//     link: "https://www.coursewave.in",
-//     code: "",
-//     description:
-//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
-//     technologies: ["React.js", "Taiwlind", "Weather API"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_07",
-//     title: "Twodays: Explore chat and locate",
-//     image: "/images/webp/twodays.webp",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: [
-//       "Flutter",
-//       "Dart",
-//       "BLoc",
-//       "Google Maps",
-//       "Firebase",
-//       "HTTP",
-//       "iOS",
-//     ],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_08",
-//     title: "NOW: Notes of Worship",
-//     image:
-//       "https://play-lh.googleusercontent.com/WB5VcX-NlcknIHtydYN0ENOk_tsSTPBfwxBoXZgLW5K-FMdIdGvln1RfvY6TILLQa7C0=w5120-h2880-rw",
-//     link: "https://play.google.com/store/apps/details?id=com.notesofworship.app&hl=en_IN",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_09",
-//     title: "TTYL: Talk To You Later",
-//     image:
-//       "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_10",
-//     title: "LuxeTick",
-//     image: "/images/png/watch2.png",
-//     link: "https://amangit1314.github.io/watches_web/",
-//     code: "",
-//     description:
-//       "An exclusive online platform dedicated to luxury timepieces. Catering to discerning watch enthusiasts and collectors. Key Features: Curated luxury collection, Exclusive Auctions, Virtual try-on, Watch Customization, Collector's Hub, Expert Reviews & Articles.",
-//     technologies: [
-//       "Next.js",
-//       "Tailwind",
-//       "TypeScript",
-//       "SendGrid",
-//       "Sanity",
-//       "Framer",
-//     ],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_11",
-//     title: "Convo: Chat application",
-//     image: "/images/webp/convo.webp",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_12",
-//     title: "BeyongStudy: Online Education Platform App",
-//     image: "https://cdn.dribbble.com/userupload/34260017/file/original-8ea32b687943b174d3495ec627cdbe25.jpg?resize=2048x1536&vertical=center",
-//     link: "https://github.com/amangit1314/Ecommerce-App",
-//     code: "",
-//     description:
-//       "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_13",
-//     title: "MyMentor: Online Mentorship Platform",
-//     image: "/images/webp/mymentor.webp",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_14",
-//     title: "Fizzle: Social Media Platform",
-//     image:
-//       "https://cdn.dribbble.com/userupload/42913740/file/original-8ee96831638637868b5e77245b2c9da6.png?resize=2048x1536&vertical=center",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_15",
-//     title: "SnapCart: E-Commerce App",
-//     image: "/images/webp/ecomm-app.webp",
-//     link: "https://github.com/amangit1314/Ecommerce-App",
-//     code: "",
-//     description:
-//       "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_16",
-//     title: "MovieMania: Movies Catelog & Ticket Booking App",
-//     image:
-//       "https://cdn.dribbble.com/userupload/11185902/file/original-51f34adbee9502fa3dcd385a3f6e3b2b.png?resize=2048x1547&vertical=center",
-//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
-//     duration: "6 months",
-//   },
-//   {
-//     id: "proj_17",
-//     title: "ReadTogether: Collaborative Reading Platform",
-//     image:
-//       "https://cdn.dribbble.com/userupload/15652963/file/original-57e2e4a32dd8508cc79aac7f398f500d.png?resize=1200x900&vertical=center",
-//     link: "",
-//     code: "",
-//     description:
-//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
-//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
-//     duration: "6 months",
-//   },
-// ];
-
-import {
-  SiTypescript,
-  SiNextdotjs,
-  SiExpress,
-  SiFlutter,
-  SiKotlin,
-  SiKubernetes,
-  SiDart,
-  SiNestjs,
-  SiFastapi,
-  SiJavascript,
-} from "react-icons/si";
-import {
-  FaAws,
-  FaDocker,
-  FaGitAlt,
-  FaJava,
-  FaNodeJs,
-  FaPython,
-  FaReact,
-} from "react-icons/fa";
-import { DiMongodb, DiRedis } from "react-icons/di";
-import { RiTailwindCssLine } from "react-icons/ri";
-import { BiLogoPostgresql } from "react-icons/bi";
-import { IoLogoJavascript } from "react-icons/io";
-import { TbBrandReactNative, TbSql } from "react-icons/tb";
 
 export const PROJECTS = [
   {
@@ -866,169 +598,436 @@ export const CONTACT = {
   email: "gitaman8481@example.com",
 };
 
-export const SKILLS: Skill[] = [
-  // Frontend
-  {
-    icon: IoLogoJavascript,
-    name: "JavaScript",
-    color: "from-yellow-400 to-yellow-600",
-    category: "Frontend",
-    proficiency: 90,
-  },
-  {
-    icon: SiTypescript,
-    name: "TypeScript",
-    color: "from-blue-500 to-blue-700",
-    category: "Frontend",
-    proficiency: 85,
-  },
-  {
-    icon: FaReact,
-    name: "React",
-    color: "from-cyan-400 to-blue-500",
-    category: "Frontend",
-    proficiency: 88,
-  },
-  {
-    icon: SiNextdotjs,
-    name: "Next.js",
-    color: "from-gray-800 to-black",
-    category: "Frontend",
-    proficiency: 82,
-  },
-  {
-    icon: RiTailwindCssLine,
-    name: "Tailwind",
-    color: "from-cyan-400 to-teal-500",
-    category: "Frontend",
-    proficiency: 92,
-  },
+// export const SKILLS: Skill[] = [
+//   // Frontend
+//   {
+//     icon: IoLogoJavascript,
+//     name: "JavaScript",
+//     color: "from-yellow-400 to-yellow-600",
+//     category: "Frontend",
+//     proficiency: 90,
+//   },
+//   {
+//     icon: SiTypescript,
+//     name: "TypeScript",
+//     color: "from-blue-500 to-blue-700",
+//     category: "Frontend",
+//     proficiency: 85,
+//   },
+//   {
+//     icon: FaReact,
+//     name: "React",
+//     color: "from-cyan-400 to-blue-500",
+//     category: "Frontend",
+//     proficiency: 88,
+//   },
+//   {
+//     icon: SiNextdotjs,
+//     name: "Next.js",
+//     color: "from-gray-800 to-black",
+//     category: "Frontend",
+//     proficiency: 82,
+//   },
+//   {
+//     icon: RiTailwindCssLine,
+//     name: "Tailwind",
+//     color: "from-cyan-400 to-teal-500",
+//     category: "Frontend",
+//     proficiency: 92,
+//   },
 
-  // Backend
-  {
-    icon: FaNodeJs,
-    name: "Node.js",
-    color: "from-green-500 to-green-700",
-    category: "Backend",
-    proficiency: 87,
-  },
-  {
-    icon: SiExpress,
-    name: "Express",
-    color: "from-gray-600 to-gray-800",
-    category: "Backend",
-    proficiency: 85,
-  },
-  {
-    icon: SiNestjs,
-    name: "NestJS",
-    color: "from-red-400 to-red-500",
-    category: "Backend",
-    proficiency: 78,
-  },
-  {
-    icon: FaPython,
-    name: "Python",
-    color: "from-blue-400 to-yellow-500",
-    category: "Backend",
-    proficiency: 80,
-  },
-  {
-    icon: SiFastapi,
-    name: "Fast API",
-    color: "from-blue-400 to-blue-500",
-    category: "Backend",
-    proficiency: 75,
-  },
+//   // Backend
+//   {
+//     icon: FaNodeJs,
+//     name: "Node.js",
+//     color: "from-green-500 to-green-700",
+//     category: "Backend",
+//     proficiency: 87,
+//   },
+//   {
+//     icon: SiExpress,
+//     name: "Express",
+//     color: "from-gray-600 to-gray-800",
+//     category: "Backend",
+//     proficiency: 85,
+//   },
+//   {
+//     icon: SiNestjs,
+//     name: "NestJS",
+//     color: "from-red-400 to-red-500",
+//     category: "Backend",
+//     proficiency: 78,
+//   },
+//   {
+//     icon: FaPython,
+//     name: "Python",
+//     color: "from-blue-400 to-yellow-500",
+//     category: "Backend",
+//     proficiency: 80,
+//   },
+//   {
+//     icon: SiFastapi,
+//     name: "Fast API",
+//     color: "from-blue-400 to-blue-500",
+//     category: "Backend",
+//     proficiency: 75,
+//   },
 
-  // Mobile
-  {
-    icon: TbBrandReactNative,
-    name: "React Native",
-    color: "from-cyan-300 to-blue-500",
-    category: "Mobile",
-    proficiency: 83,
-  },
-  {
-    icon: SiFlutter,
-    name: "Flutter",
-    color: "from-blue-400 to-cyan-500",
-    category: "Mobile",
-    proficiency: 70,
-  },
-  {
-    icon: SiDart,
-    name: "Dart",
-    color: "from-blue-500 to-indigo-600",
-    category: "Mobile",
-    proficiency: 72,
-  },
+//   // Mobile
+//   {
+//     icon: TbBrandReactNative,
+//     name: "React Native",
+//     color: "from-cyan-300 to-blue-500",
+//     category: "Mobile",
+//     proficiency: 83,
+//   },
+//   {
+//     icon: SiFlutter,
+//     name: "Flutter",
+//     color: "from-blue-400 to-cyan-500",
+//     category: "Mobile",
+//     proficiency: 70,
+//   },
+//   {
+//     icon: SiDart,
+//     name: "Dart",
+//     color: "from-blue-500 to-indigo-600",
+//     category: "Mobile",
+//     proficiency: 72,
+//   },
 
-  // Database
+//   // Database
 
-  {
-    icon: BiLogoPostgresql,
-    name: "PostgreSQL",
-    color: "from-blue-600 to-indigo-700",
-    category: "Database",
-    proficiency: 85,
-  },
-  {
-    icon: DiMongodb,
-    name: "MongoDB",
-    color: "from-green-600 to-green-800",
-    category: "Database",
-    proficiency: 80,
-  },
-  {
-    icon: DiRedis,
-    name: "Redis",
-    color: "from-red-500 to-red-700",
-    category: "Database",
-    proficiency: 78,
-  },
-  {
-    icon: TbSql,
-    name: "SQL",
-    color: "from-gray-500 to-gray-700",
-    category: "Database",
-    proficiency: 82,
-  },
+//   {
+//     icon: BiLogoPostgresql,
+//     name: "PostgreSQL",
+//     color: "from-blue-600 to-indigo-700",
+//     category: "Database",
+//     proficiency: 85,
+//   },
+//   {
+//     icon: DiMongodb,
+//     name: "MongoDB",
+//     color: "from-green-600 to-green-800",
+//     category: "Database",
+//     proficiency: 80,
+//   },
+//   {
+//     icon: DiRedis,
+//     name: "Redis",
+//     color: "from-red-500 to-red-700",
+//     category: "Database",
+//     proficiency: 78,
+//   },
+//   {
+//     icon: TbSql,
+//     name: "SQL",
+//     color: "from-gray-500 to-gray-700",
+//     category: "Database",
+//     proficiency: 82,
+//   },
 
-  // DevOps & Tools
-  {
-    icon: FaAws,
-    name: "AWS",
-    color: "from-orange-400 to-yellow-500",
-    category: "DevOps",
-    proficiency: 75,
-  },
-  {
-    icon: FaDocker,
-    name: "Docker",
-    color: "from-blue-400 to-blue-600",
-    category: "DevOps",
-    proficiency: 80,
-  },
-  // {
-  //   icon: SiKubernetes,
-  //   name: "Kubernetes",
-  //   color: "from-blue-600 to-purple-600",
-  //   category: "DevOps",
-  //   proficiency: 70,
-  // },
-  {
-    icon: FaGitAlt,
-    name: "Git",
-    color: "from-orange-500 to-red-600",
-    category: "DevOps",
-    proficiency: 88,
-  },
-  {
-    icon: FaGithub,
-    name: "GitHub",
-    color: "from-gray-700 to-black",
-    category: "DevOps",
-    proficiency: 90,
-  },
-];
+//   // DevOps & Tools
+//   {
+//     icon: FaAws,
+//     name: "AWS",
+//     color: "from-orange-400 to-yellow-500",
+//     category: "DevOps",
+//     proficiency: 75,
+//   },
+//   {
+//     icon: FaDocker,
+//     name: "Docker",
+//     color: "from-blue-400 to-blue-600",
+//     category: "DevOps",
+//     proficiency: 80,
+//   },
+//   // {
+//   //   icon: SiKubernetes,
+//   //   name: "Kubernetes",
+//   //   color: "from-blue-600 to-purple-600",
+//   //   category: "DevOps",
+//   //   proficiency: 70,
+//   // },
+//   {
+//     icon: FaGitAlt,
+//     name: "Git",
+//     color: "from-orange-500 to-red-600",
+//     category: "DevOps",
+//     proficiency: 88,
+//   },
+//   {
+//     icon: FaGithub,
+//     name: "GitHub",
+//     color: "from-gray-700 to-black",
+//     category: "DevOps",
+//     proficiency: 90,
+//   },
+// ];
+
+// export const PROJECTS = [
+//   {
+//     id: "proj_01",
+//     title: "Pulse: Event Management Platform",
+//     image:
+//       "https://cdn.dribbble.com/userupload/15504937/file/original-b951ae1c5ce45932ac0f62ec2d672208.png?resize=1504x1128&vertical=center",
+//     link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
+//     code: "",
+//     description:
+//       "Led the development of a full-stack event management platform enabling users to discover, book, and manage event tickets. Implemented secure payment processing and real-time seat availability.",
+//     technologies: [
+//       "Next.js",
+//       "Tailwind CSS",
+//       "React",
+//       "Node.js",
+//       "PostgreSQL",
+//       "Stripe",
+//       "SendGrid",
+//     ],
+//     duration: "6 months",
+//     role: "Full Stack Developer & Team Lead",
+//     achievements: [
+//       "Architected scalable booking system handling 10k+ concurrent users",
+//       "Integrated secure payment processing reducing failed transactions by 30%",
+//       "Mentored 3 junior developers in agile development practices",
+//     ],
+//   },
+//   {
+//     id: "proj_02",
+//     title: "Eden: Personal Productivity OS",
+//     image:
+//       "https://cdn.dribbble.com/userupload/14316123/file/original-7e466c32372a1ab5da51234b3e9f9e98.png?resize=2048x1536&vertical=center",
+//     link: "",
+//     code: "",
+//     description:
+//       "Architected a personal operating system that unifies task management, learning, and community features into a single cohesive platform. Provides users with a centralized hub for productivity and knowledge sharing.",
+//     technologies: [
+//       "Next.js",
+//       "Tailwind CSS",
+//       "PostgreSQL",
+//       "Supabase",
+//       "Prisma",
+//       "Zustand",
+//       "Stripe",
+//     ],
+//     duration: "6 months",
+//     role: "Associate Software Engineer & Technical Lead",
+//     achievements: [
+//       "Directed team through high-pressure launch, delivering 2 weeks ahead of schedule",
+//       "Designed unified dashboard integrating multiple productivity modules",
+//       "Built scalable community features supporting 5k+ concurrent users",
+//       "Implemented adaptive UI that personalizes based on user workflow",
+//     ],
+//   },
+//   {
+//     id: "proj_03",
+//     title: "SnapCart: E-Commerce Platform",
+//     image: "/images/jpg/ecommerce.jpg",
+//     link: "https://merchandise-store-7qciq13ic-gitaman8481s-projects.vercel.app/store",
+//     code: "",
+//     description:
+//       "A fully functional e-commerce platform with features like product listing, shopping cart, and user authentication.",
+//     technologies: [
+//       "Next.js",
+//       "Tailwind",
+//       "React",
+//       "TypeScript",
+//       "Node.js",
+//       "PostgreSQL",
+//       "Stripe",
+//       "SendGrid",
+//     ],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_04",
+//     title: "Coursewave: Learning Platform",
+//     image: "/images/png/lms.png",
+//     link: "https://www.coursewave.in",
+//     code: "",
+//     description:
+//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+//     technologies: [
+//       "Next.js",
+//       "Taiwlind",
+//       "PostgreSQL",
+//       "Supabase",
+//       "Prisma",
+//       "Zustand",
+//       "Stripe",
+//       "TypeScript",
+//     ],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_05",
+//     title: "Foodio: Food Ordering Platform",
+//     image: "https://cdn.dribbble.com/userupload/9093003/file/original-fee1a2c945a901f2e85a4b4bfb67eb35.png?resize=2048x1545&vertical=center",
+//     link: "https://www.coursewave.in",
+//     code: "",
+//     description:
+//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+//     technologies: [
+//       "Next.js",
+//       "Taiwlind",
+//       "PostgreSQL",
+//       "Supabase",
+//       "Prisma",
+//       "Zustand",
+//       "Stripe",
+//     ],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_06",
+//     title: "Weatherly: Weather Platform",
+//     image: "https://cdn.dribbble.com/userupload/22504079/file/still-c9363e288b7820ed12a91f82e032d5f6.gif?format=webp&resize=400x300&vertical=center",
+//     link: "https://www.coursewave.in",
+//     code: "",
+//     description:
+//       "A learning platform with features such as intructor dashboard, community articles, sessions, user dashboard, community chat.",
+//     technologies: ["React.js", "Taiwlind", "Weather API"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_07",
+//     title: "Twodays: Explore chat and locate",
+//     image: "/images/webp/twodays.webp",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: [
+//       "Flutter",
+//       "Dart",
+//       "BLoc",
+//       "Google Maps",
+//       "Firebase",
+//       "HTTP",
+//       "iOS",
+//     ],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_08",
+//     title: "NOW: Notes of Worship",
+//     image:
+//       "https://play-lh.googleusercontent.com/WB5VcX-NlcknIHtydYN0ENOk_tsSTPBfwxBoXZgLW5K-FMdIdGvln1RfvY6TILLQa7C0=w5120-h2880-rw",
+//     link: "https://play.google.com/store/apps/details?id=com.notesofworship.app&hl=en_IN",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_09",
+//     title: "TTYL: Talk To You Later",
+//     image:
+//       "https://play-lh.googleusercontent.com/aDCXowFQkEeIO-yo1wX0pu4HMxnpnFEY2WLRwytLXvddb2Chq1khNreYT_f3dMIHjNE=w5120-h2880-rw",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_10",
+//     title: "LuxeTick",
+//     image: "/images/png/watch2.png",
+//     link: "https://amangit1314.github.io/watches_web/",
+//     code: "",
+//     description:
+//       "An exclusive online platform dedicated to luxury timepieces. Catering to discerning watch enthusiasts and collectors. Key Features: Curated luxury collection, Exclusive Auctions, Virtual try-on, Watch Customization, Collector's Hub, Expert Reviews & Articles.",
+//     technologies: [
+//       "Next.js",
+//       "Tailwind",
+//       "TypeScript",
+//       "SendGrid",
+//       "Sanity",
+//       "Framer",
+//     ],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_11",
+//     title: "Convo: Chat application",
+//     image: "/images/webp/convo.webp",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "BLoc", "Firebase", "HTTP", "iOS"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_12",
+//     title: "BeyongStudy: Online Education Platform App",
+//     image: "https://cdn.dribbble.com/userupload/34260017/file/original-8ea32b687943b174d3495ec627cdbe25.jpg?resize=2048x1536&vertical=center",
+//     link: "https://github.com/amangit1314/Ecommerce-App",
+//     code: "",
+//     description:
+//       "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_13",
+//     title: "MyMentor: Online Mentorship Platform",
+//     image: "/images/webp/mymentor.webp",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_14",
+//     title: "Fizzle: Social Media Platform",
+//     image:
+//       "https://cdn.dribbble.com/userupload/42913740/file/original-8ee96831638637868b5e77245b2c9da6.png?resize=2048x1536&vertical=center",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_15",
+//     title: "SnapCart: E-Commerce App",
+//     image: "/images/webp/ecomm-app.webp",
+//     link: "https://github.com/amangit1314/Ecommerce-App",
+//     code: "",
+//     description:
+//       "A store ecommerce app for individual small product manfucatureres or an individual store to sell there products, here user can do all stuff like he does in any ecommerce app.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "Talk.to"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_16",
+//     title: "MovieMania: Movies Catelog & Ticket Booking App",
+//     image:
+//       "https://cdn.dribbble.com/userupload/11185902/file/original-51f34adbee9502fa3dcd385a3f6e3b2b.png?resize=2048x1547&vertical=center",
+//     link: "https://play.google.com/store/apps/details?id=ttyl.app&hl=en_US&pli=1",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+//     duration: "6 months",
+//   },
+//   {
+//     id: "proj_17",
+//     title: "ReadTogether: Collaborative Reading Platform",
+//     image:
+//       "https://cdn.dribbble.com/userupload/15652963/file/original-57e2e4a32dd8508cc79aac7f398f500d.png?resize=1200x900&vertical=center",
+//     link: "",
+//     code: "",
+//     description:
+//       "This is an app that we created to help people reconnect on the phone in the present and future. With this app, you are able to save voice and texts from loved ones.The quicker you download the app and start recording memories, the more realistic the conversations will be.",
+//     technologies: ["Flutter", "Dart", "Provider", "Firebase", "HTTP"],
+//     duration: "6 months",
+//   },
+// ];
