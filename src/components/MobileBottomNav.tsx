@@ -15,8 +15,8 @@ const navLinks = [
   { name: "Home", path: "#home", icon: FiHome },
   { name: "About", path: "#about", icon: FiUser },
   { name: "Skills", path: "#skills", icon: FiCode },
-  { name: "Projects", path: "#projects", icon: FiGithub },
   { name: "Experience", path: "#experience", icon: FiBriefcase },
+  { name: "Projects", path: "#projects", icon: FiGithub },
   { name: "Contact", path: "#contact", icon: FiMail },
 ];
 
@@ -62,11 +62,10 @@ const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                     key={link.path}
                     onClick={() => onNavClick(link.path)}
                     whileTap={{ scale: 0.9 }}
-                    className={`relative flex flex-col items-center p-2 rounded-lg transition-all duration-300 min-w-[50px] ${
-                      activeSection === link.path.substring(1)
-                        ? "text-purple-400 bg-purple-500/10"
-                        : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
-                    }`}
+                    className={`relative flex flex-col items-center p-2 rounded-lg transition-all duration-300 min-w-[50px] ${activeSection === link.path.substring(1)
+                      ? "text-purple-400 bg-purple-500/10"
+                      : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
+                      }`}
                   >
                     <link.icon className="w-5 h-5 mb-1" />
 

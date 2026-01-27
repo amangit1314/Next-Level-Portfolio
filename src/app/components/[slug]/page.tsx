@@ -421,6 +421,7 @@ import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
 import Header from "@/components/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
+import { ComponentDetailSkeleton } from "@/components/skeletons/ComponentDetailSkeleton";
 
 interface ComponentDetail {
   _id: string;
@@ -711,11 +712,7 @@ const ComponentDetailPage = () => {
     return (
       <>
         <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        <div className="min-h-screen bg-theme-bg-primary flex items-center justify-center pt-20">
-          <div className="text-theme-text-primary text-xl">
-            Loading component...
-          </div>
-        </div>
+        <ComponentDetailSkeleton />
       </>
     );
   }

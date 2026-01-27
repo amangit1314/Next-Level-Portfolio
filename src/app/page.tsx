@@ -95,10 +95,10 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="mt-16 w-full bg-zinc-900/50 border-t border-zinc-800/50">
-        <div className="max-w-7xl mx-auto">
-          <Footer />
-        </div>
+      <footer className="mt-16 w-full  border-t border-zinc-800/50 relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary border-t border-theme-border/50 overflow-hidden">
+        {/* <div className="max-w-7xl mx-auto"> */}
+        <Footer />
+        {/* </div> */}
       </footer>
 
       {/* Mobile Bottom Navigation */}

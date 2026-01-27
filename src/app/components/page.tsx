@@ -10,6 +10,7 @@ import { componentsQuery } from "@/sanity/lib/queries";
 import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ComponentCardSkeleton } from "@/components/skeletons/ComponentCardSkeleton";
 
 interface Component {
   _id: string;
@@ -123,12 +124,13 @@ const ComponentsPage = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
       },
     },
   };
@@ -137,11 +139,17 @@ const ComponentsPage = () => {
     return (
       <>
         <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        <div className="min-h-screen bg-theme-bg-primary flex items-center justify-center pt-20">
-          <div className="text-theme-text-primary text-xl">
-            Loading components...
+        <section className="relative min-h-screen py-24 lg:py-32 overflow-hidden bg-linear-to-br bg-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80">
+          <div className="relative z-10 max-w-7xl mx-auto px-4">
+            <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+                {[...Array(6)].map((_, i) => (
+                  <ComponentCardSkeleton key={i} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </>
     );
   }
@@ -271,13 +279,30 @@ const ComponentsPage = () => {
                   <motion.div
                     key={component._id}
                     variants={itemVariants}
-                    whileHover={{ y: -5 }}
-                    className="group"
+                    className="project-card group relative overflow-hidden rounded-3xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
+                    style={{
+                      background: `
+                  radial-gradient(
+                    600px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(var(--theme-primary-rgb), 0.06),
+                    transparent 40%
+                  ),
+                  linear-gradient(135deg, rgba(var(--theme-bg-rgb), 0.9) 0%, rgba(var(--theme-bg-rgb), 0.7) 100%)
+                `,
+                    }}
                   >
+                    {/* Animated border gradient */}
+                    <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                      <div className="absolute inset-[-2px] bg-gradient-to-r from-theme-primary via-transparent to-theme-secondary opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
+                    </div>
+
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                      <div className="absolute inset-0 bg-linear-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
+                    </div>
+
                     <Link href={`/components/${component.slug.current}`}>
                       <div className="relative bg-theme-bg-secondary backdrop-blur-md rounded-2xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500 overflow-hidden h-full">
-                        {/* Hover Glow */}
-                        <div className="absolute inset-0 theme-gradient-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                         {/* Preview Image */}
                         <div className="relative h-48 overflow-hidden bg-theme-bg-primary">
@@ -295,11 +320,10 @@ const ComponentsPage = () => {
                           {component.difficulty && (
                             <div className="absolute top-3 right-3">
                               <div
-                                className={`px-3 py-1 rounded-full text-xs font-bold text-theme-text-primary bg-gradient-to-r ${
-                                  difficultyColors[
-                                    component.difficulty as keyof typeof difficultyColors
-                                  ] || "from-zinc-500 to-zinc-600"
-                                } capitalize ${unbounded.className}`}
+                                className={`px-3 py-1 rounded-full text-xs font-bold text-theme-text-primary bg-gradient-to-r ${difficultyColors[
+                                  component.difficulty as keyof typeof difficultyColors
+                                ] || "from-zinc-500 to-zinc-600"
+                                  } capitalize ${unbounded.className}`}
                               >
                                 {component.difficulty}
                               </div>
@@ -318,8 +342,9 @@ const ComponentsPage = () => {
                             </span>
                           </div>
 
+                          {/* group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text */}
                           <h3
-                            className={`text-xl font-bold text-theme-text-primary group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text transition-all ${unbounded.className}`}
+                            className={`text-xl font-bold text-theme-text-primary  transition-all ${unbounded.className}`}
                           >
                             {component.title}
                           </h3>
@@ -369,9 +394,11 @@ const ComponentsPage = () => {
             </motion.div>
           </div>
 
-        
+
         </div>
       </section>
+      {/* Footer */}
+      <Footer />
     </>
   );
 };

@@ -14,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { MdArrowOutward } from "react-icons/md";
 import { SiNextdotjs, SiVercel } from "react-icons/si";
+import { BugReportDialog } from "./BugReportDialog";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -91,7 +92,7 @@ const Footer = () => {
           >
             <div className="space-y-4">
               <h3
-                className={`${poppins.className} text-2xl font-bold theme-text-gradient bg-clip-text text-transparent`}
+                className={`${poppins.className} text-2xl font-bold theme-text-gradient bg-clip-text text-transparent `}
               >
                 Let&apos;s Build Something Amazing
               </h3>
@@ -224,16 +225,21 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Back to Top */}
-            <button
-              onClick={scrollToTop}
-              className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
-            >
-              <span className={`${poppins.className} text-xs`}>
-                Back to Top
-              </span>
-              <FiArrowUp className="w-4 h-4" />
-            </button>
+            <div className="flex justify-end items-center space-x-2">
+              {/* Report Bug */}
+              <BugReportDialog />
+
+              {/* Back to Top */}
+              <button
+                onClick={scrollToTop}
+                className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
+              >
+                <span className={`${poppins.className} text-xs`}>
+                  Back to Top
+                </span>
+                <FiArrowUp className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

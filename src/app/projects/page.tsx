@@ -11,6 +11,7 @@ import Header from "@/components/Header";
 import { ProfileStats } from "@/types/profile-stats";
 import ProjectsHeader from "./_components/ProjectsHeader";
 import Footer from "@/components/Footer";
+import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -102,9 +103,20 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-theme-bg-primary flex items-center justify-center">
-        <div className="text-theme-text-primary text-xl">Loading...</div>
-      </div>
+      <>
+        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 py-24">
+            <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+                {[...Array(4)].map((_, i) => (
+                  <ProjectCardSkeleton key={i} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
     );
   }
 
@@ -132,7 +144,7 @@ const Projects = () => {
         <div className="absolute inset-0 bg-theme-bg-primary/40" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -155,20 +167,27 @@ const Projects = () => {
                 <motion.div
                   key={project._id}
                   variants={itemVariants}
-                  className="project-card group relative bg-theme-bg-secondary/90 backdrop-blur-md rounded-3xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500 overflow-hidden"
-                  // style={{
-                  //   background: `
-                  //     radial-gradient(
-                  //       600px circle at var(--mouse-x) var(--mouse-y),
-                  //       rgba(168, 85, 247, 0.08),
-                  //       transparent 40%
-                  //     ),
-                  //     linear-gradient(135deg, rgba(9, 9, 11, 0.95) 0%, rgba(24, 24, 27, 0.85) 100%)
-                  //   `,
-                  // }}
+                  className="project-card group relative overflow-hidden rounded-3xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
+                  style={{
+                    background: `
+                  radial-gradient(
+                    600px circle at var(--mouse-x) var(--mouse-y),
+                    rgba(var(--theme-primary-rgb), 0.06),
+                    transparent 40%
+                  ),
+                  linear-gradient(135deg, rgba(var(--theme-bg-rgb), 0.9) 0%, rgba(var(--theme-bg-rgb), 0.7) 100%)
+                `,
+                  }}
                 >
-                  {/* Hover Glow */}
-                  <div className="absolute inset-0 theme-gradient-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Animated border gradient */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <div className="absolute inset-[-2px] bg-gradient-to-r from-theme-primary via-transparent to-theme-secondary opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
+                  </div>
+
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                    <div className="absolute inset-0 bg-linear-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
+                  </div>
 
                   {/* Project Image */}
                   <div className="relative h-64 overflow-hidden">
@@ -224,11 +243,11 @@ const Projects = () => {
                   </div>
 
                   {/* Project Content */}
-                  <div className="p-6 space-y-4">
+                  <div className="p-6 space-y-4 group-hover:text-white overflow-hidden">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent" />
+                      <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent group-hover:text-white" />
                       <span
-                        className={`text-xs font-mono text-theme-primary uppercase tracking-wider ${unbounded.className}`}
+                        className={`text-xs font-mono text-theme-primary uppercase tracking-wider group-hover:text-white ${unbounded.className}`}
                       >
                         Case Study
                       </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 
 const ProjectCard = (props: ProjectCardProps) => {
   const { index, project } = props;
+  const [imageError, setImageError] = useState(false);
 
   const projectItem = {
     hidden: { opacity: 0, y: 40, scale: 0.95 },
@@ -57,13 +59,16 @@ const ProjectCard = (props: ProjectCardProps) => {
           <Link href={project.link || ""} className="relative block h-full">
             {/* Image wrapper with effects */}
             <div className="relative h-full overflow-hidden">
-              <Image
-                src={project.image?.asset?.url || "/placeholder.png"}
-                width={800}
-                height={500}
-                alt={project.title}
-                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
-              />
+              {!imageError && (
+                <Image
+                  src={project.image?.asset?.url || "/placeholder.png"}
+                  width={800}
+                  height={500}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                  onError={() => setImageError(true)}
+                />
+              )}
 
               {/* Overlay effects */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
