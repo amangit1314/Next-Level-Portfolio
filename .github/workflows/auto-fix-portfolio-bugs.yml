@@ -1,0 +1,56 @@
+name: Auto-fix validated portfolio bugs
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  claude-auto-fix:
+    # Run only when the "auto-fix" label is added
+    if: github.event.label.name == 'auto-fix'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write        # let Claude modify code / push
+      issues: write          # comment / close issues
+      pull-requests: write   # open PRs if it wants
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code on this issue
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are an autonomous coding agent maintaining my personal portfolio website.
+            Tech stack:
+            - Next.js 16
+            - Tailwind CSS
+            - framer-motion
+            - shadcn-ui
+            - Sanity CMS (for content)
+
+            The current GitHub issue is #${{ github.event.issue.number }}.
+            Read the issue title and body carefully. Understand the bug that was reported
+            via my portfolio's "Report bug" form.
+
+            Your tasks:
+            - Find the relevant code in this repo.
+            - Implement a minimal, focused fix for this bug.
+            - Keep changes small and well-structured.
+            - Prefer editing existing components over big refactors.
+            - After changes, run "npm install" if needed and "npm run build" to ensure it still builds.
+            - If appropriate, adjust or add a small test or type-safety improvement.
+
+            IMPORTANT:
+            - Do NOT make unrelated changes.
+            - Prefer to create a PR with your changes unless the fix is trivial.
+            - In your final summary, clearly list the files changed and what was fixed.
+
+          claude_args: |
+            --max-turns 12
+            --model claude-sonnet-4-5-20251101
