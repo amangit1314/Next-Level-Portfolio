@@ -239,6 +239,42 @@ export const AboutSection = () => {
                   </div>
                 </motion.div>
 
+                {/* Tech Stack Preview */}
+                <motion.div
+                  className="p-4 mt-8 sm:p-6 bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl border border-theme-border/50 hover:border-theme-primary/30 transition-all duration-500 group"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <span
+                      className={`${poppins.className} text-base sm:text-lg font-semibold text-theme-text-primary`}
+                    >
+                      Tech Stack
+                    </span>
+                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5 mb-2 text-theme-primary group-hover:translate-x-1 transition-transform duration-300" />
+                  </div>
+                  <div className="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6 flex-wrap gap-3 sm:gap-0">
+                    {profile.techStackPreview?.map(
+                      (techName: string, index: number) => {
+                        const Icon = getTechIcon(techName);
+                        return (
+                          <motion.div
+                            key={index}
+                            whileHover={{ scale: 1.3, y: -5 }}
+                            className="flex flex-col items-center space-y-1 group/tech"
+                          >
+                            <div className="text-theme-text-muted opacity-80 group-hover/tech:opacity-100 transition-all duration-300">
+                              <Icon className="w-5 h-5 sm:w-7 sm:h-7" />
+                            </div>
+                            <span className="text-[10px] sm:text-xs text-theme-text-muted font-medium opacity-0 group-hover/tech:opacity-100 group-hover:mb-4 transition-opacity duration-300">
+                              {techName}
+                            </span>
+                          </motion.div>
+                        );
+                      }
+                    )}
+                  </div>
+                </motion.div>
+
                 {/* Floating Tech Icons */}
                 <motion.div
                   className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 w-12 h-12 sm:w-16 sm:h-16 theme-gradient-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-theme-primary/25"
@@ -296,14 +332,14 @@ export const AboutSection = () => {
                   field="Backend"
                   duration={profile?.experienceAreas?.backend || "3+ Years"}
                   icon={<FiServer className="w-6 h-6 sm:w-7 sm:h-7" />}
-                  gradient="from-theme-secondary to-cyan-500"
+                  gradient="from-theme-primary to-theme-secondary"
                   description="Robust APIs & Systems"
                 />
                 <ExperienceCard
                   field="Mobile"
                   duration={profile?.experienceAreas?.mobile || "2+ Years"}
                   icon={<FiSmartphone className="w-6 h-6 sm:w-7 sm:h-7" />}
-                  gradient="from-cyan-500 to-emerald-500"
+                  gradient="from-theme-primary to-theme-secondary"
                   description="Cross-platform apps"
                 />
               </div>
@@ -345,14 +381,14 @@ export const AboutSection = () => {
                 </div>
 
                 {/* Key Strengths */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1  gap-3 sm:gap-4">
                   {profile.keyStrengths?.map(
                     (strength: string, index: number) => (
                       <motion.div
                         key={index}
                         className="flex items-center space-x-2 sm:space-x-3 group"
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 400 }}
+                      // whileHover={{ x: 5 }}
+                      // transition={{ type: "spring", stiffness: 400 }}
                       >
                         <div className="w-2 h-2 sm:w-3 sm:h-3 theme-gradient-primary rounded-full flex-shrink-0 group-hover:scale-125 transition-transform duration-300" />
                         <span
@@ -365,45 +401,9 @@ export const AboutSection = () => {
                   )}
                 </div>
 
-                {/* Tech Stack Preview */}
-                <motion.div
-                  className="p-4 sm:p-6 bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl border border-theme-border/50 hover:border-theme-primary/30 transition-all duration-500 group"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <span
-                      className={`${poppins.className} text-base sm:text-lg font-semibold text-theme-text-primary`}
-                    >
-                      Tech Stack
-                    </span>
-                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5 mb-2 text-theme-primary group-hover:translate-x-1 transition-transform duration-300" />
-                  </div>
-                  <div className="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6 flex-wrap gap-3 sm:gap-0">
-                    {profile.techStackPreview?.map(
-                      (techName: string, index: number) => {
-                        const Icon = getTechIcon(techName);
-                        return (
-                          <motion.div
-                            key={index}
-                            whileHover={{ scale: 1.3, y: -5 }}
-                            className="flex flex-col items-center space-y-1 group/tech"
-                          >
-                            <div className="text-theme-text-muted opacity-80 group-hover/tech:opacity-100 transition-all duration-300">
-                              <Icon className="w-5 h-5 sm:w-7 sm:h-7" />
-                            </div>
-                            <span className="text-[10px] sm:text-xs text-theme-text-muted font-medium opacity-0 group-hover/tech:opacity-100 group-hover:mb-4 transition-opacity duration-300">
-                              {techName}
-                            </span>
-                          </motion.div>
-                        );
-                      }
-                    )}
-                  </div>
-                </motion.div>
-
                 {/* CTA */}
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
+                  // whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="pt-4"
                 >

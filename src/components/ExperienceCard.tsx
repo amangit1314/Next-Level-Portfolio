@@ -33,7 +33,7 @@ const ExperienceCard = ({
 
       <div className="relative z-10 text-center space-y-3 sm:space-y-4">
         <motion.div
-          className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${gradient} rounded-2xl shadow-lg group-hover:shadow-xl group-hover:scale-105 sm:group-hover:scale-110 transition-all duration-500`} // FIXED: Responsive size and hover
+          className={`inline-flex text-white items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${gradient} rounded-2xl shadow-lg group-hover:shadow-xl group-hover:scale-105 sm:group-hover:scale-110 transition-all duration-500`} // FIXED: Responsive size and hover
           whileHover={{ rotate: 5 }}
         >
           {icon}
