@@ -121,9 +121,18 @@
     border-color: hsl(var(--border));
   }
 
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    /* Prevents bounce effect */
+  }
+
   body {
-    background-color: hsl(var(--background));
+    background-color: var(--theme-bg-primary);
+    /* Use theme var directly */
     color: hsl(var(--foreground));
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
   }
 }
 
@@ -204,6 +213,7 @@
 .bg-theme-primary {
   background-color: var(--theme-primary);
 }
+
 .text-theme-primary {
   color: var(--theme-primary);
 }
@@ -211,28 +221,22 @@
 /* Theme gradient utilities */
 @layer utilities {
   .theme-gradient-primary {
-    background: linear-gradient(
-      to right,
-      var(--theme-primary),
-      var(--theme-secondary)
-    );
+    background: linear-gradient(to right,
+        var(--theme-primary),
+        var(--theme-secondary));
   }
 
   .theme-gradient-accent {
-    background: linear-gradient(
-      to right,
-      var(--theme-primary-dark),
-      var(--theme-secondary-dark),
-      var(--theme-accent)
-    );
+    background: linear-gradient(to right,
+        var(--theme-primary-dark),
+        var(--theme-secondary-dark),
+        var(--theme-accent));
   }
 
   .theme-text-gradient {
-    background: linear-gradient(
-      to right,
-      var(--theme-primary-light),
-      var(--theme-secondary-light)
-    );
+    background: linear-gradient(to right,
+        var(--theme-primary-light),
+        var(--theme-secondary-light));
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -244,6 +248,7 @@
     0% {
       transform: translateX(0%);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -253,6 +258,7 @@
     0% {
       transform: translateY(0%);
     }
+
     100% {
       transform: translateY(-50%);
     }
@@ -270,6 +276,7 @@
     0% {
       transform: translateX(-100%);
     }
+
     100% {
       transform: translateX(100%);
     }
@@ -277,5 +284,17 @@
 
   .animate-shimmer {
     animation: shimmer 2s infinite;
+  }
+
+  /* Scrollbar hide utility */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }

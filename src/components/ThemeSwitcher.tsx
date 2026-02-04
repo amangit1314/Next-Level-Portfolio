@@ -89,7 +89,7 @@ export const ThemeSwitcher = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full right-0 mt-2 p-4 bg-theme-bg-secondary/95 backdrop-blur-xl rounded-2xl border border-theme-border shadow-2xl w-80 max-h-[32rem] overflow-y-auto z-50"
+            className="absolute top-full right-0 mt-2 p-4 bg-theme-bg-secondary/95 backdrop-blur-xl rounded-2xl border border-theme-border shadow-2xl w-[90vw] max-w-sm max-h-[70vh] overflow-y-auto z-50 origin-top-right xs:w-80"
           >
             <div className="mb-3">
               <h3

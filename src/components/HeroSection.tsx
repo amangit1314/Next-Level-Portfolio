@@ -141,12 +141,12 @@ const HeroSection = () => {
               className="space-y-2"
             >
               <motion.h1
-                className={`font-bold leading-[1.1] tracking-tighter text-4xl sm:text-5xl lg:text-7xl xl:text-8xl ${unbounded.className}`}
+                className={`font-bold leading-[1.1] tracking-tighter text-3xl sm:text-5xl lg:text-7xl xl:text-8xl break-words hyphens-auto ${unbounded.className}`}
               >
-                <span className="theme-text-gradient bg-clip-text text-transparent">
+                <span className="theme-text-gradient bg-clip-text text-transparent inline-block">
                   {profile.name?.split(" ")[0]}
                 </span>{" "}
-                <span className="theme-text-gradient bg-clip-text text-transparent z-10">
+                <span className="theme-text-gradient bg-clip-text text-transparent z-10 inline-block">
                   {profile.name?.split(" ")[1]}
                 </span>
               </motion.h1>

@@ -16,6 +16,7 @@ import { blogsQuery } from "@/sanity/lib/queries";
 import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
 import { BlogCardSkeleton } from "@/components/skeletons/BlogCardSkeleton";
+import SearchFilter from "@/components/SearchFilter";
 
 interface Blog {
   _id: string;
@@ -224,35 +225,14 @@ const BlogsPage = () => {
             </p>
 
             {/* Search and Filter */}
-            <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
-              {/* Search */}
-              <div className="flex-1 relative">
-                <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-theme-text-muted" />
-                <input
-                  type="text"
-                  placeholder="Search blogs..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-3 bg-theme-bg-secondary border border-theme-border rounded-xl text-theme-text-primary placeholder-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all ${inter.className}`}
-                />
-              </div>
-
-              {/* Category Filter */}
-              <div className="relative">
-                <FiFilter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-theme-text-muted pointer-events-none" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className={`pl-12 pr-8 py-3 bg-theme-bg-secondary border border-theme-border rounded-xl text-theme-text-primary focus:outline-none focus:border-theme-primary/50 transition-all cursor-pointer appearance-none ${inter.className}`}
-                >
-                  {categories.map((cat) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <SearchFilter
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              options={categories}
+              placeholder="Search blogs..."
+            />
 
             {/* Results Count */}
             <motion.p
@@ -328,7 +308,7 @@ interface BlogCardProps {
 const BlogCard: React.FC<BlogCardProps> = ({ blog, featured = false }) => {
   return (
     <Link href={`/blogs/${blog.slug.current}`}>
-      <div 
+      <div
         className="group relative overflow-hidden rounded-2xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500 h-full"
         style={{
           background: `
@@ -353,9 +333,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, featured = false }) => {
 
         {/* Cover Image */}
         <div
-          className={`relative ${
-            featured ? "h-64" : "h-48"
-          } overflow-hidden bg-theme-bg-primary`}
+          className={`relative ${featured ? "h-64" : "h-48"
+            } overflow-hidden bg-theme-bg-primary`}
         >
           {blog.coverImage?.asset?.url && (
             <Image
@@ -391,9 +370,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, featured = false }) => {
           </div>
 
           <h3
-            className={`${
-              featured ? "text-2xl" : "text-xl"
-            } font-bold text-theme-text-primary group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text transition-all line-clamp-2 ${unbounded.className}`}
+            className={`${featured ? "text-2xl" : "text-xl"
+              } font-bold text-theme-text-primary group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text transition-all line-clamp-2 ${unbounded.className}`}
           >
             {blog.title}
           </h3>

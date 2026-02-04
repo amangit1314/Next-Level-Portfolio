@@ -11,6 +11,7 @@ import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ComponentCardSkeleton } from "@/components/skeletons/ComponentCardSkeleton";
+import SearchFilter from "@/components/SearchFilter";
 
 interface Component {
   _id: string;
@@ -216,35 +217,14 @@ const ComponentsPage = () => {
             </p>
 
             {/* Search and Filter */}
-            <div className="flex flex-col md:flex-row gap-4 max-w-4xl mx-auto">
-              {/* Search */}
-              <div className="flex-1 relative">
-                <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-theme-text-muted" />
-                <input
-                  type="text"
-                  placeholder="Search components..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-12 pr-4 py-3 bg-theme-bg-secondary border border-theme-border rounded-xl text-theme-text-primary placeholder-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all ${inter.className}`}
-                />
-              </div>
-
-              {/* Category Filter */}
-              <div className="relative">
-                <FiFilter className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-theme-text-muted pointer-events-none" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className={`pl-12 pr-8 py-3 bg-theme-bg-secondary border border-theme-border rounded-xl text-theme-text-primary focus:outline-none focus:border-theme-primary/50 transition-all cursor-pointer appearance-none ${inter.className}`}
-                >
-                  {categories.map((cat) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+            <SearchFilter
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              options={categories}
+              placeholder="Search components..."
+            />
 
             {/* Results Count */}
             <motion.p

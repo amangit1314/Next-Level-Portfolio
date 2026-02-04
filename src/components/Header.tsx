@@ -16,6 +16,7 @@ import { caveat, inter, unbounded } from "@/lib/fonts";
 import { usePathname, useRouter } from "next/navigation";
 import { Variants, Transition } from "framer-motion";
 import ThemeSwitcher from "./ThemeSwitcher";
+import Magnetic from "./Magnetic";
 
 // PAGE-LEVEL NAV (top bar)
 export const pageLinks = [
@@ -131,75 +132,78 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo Section */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-3 cursor-pointer group"
-              onClick={() => handlePageNavClick("/")}
-            >
-              <div className="relative">
-                {/* Letter logo */}
-                <motion.div
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-theme-bg-secondary ring-2 ring-theme-border/50 group-hover:ring-theme-primary/70 transition-all duration-300 overflow-visible"
-                  whileHover={{ rotate: 2 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <span
-                    className={`relative z-10 ${caveat.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
+            <Magnetic>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center space-x-3 cursor-pointer group"
+                onClick={() => handlePageNavClick("/")}
+              >
+                <div className="relative">
+                  {/* Letter logo */}
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-theme-bg-secondary ring-2 ring-theme-border/50 group-hover:ring-theme-primary/70 transition-all duration-300 overflow-visible"
+                    whileHover={{ rotate: 2 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    As
-                  </span>
-                </motion.div>
+                    <span
+                      className={`relative z-10 ${caveat.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
+                    >
+                      As
+                    </span>
+                  </motion.div>
 
-                {/* Glow ring on hover */}
-                <div className="pointer-events-none absolute -inset-1 rounded-full theme-gradient-accent opacity-0 blur group-hover:opacity-100 transition-colors duration-500 -z-10" />
-              </div>
-            </motion.div>
+                  {/* Glow ring on hover */}
+                  <div className="pointer-events-none absolute -inset-1 rounded-full theme-gradient-accent opacity-0 blur group-hover:opacity-100 transition-colors duration-500 -z-10" />
+                </div>
+              </motion.div>
+            </Magnetic>
 
             {/* Desktop Navigation - PAGE LINKS ONLY */}
             <div className="flex items-center space-x-1">
               {pageLinks.map((link, index) => {
                 const active = isPageActive(link.path);
                 return (
-                  <motion.button
-                    key={link.name}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * index }}
-                    layoutId={link.name}
-                    onClick={() => handlePageNavClick(link.path)}
-                    className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${active
-                      ? "text-theme-primary"
-                      : "text-theme-text-secondary hover:text-theme-text-primary"
-                      }`}
-                  >
-                    <span className="relative z-10 flex items-center space-x-2">
-                      <link.icon className="w-4 h-4" />
-                      <span
-                        className={`text-xs font-bold theme-text-gradient bg-clip-text text-transparent tracking-tight ${unbounded.className}`}
-                      >
-                        {link.name}
+                  <Magnetic key={link.name}>
+                    <motion.button
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 * index }}
+                      layoutId={link.name}
+                      onClick={() => handlePageNavClick(link.path)}
+                      className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 group ${active
+                        ? "text-theme-primary"
+                        : "text-theme-text-secondary hover:text-theme-text-primary"
+                        }`}
+                    >
+                      <span className="relative z-10 flex items-center space-x-2">
+                        <link.icon className="w-4 h-4" />
+                        <span
+                          className={`text-xs font-bold theme-text-gradient bg-clip-text text-transparent tracking-tight ${unbounded.className}`}
+                        >
+                          {link.name}
+                        </span>
                       </span>
-                    </span>
 
-                    {/* Active Indicator */}
-                    {active && (
+                      {/* Active Indicator */}
+                      {active && (
+                        <motion.div
+                          className="absolute inset-0 theme-gradient-accent/10 rounded-lg border border-theme-primary/20"
+                          layoutId="activePageNav"
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+
+                      {/* Hover Effect */}
                       <motion.div
-                        className="absolute inset-0 theme-gradient-accent/10 rounded-lg border border-theme-primary/20"
-                        layoutId="activePageNav"
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 30,
-                        }}
+                        className="absolute inset-0 theme-gradient-accent/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        whileHover={{ scale: 1.02 }}
                       />
-                    )}
-
-                    {/* Hover Effect */}
-                    <motion.div
-                      className="absolute inset-0 theme-gradient-accent/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      whileHover={{ scale: 1.02 }}
-                    />
-                  </motion.button>
+                    </motion.button>
+                  </Magnetic>
                 );
               })}
             </div>
@@ -208,33 +212,36 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
               <ThemeSwitcher />
 
               {/* Resume Button */}
-              <motion.a
-                href="/assets/aman_resume_new.pdf"
-                download
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="
-    group relative px-6 py-2.5
-    text-sm font-semibold rounded-lg
-    transition-all duration-300
-    theme-gradient-accent
-    shadow-lg hover:shadow-[0_0_22px_rgba(var(--theme-primary-rgb),0.35)]
-    hover:brightness-105
-  "
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  <span
-                    className={`
-        text-xs font-extrabold tracking-tight uppercase
-        text-white ${unbounded.className}
-      `}
-                  >
-                    Resume
-                  </span>
+              <Magnetic>
+                <motion.a
+                  href="/assets/aman_resume_new.pdf"
+                  download
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="
+      group relative px-6 py-2.5
+      inline-flex items-center justify-center
+      text-sm font-semibold rounded-lg
+      transition-all duration-300
+      theme-gradient-accent
+      shadow-lg hover:shadow-[0_0_22px_rgba(var(--theme-primary-rgb),0.35)]
+      hover:brightness-105
+    "
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <span
+                      className={`
+          text-xs font-extrabold tracking-tight uppercase
+          text-white ${unbounded.className}
+        `}
+                    >
+                      Resume
+                    </span>
 
-                  <FiDownload className="w-4 h-4 group-hover:translate-y-0.5 text-primary-foreground transition-transform duration-300" />
-                </span>
-              </motion.a>
+                    <FiDownload className="w-4 h-4 group-hover:translate-y-0.5 text-primary-foreground transition-transform duration-300" />
+                  </span>
+                </motion.a>
+              </Magnetic>
             </div>
           </div>
         </div>

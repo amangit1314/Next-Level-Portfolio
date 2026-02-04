@@ -121,7 +121,8 @@ const Skills = () => {
             <motion.div
               className="flex items-center justify-center space-x-3 mb-6"
               variants={floatingVariants}
-              animate="float"
+              whileInView="float"
+              viewport={{ once: false }}
             >
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
@@ -196,59 +197,59 @@ const Skills = () => {
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {(profile?.stats
                   ? [
-                      {
-                        value: profile.stats.experienceYears || "3+",
-                        label: "Years Experience",
-                        color: "from-purple-400 to-pink-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value:
-                          profile.stats.technologiesCount ||
-                          `${skills.length}+`,
-                        label: "Technologies",
-                        color: "from-blue-400 to-cyan-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value: profile.stats.projectsCount || PROJECTS.length,
-                        label: "Projects Built",
-                        color: "from-green-400 to-teal-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value: profile.stats.clientSatisfaction || "100%",
-                        label: "Client Satisfaction",
-                        color: "from-orange-400 to-red-400",
-                        icon: FiStar,
-                      },
-                    ]
+                    {
+                      value: profile.stats.experienceYears || "3+",
+                      label: "Years Experience",
+                      color: "from-purple-400 to-pink-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value:
+                        profile.stats.technologiesCount ||
+                        `${skills.length}+`,
+                      label: "Technologies",
+                      color: "from-blue-400 to-cyan-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: profile.stats.projectsCount || PROJECTS.length,
+                      label: "Projects Built",
+                      color: "from-green-400 to-teal-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: profile.stats.clientSatisfaction || "100%",
+                      label: "Client Satisfaction",
+                      color: "from-orange-400 to-red-400",
+                      icon: FiStar,
+                    },
+                  ]
                   : [
-                      {
-                        value: "3+",
-                        label: "Years Experience",
-                        color: "from-purple-400 to-pink-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value: `${skills.length}+`,
-                        label: "Technologies",
-                        color: "from-blue-400 to-cyan-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value: PROJECTS.length,
-                        label: "Projects Built",
-                        color: "from-green-400 to-teal-400",
-                        icon: FiStar,
-                      },
-                      {
-                        value: "100%",
-                        label: "Client Satisfaction",
-                        color: "from-orange-400 to-red-400",
-                        icon: FiStar,
-                      },
-                    ]
+                    {
+                      value: "3+",
+                      label: "Years Experience",
+                      color: "from-purple-400 to-pink-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: `${skills.length}+`,
+                      label: "Technologies",
+                      color: "from-blue-400 to-cyan-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: PROJECTS.length,
+                      label: "Projects Built",
+                      color: "from-green-400 to-teal-400",
+                      icon: FiStar,
+                    },
+                    {
+                      value: "100%",
+                      label: "Client Satisfaction",
+                      color: "from-orange-400 to-red-400",
+                      icon: FiStar,
+                    },
+                  ]
                 ).map((stat, index) => (
                   <motion.div
                     key={index}

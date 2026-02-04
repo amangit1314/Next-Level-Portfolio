@@ -17,6 +17,7 @@ const inter = Inter({
 });
 
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata: Metadata = {
   title: "Aman Soni",
@@ -36,6 +37,7 @@ export default function RootLayout({
     >
       <body className="font-inter" suppressHydrationWarning>
         <ThemeProvider>
+          <ScrollProgress />
           {children}
         </ThemeProvider>
       </body>
