@@ -11,6 +11,7 @@ import {
 import { client } from "@/sanity/lib/client";
 import { profileQuery } from "@/sanity/lib/queries";
 import * as Icons from "react-icons/fi";
+import HeroBackground from "./HeroBackground";
 
 const HeroSection = () => {
   const [profile, setProfile] = useState<any>(null);
@@ -77,32 +78,8 @@ const HeroSection = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Gradient Orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 -left-20 w-96 h-96 bg-theme-primary/20 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl"
-        />
+        {/* WebGL Background */}
+        <HeroBackground />
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
