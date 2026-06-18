@@ -7,7 +7,8 @@
     "dev:turbo": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:aider": "ollama serve && aider --model ollama_chat/qwen3:14b"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

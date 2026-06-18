@@ -325,10 +325,14 @@ const Projects = () => {
             </motion.div>
           </div>
 
-          {/* Footer */}
-          <Footer />
+
         </motion.div>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-16 w-full  border-t border-zinc-800/50 relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary border-t border-theme-border/50 overflow-hidden">
+        <Footer />
+      </footer>
     </section>
   );
 };

@@ -90,15 +90,13 @@ const Home = () => {
         <Testimonials />
       </section>
 
-      <section id="contact" className="w-full max-w-7xl">
+      <section id="contact" className="w-full max-w-7xl mx-auto">
         <Contact />
       </section>
 
       {/* Footer */}
       <footer className="mt-16 w-full  border-t border-zinc-800/50 relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary border-t border-theme-border/50 overflow-hidden">
-        {/* <div className="max-w-7xl mx-auto"> */}
         <Footer />
-        {/* </div> */}
       </footer>
 
       {/* Mobile Bottom Navigation */}
