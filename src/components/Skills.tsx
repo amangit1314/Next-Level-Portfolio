@@ -24,9 +24,15 @@ import {
   SiJavascript,
   SiExpress,
   SiNestjs,
+  SiPython,
+  SiPytorch,
+  SiHuggingface,
+  SiOpenai,
+  SiJupyter,
+  SiTensorflow,
 } from "react-icons/si";
 
-const categories = ["Frontend", "Backend", "Mobile", "Database", "DevOps"];
+const categories = ["Frontend", "Backend", "Mobile", "Database", "DevOps", "AI & Machine Learning", "MLOps"];
 
 const floatingVariants = {
   float: {
@@ -62,6 +68,13 @@ const skillToIconMap: { [key: string]: any } = {
   // Add more as needed
   TailwindCSS: SiTailwindcss,
   Framer: SiFramer,
+  Python: SiPython,
+  PyTorch: SiPytorch,
+  TensorFlow: SiTensorflow,
+  HuggingFace: SiHuggingface,
+  OpenAI: SiOpenai,
+  LangChain: SiOpenai,
+  Jupyter: SiJupyter,
 };
 
 const getTechIcon = (techName: string) => {

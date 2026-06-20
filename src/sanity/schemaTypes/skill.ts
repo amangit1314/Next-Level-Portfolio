@@ -42,6 +42,8 @@ export default defineType({
                     { title: "Mobile", value: "Mobile" },
                     { title: "Database", value: "Database" },
                     { title: "DevOps", value: "DevOps" },
+                    { title: "AI & Machine Learning", value: "AI & Machine Learning" },
+                    { title: "MLOps", value: "MLOps" },
                 ],
             },
         }),

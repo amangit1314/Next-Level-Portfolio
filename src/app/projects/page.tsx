@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
+import { FiExternalLink, FiGithub, FiBookOpen } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery, profileQuery } from "@/sanity/lib/queries";
 import { unbounded, inter } from "@/lib/fonts";
@@ -13,6 +13,7 @@ import ProjectsHeader from "./_components/ProjectsHeader";
 import Footer from "@/components/Footer";
 import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
 import SearchFilter from "@/components/SearchFilter";
+import { aiProjects } from "@/data/ai-projects";
 
 interface Project {
   _id: string;
@@ -26,6 +27,18 @@ interface Project {
   };
   link?: string;
   code?: string;
+  isAI?: boolean;
+  playgroundUrl?: string;
+  architectureDiagram?: {
+    asset: {
+      url: string;
+    };
+  };
+  metrics?: Array<{
+    label: string;
+    value: string;
+  }>;
+  blogSlug?: string;
 }
 
 const Projects = () => {
@@ -67,7 +80,9 @@ const Projects = () => {
           client.fetch(projectsQuery),
           client.fetch(profileQuery),
         ]);
-        setProjects(projectsData);
+        // Merge: hardcoded AI projects show first, then Sanity projects
+        const merged = [...aiProjects, ...projectsData];
+        setProjects(merged);
         setStats(profileData?.stats || {});
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -77,6 +92,42 @@ const Projects = () => {
     };
 
     fetchData();
+  }, []);
+
+  // Parse URL query search parameters on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const searchParam = params.get("search");
+      if (searchParam) {
+        setSearchQuery(searchParam);
+        // Also scroll into view to the search filters section
+        setTimeout(() => {
+          const searchElem = document.querySelector("#projects-search-filters");
+          if (searchElem) {
+            searchElem.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 300);
+      }
+    }
+  }, []);
+
+  // Listen to custom search events dispatched from the AI Co-pilot
+  useEffect(() => {
+    const handleSearchEvent = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.query) {
+        setSearchQuery(detail.query);
+        setTimeout(() => {
+          const searchElem = document.querySelector("#projects-search-filters");
+          if (searchElem) {
+            searchElem.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 100);
+      }
+    };
+    window.addEventListener("search-projects", handleSearchEvent);
+    return () => window.removeEventListener("search-projects", handleSearchEvent);
   }, []);
 
   // Animation variants
@@ -177,14 +228,16 @@ const Projects = () => {
           <ProjectsHeader projectCount={projects.length} stats={stats} />
 
           {/* Search and Filter */}
-          <SearchFilter
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            categories={Array.from(new Set(projects.flatMap(p => p.technologies || []))).sort()}
-            placeholder="Search projects..."
-          />
+          <div id="projects-search-filters">
+            <SearchFilter
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              categories={Array.from(new Set(projects.flatMap(p => p.technologies || []))).sort()}
+              placeholder="Search projects..."
+            />
+          </div>
 
           {/* Enhanced Projects Grid */}
           <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
@@ -256,6 +309,16 @@ const Projects = () => {
 
                       {/* Overlay Links */}
                       <div className="absolute top-4 right-4 flex gap-2 group-hover:z-50">
+                        {project.blogSlug && (
+                          <motion.a
+                            href={`/blogs/${project.blogSlug}`}
+                            whileHover={{ scale: 1.1 }}
+                            className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300 flex items-center gap-1.5 px-3"
+                          >
+                            <FiBookOpen className="w-4 h-4 text-theme-primary" />
+                            <span className="text-xs font-semibold text-theme-text-primary">Case Study</span>
+                          </motion.a>
+                        )}
                         {project.code && (
                           <motion.a
                             href={project.code}
@@ -283,13 +346,20 @@ const Projects = () => {
 
                     {/* Project Content */}
                     <div className="p-6 space-y-4 group-hover:text-white overflow-hidden">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent group-hover:text-white" />
-                        <span
-                          className={`text-xs font-mono text-theme-primary uppercase tracking-wider group-hover:text-white ${unbounded.className}`}
-                        >
-                          Case Study
-                        </span>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent group-hover:text-white" />
+                          <span
+                            className={`text-xs font-mono text-theme-primary uppercase tracking-wider group-hover:text-white ${unbounded.className}`}
+                          >
+                            Case Study
+                          </span>
+                        </div>
+                        {project.isAI && (
+                          <span className="px-2 py-0.5 text-[10px] font-mono font-bold tracking-wider uppercase rounded-sm border border-purple-500/30 bg-purple-500/10 text-purple-400 group-hover:border-purple-400/50 group-hover:bg-purple-500/20 group-hover:text-purple-300 transition-colors">
+                            AI Agent
+                          </span>
+                        )}
                       </div>
 
                       <h3

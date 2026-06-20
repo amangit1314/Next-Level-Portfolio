@@ -17,6 +17,7 @@ import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
 import { BlogCardSkeleton } from "@/components/skeletons/BlogCardSkeleton";
 import SearchFilter from "@/components/SearchFilter";
+import { aiBlogs } from "@/data/ai-blogs";
 
 interface Blog {
   _id: string;
@@ -47,6 +48,7 @@ interface Blog {
 
 const categories = [
   { value: "all", label: "All Posts" },
+  { value: "ai-agents", label: "AI & Agents" },
   { value: "web-development", label: "Web Development" },
   { value: "mobile-development", label: "Mobile Development" },
   { value: "ui-ux-design", label: "UI/UX Design" },
@@ -85,8 +87,10 @@ const BlogsPage = () => {
     const fetchBlogs = async () => {
       try {
         const data = await client.fetch(blogsQuery);
-        setBlogs(data);
-        setFilteredBlogs(data);
+        // Merge hardcoded AI blogs with Sanity blogs
+        const merged = [...aiBlogs, ...data];
+        setBlogs(merged);
+        setFilteredBlogs(merged);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       } finally {

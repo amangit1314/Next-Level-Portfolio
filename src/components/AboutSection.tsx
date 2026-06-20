@@ -12,6 +12,7 @@ import {
   FiUsers,
   FiTrendingUp,
   FiChevronRight,
+  FiCpu,
 } from "react-icons/fi";
 import ExperienceCard from "./ExperienceCard";
 import { inter, poppins } from "@/lib/fonts";
@@ -35,6 +36,12 @@ import {
   SiJavascript,
   SiExpress,
   SiNestjs,
+  SiPython,
+  SiPytorch,
+  SiHuggingface,
+  SiOpenai,
+  SiJupyter,
+  SiTensorflow,
 } from "react-icons/si";
 
 // Skill to icon component mapping
@@ -59,6 +66,13 @@ const skillToIconMap: { [key: string]: any } = {
   "Express.js": SiExpress,
   TailwindCSS: SiTailwindcss,
   Framer: SiFramer,
+  Python: SiPython,
+  PyTorch: SiPytorch,
+  TensorFlow: SiTensorflow,
+  HuggingFace: SiHuggingface,
+  OpenAI: SiOpenai,
+  LangChain: SiOpenai,
+  Jupyter: SiJupyter,
 };
 
 // Enhanced Animation variants
@@ -322,25 +336,25 @@ export const AboutSection = () => {
               {/* Experience Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <ExperienceCard
+                  field="AI Engineering"
+                  duration={profile?.experienceAreas?.ai || "2+ Years"}
+                  icon={<FiCpu className="w-6 h-6 sm:w-7 sm:h-7" />}
+                  gradient="from-theme-primary to-theme-secondary"
+                  description="Agentic systems & RAG"
+                />
+                <ExperienceCard
                   field="Full Stack"
-                  duration={profile?.experienceAreas?.fullStack || "3+ Years"}
+                  duration={profile?.experienceAreas?.fullStack || "4+ Years"}
                   icon={<FiCode className="w-6 h-6 sm:w-7 sm:h-7" />}
                   gradient="from-theme-primary to-theme-secondary"
-                  description="End-to-end solutions"
+                  description="Next.js & systems"
                 />
                 <ExperienceCard
-                  field="Backend"
-                  duration={profile?.experienceAreas?.backend || "3+ Years"}
+                  field="Backend Scale"
+                  duration={profile?.experienceAreas?.backend || "4+ Years"}
                   icon={<FiServer className="w-6 h-6 sm:w-7 sm:h-7" />}
                   gradient="from-theme-primary to-theme-secondary"
-                  description="Robust APIs & Systems"
-                />
-                <ExperienceCard
-                  field="Mobile"
-                  duration={profile?.experienceAreas?.mobile || "2+ Years"}
-                  icon={<FiSmartphone className="w-6 h-6 sm:w-7 sm:h-7" />}
-                  gradient="from-theme-primary to-theme-secondary"
-                  description="Cross-platform apps"
+                  description="APIs & Pgvector scale"
                 />
               </div>
 

@@ -11,6 +11,8 @@ import {
   FiFileText,
   FiLayers,
   FiBookOpen,
+  FiSliders,
+  FiTerminal,
 } from "react-icons/fi";
 import { caveat, inter, unbounded } from "@/lib/fonts";
 import { usePathname, useRouter } from "next/navigation";
@@ -22,6 +24,8 @@ import Magnetic from "./Magnetic";
 export const pageLinks = [
   { name: "Home", path: "/", icon: FiHome },
   { name: "Projects", path: "/projects", icon: FiGithub },
+  { name: "Playground", path: "/playground", icon: FiSliders },
+  { name: "Terminal", path: "/terminal", icon: FiTerminal },
   { name: "Components", path: "/components", icon: FiLayers },
   { name: "Blogs", path: "/blogs", icon: FiFileText },
 ];

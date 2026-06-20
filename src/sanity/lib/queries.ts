@@ -25,7 +25,16 @@ export const projectsQuery = groq`*[_type == "project"] {
   technologies,
   duration,
   role,
-  achievements
+  achievements,
+  isAI,
+  playgroundUrl,
+  architectureDiagram {
+    asset->{
+      _id,
+      url
+    }
+  },
+  metrics
 }`;
 
 export const testimonialsQuery = groq`*[_type == "testimonial"] {

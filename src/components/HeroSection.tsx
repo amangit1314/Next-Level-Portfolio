@@ -11,7 +11,6 @@ import {
 import { client } from "@/sanity/lib/client";
 import { profileQuery } from "@/sanity/lib/queries";
 import * as Icons from "react-icons/fi";
-import HeroBackground from "./HeroBackground";
 
 const HeroSection = () => {
   const [profile, setProfile] = useState<any>(null);
@@ -78,8 +77,32 @@ const HeroSection = () => {
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* WebGL Background */}
-        <HeroBackground />
+        {/* Animated Gradient Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-theme-primary/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.2, 0.4],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-theme-secondary/20 rounded-full blur-3xl"
+        />
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
@@ -166,21 +189,22 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.6 }}
-            className="grid grid-cols-3 gap-8"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-6"
           >
             {[
               { number: profile.stats?.experienceYears, label: "Years Experience" },
-              { number: profile.stats?.projectsCount, label: "Projects" },
-              { number: profile.stats?.clientSatisfaction, label: "Client Satisfaction" },
+              { number: profile.stats?.projectsCount, label: "Projects Built" },
+              { number: profile.stats?.tokensOrchestrated || "500M+", label: "Tokens Orchestrated" },
+              { number: profile.stats?.agentsDeployed || "12+", label: "Agents Deployed" },
             ].map((stat, index) => (
               <div key={stat.label} className="text-center lg:text-left">
                 <div
-                  className={`text-2xl lg:text-3xl font-bold text-theme-text-primary ${poppins.className}`}
+                  className={`text-xl sm:text-2xl lg:text-3xl font-bold text-theme-text-primary ${poppins.className}`}
                 >
                   {stat.number}
                 </div>
                 <div
-                  className={`text-sm text-theme-text-muted mt-1 ${inter.className}`}
+                  className={`text-xs text-theme-text-muted mt-1 ${inter.className}`}
                 >
                   {stat.label}
                 </div>

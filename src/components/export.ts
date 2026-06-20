@@ -8,6 +8,7 @@ import Skills from "./Skills";
 import Experience from "./Experience";
 import Testimonials from "./Testimonials";
 import Projects from "./Projects";
+import AICopilot from "./AICopilot";
 
 export {
   AboutSection,
@@ -20,4 +21,5 @@ export {
   Experience,
   Testimonials,
   Projects,
+  AICopilot,
 };

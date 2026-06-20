@@ -23,4 +23,16 @@ interface Project {
   duration?: string;
   role?: string;
   achievements?: string[];
+  isAI?: boolean;
+  playgroundUrl?: string;
+  architectureDiagram?: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+  };
+  metrics?: Array<{
+    label: string;
+    value: string;
+  }>;
 }

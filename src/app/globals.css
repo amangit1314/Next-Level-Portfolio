@@ -163,25 +163,25 @@
   /* Theme mode */
   --theme-mode: "dark";
 
-  /* Primary colors - Default: Purple Dream */
-  --theme-primary-light: #c084fc;
-  --theme-primary-light-rgb: 192, 132, 252;
-  --theme-primary: #a855f7;
-  --theme-primary-rgb: 168, 85, 247;
-  --theme-primary-dark: #9333ea;
-  --theme-primary-dark-rgb: 147, 51, 234;
+  /* Primary colors - Default: Cyber Emerald */
+  --theme-primary-light: #34d399;
+  --theme-primary-light-rgb: 52, 211, 153;
+  --theme-primary: #10b981;
+  --theme-primary-rgb: 16, 185, 129;
+  --theme-primary-dark: #047857;
+  --theme-primary-dark-rgb: 4, 120, 87;
 
-  /* Secondary colors */
-  --theme-secondary-light: #f472b6;
-  --theme-secondary-light-rgb: 244, 114, 182;
-  --theme-secondary: #ec4899;
-  --theme-secondary-rgb: 236, 72, 153;
-  --theme-secondary-dark: #db2777;
-  --theme-secondary-dark-rgb: 219, 39, 119;
+  /* Secondary colors - Default: Neon Indigo */
+  --theme-secondary-light: #a5b4fc;
+  --theme-secondary-light-rgb: 165, 180, 252;
+  --theme-secondary: #6366f1;
+  --theme-secondary-rgb: 99, 102, 241;
+  --theme-secondary-dark: #4338ca;
+  --theme-secondary-dark-rgb: 67, 56, 202;
 
-  /* Accent color */
-  --theme-accent: #f97316;
-  --theme-accent-rgb: 249, 115, 22;
+  /* Accent color - Default: Electric Cyan */
+  --theme-accent: #06b6d4;
+  --theme-accent-rgb: 6, 182, 212;
 
   /* Background colors */
   --theme-bg-primary: #09090b;

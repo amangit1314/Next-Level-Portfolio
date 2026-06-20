@@ -67,6 +67,8 @@ export default defineType({
                 { name: "technologiesCount", type: "string", title: "Technologies Count" },
                 { name: "projectsCount", type: "string", title: "Projects Count" },
                 { name: "clientSatisfaction", type: "string", title: "Client Satisfaction" },
+                { name: "tokensOrchestrated", type: "string", title: "Tokens Orchestrated (e.g. 500M+)" },
+                { name: "agentsDeployed", type: "string", title: "Agents Deployed" },
             ],
         }),
         defineField({
@@ -95,6 +97,7 @@ export default defineType({
             fields: [
                 { name: "fullStack", type: "string", title: "Full Stack Duration", description: "e.g., '3+ Years'" },
                 { name: "backend", type: "string", title: "Backend Duration", description: "e.g., '3+ Years'" },
+                { name: "ai", type: "string", title: "AI Engineering Duration", description: "e.g., '2+ Years'" },
                 { name: "mobile", type: "string", title: "Mobile Duration", description: "e.g., '2+ Years'" },
             ],
         }),

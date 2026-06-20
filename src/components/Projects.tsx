@@ -6,6 +6,7 @@ import { client } from "@/sanity/lib/client";
 import { projectsQuery } from "@/sanity/lib/queries";
 import { poppins } from "@/lib/fonts";
 import ProjectCard from "./ProjectCard";
+import { aiProjects } from "@/data/ai-projects";
 
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
@@ -30,8 +31,10 @@ const Projects = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const data = await client.fetch(projectsQuery);
-      setProjects(data);
+      const sanityData = await client.fetch(projectsQuery);
+      // Merge: AI hardcoded projects first, then Sanity projects
+      const merged = [...aiProjects, ...sanityData];
+      setProjects(merged);
     };
     fetchProjects();
   }, []);
