@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useUIStore } from "@/stores/uiStore";
 
 import {
   AboutSection,
@@ -17,7 +18,7 @@ import {
 
 const Home = () => {
   const [activeSection, setActiveSection] = useState("home");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isMenuOpen } = useUIStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +57,7 @@ const Home = () => {
   return (
     <main className="min-h-screen w-full overflow-x-hidden bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary">
       <header className="fixed top-0 left-0 right-0 z-50">
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <Header />
       </header>
 
       <div className="pt-20">

@@ -16,10 +16,11 @@ const inter = Inter({
   variable: "--font-inter", // Add this line
 });
 
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import { ProfileProvider } from "@/contexts/ProfileContext";
+import { Providers } from "@/components/Providers";
 import ScrollProgress from "@/components/ScrollProgress";
 import AICopilot from "@/components/AICopilot";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://amansoni.dev"),
@@ -97,13 +98,13 @@ export default function RootLayout({
       className={`${poppins.variable} ${inter.variable}`}
     >
       <body className="font-inter" suppressHydrationWarning>
-        <ThemeProvider>
-          <ProfileProvider>
-            <ScrollProgress />
-            {children}
-            <AICopilot />
-          </ProfileProvider>
-        </ThemeProvider>
+        <Providers>
+          <ScrollProgress />
+          {children}
+          <AICopilot />
+          <Analytics />
+          <SpeedInsights />
+        </Providers>
       </body>
     </html>
   );

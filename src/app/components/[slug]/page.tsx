@@ -168,7 +168,7 @@
 //   if (loading) {
 //     return (
 //       <>
-//         <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+//         <Header />
 //         <div className="min-h-screen bg-black flex items-center justify-center pt-20">
 //           <div className="text-white text-xl">Loading component...</div>
 //         </div>
@@ -179,7 +179,7 @@
 //   if (!component) {
 //     return (
 //       <>
-//         <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+//         <Header />
 //         <div className="min-h-screen bg-black flex flex-col items-center justify-center pt-20">
 //           <h1
 //             className={`text-4xl font-bold text-white mb-4 ${unbounded.className}`}
@@ -199,7 +199,7 @@
 
 //   return (
 //     <>
-//       <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+//       <Header />
 //       <div className="min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary pt-20 overflow-x-hidden">
 //         {/* Background Effects */}
 //         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -460,7 +460,6 @@ const ComponentDetailPage = () => {
   const params = useParams();
   const slug = params?.slug as string;
   const [component, setComponent] = useState<ComponentDetail | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
@@ -711,7 +710,7 @@ const ComponentDetailPage = () => {
   if (loading) {
     return (
       <>
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <Header />
         <ComponentDetailSkeleton />
       </>
     );
@@ -720,7 +719,7 @@ const ComponentDetailPage = () => {
   if (!component) {
     return (
       <>
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <Header />
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
             className={`text-4xl font-bold text-theme-text-primary mb-4 ${unbounded.className}`}
@@ -740,7 +739,7 @@ const ComponentDetailPage = () => {
 
   return (
     <>
-      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Header />
       <div className="min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary pt-20 overflow-x-hidden">
         {/* Background Effects */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">

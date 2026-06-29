@@ -62,7 +62,7 @@ const DOCUMENT_COLLECTION: DocNode[] = [
 ];
 
 export default function RAGPlayground() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
   const [inputText, setInputText] = useState(
     "Aman Soni is a Senior AI Engineer and Full-Stack Architect. He builds high-speed websites with Next.js and integrates ultra-fast Llama models on Vercel. His portfolio features interactive CLI shells and visual RAG simulators."
   );
@@ -195,7 +195,7 @@ Answer:`;
 
   return (
     <main className="min-h-screen bg-linear-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary text-theme-text-primary overflow-x-hidden">
-      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Header />
       
       <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 md:px-8">
         
@@ -248,7 +248,7 @@ Answer:`;
                   max="200"
                   value={chunkSize}
                   onChange={(e) => setChunkSize(Number(e.target.value))}
-                  className="w-full accent-theme-primary bg-theme-bg-tertiary h-1.5 rounded-lg appearance-none cursor-pointer"
+                  className="w-full bg-theme-bg-tertiary h-1.5 rounded-lg appearance-none cursor-pointer accent-[var(--theme-primary)]"
                 />
 
                 <div className="flex justify-between items-center text-xs">
@@ -261,7 +261,7 @@ Answer:`;
                   max="50"
                   value={chunkOverlap}
                   onChange={(e) => setChunkOverlap(Number(e.target.value))}
-                  className="w-full accent-theme-secondary bg-theme-bg-tertiary h-1.5 rounded-lg appearance-none cursor-pointer"
+                  className="w-full bg-theme-bg-tertiary h-1.5 rounded-lg appearance-none cursor-pointer accent-[var(--theme-secondary)]"
                 />
               </div>
             </div>
@@ -269,13 +269,15 @@ Answer:`;
             {/* Chunk Outputs */}
             <div className="mt-6">
               <label className="block text-xs font-mono text-theme-text-muted mb-2">Segmented Output ({chunks.length} chunks):</label>
-              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-zinc-950/40 no-scrollbar">
+              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-theme-bg-secondary/60 no-scrollbar">
                 {chunks.map((chunk, index) => (
                   <div
                     key={index}
-                    className="p-2.5 rounded-lg text-[11px] leading-relaxed border border-theme-border/30 bg-theme-bg-secondary/40 text-theme-text-secondary relative overflow-hidden"
+                    className="p-2.5 pt-7 rounded-lg text-[11px] leading-relaxed border border-theme-border/30 bg-theme-bg-secondary/40 text-theme-text-secondary relative"
                   >
-                    <span className="absolute top-1 right-2 text-[9px] font-mono text-theme-primary">Chunk #{index+1}</span>
+                    <span className="absolute top-2 right-2 z-10 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold text-white bg-theme-primary">
+                      Chunk #{index + 1}
+                    </span>
                     {chunk.text}
                   </div>
                 ))}
@@ -314,7 +316,7 @@ Answer:`;
               </div>
 
               {/* 2D Representation Vector Map */}
-              <div className="relative w-full h-44 bg-zinc-950 border border-theme-border rounded-2xl overflow-hidden shadow-inner">
+              <div className="relative w-full h-44 bg-theme-bg-primary border border-theme-border rounded-2xl overflow-hidden shadow-inner">
                 {/* Axes */}
                 <div className="absolute left-1/2 top-0 bottom-0 w-px bg-theme-border/50" />
                 <div className="absolute top-1/2 left-0 right-0 h-px bg-theme-border/50" />
@@ -337,7 +339,7 @@ Answer:`;
                       transition={{ duration: 0.4 }}
                     >
                       {/* Tooltip */}
-                      <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-theme-bg-secondary border border-theme-border px-2 py-1 rounded text-[9px] text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none">
+                      <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-theme-primary px-2 py-1 rounded text-[9px] font-semibold text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
                         {doc.title} {resultDoc?.score ? `(Score: ${resultDoc.score})` : ""}
                       </span>
                     </motion.div>
@@ -355,7 +357,7 @@ Answer:`;
                     }}
                     transition={{ repeat: Infinity, duration: 2 }}
                   >
-                    <span className="absolute top-5 left-1/2 -translate-x-1/2 bg-zinc-800 text-[8px] px-1 rounded text-cyan-200 uppercase font-mono tracking-widest">Query</span>
+                    <span className="absolute top-5 left-1/2 -translate-x-1/2 bg-theme-bg-secondary text-[8px] px-1 rounded text-theme-primary uppercase font-mono tracking-widest">Query</span>
                   </motion.div>
                 )}
               </div>
@@ -364,7 +366,7 @@ Answer:`;
             {/* Scored Results */}
             <div className="mt-6">
               <label className="block text-xs font-mono text-theme-text-muted mb-2">Retrieval Score Cards:</label>
-              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-zinc-950/40 no-scrollbar text-xs">
+              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-theme-bg-secondary/60 no-scrollbar text-xs">
                 {retrievedDocs.length === 0 ? (
                   <div className="text-center text-theme-text-muted py-8 text-xs font-mono">
                     Click Query to run cosine similarity.
@@ -385,7 +387,7 @@ Answer:`;
                         <div className="text-[10px] text-theme-text-muted truncate max-w-[200px]">{doc.content}</div>
                       </div>
                       <div className={`font-mono text-xs font-bold px-2 py-0.5 rounded-lg
-                        ${(doc.score || 0) > 0.1 ? "bg-theme-primary/10 text-theme-primary" : "bg-zinc-800 text-zinc-400"}
+                        ${(doc.score || 0) > 0.1 ? "bg-theme-primary/10 text-theme-primary" : "bg-theme-bg-secondary text-theme-text-muted"}
                       `}>
                         {doc.score}
                       </div>
@@ -413,7 +415,7 @@ Answer:`;
                 <textarea
                   value={promptText}
                   readOnly
-                  className="w-full h-32 p-3 bg-zinc-950/40 border border-theme-border rounded-xl text-[11px] outline-none text-zinc-400 resize-none font-mono focus:border-theme-primary/50"
+                  className="w-full h-32 p-3 bg-theme-bg-secondary/60 border border-theme-border rounded-xl text-[11px] outline-none text-theme-text-secondary resize-none font-mono focus:border-theme-primary/50"
                   placeholder="Awaiting prompt compilation from similarity query..."
                 />
               </div>
@@ -441,7 +443,7 @@ Answer:`;
             {/* Answer Output */}
             <div className="mt-6">
               <label className="block text-xs font-mono text-theme-text-muted mb-2">Final Answer Generation:</label>
-              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-zinc-950/40 no-scrollbar text-xs leading-relaxed text-theme-text-secondary">
+              <div className="h-44 overflow-y-auto space-y-2 border border-theme-border/50 rounded-xl p-3 bg-theme-bg-secondary/60 no-scrollbar text-xs leading-relaxed text-theme-text-secondary">
                 {generatedAnswer ? (
                   <p>{generatedAnswer}</p>
                 ) : (

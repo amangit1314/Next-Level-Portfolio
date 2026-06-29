@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { client } from "@/sanity/lib/client";
 import { profileQuery, projectsQuery, experiencesQuery, skillsQuery } from "@/sanity/lib/queries";
 import { useTheme } from "@/contexts/ThemeContext";
+import Header from "@/components/Header";
 
 interface TerminalLine {
   text: string;
@@ -23,6 +24,7 @@ export default function TerminalPage() {
     skills: [],
   });
 
+  
   const { currentTheme, setTheme } = useTheme();
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -326,10 +328,12 @@ export default function TerminalPage() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-black text-green-400 font-mono p-4 md:p-8 flex flex-col relative overflow-hidden select-none"
-      onClick={() => inputRef.current?.focus()}
-    >
+    <div className="min-h-screen bg-black flex flex-col">
+      <Header />
+      <div
+        className="flex-1 text-green-400 font-mono p-4 pt-20 md:p-8 md:pt-24 flex flex-col relative overflow-hidden select-none"
+        onClick={() => inputRef.current?.focus()}
+      >
       {/* CRT Scanline and flicker visual effects */}
       <div className="absolute inset-0 pointer-events-none z-40 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[size:100%_4px,6px_100%]" />
       <div className="absolute inset-0 pointer-events-none z-40 animate-[flicker_0.15s_infinite] opacity-5 bg-green-500/10" />
@@ -409,6 +413,7 @@ export default function TerminalPage() {
           caret-color: #00ff00;
         }
       `}</style>
+      </div>
     </div>
   );
 }

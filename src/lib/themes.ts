@@ -8,41 +8,75 @@
 import { Theme } from '@/types/theme';
 
 export const themes: Theme[] = [
-    // 1. Purple Dream (Default - matches current design)
+    // 1. Crimson Abyss (Default)
     {
-        id: 'purple-dream',
-        name: 'Purple Dream',
-        emoji: '🎨',
+        id: 'crimson-abyss',
+        name: 'Crimson Abyss',
+        emoji: '🩸',
         mode: 'dark',
         colors: {
             mode: 'dark',
 
-            primaryLight: { hex: '#C084FC', rgb: '192, 132, 252' },  // purple-400
-            primary: { hex: '#A855F7', rgb: '168, 85, 247' },        // purple-500
-            primaryDark: { hex: '#9333EA', rgb: '147, 51, 234' },    // purple-600
+            primaryLight: { hex: '#FB7185', rgb: '251, 113, 133' },  // rose-400
+            primary: { hex: '#F43F5E', rgb: '244, 63, 94' },         // rose-500
+            primaryDark: { hex: '#E11D48', rgb: '225, 29, 72' },     // rose-600
 
-            secondaryLight: { hex: '#F472B6', rgb: '244, 114, 182' }, // pink-400
-            secondary: { hex: '#EC4899', rgb: '236, 72, 153' },       // pink-500
-            secondaryDark: { hex: '#DB2777', rgb: '219, 39, 119' },   // pink-600
+            secondaryLight: { hex: '#FCD34D', rgb: '252, 211, 77' }, // amber-300
+            secondary: { hex: '#FBBF24', rgb: '251, 191, 36' },      // amber-400
+            secondaryDark: { hex: '#F59E0B', rgb: '245, 158, 11' },  // amber-500
 
-            accent: { hex: '#F97316', rgb: '249, 115, 22' },          // orange-500
+            accent: { hex: '#F97316', rgb: '249, 115, 22' },         // orange-500
 
-            bgPrimary: '#09090B',    // zinc-950
-            bgSecondary: '#18181B',  // zinc-900
-            bgTertiary: '#27272A',   // zinc-800
-            bgHover: '#3F3F46',      // zinc-700
-            bgLight: '#52525B',      // zinc-600
+            bgPrimary: '#0C0002',
+            bgSecondary: '#150005',
+            bgTertiary: '#1F000A',
+            bgHover: '#2D000F',
+            bgLight: '#420018',
 
-            textPrimary: '#FAFAFA',  // zinc-50
-            textSecondary: '#D4D4D8', // zinc-300
-            textMuted: '#A1A1AA',    // zinc-400
+            textPrimary: '#FAFAFA',
+            textSecondary: '#E4E4E7',
+            textMuted: '#A1A1AA',
 
-            border: '#3F3F46',       // zinc-700
-            borderLight: '#52525B',  // zinc-600
+            border: '#3D0012',
+            borderLight: '#5E0020',
         },
     },
 
-    // 2. Ocean Breeze
+    // 2. Golden Void
+    {
+        id: 'golden-void',
+        name: 'Golden Void',
+        emoji: '✨',
+        mode: 'dark',
+        colors: {
+            mode: 'dark',
+
+            primaryLight: { hex: '#FCD34D', rgb: '252, 211, 77' },   // amber-300
+            primary: { hex: '#FBBF24', rgb: '251, 191, 36' },        // amber-400
+            primaryDark: { hex: '#F59E0B', rgb: '245, 158, 11' },    // amber-500
+
+            secondaryLight: { hex: '#7DD3FC', rgb: '125, 211, 252' }, // sky-300
+            secondary: { hex: '#38BDF8', rgb: '56, 189, 248' },      // sky-400
+            secondaryDark: { hex: '#0EA5E9', rgb: '14, 165, 233' },  // sky-500
+
+            accent: { hex: '#34D399', rgb: '52, 211, 153' },         // emerald-400
+
+            bgPrimary: '#080600',
+            bgSecondary: '#100E00',
+            bgTertiary: '#1A1600',
+            bgHover: '#262000',
+            bgLight: '#332C00',
+
+            textPrimary: '#FAFAFA',
+            textSecondary: '#E4E4E7',
+            textMuted: '#A1A1AA',
+
+            border: '#2A2200',
+            borderLight: '#3D3300',
+        },
+    },
+
+    // 4. Ocean Breeze
     {
         id: 'ocean-breeze',
         name: 'Ocean Breeze',
@@ -76,7 +110,7 @@ export const themes: Theme[] = [
         },
     },
 
-    // 3. Sunset Blaze
+    // 5. Sunset Blaze
     {
         id: 'sunset-blaze',
         name: 'Sunset Blaze',
@@ -110,7 +144,7 @@ export const themes: Theme[] = [
         },
     },
 
-    // 4. Forest Emerald
+    // 6. Forest Emerald
     {
         id: 'forest-emerald',
         name: 'Forest Emerald',
@@ -144,41 +178,41 @@ export const themes: Theme[] = [
         },
     },
 
-    // 5. Cyber Neon
+    // 7. Sakura (Light Theme)
     {
-        id: 'cyber-neon',
-        name: 'Cyber Neon',
-        emoji: '⚡',
-        mode: 'dark',
+        id: 'sakura',
+        name: 'Sakura',
+        emoji: '🌸',
+        mode: 'light',
         colors: {
-            mode: 'dark',
+            mode: 'light',
 
-            primaryLight: { hex: '#F0ABFC', rgb: '240, 171, 252' },  // fuchsia-300
-            primary: { hex: '#E879F9', rgb: '232, 121, 249' },       // fuchsia-400
-            primaryDark: { hex: '#D946EF', rgb: '217, 70, 239' },    // fuchsia-500
+            primaryLight: { hex: '#F43F5E', rgb: '244, 63, 94' },    // rose-500
+            primary: { hex: '#E11D48', rgb: '225, 29, 72' },         // rose-600
+            primaryDark: { hex: '#BE123C', rgb: '190, 18, 60' },     // rose-700
 
-            secondaryLight: { hex: '#93C5FD', rgb: '147, 197, 253' }, // blue-300
-            secondary: { hex: '#60A5FA', rgb: '96, 165, 250' },      // blue-400
-            secondaryDark: { hex: '#3B82F6', rgb: '59, 130, 246' },  // blue-500
+            secondaryLight: { hex: '#A855F7', rgb: '168, 85, 247' }, // purple-500
+            secondary: { hex: '#9333EA', rgb: '147, 51, 234' },      // purple-600
+            secondaryDark: { hex: '#7E22CE', rgb: '126, 34, 206' },  // purple-700
 
-            accent: { hex: '#A78BFA', rgb: '167, 139, 250' },        // violet-400
+            accent: { hex: '#F97316', rgb: '249, 115, 22' },         // orange-500
 
-            bgPrimary: '#030712',    // gray-950
-            bgSecondary: '#111827',  // gray-900
-            bgTertiary: '#1F2937',   // gray-800
-            bgHover: '#374151',      // gray-700
-            bgLight: '#4B5563',      // gray-600
+            bgPrimary: '#FFF8F9',    // near-white with barely-there rose tint
+            bgSecondary: '#FFE8ED',  // soft petal pink
+            bgTertiary: '#FFD6DE',   // blush
+            bgHover: '#FFC1CC',      // light sakura
+            bgLight: '#FFABB8',      // mid sakura
 
-            textPrimary: '#F9FAFB',
-            textSecondary: '#D1D5DB',
-            textMuted: '#9CA3AF',
+            textPrimary: '#1A0008',  // near-black with rose undertone
+            textSecondary: '#4A0015', // deep rose-dark
+            textMuted: '#8B2040',    // muted rose
 
-            border: '#374151',
-            borderLight: '#4B5563',
+            border: '#F9A8B8',       // soft rose border
+            borderLight: '#FFC1CC',  // light rose border
         },
     },
 
-    // 6. Midnight Aurora
+    // 8. Midnight Aurora
     {
         id: 'midnight-aurora',
         name: 'Midnight Aurora',
@@ -212,7 +246,7 @@ export const themes: Theme[] = [
         },
     },
 
-    // 7. Coffee Latte (Light Theme)
+    // 9. Coffee Latte (Light Theme)
     {
         id: 'coffee-latte',
         name: 'Coffee Latte',
@@ -221,30 +255,30 @@ export const themes: Theme[] = [
         colors: {
             mode: 'light',
 
-            primaryLight: { hex: '#D2A679', rgb: '210, 166, 121' },  // Tan
-            primary: { hex: '#C19A6B', rgb: '193, 154, 107' },       // Caramel
-            primaryDark: { hex: '#A68A64', rgb: '166, 138, 100' },   // Dark tan
+            primaryLight: { hex: '#D4893A', rgb: '212, 137, 58' },   // Golden caramel
+            primary: { hex: '#B8621C', rgb: '184, 98, 28' },         // Burnt caramel / light espresso
+            primaryDark: { hex: '#8B4010', rgb: '139, 64, 16' },     // Deep espresso
 
-            secondaryLight: { hex: '#C9B299', rgb: '201, 178, 153' }, // Light beige
-            secondary: { hex: '#B8956A', rgb: '184, 149, 106' },     // Beige brown
-            secondaryDark: { hex: '#9C825A', rgb: '156, 130, 90' },
+            secondaryLight: { hex: '#C49050', rgb: '196, 144, 80' }, // Hazelnut / toffee
+            secondary: { hex: '#A06030', rgb: '160, 96, 48' },       // Mocha
+            secondaryDark: { hex: '#784020', rgb: '120, 64, 32' },   // Dark mocha
 
-            accent: { hex: '#C17855', rgb: '193, 120, 85' },         // Terracotta
+            accent: { hex: '#E8A030', rgb: '232, 160, 48' },         // Golden crema / honey
 
-            // Light backgrounds
-            bgPrimary: '#F5F5DC',    // Beige
-            bgSecondary: '#FFF8E7',  // Cream/Cornsilk
-            bgTertiary: '#FFEBCD',   // Blanched almond
-            bgHover: '#F5E6D3',      // Light tan
-            bgLight: '#EAD6BD',      // Darker tan
+            // Warm cream backgrounds — proper warmth, not greenish beige
+            bgPrimary: '#FDF6EE',    // Warm cream (like fresh milk)
+            bgSecondary: '#F5E9D8',  // Latte cream
+            bgTertiary: '#EAD8C0',   // Cappuccino cream
+            bgHover: '#DEC9A8',      // Light mocha
+            bgLight: '#D0B890',      // Medium tan
 
-            // Dark text (inverted)
-            textPrimary: '#3E2723',  // Coffee brown (very dark)
-            textSecondary: '#4E342E', // Brown 800
-            textMuted: '#6D4C41',    // Brown 600
+            // Deep espresso text for contrast on cream
+            textPrimary: '#1A0800',  // Near-black espresso
+            textSecondary: '#3D1C00', // Dark roast
+            textMuted: '#6B4226',    // Medium coffee
 
-            border: '#D7C0AE',       // Tan border
-            borderLight: '#C9B39C',  // Darker tan
+            border: '#C9A882',       // Warm tan border
+            borderLight: '#DFCBAF',  // Light tan border
         },
     },
 ];
@@ -257,8 +291,8 @@ export const getThemeById = (id: string): Theme | undefined => {
 };
 
 /**
- * Get the default theme (Purple Dream)
+ * Get the default theme (Crimson Abyss)
  */
 export const getDefaultTheme = (): Theme => {
-    return themes[0]; // Purple Dream
+    return themes[0]; // Crimson Abyss
 };

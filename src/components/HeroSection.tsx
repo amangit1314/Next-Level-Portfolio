@@ -13,7 +13,7 @@ import * as Icons from "react-icons/fi";
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5, ease: "easeOut", delay },
+  transition: { duration: 0.5, ease: "easeOut" as const, delay },
 });
 
 const HeroSection = () => {
@@ -191,7 +191,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
+            transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.15 }}
             className="flex justify-center lg:justify-end order-1 lg:order-2"
           >
             <div className="relative">
@@ -234,7 +234,7 @@ const HeroSection = () => {
         <motion.button
           onClick={handleScrollToProjects}
           animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" as const }}
           className={`flex flex-col items-center gap-1.5 text-theme-text-muted hover:text-theme-primary transition-colors ${inter.className}`}
         >
           <span className="text-xs tracking-wider">Explore</span>

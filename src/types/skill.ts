@@ -1,10 +1,11 @@
 export type Skill = {
-  icon: React.ComponentType<{ className?: string }>;
-  iconName: string;
-  name: string;
-  color: string;
-  category: string;
-  proficiency?: number;
+  _id?: string;
+  icon?: unknown;
+  iconName?: string | null;
+  name: string | null;
+  color?: string | null;
+  category?: string | null;
+  proficiency?: number | null;
 };
 
 /**

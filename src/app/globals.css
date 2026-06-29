@@ -342,8 +342,9 @@
 
   /* Buttons */
   .v2-btn-primary {
-    @apply px-8 py-3.5 theme-gradient-primary rounded-xl font-semibold text-white text-sm;
+    @apply px-8 py-3.5 rounded-xl font-semibold text-white text-sm;
     @apply shadow-lg transition-shadow duration-300;
+    background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
     box-shadow: 0 4px 24px color-mix(in srgb, var(--theme-primary) 20%, transparent);
   }
 

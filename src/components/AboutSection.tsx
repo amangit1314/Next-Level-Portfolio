@@ -50,7 +50,7 @@ const reveal = {
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: "easeOut", delay: i * 0.08 },
+    transition: { duration: 0.55, ease: "easeOut" as const, delay: i * 0.08 },
   }),
 };
 
@@ -184,14 +184,14 @@ export const AboutSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-3 gap-3"
+              className="grid grid-cols-3 gap-3 items-stretch"
             >
               {[
                 { field: "AI Engineering", duration: profile.experienceAreas?.ai ?? "2+ Years", icon: <FiCpu className="w-6 h-6" />, description: "Agentic systems & RAG" },
                 { field: "Full Stack", duration: profile.experienceAreas?.fullStack ?? "4+ Years", icon: <FiCode className="w-6 h-6" />, description: "Next.js & systems" },
                 { field: "Backend Scale", duration: profile.experienceAreas?.backend ?? "4+ Years", icon: <FiServer className="w-6 h-6" />, description: "APIs & Pgvector" },
               ].map((card, i) => (
-                <motion.div key={card.field} custom={i} variants={reveal}>
+                <motion.div key={card.field} custom={i} variants={reveal} className="h-full">
                   <ExperienceCard {...card} gradient="from-theme-primary to-theme-secondary" />
                 </motion.div>
               ))}

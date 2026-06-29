@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiUser, FiArrowLeft, FiShare2 } from "react-icons/fi";
 import { unbounded, inter } from "@/lib/fonts";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 interface BlogSection {
   title: string;
@@ -31,7 +30,7 @@ export default function BlogArticleLayout({
   tags,
   sections,
 }: BlogArticleLayoutProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
 
   const renderContent = (content: string) => {
     // Split by code blocks first
@@ -136,7 +135,7 @@ export default function BlogArticleLayout({
 
   return (
     <>
-      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Header />
       <article className="relative min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary">
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -267,10 +266,6 @@ export default function BlogArticleLayout({
           </motion.div>
         </div>
 
-        {/* Footer */}
-        <footer className="mt-16 w-full border-t border-theme-border/50 relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary overflow-hidden">
-          <Footer />
-        </footer>
       </article>
     </>
   );

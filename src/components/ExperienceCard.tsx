@@ -18,8 +18,8 @@ const ExperienceCard = ({
 }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.05, y: -4 }}
-      className="group relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-theme-border/50 hover:border-theme-primary/50 transition-all duration-500 cursor-pointer" // FIXED: Responsive padding
+      whileHover={{ scale: 1.04, y: -3 }}
+      className="group relative h-full bg-theme-bg-secondary/70 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-theme-border/60 hover:border-theme-primary/50 transition-all duration-300 cursor-pointer shadow-sm shadow-black/[0.05]"
     >
       {/* Animated Gradient Background */}
       <div

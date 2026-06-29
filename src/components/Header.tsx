@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useUIStore } from "@/stores/uiStore";
 import { motion } from "framer-motion";
 import {
   FiBriefcase,
@@ -76,12 +77,8 @@ export const overlayVariants: Variants = {
 
 /// ===============================================================================================
 
-type HeaderProps = {
-  isMenuOpen: boolean;
-  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
+const Header = () => {
+  const { isMenuOpen, toggleMenu, closeMenu } = useUIStore();
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
@@ -292,7 +289,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
               {/* Animated Menu Icon */}
               <motion.button
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setIsMenuOpen((prev) => !prev)}
+                onClick={() => toggleMenu()}
                 className="flex h-10 w-10 items-center justify-center rounded-lg bg-theme-bg-secondary border border-theme-border/70 text-theme-text-primary"
                 aria-label="Toggle menu"
               >
@@ -339,7 +336,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
         variants={overlayVariants}
         initial={false}
         animate={isMenuOpen ? "open" : "closed"}
-        onClick={() => setIsMenuOpen(false)}
+        onClick={() => closeMenu()}
       >
         {/* Dark overlay */}
         <motion.div className="absolute inset-0 bg-theme-bg-primary/80 backdrop-blur-sm" />
@@ -362,7 +359,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
             {/* close menu */}
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => closeMenu()}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-theme-border text-theme-text-secondary"
               aria-label="Close menu"
             >
@@ -415,7 +412,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
                       : "text-theme-text-muted"
                       }`}
                     onClick={() => {
-                      setIsMenuOpen(false);
+                      closeMenu();
                       handlePageNavClick(link.path);
                     }}
                   >

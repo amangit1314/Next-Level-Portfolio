@@ -1,307 +1,228 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
-import {
-  FiExternalLink,
-  FiCalendar,
-  FiArrowRight,
-} from "react-icons/fi";
+import { FiExternalLink, FiArrowRight } from "react-icons/fi";
 import { inter, unbounded } from "@/lib/fonts";
-import { client } from "@/sanity/lib/client";
-import { experiencesQuery } from "@/sanity/lib/queries";
+import { useExperiences } from "@/hooks/useSanityQuery";
 
-const floatingVariants = {
-  float: {
-    y: [-10, 10, -10],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      // ease: "easeInOut",
-    },
-  },
-};
+const ExperienceItem = ({ experience, index }: { experience: any; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [glowPos, setGlowPos] = useState({ x: 50, y: 50 });
+  const [hovered, setHovered] = useState(false);
 
-const Experience = () => {
-  const [experiences, setExperiences] = useState<any[]>([]);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [4, -4]), { stiffness: 280, damping: 28 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-4, 4]), { stiffness: 280, damping: 28 });
 
-  useEffect(() => {
-    const fetchExperiences = async () => {
-      const data = await client.fetch(experiencesQuery);
-      setExperiences(data);
-    };
-    fetchExperiences();
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+    setGlowPos({
+      x: ((e.clientX - rect.left) / rect.width) * 100,
+      y: ((e.clientY - rect.top) / rect.height) * 100,
+    });
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -40 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.8,
-        // ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setHovered(false);
   };
 
   return (
-    <section
-      id="experience"
-      className="v2-section bg-theme-bg-primary"
+    <motion.div
+      initial={{ opacity: 0, x: -24 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay: index * 0.12 }}
+      className="relative pl-10 sm:pl-14"
     >
+      {/* Timeline dot */}
+      <motion.div
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ type: "spring", stiffness: 220, delay: index * 0.12 + 0.1 }}
+        className="absolute left-0 top-7 w-3.5 h-3.5 rounded-full bg-theme-primary border-[3px] border-theme-bg-primary z-10"
+        style={{ boxShadow: "0 0 12px var(--theme-primary)" }}
+      />
+
+      {/* 3D card */}
+      <motion.div
+        ref={ref}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" } as React.CSSProperties}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setHovered(true)}
+        className="group relative rounded-2xl border border-theme-border/60 bg-theme-bg-secondary/80 backdrop-blur-md overflow-hidden cursor-default transition-[border-color,box-shadow] duration-300 hover:border-theme-primary/40 shadow-sm shadow-black/[0.06]"
+      >
+        {/* Cursor glow */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+          style={{
+            opacity: hovered ? 1 : 0,
+            background: `radial-gradient(300px circle at ${glowPos.x}% ${glowPos.y}%, color-mix(in srgb, var(--theme-primary) 10%, transparent), transparent 70%)`,
+          }}
+        />
+
+        {/* Top shimmer */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-theme-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        <div className="relative z-10 p-6 sm:p-8 lg:p-9 space-y-5">
+          {/* Header row */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div className="space-y-1.5">
+              <h3
+                className={`text-xl lg:text-2xl font-black theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}
+              >
+                {experience.role}
+              </h3>
+              <Link
+                href={experience.companyLink || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1.5 text-theme-text-secondary hover:text-theme-primary transition-colors duration-200 text-sm font-semibold ${unbounded.className}`}
+              >
+                {experience.company}
+                <FiExternalLink className="w-3.5 h-3.5 shrink-0" />
+              </Link>
+            </div>
+
+            {experience.year && (
+              <span
+                className={`shrink-0 self-start px-3 py-1.5 rounded-lg border border-theme-primary/25 bg-theme-primary/8 text-xs font-semibold text-theme-primary ${unbounded.className}`}
+              >
+                {experience.year}
+              </span>
+            )}
+          </div>
+
+          {/* Description */}
+          <p className={`text-theme-text-secondary/90 leading-relaxed text-[15px] ${inter.className}`}>
+            {experience.description}
+          </p>
+
+          {/* Tech chips */}
+          {experience.technologies?.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-1">
+              {experience.technologies.map((tech: string, i: number) => (
+                <span
+                  key={i}
+                  className={`px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${unbounded.className}`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const Experience = () => {
+  const { data: experiences = [] } = useExperiences();
+
+  return (
+    <section id="experience" className="v2-section bg-theme-bg-secondary/30 relative">
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
         <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-theme-secondary/4 rounded-full blur-[100px]" />
       </div>
 
-      <div className="v2-container">
+      <div className="v2-container relative z-10">
+        {/* Section header */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="space-y-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-16 space-y-4 text-center"
         >
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center space-y-4">
-            <div className="v2-label">
-              <div className="v2-label-line" />
-              <span className={`v2-label-text ${unbounded.className}`}>Career</span>
-              <div className="v2-label-line" />
-            </div>
-            <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
-              Professional Experience
-            </h2>
-            <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
-          </motion.div>
-
-          {/* Enhanced Timeline */}
-          <div className="relative">
-            {/* Animated Timeline Line */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-0.5 bg-linear-to-b from-theme-primary via-theme-secondary to-transparent origin-top"
-            />
-
-            <div className="space-y-12">
-              {experiences.map((experience, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className={`relative flex flex-col lg:flex-row ${index % 2 === 0 ? "lg:flex-row-reverse" : ""
-                    } gap-8 lg:gap-16 items-start`}
-                >
-                  {/* Timeline Dot */}
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: index * 0.2,
-                      type: "spring",
-                      stiffness: 200,
-                    }}
-                    className="absolute left-6 lg:left-1/2 top-8 -translate-x-1/2 w-5 h-5 rounded-full theme-gradient-primary border-4 border-theme-bg-primary z-20 shadow-lg shadow-theme-primary/30"
-                  >
-                  </motion.div>
-
-                  {/* Enhanced Experience Card */}
-                  <motion.div
-                    whileHover={{
-                      scale: 1.02,
-                      y: -5,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 25,
-                      },
-                    }}
-                    className={`group relative flex-1 bg-theme-bg-secondary/40 backdrop-blur-md rounded-3xl border border-theme-border/50 hover:border-theme-primary/50 p-8 lg:p-10 transition-all duration-500 ${index % 2 === 0 ? "lg:mr-16" : "lg:ml-16"
-                      }`}
-                  >
-                    {/* Gradient Background on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/10 via-theme-secondary/10 to-theme-accent/10 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-
-                    <div className="relative z-10 space-y-8">
-                      {/* Enhanced Header */}
-                      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                        <div className="space-y-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-3 h-3 theme-gradient-primary rounded-full flex-shrink-0" />
-                            <h3
-                              className={`text-2xl lg:text-3xl font-black text-theme-primary group-hover:theme-text-gradient bg-clip-text text-transparent transition-all duration-500 ${unbounded.className}`}
-                            >
-                              {experience.role}
-                            </h3>
-                          </div>
-                          <div className="flex items-center space-x-3">
-                            <Link
-                              href={experience.companyLink || "#"}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group/link inline-flex items-center space-x-3 text-theme-primary hover:text-theme-secondary transition-all duration-300"
-                            >
-                              <span
-                                className={`font-bold text-lg ${unbounded.className}`}
-                              >
-                                {experience.company}
-                              </span>
-                              <FiExternalLink className="w-5 h-5 group-hover/link:scale-110 group-hover/link:translate-x-0.5 transition-transform duration-300" />
-                            </Link>
-                          </div>
-                        </div>
-
-                        {/* <div className="flex flex-col sm:flex-row gap-4 text-sm">
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center space-x-3 px-4 py-2 bg-theme-primary/10 border border-theme-primary/20 rounded-xl"
-                          >
-                            <FiCalendar className="w-4 h-4 text-theme-primary" />
-                            <span
-                              className={`text-theme-primary-light font-semibold ${unbounded.className}`}
-                            >
-                              {experience.year}
-                            </span>
-                          </motion.div>
-                        </div> */}
-                      </div>
-
-                      {/* Enhanced Description */}
-                      <motion.p
-                        className={`text-theme-text-secondary/90 leading-relaxed text-lg ${inter.className}`}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: index * 0.1 + 0.3 }}
-                      >
-                        {experience.description}
-                      </motion.p>
-
-                      {/* Enhanced Technologies */}
-                      <div className="space-y-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-2 h-2 theme-gradient-primary rounded-full" />
-                          <h4
-                            className={`text-sm font-bold text-theme-primary uppercase tracking-wider ${unbounded.className}`}
-                          >
-                            Technologies Used
-                          </h4>
-                        </div>
-                        <div className="flex flex-wrap gap-3">
-                          {experience.technologies?.map((tech: string, techIndex: number) => (
-                            <motion.span
-                              key={techIndex}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              whileInView={{ opacity: 1, scale: 1 }}
-                              transition={{
-                                duration: 0.4,
-                                delay: index * 0.05 + techIndex * 0.1,
-                              }}
-                              whileHover={{
-                                scale: 1.1,
-                                y: -2,
-                                transition: { type: "spring", stiffness: 400 },
-                              }}
-                              className={`px-4 py-2 text-sm font-semibold bg-theme-bg-tertiary/50 text-theme-text-secondary rounded-xl border border-theme-border/30 hover:border-theme-primary/50 hover:bg-theme-primary/10 hover:text-theme-primary-light transition-all duration-300 cursor-default backdrop-blur-sm ${unbounded.className}`}
-                            >
-                              {tech}
-                            </motion.span>
-                          ))}
-                        </div>
-                      </div>
-
-                    </div>
-                  </motion.div>
-
-                  {/* Year Indicator for Desktop */}
-                  <div
-                    className={`hidden lg:flex flex-1 items-center justify-center ${index % 2 === 0 ? "lg:justify-start" : "lg:justify-end"
-                      }`}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className={`px-6 py-3 bg-gradient-to-r from-theme-primary/10 to-theme-secondary/10 border border-theme-primary/20 rounded-2xl backdrop-blur-sm ${index % 2 === 0 ? "text-left" : "text-right"
-                        }`}
-                    >
-                      <div
-                        className={`${unbounded.className} text-sm  font-black theme-text-gradient bg-clip-text text-transparent `}
-                      >
-                        {experience.year}
-                      </div>
-                      <div className="text-sm text-theme-text-muted font-medium">
-                        Duration
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="v2-label">
+            <div className="v2-label-line" />
+            <span className={`v2-label-text ${unbounded.className}`}>Career</span>
+            <div className="v2-label-line" />
           </div>
+          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+            Professional Experience
+          </h2>
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+        </motion.div>
 
-          {/* Enhanced CTA Section */}
-          <motion.div variants={itemVariants} className="text-center pt-12">
-            <div className="relative group">
-              {/* Background Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/10 via-theme-secondary/10 to-theme-accent/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Timeline */}
+        <div className="relative max-w-3xl mx-auto">
+          {/* Vertical line */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+            className="absolute left-[6px] sm:left-[7px] top-0 bottom-0 w-px bg-gradient-to-b from-theme-primary via-theme-primary/30 to-transparent origin-top"
+          />
 
-              <div className="relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-3xl border border-theme-border/50 hover:border-theme-primary/30 p-12 transition-all duration-500">
-                <h3
-                  className={`text-3xl lg:text-4xl font-black text-theme-text-primary mb-6 ${unbounded.className}`}
-                >
-                  Ready to Build Something{" "}
-                  <span className="theme-text-gradient bg-clip-text text-transparent">
-                    Amazing?
-                  </span>
-                </h3>
-                <p
-                  className={`text-theme-text-muted/90 text-lg mb-8 max-w-md mx-auto ${inter.className}`}
-                >
-                  Let&apos;s discuss how my experience can help bring your next
-                  project to life.
-                </p>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+          <div className="space-y-7">
+            {experiences.map((exp, index) => (
+              <ExperienceItem key={exp._id ?? index} experience={exp} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mt-16 max-w-3xl mx-auto"
+        >
+          <div className="relative group">
+            {/* Outer glow on hover */}
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-theme-primary/40 via-theme-secondary/30 to-theme-accent/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+
+            {/* Card */}
+            <div className="relative rounded-2xl border border-theme-border/60 bg-theme-bg-secondary/80 backdrop-blur-md overflow-hidden shadow-sm shadow-black/[0.06] transition-[border-color] duration-300 group-hover:border-theme-primary/40">
+              {/* Persistent tinted fill */}
+              <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/6 via-transparent to-theme-secondary/4 pointer-events-none" />
+
+              {/* Top shimmer */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-theme-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 p-8 lg:p-10">
+                {/* Text */}
+                <div className="space-y-2">
+                  <h3 className={`text-2xl lg:text-3xl font-black text-theme-text-primary leading-tight ${unbounded.className}`}>
+                    Ready to Build Something{" "}
+                    <span className="theme-text-gradient bg-clip-text text-transparent">Amazing?</span>
+                  </h3>
+                  <p className={`text-theme-text-muted text-[14px] max-w-sm ${inter.className}`}>
+                    Let&apos;s talk about your next project — I&apos;m open to full-time roles and freelance work.
+                  </p>
+                </div>
+
+                {/* Action */}
+                <motion.div className="shrink-0" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                   <Link
                     href="#contact"
-                    className="group/cta relative inline-flex items-center space-x-4 px-8 py-4 theme-gradient-accent rounded-2xl font-bold text-theme-text-primary shadow-2xl hover:shadow-theme-primary/30 transition-all duration-500 overflow-hidden"
+                    className={`group/cta inline-flex items-center gap-3 px-7 py-4 theme-gradient-accent rounded-xl font-bold text-white shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative ${unbounded.className}`}
                   >
-                    {/* More Consistent Shine */}
-                    <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                      <div className="absolute top-0 -left-10 w-8 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />
+                    <div className="absolute inset-0 overflow-hidden rounded-xl">
+                      <div className="absolute top-0 -left-10 w-7 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />
                     </div>
-
-                    <span
-                      className={`text-lg ${unbounded.className} relative z-10 text-white`}
-                    >
-                      Let&apos;s Work Together
-                    </span>
-                    <FiArrowRight className="w-5 h-5 text-white relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
+                    <span className="relative z-10 text-sm whitespace-nowrap">Let&apos;s Work Together</span>
+                    <FiArrowRight className="w-4 h-4 relative z-10 group-hover/cta:translate-x-1 transition-transform duration-300" />
                   </Link>
                 </motion.div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

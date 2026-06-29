@@ -1,78 +1,45 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { FiExternalLink, FiGithub, FiBookOpen } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { useQueryState, parseAsString } from "nuqs";
+import { motion } from "framer-motion";
+import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery, profileQuery } from "@/sanity/lib/queries";
-import { unbounded, inter } from "@/lib/fonts";
+import { inter, unbounded } from "@/lib/fonts";
 import Header from "@/components/Header";
-import { ProfileStats } from "@/types/profile-stats";
-import ProjectsHeader from "./_components/ProjectsHeader";
 import Footer from "@/components/Footer";
 import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
-import SearchFilter from "@/components/SearchFilter";
+import ProjectsHeader from "./_components/ProjectsHeader";
+import ProjectCard3D from "./_components/ProjectCard3D";
 import { aiProjects } from "@/data/ai-projects";
+import { ProfileStats } from "@/types/profile-stats";
 
 interface Project {
   _id: string;
   title: string;
   description: string;
   technologies: string[];
-  image?: {
-    asset: {
-      url: string;
-    };
-  };
+  image?: { asset: { url: string } };
   link?: string;
   code?: string;
   isAI?: boolean;
   playgroundUrl?: string;
-  architectureDiagram?: {
-    asset: {
-      url: string;
-    };
-  };
-  metrics?: Array<{
-    label: string;
-    value: string;
-  }>;
+  architectureDiagram?: { asset: { url: string } };
+  metrics?: Array<{ label: string; value: string }>;
   blogSlug?: string;
 }
+
+const MAX_FILTER_CHIPS = 10;
 
 const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [stats, setStats] = useState<ProfileStats>({});
   const [loading, setLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
+  const [selectedCategory, setSelectedCategory] = useQueryState("cat", parseAsString.withDefault("All"));
 
-  // Search and Filter State
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const containerRef = useRef<HTMLElement | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    offset: ["start end", "end start"],
-  });
-
-  // Parallax transforms
-  const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const bgY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-
-  // Handle mounting
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Fetch data from Sanity
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,9 +47,7 @@ const Projects = () => {
           client.fetch(projectsQuery),
           client.fetch(profileQuery),
         ]);
-        // Merge: hardcoded AI projects show first, then Sanity projects
-        const merged = [...aiProjects, ...projectsData];
-        setProjects(merged);
+        setProjects([...aiProjects, ...projectsData]);
         setStats(profileData?.stats || {});
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -90,320 +55,214 @@ const Projects = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  // Parse URL query search parameters on mount
+  // AI Co-pilot search event (nuqs handles URL sync natively)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const searchParam = params.get("search");
-      if (searchParam) {
-        setSearchQuery(searchParam);
-        // Also scroll into view to the search filters section
-        setTimeout(() => {
-          const searchElem = document.querySelector("#projects-search-filters");
-          if (searchElem) {
-            searchElem.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 300);
-      }
-    }
-  }, []);
-
-  // Listen to custom search events dispatched from the AI Co-pilot
-  useEffect(() => {
-    const handleSearchEvent = (e: Event) => {
+    const handler = (e: Event) => {
       const detail = (e as CustomEvent).detail;
-      if (detail?.query) {
-        setSearchQuery(detail.query);
-        setTimeout(() => {
-          const searchElem = document.querySelector("#projects-search-filters");
-          if (searchElem) {
-            searchElem.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }, 100);
-      }
+      if (detail?.query) void setSearchQuery(detail.query);
     };
-    window.addEventListener("search-projects", handleSearchEvent);
-    return () => window.removeEventListener("search-projects", handleSearchEvent);
-  }, []);
+    window.addEventListener("search-projects", handler);
+    return () => window.removeEventListener("search-projects", handler);
+  }, [setSearchQuery]);
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
+  const allTechs = Array.from(
+    new Set(projects.flatMap((p) => p.technologies || []))
+  ).sort();
+
+  const filterChips = allTechs.slice(0, MAX_FILTER_CHIPS);
+
+  const filtered = projects.filter((p) => {
+    const q = searchQuery.toLowerCase();
+    const matchesSearch =
+      p.title.toLowerCase().includes(q) ||
+      p.description?.toLowerCase().includes(q);
+    const matchesCat =
+      selectedCategory === "All" || p.technologies?.includes(selectedCategory);
+    return matchesSearch && matchesCat;
+  });
+
+  const clearFilters = () => {
+    void setSearchQuery("");
+    void setSelectedCategory("All");
   };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-      },
-    },
-  };
-
-  // Mouse tracking for gradient effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const cards = document.querySelectorAll(".project-card");
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
-        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   if (loading) {
     return (
       <>
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80">
-          <div className="relative z-10 max-w-7xl mx-auto px-4 py-24">
-            <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-                {[...Array(4)].map((_, i) => (
-                  <ProjectCardSkeleton key={i} />
-                ))}
-              </div>
+        <Header />
+        <div className="min-h-screen bg-theme-bg-primary">
+          <div className="max-w-7xl mx-auto px-4 pt-32">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+              {[...Array(6)].map((_, i) => (
+                <ProjectCardSkeleton key={i} />
+              ))}
             </div>
           </div>
-        </section>
+        </div>
       </>
     );
   }
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen overflow-hidden bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80"
-    >
-      {/* Advanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          style={{ y: bgY1 }}
-          className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ y: bgY2 }}
-          className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/10 rounded-full blur-3xl"
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-theme-primary/5 rounded-full blur-3xl" />
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
-
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-theme-bg-primary/40" />
+    <div className="min-h-screen bg-theme-bg-primary relative overflow-x-hidden">
+      {/* Ambient background — fixed so it doesn't scroll */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-48 left-1/4 w-[700px] h-[700px] bg-theme-primary/7 blur-[180px] rounded-full" />
+        <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] bg-theme-secondary/5 blur-[160px] rounded-full" />
+        <div className="absolute bottom-0 -left-16 w-[400px] h-[400px] bg-theme-accent/4 blur-[130px] rounded-full" />
+        {/* Subtle dot grid */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <Header />
+
+        {/* Hero */}
+        <ProjectsHeader projectCount={projects.length} stats={stats} />
+
+        {/* Filter bar — search + pills in one row */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="space-y-20"
+          id="projects-search-filters"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mb-8 flex flex-wrap items-center gap-2"
         >
-          <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-          <div className="mt-10" />
-          {/* Enhanced Section Header */}
-          <ProjectsHeader projectCount={projects.length} stats={stats} />
-
-          {/* Search and Filter */}
-          <div id="projects-search-filters">
-            <SearchFilter
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              categories={Array.from(new Set(projects.flatMap(p => p.technologies || []))).sort()}
-              placeholder="Search projects..."
+          {/* Search input */}
+          <div className="relative w-48 shrink-0">
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-theme-text-secondary pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search..."
+              className={`w-full pl-[30px] pr-7 py-1.5 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-theme-text-muted hover:text-theme-text-primary transition-colors"
+              >
+                <FiX className="w-3 h-3" />
+              </button>
+            )}
           </div>
 
-          {/* Enhanced Projects Grid */}
-          <div className="flex justify-center items-center max-w-5xl w-full mx-auto">
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          {/* Divider */}
+          <div className="w-px h-5 bg-theme-border/50 mx-1" />
+
+          {/* Category pills */}
+          {["All", ...filterChips].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                selectedCategory === cat
+                  ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
+                  : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
+              }`}
             >
-              {projects
-                .filter((project) => {
-                  const matchesSearch = project.title
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase());
-                  const matchesCategory =
-                    selectedCategory === "All" ||
-                    project.technologies?.includes(selectedCategory);
-                  return matchesSearch && matchesCategory;
-                })
-                .map((project, index) => (
-                  <motion.div
-                    key={project._id}
-                    variants={itemVariants}
-                    className="project-card group relative overflow-hidden rounded-3xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
-                    style={{
-                      background: `
-                  radial-gradient(
-                    600px circle at var(--mouse-x) var(--mouse-y),
-                    rgba(var(--theme-primary-rgb), 0.06),
-                    transparent 40%
-                  ),
-                  linear-gradient(135deg, rgba(var(--theme-bg-rgb), 0.9) 0%, rgba(var(--theme-bg-rgb), 0.7) 100%)
-                `,
-                    }}
-                  >
-                    {/* Animated border gradient */}
-                    <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                      <div className="absolute inset-[-2px] bg-gradient-to-r from-theme-primary via-transparent to-theme-secondary opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
-                    </div>
-
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                      <div className="absolute inset-0 bg-linear-to-br from-transparent via-white/5 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
-                    </div>
-
-                    {/* Project Image */}
-                    <div className="relative h-64 overflow-hidden">
-                      {project.image?.asset?.url && (
-                        <Image
-                          src={project.image.asset.url}
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-all duration-700 group-hover:scale-110"
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-theme-bg-primary/90 via-theme-bg-primary/40 to-transparent" />
-
-                      {/* Project Number */}
-                      <motion.div
-                        initial={{ x: -20, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="absolute top-4 left-4 px-3 py-1 bg-theme-bg-primary/80 backdrop-blur-md rounded-full border border-theme-primary/30"
-                      >
-                        <span
-                          className={`text-xs font-mono text-theme-primary ${unbounded.className}`}
-                        >
-                          #{String(index + 1).padStart(2, "0")}
-                        </span>
-                      </motion.div>
-
-                      {/* Overlay Links */}
-                      <div className="absolute top-4 right-4 flex gap-2 group-hover:z-50">
-                        {project.blogSlug && (
-                          <motion.a
-                            href={`/blogs/${project.blogSlug}`}
-                            whileHover={{ scale: 1.1 }}
-                            className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300 flex items-center gap-1.5 px-3"
-                          >
-                            <FiBookOpen className="w-4 h-4 text-theme-primary" />
-                            <span className="text-xs font-semibold text-theme-text-primary">Case Study</span>
-                          </motion.a>
-                        )}
-                        {project.code && (
-                          <motion.a
-                            href={project.code}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300"
-                          >
-                            <FiGithub className="w-4 h-4 text-theme-text-primary" />
-                          </motion.a>
-                        )}
-                        {project.link && (
-                          <motion.a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            className="p-2 bg-theme-bg-primary/80 backdrop-blur-md rounded-lg border border-theme-border hover:border-theme-primary/50 transition-all duration-300"
-                          >
-                            <FiExternalLink className="w-4 h-4 text-theme-text-primary" />
-                          </motion.a>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Project Content */}
-                    <div className="p-6 space-y-4 group-hover:text-white overflow-hidden">
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <div className="w-4 h-px bg-gradient-to-r from-theme-primary to-transparent group-hover:text-white" />
-                          <span
-                            className={`text-xs font-mono text-theme-primary uppercase tracking-wider group-hover:text-white ${unbounded.className}`}
-                          >
-                            Case Study
-                          </span>
-                        </div>
-                        {project.isAI && (
-                          <span className="px-2 py-0.5 text-[10px] font-mono font-bold tracking-wider uppercase rounded-sm border border-purple-500/30 bg-purple-500/10 text-purple-400 group-hover:border-purple-400/50 group-hover:bg-purple-500/20 group-hover:text-purple-300 transition-colors">
-                            AI Agent
-                          </span>
-                        )}
-                      </div>
-
-                      <h3
-                        className={`text-2xl font-bold text-theme-text-primary group-hover:text-white ${unbounded.className} group-hover:text-transparent group-hover:theme-text-gradient group-hover:bg-clip-text transition-all duration-300`}
-                      >
-                        {project.title}
-                      </h3>
-
-                      <p
-                        className={`text-theme-text-secondary/90 group-hover:text-white leading-relaxed ${inter.className}`}
-                      >
-                        {project.description}
-                      </p>
-
-                      {/* Technologies */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {project.technologies?.map((tech, techIndex) => (
-                          <motion.span
-                            key={techIndex}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: techIndex * 0.05 }}
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            className={`px-3 py-1 bg-theme-bg-tertiary/80 text-theme-text-secondary rounded-lg border border-theme-border hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-sm font-medium backdrop-blur-sm ${unbounded.className}`}
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-            </motion.div>
-          </div>
-
-
+              {cat}
+            </button>
+          ))}
         </motion.div>
+
+        {/* Result count + clear */}
+        <div className="mb-5 flex items-center gap-3">
+          <span className={`text-sm text-theme-text-muted ${inter.className}`}>
+            <span className={`text-theme-text-secondary font-semibold ${unbounded.className}`}>
+              {filtered.length}
+            </span>{" "}
+            {filtered.length === 1 ? "project" : "projects"}
+          </span>
+          {(searchQuery || selectedCategory !== "All") && (
+            <button
+              onClick={clearFilters}
+              className={`text-xs text-theme-primary hover:underline underline-offset-2 ${unbounded.className}`}
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
+        {/* Grid */}
+        {filtered.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="py-24 text-center"
+          >
+            <p className={`text-theme-text-muted ${inter.className}`}>
+              No projects match &ldquo;{searchQuery}&rdquo;.
+            </p>
+          </motion.div>
+        ) : (() => {
+          const featuredProjects = filtered.filter((p) => p.isAI);
+          const regularProjects = filtered.filter((p) => !p.isAI);
+          return (
+            <div className="pb-24 space-y-10">
+              {/* Featured row */}
+              {featuredProjects.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-1.5 h-4 rounded-full bg-theme-primary" />
+                    <span className={`text-xs font-semibold text-theme-text-secondary uppercase tracking-widest ${unbounded.className}`}>
+                      Featured
+                    </span>
+                  </div>
+                  <div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                    style={{ perspective: "1200px" }}
+                  >
+                    {featuredProjects.map((project, index) => (
+                      <ProjectCard3D
+                        key={project._id}
+                        project={project}
+                        index={index}
+                        featured
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Regular grid */}
+              {regularProjects.length > 0 && (
+                <div>
+                  {featuredProjects.length > 0 && (
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-1.5 h-4 rounded-full bg-theme-border" />
+                      <span className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${unbounded.className}`}>
+                        All Projects
+                      </span>
+                    </div>
+                  )}
+                  <div
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+                    style={{ perspective: "1200px" }}
+                  >
+                    {regularProjects.map((project, index) => (
+                      <ProjectCard3D
+                        key={project._id}
+                        project={project}
+                        index={featuredProjects.length + index}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
-      {/* Footer */}
-      <footer className="mt-16 w-full  border-t border-zinc-800/50 relative bg-gradient-to-b from-theme-bg-secondary to-theme-bg-primary border-t border-theme-border/50 overflow-hidden">
+      <div className="relative z-10 border-t border-theme-border/30">
         <Footer />
-      </footer>
-    </section>
+      </div>
+    </div>
   );
 };
 
