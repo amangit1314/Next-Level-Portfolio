@@ -23,16 +23,14 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="relative py-20 overflow-hidden px-4 md:px-8 bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary"
+      className="v2-section bg-theme-bg-primary"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-80 h-80 bg-theme-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-theme-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-theme-accent/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="v2-grid-bg absolute inset-0" />
+        <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-theme-primary/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
+      <div className="v2-container">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,23 +39,21 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-8 h-px theme-gradient-primary" />
-            <span
-              className={`text-sm font-medium text-theme-primary tracking-wider uppercase ${jetbrainsMono.className}`}
-            >
+          <div className="v2-label mb-4">
+            <div className="v2-label-line" />
+            <span className={`v2-label-text ${jetbrainsMono.className}`}>
               Client Feedback
             </span>
             <div className="w-8 h-px theme-gradient-secondary" />
           </div>
           <h2
-            className={`text-4xl lg:text-5xl font-bold theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}
+            className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}
           >
             Testimonials
           </h2>
-          <p className="text-theme-text-muted max-w-2xl mx-auto">
-            What people say about working with me and the solutions I&apos;ve
-            delivered
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <p className={`text-theme-text-muted max-w-xl mx-auto ${inter.className}`}>
+            What people say about working with me
           </p>
         </motion.div>
 

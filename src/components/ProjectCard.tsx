@@ -31,17 +31,7 @@ const ProjectCard = (props: ProjectCardProps) => {
     <motion.div
       key={index}
       variants={projectItem}
-      className="project-card group relative overflow-hidden rounded-3xl bg-linear-to-br from-theme-bg-secondary/90 via-theme-bg-secondary/50 to-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
-      style={{
-        background: `
-                  radial-gradient(
-                    600px circle at var(--mouse-x) var(--mouse-y),
-                    rgba(var(--theme-primary-rgb), 0.06),
-                    transparent 40%
-                  ),
-                  linear-gradient(135deg, rgba(var(--theme-bg-rgb), 0.9) 0%, rgba(var(--theme-bg-rgb), 0.7) 100%)
-                `,
-      }}
+      className="group relative overflow-hidden rounded-3xl bg-theme-bg-secondary/50 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500"
     >
       {/* Animated border gradient */}
       <div className="absolute inset-0 rounded-3xl overflow-hidden">

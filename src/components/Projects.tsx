@@ -1,180 +1,65 @@
-import React, { useRef, useEffect, useState } from "react";
-// import Image from "next/image";
-// import Link from "next/link";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery } from "@/sanity/lib/queries";
-import { unbounded } from "@/lib/fonts";
+import { unbounded, jetbrainsMono } from "@/lib/fonts";
 import ProjectCard from "./ProjectCard";
 import { aiProjects } from "@/data/ai-projects";
 
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+  },
+};
+
 const Projects = () => {
   const [projects, setProjects] = useState<any[]>([]);
-  // const containerRef = useRef(null);
-  // const { scrollYProgress } = useScroll({
-  //   target: containerRef,
-  //   offset: ["start end", "end start"],
-  // });
-
-  const containerRef = useRef<HTMLElement | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    // on the server this will be `false`, so target = undefined
-    // target: isClient ? containerRef : undefined,
-    offset: ["start end", "end start"],
-  });
 
   useEffect(() => {
     const fetchProjects = async () => {
       const sanityData = await client.fetch(projectsQuery);
-      // Merge: AI hardcoded projects first, then Sanity projects
-      const merged = [...aiProjects, ...sanityData];
-      setProjects(merged);
+      setProjects([...aiProjects, ...sanityData]);
     };
     fetchProjects();
   }, []);
 
-  // Parallax transforms for background elements
-  const bgY1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const bgY2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
-
-  // Animation variants
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-
-
-  const glowPulse = {
-    initial: { opacity: 0.3 },
-    animate: {
-      opacity: [0.3, 0.6, 0.3],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        // ease: "easeInOut",
-      },
-    },
-  };
-
-  // Mouse tracking for gradient effect
-  useEffect(() => {
-    const handleMouseMove = (e: any) => {
-      const cards = document.querySelectorAll(".project-card");
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
-        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <section
-      id="projects"
-      ref={containerRef}
-      className="relative py-20 px-4 md:px-8 md:py-32 bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary overflow-hidden"
-    >
-      {/* Advanced animated background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated gradient orbs */}
-        <motion.div
-          style={{ y: bgY1 }}
-          className="absolute top-0 left-1/4 w-96 h-96"
-        >
-          <motion.div
-            variants={glowPulse}
-            initial="initial"
-            animate="animate"
-            className="w-full h-full rounded-full bg-theme-primary/30 blur-[100px]"
-          />
-        </motion.div>
-
-        <motion.div
-          style={{ y: bgY2 }}
-          className="absolute bottom-0 right-1/4 w-96 h-96"
-        >
-          <motion.div
-            variants={glowPulse}
-            initial="initial"
-            animate="animate"
-            className="w-full h-full rounded-full bg-theme-secondary/30 blur-[100px]"
-            style={{ animationDelay: "1.5s" }}
-          />
-        </motion.div>
-
-        {/* Rotating gradient ring */}
-        <motion.div
-          style={{ rotate: bgRotate }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]"
-        >
-          <div className="w-full h-full rounded-full border border-theme-primary/10 bg-gradient-to-r from-theme-primary/5 via-transparent to-theme-secondary/5" />
-        </motion.div>
-
-        {/* Grid pattern overlay */}
-        <div className='absolute inset-0 bg-[url(&apos;data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3Cpattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"%3E%3Cpath d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/%3E%3C/pattern%3E%3C/defs%3E%3Crect width="100%25" height="100%25" fill="url(%23grid)"/%3E%3C/svg%3E&apos;)] opacity-50' />
+    <section id="projects" className="v2-section bg-theme-bg-primary">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="v2-grid-bg absolute inset-0" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container px-4 mx-auto relative z-10">
-        {/* Enhanced Header */}
+      <div className="v2-container">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
-          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-20 space-y-4"
         >
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-theme-primary/20 bg-theme-primary/5 backdrop-blur-sm"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-theme-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-theme-primary"></span>
-            </span>
-            <p className="text-sm font-mono text-theme-primary">
+          <div className="v2-label mb-4">
+            <div className="v2-label-line" />
+            <span className={`v2-label-text ${jetbrainsMono.className}`}>
               Portfolio Showcase
-            </p>
-          </motion.div>
-
-          <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-theme-text-primary mb-6">
-            <span className={`theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}>
-              Featured Projects
             </span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="max-w-2xl mx-auto text-lg text-theme-text-muted"
-          >
-            Crafting digital experiences with modern technologies and creative
-            solutions
-          </motion.p>
+            <div className="v2-label-line" />
+          </div>
+          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+            Featured Projects
+          </h2>
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <p className="max-w-2xl mx-auto text-lg text-theme-text-muted">
+            Crafting digital experiences with modern technologies and creative solutions
+          </p>
         </motion.div>
 
-        {/* Enhanced Projects Grid */}
+        {/* Projects Grid */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -187,7 +72,7 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        {/* Enhanced View All Button */}
+        {/* View All */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -197,19 +82,14 @@ const Projects = () => {
         >
           <a
             href="/projects"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-2xl bg-linear-to-br from-theme-bg-secondary to-theme-bg-tertiary border border-theme-primary/30 hover:border-theme-primary/50 transition-all duration-500"
+            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${unbounded.className}`}
           >
-            {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/0 via-theme-primary/20 to-theme-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-
-            <span className={`relative text-xs font-medium text-theme-primary group-hover:text-theme-primary-light ${unbounded.className}`}>
-              Discover All Projects
-            </span>
+            Discover All Projects
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="relative w-5 h-5 text-theme-primary group-hover:text-theme-primary-light transition-all duration-300 group-hover:translate-x-1"
+              className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
             >
               <path
                 fillRule="evenodd"

@@ -60,19 +60,14 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 bg-linear-to-br from-theme-bg-primary via-transparent to-theme-primary-dark/10"
+      className="v2-section bg-theme-bg-primary"
     >
-      {/* Advanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-theme-accent/5 rounded-full blur-3xl" />
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="v2-grid-bg absolute inset-0" />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4">
+      <div className="v2-container">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -80,33 +75,17 @@ const Experience = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="space-y-20"
         >
-          {/* Enhanced Section Header */}
-          <motion.div variants={itemVariants} className="text-center space-y-6">
-            <motion.div
-              className="flex items-center justify-center space-x-3 mb-6"
-              variants={floatingVariants}
-              animate="float"
-            >
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
-              <span
-                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${unbounded.className}`}
-              >
-                My Career Journey
-              </span>
-              <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
-            </motion.div>
-            <h2
-              className={`${unbounded.className} text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
-            >
+          {/* Section Header */}
+          <motion.div variants={itemVariants} className="text-center space-y-4">
+            <div className="v2-label">
+              <div className="v2-label-line" />
+              <span className={`v2-label-text ${unbounded.className}`}>Career</span>
+              <div className="v2-label-line" />
+            </div>
+            <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
               Professional Experience
             </h2>
-            <div className="w-24 h-1 theme-gradient-primary mx-auto rounded-full" />
-            <p
-              className={`text-theme-text-muted/90 text-lg max-w-2xl mx-auto ${inter.className}`}
-            >
-              My journey through the tech industry, building innovative
-              solutions and growing as a developer
-            </p>
+            <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
           </motion.div>
 
           {/* Enhanced Timeline */}
@@ -137,9 +116,8 @@ const Experience = () => {
                       type: "spring",
                       stiffness: 200,
                     }}
-                    className="absolute left-6 lg:left-1/2 top-8 -translate-x-1/2 w-6 h-6 rounded-full theme-gradient-primary border-4 border-theme-bg-primary z-20 shadow-2xl shadow-theme-primary/25"
+                    className="absolute left-6 lg:left-1/2 top-8 -translate-x-1/2 w-5 h-5 rounded-full theme-gradient-primary border-4 border-theme-bg-primary z-20 shadow-lg shadow-theme-primary/30"
                   >
-                    <div className="absolute inset-0 rounded-full theme-gradient-primary blur-sm opacity-75 animate-pulse" />
                   </motion.div>
 
                   {/* Enhanced Experience Card */}
@@ -249,18 +227,6 @@ const Experience = () => {
                         </div>
                       </div>
 
-                      {/* Floating Elements */}
-                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 8,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                          className="w-8 h-8 border-2 border-theme-primary/30 rounded-full"
-                        />
-                      </div>
                     </div>
                   </motion.div>
 

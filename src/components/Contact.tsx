@@ -34,16 +34,14 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative py-20 overflow-hidden px-4 md:px-8 bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary"
+      className="v2-section bg-theme-bg-primary"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-80 h-80 bg-theme-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-theme-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-theme-accent/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="v2-grid-bg absolute inset-0" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4">
+      <div className="v2-container max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,20 +51,17 @@ const Contact = () => {
         >
           {/* Section Header */}
           <motion.div className="text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-px theme-gradient-primary" />
-              <span
-                className={`text-sm font-medium text-theme-primary tracking-wider uppercase ${jetbrainsMono.className}`}
-              >
+            <div className="v2-label mb-4">
+              <div className="v2-label-line" />
+              <span className={`v2-label-text ${jetbrainsMono.className}`}>
                 Let&apos;s Connect
               </span>
-              <div className="w-8 h-px theme-gradient-secondary" />
+              <div className="v2-label-line" />
             </div>
-            <h2
-              className={`text-4xl lg:text-5xl font-bold theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}
-            >
+            <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
               Get In Touch
             </h2>
+            <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
             <p className="text-theme-text-muted max-w-2xl mx-auto">
               Ready to bring your next project to life? Let&apos;s discuss how
               we can work together.
@@ -101,7 +96,7 @@ const Contact = () => {
               >
                 {SOCIAL_LINKS.map((social, index) => (
                   <motion.div
-                    key={index}
+                    key={social.name}
                     variants={itemVariants}
                     className="flex justify-center"
                   >

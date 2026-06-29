@@ -293,8 +293,71 @@
 
   .no-scrollbar {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
+  }
+
+  /* ── V2 Design System ─────────────────────────────── */
+
+  /* Consistent subtle grid background used across all sections */
+  .v2-grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent);
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 30%, transparent);
+  }
+
+  /* Section layout */
+  .v2-section {
+    @apply relative py-24 lg:py-32 overflow-hidden;
+  }
+
+  .v2-container {
+    @apply relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Card primitive — ONE pattern used everywhere */
+  .v2-card {
+    @apply bg-theme-bg-secondary/50 border border-theme-border/50 rounded-2xl backdrop-blur-sm;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .v2-card:hover {
+    border-color: color-mix(in srgb, var(--theme-primary) 30%, transparent);
+  }
+
+  /* Section label — the line · text · line pattern */
+  .v2-label {
+    @apply flex items-center justify-center gap-3;
+  }
+
+  .v2-label-line {
+    @apply h-px w-12 bg-theme-primary/40;
+  }
+
+  .v2-label-text {
+    @apply text-xs tracking-[0.2em] uppercase text-theme-primary font-medium;
+  }
+
+  /* Buttons */
+  .v2-btn-primary {
+    @apply px-8 py-3.5 theme-gradient-primary rounded-xl font-semibold text-white text-sm;
+    @apply shadow-lg transition-shadow duration-300;
+    box-shadow: 0 4px 24px color-mix(in srgb, var(--theme-primary) 20%, transparent);
+  }
+
+  .v2-btn-primary:hover {
+    box-shadow: 0 4px 32px color-mix(in srgb, var(--theme-primary) 35%, transparent);
+  }
+
+  .v2-btn-ghost {
+    @apply px-8 py-3.5 border border-theme-border text-theme-text-secondary rounded-xl font-semibold text-sm;
+    @apply hover:border-theme-primary/50 hover:text-theme-primary transition-all duration-300;
+  }
+
+  /* Stat divider row */
+  .v2-stat-divider {
+    @apply h-8 w-px bg-theme-border;
   }
 }
