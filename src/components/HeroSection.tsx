@@ -1,6 +1,6 @@
 "use client";
 
-import { inter, poppins, righteous, unbounded } from "@/lib/fonts";
+import { inter, righteous, unbounded } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -8,23 +8,15 @@ import {
   FiArrowDown,
   FiExternalLink,
 } from "react-icons/fi";
-import { client } from "@/sanity/lib/client";
-import { profileQuery } from "@/sanity/lib/queries";
+import { useProfile } from "@/contexts/ProfileContext";
+import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import * as Icons from "react-icons/fi";
 
 const HeroSection = () => {
-  const [profile, setProfile] = useState<any>(null);
+  const { profile, isLoading } = useProfile();
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const data = await client.fetch(profileQuery);
-      setProfile(data);
-    };
-    fetchProfile();
-  }, []);
 
   // Typewriter effect
   useEffect(() => {
@@ -63,12 +55,10 @@ const HeroSection = () => {
   };
 
   const getIconComponent = (iconName: string) => {
-    // @ts-ignore
-    return Icons[iconName] || Icons.FiLink;
+    return (Icons as Record<string, React.ComponentType<{ className?: string }>>)[iconName] ?? Icons.FiLink;
   };
 
-  // Don't render until profile data is loaded from Sanity
-  if (!profile) return null;
+  if (isLoading || !profile) return <HeroSkeleton />;
 
   return (
     <section
@@ -121,7 +111,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
             className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-theme-bg-secondary/50 backdrop-blur-sm border border-theme-border/50"
           >
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -137,7 +127,7 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
               className="space-y-2"
             >
               <motion.h1
@@ -156,7 +146,7 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               <div
                 className={`font-semibold text-theme-text-secondary text-lg sm:text-xl lg:text-2xl xl:text-3xl ${inter.className}`}
@@ -174,7 +164,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
             className="max-w-2xl"
           >
             <p
@@ -188,18 +178,18 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             className="grid grid-cols-2 sm:grid-cols-4 gap-6"
           >
             {[
               { number: profile.stats?.experienceYears, label: "Years Experience" },
               { number: profile.stats?.projectsCount, label: "Projects Built" },
-              { number: profile.stats?.tokensOrchestrated || "500M+", label: "Tokens Orchestrated" },
-              { number: profile.stats?.agentsDeployed || "12+", label: "Agents Deployed" },
-            ].map((stat, index) => (
+              { number: profile.stats?.tokensOrchestrated, label: "Tokens Orchestrated" },
+              { number: profile.stats?.agentsDeployed, label: "Agents Deployed" },
+            ].filter((s) => s.number).map((stat, index) => (
               <div key={stat.label} className="text-center lg:text-left">
                 <div
-                  className={`text-xl sm:text-2xl lg:text-3xl font-bold text-theme-text-primary ${poppins.className}`}
+                  className={`text-xl sm:text-2xl lg:text-3xl font-bold text-theme-text-primary ${unbounded.className}`}
                 >
                   {stat.number}
                 </div>
@@ -216,7 +206,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start"
           >
             <motion.button
@@ -245,14 +235,14 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
             className="flex items-center justify-center lg:justify-start space-x-4 pt-6"
           >
-            {profile.socialLinks?.map((social: any, index: number) => {
+            {profile.socialLinks?.map((social) => {
               const Icon = getIconComponent(social.iconName);
               return (
                 <motion.a
-                  key={index}
+                  key={social.platform ?? social.url}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -281,6 +271,7 @@ const HeroSection = () => {
                 src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
                 alt={`${profile.name} - ${profile.role}`}
                 fill
+                sizes="(max-width: 768px) 320px, 384px"
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 quality={95}
                 priority
@@ -301,7 +292,7 @@ const HeroSection = () => {
               className="absolute -top-4 -right-4 px-4 py-2 bg-theme-bg-secondary/80 backdrop-blur-sm rounded-xl border border-theme-border/50 shadow-lg"
             >
               <div
-                className={`text-sm font-semibold text-theme-text-primary ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-text-primary ${unbounded.className}`}
               >
                 Tech Stack
               </div>
@@ -314,7 +305,7 @@ const HeroSection = () => {
               transition={{ delay: 1.2, duration: 0.6 }}
               className="absolute -bottom-4 -left-4 px-4 py-3 theme-gradient-primary rounded-xl shadow-lg"
             >
-              <div className={`text-theme-text-primary font-semibold ${poppins.className}`}>
+              <div className={`text-theme-text-primary font-semibold ${unbounded.className}`}>
                 <div className="text-sm">{profile.stats?.experienceYears}</div>
                 <div className="text-xs opacity-90">Experience</div>
               </div>
@@ -330,7 +321,7 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
+        transition={{ delay: 0.8, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.button

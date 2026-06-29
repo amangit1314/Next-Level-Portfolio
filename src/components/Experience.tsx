@@ -8,7 +8,7 @@ import {
   FiCalendar,
   FiArrowRight,
 } from "react-icons/fi";
-import { inter, poppins } from "@/lib/fonts";
+import { inter, unbounded } from "@/lib/fonts";
 import { client } from "@/sanity/lib/client";
 import { experiencesQuery } from "@/sanity/lib/queries";
 
@@ -89,14 +89,14 @@ const Experience = () => {
             >
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
-                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${unbounded.className}`}
               >
                 My Career Journey
               </span>
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
             </motion.div>
             <h2
-              className={`${poppins.className} text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
+              className={`${unbounded.className} text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
             >
               Professional Experience
             </h2>
@@ -169,7 +169,7 @@ const Experience = () => {
                           <div className="flex items-center space-x-4">
                             <div className="w-3 h-3 theme-gradient-primary rounded-full flex-shrink-0" />
                             <h3
-                              className={`text-2xl lg:text-3xl font-black text-theme-primary group-hover:theme-text-gradient bg-clip-text text-transparent transition-all duration-500 ${poppins.className}`}
+                              className={`text-2xl lg:text-3xl font-black text-theme-primary group-hover:theme-text-gradient bg-clip-text text-transparent transition-all duration-500 ${unbounded.className}`}
                             >
                               {experience.role}
                             </h3>
@@ -182,7 +182,7 @@ const Experience = () => {
                               className="group/link inline-flex items-center space-x-3 text-theme-primary hover:text-theme-secondary transition-all duration-300"
                             >
                               <span
-                                className={`font-bold text-lg ${poppins.className}`}
+                                className={`font-bold text-lg ${unbounded.className}`}
                               >
                                 {experience.company}
                               </span>
@@ -198,7 +198,7 @@ const Experience = () => {
                           >
                             <FiCalendar className="w-4 h-4 text-theme-primary" />
                             <span
-                              className={`text-theme-primary-light font-semibold ${poppins.className}`}
+                              className={`text-theme-primary-light font-semibold ${unbounded.className}`}
                             >
                               {experience.year}
                             </span>
@@ -221,7 +221,7 @@ const Experience = () => {
                         <div className="flex items-center space-x-3">
                           <div className="w-2 h-2 theme-gradient-primary rounded-full" />
                           <h4
-                            className={`text-sm font-bold text-theme-primary uppercase tracking-wider ${poppins.className}`}
+                            className={`text-sm font-bold text-theme-primary uppercase tracking-wider ${unbounded.className}`}
                           >
                             Technologies Used
                           </h4>
@@ -241,7 +241,7 @@ const Experience = () => {
                                 y: -2,
                                 transition: { type: "spring", stiffness: 400 },
                               }}
-                              className={`px-4 py-2 text-sm font-semibold bg-theme-bg-tertiary/50 text-theme-text-secondary rounded-xl border border-theme-border/30 hover:border-theme-primary/50 hover:bg-theme-primary/10 hover:text-theme-primary-light transition-all duration-300 cursor-default backdrop-blur-sm ${poppins.className}`}
+                              className={`px-4 py-2 text-sm font-semibold bg-theme-bg-tertiary/50 text-theme-text-secondary rounded-xl border border-theme-border/30 hover:border-theme-primary/50 hover:bg-theme-primary/10 hover:text-theme-primary-light transition-all duration-300 cursor-default backdrop-blur-sm ${unbounded.className}`}
                             >
                               {tech}
                             </motion.span>
@@ -277,7 +277,7 @@ const Experience = () => {
                         }`}
                     >
                       <div
-                        className={`${poppins.className} text-sm  font-black theme-text-gradient bg-clip-text text-transparent `}
+                        className={`${unbounded.className} text-sm  font-black theme-text-gradient bg-clip-text text-transparent `}
                       >
                         {experience.year}
                       </div>
@@ -299,7 +299,7 @@ const Experience = () => {
 
               <div className="relative bg-theme-bg-secondary/40 backdrop-blur-md rounded-3xl border border-theme-border/50 hover:border-theme-primary/30 p-12 transition-all duration-500">
                 <h3
-                  className={`text-3xl lg:text-4xl font-black text-theme-text-primary mb-6 ${poppins.className}`}
+                  className={`text-3xl lg:text-4xl font-black text-theme-text-primary mb-6 ${unbounded.className}`}
                 >
                   Ready to Build Something{" "}
                   <span className="theme-text-gradient bg-clip-text text-transparent">
@@ -326,7 +326,7 @@ const Experience = () => {
                     </div>
 
                     <span
-                      className={`text-lg ${poppins.className} relative z-10 text-white`}
+                      className={`text-lg ${unbounded.className} relative z-10 text-white`}
                     >
                       Let&apos;s Work Together
                     </span>

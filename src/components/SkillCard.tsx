@@ -58,7 +58,7 @@
 //         {/* Name & Proficiency */}
 //         <div className="space-y-3">
 //           <div
-//             className={`font-bold text-theme-text-primary text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${poppins.className}`}
+//             className={`font-bold text-theme-text-primary text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${unbounded.className}`}
 //           >
 //             {skill.name}
 //           </div>
@@ -122,7 +122,7 @@
 // export default SkillCard;
 
 import React from "react";
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 import { Skill } from "@/types/skill";
 import { motion } from "framer-motion";
 
@@ -215,7 +215,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         {/* Name & Proficiency */}
         <div className="space-y-3">
           <div
-            className={`font-bold text-theme-text-primary text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${poppins.className}`}
+            className={`font-bold text-theme-text-primary text-sm group-hover:text-theme-text-primary transition-colors duration-300 ${unbounded.className}`}
           >
             {skill.name}
           </div>

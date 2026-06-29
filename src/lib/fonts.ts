@@ -1,15 +1,4 @@
-import { Caveat, Inter, JetBrains_Mono, Maven_Pro, Momo_Signature, Poppins, Righteous, Unbounded } from "next/font/google";
-
-export const poppins = Unbounded({
-  weight: ["400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-});
-
-
-// Poppins({
-//   weight: ["400", "500", "600", "700", "800", "900"],
-//   subsets: ["latin"],
-// });
+import { Inter, JetBrains_Mono, Maven_Pro, Momo_Signature, Righteous, Unbounded } from "next/font/google";
 
 export const inter = Inter({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -36,7 +25,8 @@ export const unbounded = Unbounded({
   subsets: ["latin"],
 });
 
-export const caveat = Momo_Signature({
+// decorative signature font — used in Header logo only
+export const signature = Momo_Signature({
   weight: ["400"],
   subsets: ["latin"],
 });

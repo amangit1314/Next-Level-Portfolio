@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery } from "@/sanity/lib/queries";
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 import ProjectCard from "./ProjectCard";
 import { aiProjects } from "@/data/ai-projects";
 
@@ -158,7 +158,7 @@ const Projects = () => {
           </motion.div>
 
           <motion.h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-theme-text-primary mb-6">
-            <span className={`theme-text-gradient bg-clip-text text-transparent ${poppins.className}`}>
+            <span className={`theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}>
               Featured Projects
             </span>
           </motion.h2>
@@ -202,7 +202,7 @@ const Projects = () => {
             {/* Animated background */}
             <div className="absolute inset-0 bg-gradient-to-r from-theme-primary/0 via-theme-primary/20 to-theme-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
 
-            <span className={`relative text-xs font-medium text-theme-primary group-hover:text-theme-primary-light ${poppins.className}`}>
+            <span className={`relative text-xs font-medium text-theme-primary group-hover:text-theme-primary-light ${unbounded.className}`}>
               Discover All Projects
             </span>
             <svg

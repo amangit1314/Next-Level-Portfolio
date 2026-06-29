@@ -14,7 +14,7 @@ import {
   FiSliders,
   FiTerminal,
 } from "react-icons/fi";
-import { caveat, inter, unbounded } from "@/lib/fonts";
+import { signature, inter, unbounded } from "@/lib/fonts";
 import { usePathname, useRouter } from "next/navigation";
 import { Variants, Transition } from "framer-motion";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -150,7 +150,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <span
-                      className={`relative z-10 ${caveat.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
+                      className={`relative z-10 ${signature.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
                     >
                       As
                     </span>
@@ -274,7 +274,7 @@ const Header = ({ isMenuOpen, setIsMenuOpen }: HeaderProps) => {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <span
-                    className={`relative z-10 ${caveat.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
+                    className={`relative z-10 ${signature.className} text-xl font-bold tracking-wide theme-text-gradient bg-clip-text text-transparent`}
                   >
                     As
                   </span>

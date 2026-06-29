@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { FiChevronRight, FiStar } from "react-icons/fi";
 import { PROJECTS } from "@/utils/constants";
-import { inter, poppins } from "@/lib/fonts";
+import { inter, unbounded } from "@/lib/fonts";
 import SkillCard from "./SkillCard";
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
@@ -139,19 +139,19 @@ const Skills = () => {
             >
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
-                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${unbounded.className}`}
               >
                 My Technical Arsenal
               </span>
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
             </motion.div>
             {/* <h2
-              className={`${poppins.className} text-5xl lg:text-7xl font-black bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight`}
+              className={`${unbounded.className} text-5xl lg:text-7xl font-black bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight`}
             >
               Skills & Technologies
             </h2> */}
             <h2
-              className={`${poppins.className} text-3xl sm:text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
+              className={`${unbounded.className} text-3xl sm:text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight`}
             >
               Skills & Technologies
             </h2>
@@ -174,7 +174,7 @@ const Skills = () => {
                   <div className="flex items-center space-x-4">
                     <div className="w-3 h-3 theme-gradient-primary rounded-full group-hover:scale-150 transition-transform duration-300" />
                     <h3
-                      className={`text-2xl lg:text-3xl font-black text-theme-text-primary ${poppins.className} group-hover:theme-text-gradient group-hover:bg-clip-text group-hover:theme-text-gradient transition-all duration-500`}
+                      className={`text-2xl lg:text-3xl font-black text-theme-text-primary ${unbounded.className} group-hover:theme-text-gradient group-hover:bg-clip-text group-hover:theme-text-gradient transition-all duration-500`}
                     >
                       {category}
                     </h3>
@@ -270,7 +270,7 @@ const Skills = () => {
                     className="text-center group/stat cursor-pointer"
                   >
                     <div
-                      className={`text-3xl lg:text-4xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2 ${poppins.className}`}
+                      className={`text-3xl lg:text-4xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2 ${unbounded.className}`}
                     >
                       {stat.value}
                     </div>

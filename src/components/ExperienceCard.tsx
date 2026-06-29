@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 import { motion } from "framer-motion";
 
 // Enhanced Experience Card Component - FIXED: Responsive design
@@ -42,12 +42,12 @@ const ExperienceCard = ({
         <div className="space-y-1 sm:space-y-3">
           <div className="">
             <div
-              className={`font-bold text-theme-text-primary text-base sm:text-lg ${poppins.className}`}
+              className={`font-bold text-theme-text-primary text-base sm:text-lg ${unbounded.className}`}
             >
               {field}
             </div>
             <div
-              className={`font-semibold text-theme-text-secondary text-sm sm:text-base ${poppins.className}`}
+              className={`font-semibold text-theme-text-secondary text-sm sm:text-base ${unbounded.className}`}
             >
               {duration}
             </div>

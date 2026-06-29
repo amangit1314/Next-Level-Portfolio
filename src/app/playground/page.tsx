@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { poppins, inter, unbounded } from "@/lib/fonts";
+import { inter, unbounded } from "@/lib/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSliders, FiEye, FiCpu, FiPlay, FiRefreshCw } from "react-icons/fi";
 
@@ -205,7 +205,7 @@ Answer:`;
             <FiCpu className="animate-spin-slow" />
             <span>AI Engineering Simulator</span>
           </div>
-          <h1 className={`text-4xl md:text-6xl font-black theme-text-gradient bg-clip-text text-transparent ${poppins.className}`}>
+          <h1 className={`text-4xl md:text-6xl font-black theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}>
             Visual RAG Explorer
           </h1>
           <p className="max-w-xl mx-auto text-theme-text-muted text-sm md:text-base leading-relaxed">
@@ -221,7 +221,7 @@ Answer:`;
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">1</span>
-                <h3 className={`text-xl font-bold ${poppins.className}`}>Document Chunking</h3>
+                <h3 className={`text-xl font-bold ${unbounded.className}`}>Document Chunking</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Large documents exceed LLM context windows and degrade relevance. We segment text into sliding windows.
@@ -288,7 +288,7 @@ Answer:`;
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">2</span>
-                <h3 className={`text-xl font-bold ${poppins.className}`}>Vector Space Matcher</h3>
+                <h3 className={`text-xl font-bold ${unbounded.className}`}>Vector Space Matcher</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Chunks are mapped to dense vector dimensions. similarity queries return the closest matches.
@@ -401,7 +401,7 @@ Answer:`;
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">3</span>
-                <h3 className={`text-xl font-bold ${poppins.className}`}>LLM Generation</h3>
+                <h3 className={`text-xl font-bold ${unbounded.className}`}>LLM Generation</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Synthesized instructions are compiled and fed to the LLM to write a verified reply.

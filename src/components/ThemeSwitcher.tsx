@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiCheck } from "react-icons/fi";
 import { useTheme } from "@/contexts/ThemeContext";
 import { Theme } from "@/types/theme";
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 import { FaPalette } from "react-icons/fa6";
 
 export const ThemeSwitcher = () => {
@@ -93,7 +93,7 @@ export const ThemeSwitcher = () => {
           >
             <div className="mb-3">
               <h3
-                className={`text-sm font-semibold text-theme-text-primary ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-text-primary ${unbounded.className}`}
               >
                 Choose Theme
               </h3>
@@ -149,7 +149,7 @@ const ThemeCard = ({ theme, isActive, onClick }: ThemeCardProps) => {
       <div className="flex items-center gap-2 mb-2">
         <span className="text-xl">{theme.emoji}</span>
         <span
-          className={`text-xs font-semibold text-theme-text-primary truncate ${poppins.className}`}
+          className={`text-xs font-semibold text-theme-text-primary truncate ${unbounded.className}`}
         >
           {theme.name}
         </span>

@@ -7,7 +7,7 @@ import { FiMessageSquare, FiX, FiSend, FiCpu, FiZap, FiDownload } from "react-ic
 import { useTheme } from "@/contexts/ThemeContext";
 import { client } from "@/sanity/lib/client";
 import { profileQuery } from "@/sanity/lib/queries";
-import { poppins, inter } from "@/lib/fonts";
+import { unbounded, inter } from "@/lib/fonts";
 
 interface Message {
   role: "user" | "assistant" | "system";
@@ -254,7 +254,7 @@ export const AICopilot = () => {
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-theme-bg-secondary" />
                 </div>
                 <div>
-                  <h3 className={`text-base font-bold text-theme-text-primary ${poppins.className}`}>
+                  <h3 className={`text-base font-bold text-theme-text-primary ${unbounded.className}`}>
                     AI Co-pilot
                   </h3>
                   <div className="flex items-center gap-1.5">

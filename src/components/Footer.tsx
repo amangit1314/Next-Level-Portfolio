@@ -1,6 +1,6 @@
 "use client";
 
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import { BiArrowToRight } from "react-icons/bi";
 import {
@@ -92,7 +92,7 @@ const Footer = () => {
           >
             <div className="space-y-4">
               <h3
-                className={`${poppins.className} text-2xl font-bold theme-text-gradient bg-clip-text text-transparent `}
+                className={`${unbounded.className} text-2xl font-bold theme-text-gradient bg-clip-text text-transparent `}
               >
                 Let&apos;s Build Something Amazing
               </h3>
@@ -123,7 +123,7 @@ const Footer = () => {
           {/* Quick Links */}
           <motion.div variants={itemVariants} className="space-y-6">
             <h4
-              className={`${poppins.className} text-lg font-semibold text-theme-text-primary`}
+              className={`${unbounded.className} text-lg font-semibold text-theme-text-primary`}
             >
               Quick Links
             </h4>
@@ -189,7 +189,7 @@ const Footer = () => {
           {/* Tech Stack */}
           <motion.div variants={itemVariants} className="space-y-6">
             <h4
-              className={`${poppins.className} text-lg font-semibold text-theme-text-primary`}
+              className={`${unbounded.className} text-lg font-semibold text-theme-text-primary`}
             >
               Built With
             </h4>
@@ -234,7 +234,7 @@ const Footer = () => {
                 onClick={scrollToTop}
                 className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
               >
-                <span className={`${poppins.className} text-xs`}>
+                <span className={`${unbounded.className} text-xs`}>
                   Back to Top
                 </span>
                 <FiArrowUp className="w-4 h-4" />

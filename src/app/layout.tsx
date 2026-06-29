@@ -17,6 +17,7 @@ const inter = Inter({
 });
 
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ProfileProvider } from "@/contexts/ProfileContext";
 import ScrollProgress from "@/components/ScrollProgress";
 import AICopilot from "@/components/AICopilot";
 
@@ -97,9 +98,11 @@ export default function RootLayout({
     >
       <body className="font-inter" suppressHydrationWarning>
         <ThemeProvider>
-          <ScrollProgress />
-          {children}
-          <AICopilot />
+          <ProfileProvider>
+            <ScrollProgress />
+            {children}
+            <AICopilot />
+          </ProfileProvider>
         </ThemeProvider>
       </body>
     </html>

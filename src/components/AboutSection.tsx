@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   FiCode,
   FiServer,
-  FiSmartphone,
   FiArrowRight,
   FiAward,
   FiUsers,
@@ -15,10 +14,9 @@ import {
   FiCpu,
 } from "react-icons/fi";
 import ExperienceCard from "./ExperienceCard";
-import { inter, poppins } from "@/lib/fonts";
-import { useEffect, useState } from "react";
-import { client } from "@/sanity/lib/client";
-import { profileQuery } from "@/sanity/lib/queries";
+import { inter, unbounded } from "@/lib/fonts";
+import { useProfile } from "@/contexts/ProfileContext";
+import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
 
 import {
   SiReact,
@@ -109,27 +107,19 @@ const floatingVariants = {
 };
 
 export const AboutSection = () => {
-  const [profile, setProfile] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const data = await client.fetch(profileQuery);
-      setProfile(data);
-    };
-    fetchProfile();
-  }, []);
+  const { profile, isLoading } = useProfile();
 
   const getTechIcon = (techName: string) => {
     const normalizedSkill = techName.trim();
     return skillToIconMap[normalizedSkill] || SiJavascript;
   };
 
-  if (!profile) return null;
+  if (isLoading || !profile) return <AboutSkeleton />;
 
   return (
     <section
       id="about"
-      className="relative py-24 lg:py-32 overflow-hidden px-4 md:px-8 theme-gradient-primary/80"
+      className="relative py-24 lg:py-32 overflow-hidden theme-gradient-primary/80"
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -161,14 +151,14 @@ export const AboutSection = () => {
             >
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-primary to-transparent" />
               <span
-                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${poppins.className}`}
+                className={`text-sm font-semibold text-theme-primary/90 tracking-widest uppercase ${unbounded.className}`}
               >
                 Discover My Journey
               </span>
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-theme-secondary to-transparent" />
             </motion.div>
             <h2
-              className={`${poppins.className} text-4xl sm:text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight px-2`}
+              className={`${unbounded.className} text-4xl sm:text-5xl lg:text-7xl font-black theme-text-gradient bg-clip-text text-transparent leading-tight px-2`}
             >
               About Me
             </h2>
@@ -231,15 +221,15 @@ export const AboutSection = () => {
                             value: profile.stats?.clientSatisfaction,
                             label: "Success",
                           },
-                        ].map((stat, index) => (
+                        ].map((stat) => (
                           <motion.div
-                            key={index}
+                            key={stat.label}
                             whileHover={{ scale: 1.05, y: -2 }}
                             className="bg-theme-bg-secondary/90 backdrop-blur-md rounded-xl p-2 sm:p-3 text-center border border-theme-border/50 hover:border-theme-primary/50 transition-all duration-300"
                           >
                             <stat.icon className="w-3 h-3 sm:w-4 sm:h-4 text-theme-primary mx-auto mb-1 sm:mb-2" />
                             <div
-                              className={`text-xs sm:text-sm font-bold text-theme-text-primary ${poppins.className}`}
+                              className={`text-xs sm:text-sm font-bold text-theme-text-primary ${unbounded.className}`}
                             >
                               {stat.value}
                             </div>
@@ -260,7 +250,7 @@ export const AboutSection = () => {
                 >
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
                     <span
-                      className={`${poppins.className} text-base sm:text-lg font-semibold text-theme-text-primary`}
+                      className={`${unbounded.className} text-base sm:text-lg font-semibold text-theme-text-primary`}
                     >
                       Tech Stack
                     </span>
@@ -268,11 +258,11 @@ export const AboutSection = () => {
                   </div>
                   <div className="flex items-center justify-center sm:justify-start space-x-4 sm:space-x-6 flex-wrap gap-3 sm:gap-0">
                     {profile.techStackPreview?.map(
-                      (techName: string, index: number) => {
+                      (techName: string) => {
                         const Icon = getTechIcon(techName);
                         return (
                           <motion.div
-                            key={index}
+                            key={techName}
                             whileHover={{ scale: 1.3, y: -5 }}
                             className="flex flex-col items-center space-y-1 group/tech"
                           >
@@ -334,7 +324,7 @@ export const AboutSection = () => {
               className="space-y-8 sm:space-y-10 px-2 sm:px-0"
             >
               {/* Experience Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
                 <ExperienceCard
                   field="AI Engineering"
                   duration={profile?.experienceAreas?.ai || "2+ Years"}
@@ -362,7 +352,7 @@ export const AboutSection = () => {
               <div className="space-y-6 sm:space-y-8">
                 <div className="space-y-4 sm:space-y-6">
                   <h3
-                    className={`text-2xl sm:text-3xl lg:text-4xl font-black text-theme-text-primary ${poppins.className}`}
+                    className={`text-2xl sm:text-3xl lg:text-4xl font-black text-theme-text-primary ${unbounded.className}`}
                   >
                     Crafting Digital{" "}
                     <span className="theme-text-gradient">Excellence</span>
@@ -373,13 +363,13 @@ export const AboutSection = () => {
                     >
                       I&apos;m{" "}
                       <span
-                        className={`${poppins.className} text-theme-primary font-semibold`}
+                        className={`${unbounded.className} text-theme-primary font-semibold`}
                       >
                         {profile.name}
                       </span>
                       , a passionate {profile.role} with{" "}
                       <span
-                        className={`${poppins.className} text-theme-secondary font-semibold`}
+                        className={`${unbounded.className} text-theme-secondary font-semibold`}
                       >
                         {profile.stats?.experienceYears}
                       </span>{" "}
@@ -397,9 +387,9 @@ export const AboutSection = () => {
                 {/* Key Strengths */}
                 <div className="grid grid-cols-1  gap-3 sm:gap-4">
                   {profile.keyStrengths?.map(
-                    (strength: string, index: number) => (
+                    (strength: string) => (
                       <motion.div
-                        key={index}
+                        key={strength}
                         className="flex items-center space-x-2 sm:space-x-3 group"
                       // whileHover={{ x: 5 }}
                       // transition={{ type: "spring", stiffness: 400 }}
@@ -426,7 +416,7 @@ export const AboutSection = () => {
                     className="group relative inline-flex items-center space-x-3 sm:space-x-4 px-6 sm:px-8 py-3 sm:py-4 theme-gradient-accent rounded-2xl font-bold text-white shadow-2xl hover:shadow-theme-primary/30 transition-all duration-500 overflow-hidden text-base sm:text-lg"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <span className={`relative z-10 ${poppins.className}`}>
+                    <span className={`relative z-10 ${unbounded.className}`}>
                       Let&apos;s Build Something Amazing
                     </span>
                     <FiArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />

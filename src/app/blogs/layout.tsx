@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import { poppins } from "@/lib/fonts";
+import { unbounded } from "@/lib/fonts";
 
 export default function BlogLayout({
   children,
@@ -7,7 +7,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={poppins.className}>
+    <div className={unbounded.className}>
       {children}
       <Footer />
     </div>
