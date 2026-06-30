@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
@@ -32,7 +32,7 @@ interface Project {
 
 const MAX_FILTER_CHIPS = 10;
 
-const Projects = () => {
+const ProjectsContent = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [stats, setStats] = useState<ProfileStats>({});
   const [loading, setLoading] = useState(true);
@@ -264,5 +264,11 @@ const Projects = () => {
     </div>
   );
 };
+
+const Projects = () => (
+  <Suspense>
+    <ProjectsContent />
+  </Suspense>
+);
 
 export default Projects;

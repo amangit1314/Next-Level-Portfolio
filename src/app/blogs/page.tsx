@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
@@ -37,7 +37,7 @@ const CATEGORIES = [
   { value: "tools-resources", label: "Tools" },
 ];
 
-const BlogsPage = () => {
+const BlogsContent = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -257,5 +257,11 @@ const BlogsPage = () => {
     </div>
   );
 };
+
+const BlogsPage = () => (
+  <Suspense>
+    <BlogsContent />
+  </Suspense>
+);
 
 export default BlogsPage;
