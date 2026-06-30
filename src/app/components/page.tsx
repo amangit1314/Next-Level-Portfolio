@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
@@ -37,7 +37,7 @@ const CATEGORIES = [
   { value: "feedback", label: "Feedback" },
 ];
 
-const ComponentsPage = () => {
+const ComponentsContent = () => {
   const [components, setComponents] = useState<Component[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -263,5 +263,11 @@ const ComponentsPage = () => {
     </div>
   );
 };
+
+const ComponentsPage = () => (
+  <Suspense>
+    <ComponentsContent />
+  </Suspense>
+);
 
 export default ComponentsPage;
