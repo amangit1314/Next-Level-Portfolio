@@ -77,8 +77,8 @@ export default function BlogCard3D({
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.06, duration: 0.5, ease: "easeOut" }}
-        viewport={{ once: true, margin: "-40px" }}
+        transition={{ delay: index * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+        viewport={{ once: true, amount: 0.15 }}
         className="relative h-full rounded-2xl border border-theme-border/50 bg-theme-bg-secondary/40 backdrop-blur-xl overflow-hidden group"
       >
         {/* Cursor glow */}

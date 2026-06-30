@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
-import { FiSearch, FiX, FiHome, FiChevronRight, FiBookOpen } from "react-icons/fi";
+import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
@@ -68,9 +68,6 @@ const BlogsPage = () => {
       selectedCategory === "all" || blog.category === selectedCategory;
     return matchesSearch && matchesCat;
   });
-
-  const featured = filtered.filter((b) => b.featured);
-  const regular = filtered.filter((b) => !b.featured);
 
   const clearFilters = () => {
     void setSearchQuery("");
@@ -164,9 +161,7 @@ const BlogsPage = () => {
                 <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
                 <div>
                   <div className={`text-3xl font-black text-theme-secondary leading-none tabular-nums ${unbounded.className}`}>
-                    {featured.length + regular.filter((b) => !b.featured).length > 0
-                      ? CATEGORIES.length - 1
-                      : 0}+
+                    {blogs.length > 0 ? CATEGORIES.length - 1 : 0}+
                   </div>
                   <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Topics</div>
                 </div>
@@ -250,39 +245,14 @@ const BlogsPage = () => {
             </p>
           </motion.div>
         ) : (
-          <>
-            {/* Featured section */}
-            {featured.length > 0 && (
-              <div className="mb-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <FiBookOpen className="w-4 h-4 text-theme-primary" />
-                  <h2 className={`text-sm font-semibold text-theme-text-secondary uppercase tracking-widest ${unbounded.className}`}>
-                    Featured
-                  </h2>
-                </div>
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
-                  style={{ perspective: "1200px" }}
-                >
-                  {featured.map((blog, i) => (
-                    <BlogCard3D key={blog._id} blog={blog} index={i} featured />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Regular grid */}
-            {regular.length > 0 && (
-              <div
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pb-24"
-                style={{ perspective: "1200px" }}
-              >
-                {regular.map((blog, i) => (
-                  <BlogCard3D key={blog._id} blog={blog} index={featured.length + i} />
-                ))}
-              </div>
-            )}
-          </>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pb-24"
+            style={{ perspective: "1200px" }}
+          >
+            {filtered.map((blog, i) => (
+              <BlogCard3D key={blog._id} blog={blog} index={i} featured={blog.featured} />
+            ))}
+          </div>
         )}
       </div>
     </div>
