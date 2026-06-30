@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { inter, unbounded } from "@/lib/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSliders, FiEye, FiCpu, FiPlay, FiRefreshCw } from "react-icons/fi";

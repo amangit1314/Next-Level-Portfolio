@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { client } from "@/sanity/lib/client";
-import { projectsQuery } from "@/sanity/lib/queries";
+import { FiArrowRight } from "react-icons/fi";
 import { unbounded, jetbrainsMono } from "@/lib/fonts";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "../cards/ProjectCard";
 import { aiProjects } from "@/data/ai-projects";
+import { useProjects } from "@/hooks/useSanityQuery";
 
 const container = {
   hidden: { opacity: 0 },
@@ -17,15 +17,8 @@ const container = {
 };
 
 const Projects = () => {
-  const [projects, setProjects] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const sanityData = await client.fetch(projectsQuery);
-      setProjects([...aiProjects, ...sanityData]);
-    };
-    fetchProjects();
-  }, []);
+  const { data: sanityProjects = [] } = useProjects();
+  const projects = [...aiProjects, ...sanityProjects];
 
   return (
     <section id="projects" className="v2-section bg-theme-bg-primary">
@@ -41,7 +34,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-20 space-y-4"
+          className="text-center mb-10 sm:mb-20 space-y-4"
         >
           <div className="v2-label mb-4">
             <div className="v2-label-line" />
@@ -65,10 +58,14 @@ const Projects = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 gap-10 md:gap-16"
+          className="grid grid-cols-1 gap-6 sm:gap-10 md:gap-16"
         >
           {projects.slice(0, 2).map((project, index) => (
-            <ProjectCard key={`project_${index}`} index={index} project={project} />
+            <ProjectCard
+              key={(project as { _id?: string })._id ?? `ai_project_${index}`}
+              index={index}
+              project={project as Project}
+            />
           ))}
         </motion.div>
 
@@ -78,25 +75,14 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           viewport={{ once: true }}
-          className="text-center mt-20"
+          className="text-center mt-10 sm:mt-16"
         >
           <a
             href="/projects"
             className={`group inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${unbounded.className}`}
           >
             Discover All Projects
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
-            >
-              <path
-                fillRule="evenodd"
-                d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </a>
         </motion.div>
       </div>

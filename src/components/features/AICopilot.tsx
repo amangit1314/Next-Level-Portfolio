@@ -211,8 +211,8 @@ export const AICopilot = () => {
 
   return (
     <>
-      {/* Floating Action Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      {/* Floating Action Button — raised above mobile bottom nav on small screens */}
+      <div className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50">
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.1, rotate: 5 }}
@@ -244,7 +244,7 @@ export const AICopilot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.92 }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
-            className="fixed bottom-24 right-6 w-[92vw] sm:w-[440px] h-[600px] max-h-[80vh] rounded-3xl bg-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border/60 shadow-2xl z-50 flex flex-col overflow-hidden"
+            className="fixed bottom-40 right-4 lg:bottom-24 lg:right-6 w-[92vw] sm:w-[440px] h-[600px] max-h-[75vh] rounded-3xl bg-theme-bg-secondary/90 backdrop-blur-xl border border-theme-border/60 shadow-2xl z-50 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="p-4 border-b border-theme-border/50 flex items-center justify-between theme-gradient-primary/5">

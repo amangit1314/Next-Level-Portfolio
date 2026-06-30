@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FiCode, FiServer, FiArrowRight, FiAward, FiUsers, FiTrendingUp, FiCpu } from "react-icons/fi";
-import ExperienceCard from "./ExperienceCard";
+import ExperienceCard from "../cards/ExperienceCard";
 import { inter, unbounded, jetbrainsMono } from "@/lib/fonts";
 import { useProfile } from "@/contexts/ProfileContext";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
@@ -76,7 +76,7 @@ export const AboutSection = () => {
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-theme-secondary/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="v2-container space-y-16">
+      <div className="v2-container space-y-10 lg:space-y-16">
 
         {/* ── Section Header ─────────────────────────── */}
         <motion.div
@@ -91,22 +91,22 @@ export const AboutSection = () => {
             <span className={`v2-label-text ${jetbrainsMono.className}`}>About Me</span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+          <h2 className={`text-3xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
             The Engineer Behind the Code
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
         </motion.div>
 
         {/* ── Main Grid ──────────────────────────────── */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
-          {/* LEFT: Image + Tech Stack */}
+          {/* LEFT: Image + Tech Stack — hidden on mobile (avatar already shown in Hero) */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
             variants={reveal}
-            className="space-y-6"
+            className="space-y-6 hidden lg:block"
           >
             {/* Avatar */}
             <div className="relative group">
@@ -184,14 +184,14 @@ export const AboutSection = () => {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-3 gap-3 items-stretch"
+              className="flex gap-3 overflow-x-auto py-3 snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:overflow-x-visible lg:py-0 lg:items-stretch"
             >
               {[
                 { field: "AI Engineering", duration: profile.experienceAreas?.ai ?? "2+ Years", icon: <FiCpu className="w-6 h-6" />, description: "Agentic systems & RAG" },
                 { field: "Full Stack", duration: profile.experienceAreas?.fullStack ?? "4+ Years", icon: <FiCode className="w-6 h-6" />, description: "Next.js & systems" },
                 { field: "Backend Scale", duration: profile.experienceAreas?.backend ?? "4+ Years", icon: <FiServer className="w-6 h-6" />, description: "APIs & Pgvector" },
               ].map((card, i) => (
-                <motion.div key={card.field} custom={i} variants={reveal} className="h-full">
+                <motion.div key={card.field} custom={i} variants={reveal} className="flex-shrink-0 w-[68%] sm:w-[45%] snap-start lg:w-auto h-full">
                   <ExperienceCard {...card} gradient="from-theme-primary to-theme-secondary" />
                 </motion.div>
               ))}
@@ -216,7 +216,7 @@ export const AboutSection = () => {
                 extraction agents, and full-stack applications that ship reliably.
               </p>
               {profile.longBio && (
-                <p className={`text-theme-text-secondary/80 leading-relaxed ${inter.className}`}>
+                <p className={`hidden sm:block text-theme-text-secondary/80 leading-relaxed ${inter.className}`}>
                   {profile.longBio}
                 </p>
               )}
@@ -257,7 +257,7 @@ export const AboutSection = () => {
             >
               <Link
                 href="#contact"
-                className="inline-flex items-center gap-3 v2-btn-primary"
+                className="inline-flex items-center justify-center gap-3 v2-btn-primary w-full sm:w-auto"
               >
                 Let&apos;s Work Together
                 <FiArrowRight className="w-4 h-4" />

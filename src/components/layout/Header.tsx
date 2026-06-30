@@ -18,8 +18,8 @@ import {
 import { signature, inter, unbounded } from "@/lib/fonts";
 import { usePathname, useRouter } from "next/navigation";
 import { Variants, Transition } from "framer-motion";
-import ThemeSwitcher from "./ThemeSwitcher";
-import Magnetic from "./Magnetic";
+import ThemeSwitcher from "../features/ThemeSwitcher";
+import Magnetic from "../primitives/Magnetic";
 
 // PAGE-LEVEL NAV (top bar)
 export const pageLinks = [

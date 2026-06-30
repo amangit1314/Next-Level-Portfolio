@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { client } from "@/sanity/lib/client";
 import { profileQuery, projectsQuery, experiencesQuery, skillsQuery } from "@/sanity/lib/queries";
 import { useTheme } from "@/contexts/ThemeContext";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 
 interface TerminalLine {
   text: string;

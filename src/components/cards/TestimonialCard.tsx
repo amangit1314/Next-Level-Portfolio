@@ -20,9 +20,7 @@ const TestimonialCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      whileHover={{ y: -6, transition: { duration: 0.2, ease: "easeOut" } }}
-      // Named group so hover effects are scoped to THIS card only, not the parent Marquee's group
-      className="group/card relative w-[320px] sm:w-[360px] md:w-[400px] flex flex-col bg-theme-bg-secondary/40 backdrop-blur-sm p-7 rounded-2xl border border-theme-border/30 group-hover/card:border-theme-primary/40 transition-all duration-300 shadow-md overflow-hidden cursor-default"
+      className="group/card relative w-[260px] sm:w-[320px] md:w-[380px] flex flex-col bg-theme-bg-secondary/40 backdrop-blur-sm p-5 sm:p-7 rounded-2xl border border-theme-border/30 hover:border-theme-primary/40 transition-all duration-300 shadow-md overflow-hidden cursor-default"
     >
       {/* Hover glow bg — scoped to this card */}
       <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/6 via-transparent to-theme-secondary/6 rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-400 pointer-events-none" />
@@ -34,7 +32,7 @@ const TestimonialCard = ({
 
       <div className="relative z-10 flex flex-col h-full">
         {/* Quote icon + stars row */}
-        <div className="flex items-start justify-between mb-5">
+        <div className="flex items-start justify-between mb-4 sm:mb-5">
           <div className="w-10 h-10 rounded-xl bg-theme-primary/10 group-hover/card:bg-theme-primary/20 flex items-center justify-center transition-colors duration-300">
             <FaQuoteLeft className="text-theme-primary text-base" />
           </div>
@@ -47,12 +45,12 @@ const TestimonialCard = ({
         </div>
 
         {/* Comment */}
-        <p className={`text-theme-text-secondary text-sm leading-relaxed line-clamp-5 flex-1 mb-6 ${inter.className}`}>
+        <p className={`text-theme-text-secondary text-xs sm:text-sm leading-relaxed line-clamp-4 sm:line-clamp-5 flex-1 mb-4 sm:mb-6 ${inter.className}`}>
           {comment}
         </p>
 
         {/* Divider */}
-        <div className="h-px w-full bg-theme-border/30 mb-5 group-hover/card:bg-theme-primary/20 transition-colors duration-300" />
+        <div className="h-px w-full bg-theme-border/30 mb-4 sm:mb-5 group-hover/card:bg-theme-primary/20 transition-colors duration-300" />
 
         {/* Person info */}
         <div className="flex items-center gap-4">

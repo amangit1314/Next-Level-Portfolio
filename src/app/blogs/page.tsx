@@ -7,7 +7,7 @@ import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import { BlogCardSkeleton } from "@/components/skeletons/BlogCardSkeleton";
 import BlogCard3D from "./_components/BlogCard3D";
 import { aiBlogs } from "@/data/ai-blogs";
@@ -105,7 +105,7 @@ const BlogsPage = () => {
         <Header />
 
         {/* Hero */}
-        <div className="relative pt-28 pb-12">
+        <div className="relative pt-20 sm:pt-28 pb-12">
           {/* Ambient orbs */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-theme-primary/12 blur-[140px] rounded-full" />
@@ -135,7 +135,7 @@ const BlogsPage = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
+              className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
             >
               <span className="theme-text-gradient bg-clip-text text-transparent">Writing</span>
             </motion.h1>
@@ -170,22 +170,22 @@ const BlogsPage = () => {
           </div>
         </div>
 
-        {/* Filter bar — search + pills in one row */}
+        {/* Filter bar — search + scrollable pills */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-8 flex flex-wrap items-center gap-2"
+          className="mb-8 space-y-3"
         >
           {/* Search input */}
-          <div className="relative w-48 shrink-0">
+          <div className="relative w-full sm:w-48">
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-theme-text-secondary pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className={`w-full pl-[30px] pr-7 py-1.5 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
+              placeholder="Search articles..."
+              className={`w-full pl-[30px] pr-7 py-2 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
             />
             {searchQuery && (
               <button
@@ -197,23 +197,22 @@ const BlogsPage = () => {
             )}
           </div>
 
-          {/* Divider */}
-          <div className="w-px h-5 bg-theme-border/50 mx-1" />
-
-          {/* Category pills */}
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
-                selectedCategory === cat.value
-                  ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                  : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {/* Category pills — horizontally scrollable on mobile */}
+          <div className="flex overflow-x-auto scrollbar-none gap-2 -mx-4 sm:mx-0 px-4 sm:px-0 pb-1 sm:flex-wrap">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => setSelectedCategory(cat.value)}
+                className={`shrink-0 text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                  selectedCategory === cat.value
+                    ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
+                    : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Result count */}
@@ -246,7 +245,7 @@ const BlogsPage = () => {
           </motion.div>
         ) : (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pb-24"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pb-24 lg:pb-12"
             style={{ perspective: "1200px" }}
           >
             {filtered.map((blog, i) => (

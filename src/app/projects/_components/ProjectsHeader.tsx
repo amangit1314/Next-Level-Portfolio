@@ -12,7 +12,7 @@ interface ProjectsHeaderProps {
 
 const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) => {
   return (
-    <div className="relative pt-28 pb-12 overflow-hidden">
+    <div className="relative pt-20 sm:pt-28 pb-12 overflow-hidden">
       {/* Ambient orbs — fixed, not animated, to avoid layout recalc */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-theme-primary/12 blur-[140px] rounded-full" />
@@ -43,7 +43,7 @@ const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) 
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
+          className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
         >
           <span className="theme-text-gradient bg-clip-text text-transparent">My Projects</span>
         </motion.h1>

@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 import { unbounded } from "@/lib/fonts";
 
 export default function BlogLayout({

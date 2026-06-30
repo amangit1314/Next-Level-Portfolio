@@ -40,7 +40,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-16px" }}
       transition={{ delay: index * 0.025, duration: 0.35, ease: "easeOut" }}
-      className="group flex items-center gap-3 px-4 py-3 rounded-xl border border-theme-border/50 bg-theme-bg-secondary/40 backdrop-blur-sm hover:border-theme-primary/50 hover:bg-theme-bg-secondary/70 transition-all duration-200 cursor-default"
+      className="group flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-theme-border/50 bg-theme-bg-secondary/40 backdrop-blur-sm hover:border-theme-primary/50 hover:bg-theme-bg-secondary/70 transition-all duration-200 cursor-default"
     >
       <div className="shrink-0 w-5 h-5 flex items-center justify-center">
         {Icon ? (
@@ -50,7 +50,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         )}
       </div>
       <span
-        className={`text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-none ${unbounded.className}`}
+        className={`text-[11px] sm:text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-none ${unbounded.className}`}
       >
         {skill.name}
       </span>

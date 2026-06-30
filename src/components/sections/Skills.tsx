@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { inter, unbounded } from "@/lib/fonts";
-import SkillCard from "./SkillCard";
+import SkillCard from "../cards/SkillCard";
 import { useState } from "react";
 import { useSkills } from "@/hooks/useSanityQuery";
 import { PROJECTS } from "@/utils/constants";
@@ -54,7 +54,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12 space-y-4"
+          className="mb-8 sm:mb-12 space-y-4"
         >
           <div className="v2-label">
             <div className="v2-label-line" />
@@ -79,21 +79,23 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15, duration: 0.4 }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
+          className="mb-10 -mx-4 sm:mx-0"
         >
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveCategory(tab)}
-              className={`text-[11px] px-4 py-2 rounded-full border transition-all duration-200 ${unbounded.className} ${
-                activeCategory === tab
-                  ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                  : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+          <div className="flex overflow-x-auto scrollbar-none gap-2 px-4 sm:px-0 sm:flex-wrap sm:justify-center pb-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveCategory(tab)}
+                className={`shrink-0 text-[11px] px-4 py-2 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                  activeCategory === tab
+                    ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
+                    : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Skills display */}
@@ -105,7 +107,7 @@ const Skills = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="space-y-10"
+              className="space-y-7 sm:space-y-10"
             >
               {groupedForAll.map(({ category, items }) => (
                 <div key={category}>
@@ -159,7 +161,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-theme-border/30 rounded-2xl overflow-hidden border border-theme-border/30"
+          className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-theme-border/30 rounded-2xl overflow-hidden border border-theme-border/30"
         >
           {[
             { value: "3+", label: "Years Experience" },
@@ -169,10 +171,10 @@ const Skills = () => {
           ].map((stat, i) => (
             <div
               key={i}
-              className="flex flex-col items-center justify-center py-8 bg-theme-bg-secondary/30 hover:bg-theme-bg-secondary/60 transition-colors duration-200"
+              className="flex flex-col items-center justify-center py-5 sm:py-8 bg-theme-bg-secondary/30 hover:bg-theme-bg-secondary/60 transition-colors duration-200"
             >
               <div
-                className={`text-3xl font-black theme-text-gradient bg-clip-text text-transparent mb-1 ${unbounded.className}`}
+                className={`text-2xl sm:text-3xl font-black theme-text-gradient bg-clip-text text-transparent mb-1 ${unbounded.className}`}
               >
                 {stat.value}
               </div>

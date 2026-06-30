@@ -7,8 +7,8 @@ import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery, profileQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
 import ProjectsHeader from "./_components/ProjectsHeader";
 import ProjectCard3D from "./_components/ProjectCard3D";
@@ -123,23 +123,23 @@ const Projects = () => {
         {/* Hero */}
         <ProjectsHeader projectCount={projects.length} stats={stats} />
 
-        {/* Filter bar — search + pills in one row */}
+        {/* Filter bar — search + scrollable pills */}
         <motion.div
           id="projects-search-filters"
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-8 flex flex-wrap items-center gap-2"
+          className="mb-8 space-y-3"
         >
           {/* Search input */}
-          <div className="relative w-48 shrink-0">
+          <div className="relative w-full sm:w-48">
             <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-theme-text-secondary pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className={`w-full pl-[30px] pr-7 py-1.5 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
+              placeholder="Search projects..."
+              className={`w-full pl-[30px] pr-7 py-2 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
             />
             {searchQuery && (
               <button
@@ -151,23 +151,22 @@ const Projects = () => {
             )}
           </div>
 
-          {/* Divider */}
-          <div className="w-px h-5 bg-theme-border/50 mx-1" />
-
-          {/* Category pills */}
-          {["All", ...filterChips].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
-                selectedCategory === cat
-                  ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                  : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {/* Category pills — horizontally scrollable on mobile */}
+          <div className="flex overflow-x-auto scrollbar-none gap-2 -mx-4 sm:mx-0 px-4 sm:px-0 pb-1 sm:flex-wrap">
+            {["All", ...filterChips].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`shrink-0 text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                  selectedCategory === cat
+                    ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
+                    : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         {/* Result count + clear */}

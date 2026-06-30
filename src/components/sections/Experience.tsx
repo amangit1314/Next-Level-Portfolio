@@ -6,8 +6,11 @@ import Link from "next/link";
 import { FiExternalLink, FiArrowRight } from "react-icons/fi";
 import { inter, unbounded } from "@/lib/fonts";
 import { useExperiences } from "@/hooks/useSanityQuery";
+import type { ExperiencesQueryResult } from "../../../sanity.types";
 
-const ExperienceItem = ({ experience, index }: { experience: any; index: number }) => {
+type ExperienceItem = ExperiencesQueryResult[number];
+
+const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -48,7 +51,7 @@ const ExperienceItem = ({ experience, index }: { experience: any; index: number 
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
         transition={{ type: "spring", stiffness: 220, delay: index * 0.12 + 0.1 }}
-        className="absolute left-0 top-7 w-3.5 h-3.5 rounded-full bg-theme-primary border-[3px] border-theme-bg-primary z-10"
+        className="absolute left-0 top-6 w-3.5 h-3.5 rounded-full bg-theme-primary border-[3px] border-theme-bg-primary z-10"
         style={{ boxShadow: "0 0 12px var(--theme-primary)" }}
       />
 
@@ -73,7 +76,7 @@ const ExperienceItem = ({ experience, index }: { experience: any; index: number 
         {/* Top shimmer */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-theme-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        <div className="relative z-10 p-6 sm:p-8 lg:p-9 space-y-5">
+        <div className="relative z-10 p-5 sm:p-8 lg:p-9 space-y-4 sm:space-y-5">
           {/* Header row */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
             <div className="space-y-1.5">
@@ -108,12 +111,12 @@ const ExperienceItem = ({ experience, index }: { experience: any; index: number 
           </p>
 
           {/* Tech chips */}
-          {experience.technologies?.length > 0 && (
+          {!!experience.technologies?.length && (
             <div className="flex flex-wrap gap-2 pt-1">
-              {experience.technologies.map((tech: string, i: number) => (
+              {experience.technologies!.map((tech: string, i: number) => (
                 <span
                   key={i}
-                  className={`px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${unbounded.className}`}
+                  className={`px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-md sm:rounded-lg border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${unbounded.className}`}
                 >
                   {tech}
                 </span>
@@ -195,7 +198,7 @@ const Experience = () => {
               {/* Top shimmer */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-theme-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 p-8 lg:p-10">
+              <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 p-6 sm:p-8 lg:p-10">
                 {/* Text */}
                 <div className="space-y-2">
                   <h3 className={`text-2xl lg:text-3xl font-black text-theme-text-primary leading-tight ${unbounded.className}`}>
@@ -208,10 +211,10 @@ const Experience = () => {
                 </div>
 
                 {/* Action */}
-                <motion.div className="shrink-0" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                <motion.div className="shrink-0 w-full sm:w-auto" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                   <Link
                     href="#contact"
-                    className={`group/cta inline-flex items-center gap-3 px-7 py-4 theme-gradient-accent rounded-xl font-bold text-white shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative ${unbounded.className}`}
+                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-xl font-bold text-white shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto ${unbounded.className}`}
                   >
                     <div className="absolute inset-0 overflow-hidden rounded-xl">
                       <div className="absolute top-0 -left-10 w-7 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />

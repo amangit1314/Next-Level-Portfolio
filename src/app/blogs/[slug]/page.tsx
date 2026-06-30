@@ -8,7 +8,7 @@ import { FiArrowLeft, FiCalendar, FiClock, FiUser } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogBySlugQuery, profileQuery } from "@/sanity/lib/queries";
 import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { BlogPostSkeleton } from "@/components/skeletons/BlogPostSkeleton";

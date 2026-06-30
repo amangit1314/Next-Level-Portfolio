@@ -7,8 +7,8 @@ import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { componentsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { ComponentCardSkeleton } from "@/components/skeletons/ComponentCardSkeleton";
 import ComponentCard3D from "./_components/ComponentCard3D";
 

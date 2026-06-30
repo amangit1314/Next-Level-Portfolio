@@ -16,9 +16,10 @@ const inter = Inter({
   variable: "--font-inter", // Add this line
 });
 
-import { Providers } from "@/components/Providers";
-import ScrollProgress from "@/components/ScrollProgress";
-import AICopilot from "@/components/AICopilot";
+import { Providers } from "@/components/layout/Providers";
+import ScrollProgress from "@/components/layout/ScrollProgress";
+import AICopilot from "@/components/features/AICopilot";
+import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -102,6 +103,7 @@ export default function RootLayout({
           <ScrollProgress />
           {children}
           <AICopilot />
+          <MobileBottomNav />
           <Analytics />
           <SpeedInsights />
         </Providers>

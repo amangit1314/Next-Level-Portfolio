@@ -14,7 +14,7 @@
 // import { client } from "@/sanity/lib/client";
 // import { componentBySlugQuery } from "@/sanity/lib/queries";
 // import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
-// import Header from "@/components/Header";
+// import Header from "@/components/layout/Header";
 // import { useParams } from "next/navigation";
 // import { PortableText } from "@portabletext/react";
 
@@ -418,7 +418,7 @@ import {
 import { client } from "@/sanity/lib/client";
 import { componentBySlugQuery } from "@/sanity/lib/queries";
 import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { ComponentDetailSkeleton } from "@/components/skeletons/ComponentDetailSkeleton";

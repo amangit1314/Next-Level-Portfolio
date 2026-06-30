@@ -62,7 +62,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-theme-bg-primary"
+      className="relative min-h-[100svh] flex items-center overflow-hidden bg-theme-bg-primary"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -71,15 +71,15 @@ const HeroSection = () => {
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-theme-secondary/5 rounded-full blur-[100px]" />
       </div>
 
-      <div className="v2-container py-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="v2-container py-14 lg:py-24 w-full">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
           {/* ── Left: Text ─────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="space-y-8 order-2 lg:order-1"
+            className="space-y-6 lg:space-y-8 order-2 lg:order-1 text-center lg:text-left"
           >
             {/* Status badge */}
             <motion.div {...fadeUp(0.05)}>
@@ -94,10 +94,10 @@ const HeroSection = () => {
             {/* Name */}
             <motion.div {...fadeUp(0.1)}>
               <h1 className={`font-black leading-[0.92] tracking-tighter ${unbounded.className}`}>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] theme-text-gradient bg-clip-text text-transparent">
+                <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] theme-text-gradient bg-clip-text text-transparent">
                   {profile.name?.split(" ")[0]}
                 </span>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-theme-text-primary">
+                <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-theme-text-primary">
                   {profile.name?.split(" ")[1]}
                 </span>
               </h1>
@@ -113,14 +113,14 @@ const HeroSection = () => {
 
             {/* Bio */}
             <motion.div {...fadeUp(0.2)}>
-              <p className={`text-theme-text-secondary leading-relaxed text-base sm:text-lg max-w-lg ${inter.className}`}>
+              <p className={`text-theme-text-secondary leading-relaxed text-base sm:text-lg max-w-lg mx-auto lg:mx-0 ${inter.className}`}>
                 {profile.shortBio}
               </p>
             </motion.div>
 
             {/* Stats row */}
             {stats.length > 0 && (
-              <motion.div {...fadeUp(0.25)} className="flex items-center gap-6 sm:gap-8 flex-wrap">
+              <motion.div {...fadeUp(0.25)} className="flex items-center justify-center lg:justify-start gap-6 sm:gap-8 flex-wrap">
                 {stats.map((stat, i) => (
                   <React.Fragment key={stat.label}>
                     <div>
@@ -140,12 +140,12 @@ const HeroSection = () => {
             )}
 
             {/* CTAs */}
-            <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 flex-wrap">
+            <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
               <motion.button
                 onClick={handleScrollToProjects}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="v2-btn-primary flex items-center gap-2"
+                className="v2-btn-primary flex items-center justify-center gap-2 w-full sm:w-auto"
               >
                 View My Work
                 <FiExternalLink className="w-4 h-4" />
@@ -157,7 +157,7 @@ const HeroSection = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className="v2-btn-ghost"
+                  className="v2-btn-ghost w-full sm:w-auto text-center"
                 >
                   Download CV
                 </motion.a>
@@ -166,7 +166,7 @@ const HeroSection = () => {
 
             {/* Social links */}
             {profile.socialLinks?.length > 0 && (
-              <motion.div {...fadeUp(0.35)} className="flex items-center gap-2.5">
+              <motion.div {...fadeUp(0.35)} className="flex items-center justify-center lg:justify-start gap-2.5">
                 {profile.socialLinks.map((social: SocialLink) => {
                   const Icon = getIcon(social.iconName);
                   return (
@@ -199,12 +199,12 @@ const HeroSection = () => {
               <div className="absolute inset-6 bg-theme-primary/20 rounded-3xl blur-3xl" />
 
               {/* Avatar frame */}
-              <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] rounded-3xl overflow-hidden border border-theme-border/60 shadow-2xl">
+              <div className="relative w-44 h-44 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] rounded-3xl overflow-hidden border border-theme-border/60 shadow-2xl">
                 <Image
                   src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
                   alt={`${profile.name} — ${profile.role}`}
                   fill
-                  sizes="(max-width: 640px) 288px, (max-width: 1024px) 320px, 400px"
+                  sizes="(max-width: 640px) 176px, (max-width: 1024px) 256px, 400px"
                   className="object-cover object-top"
                   quality={95}
                   priority

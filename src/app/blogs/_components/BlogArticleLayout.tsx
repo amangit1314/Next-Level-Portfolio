@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiUser, FiArrowLeft, FiShare2 } from "react-icons/fi";
 import { unbounded, inter } from "@/lib/fonts";
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 
 interface BlogSection {
   title: string;

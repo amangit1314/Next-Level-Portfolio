@@ -14,7 +14,7 @@ import {
 } from "react-icons/fi";
 import { MdArrowOutward } from "react-icons/md";
 import { SiNextdotjs, SiVercel } from "react-icons/si";
-import { BugReportDialog } from "./BugReportDialog";
+import { BugReportDialog } from "../features/BugReportDialog";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -83,12 +83,12 @@ const Footer = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="py-16 grid grid-cols-1 lg:grid-cols-4 gap-12"
+          className="py-10 sm:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12"
         >
           {/* Brand Section */}
           <motion.div
             variants={itemVariants}
-            className="lg:col-span-2 space-y-6"
+            className="sm:col-span-2 lg:col-span-2 space-y-5 sm:space-y-6 text-center sm:text-left"
           >
             <div className="space-y-4">
               <h3
@@ -103,7 +103,7 @@ const Footer = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-center sm:justify-start space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.name}
@@ -111,7 +111,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   variants={itemVariants}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileHover={{ y: -3 }}
                   className="p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300"
                 >
                   <social.icon className="w-5 h-5" />
@@ -121,7 +121,7 @@ const Footer = () => {
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-6 text-center sm:text-left">
             <h4
               className={`${unbounded.className} text-lg font-semibold text-theme-text-primary`}
             >
@@ -144,12 +144,7 @@ const Footer = () => {
                       element.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className="
-          group relative block text-left
-          text-theme-text-muted 
-          transition-all duration-300
-          hover:text-theme-text-primary
-        "
+                  className="group relative block text-center sm:text-left text-theme-text-muted transition-all duration-300 hover:text-theme-text-primary w-full"
                 >
                   <span className="inline-flex items-center gap-1">
                     {/* Text with animated underline */}
@@ -187,20 +182,20 @@ const Footer = () => {
           </motion.div>
 
           {/* Tech Stack */}
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-6 text-center sm:text-left">
             <h4
               className={`${unbounded.className} text-lg font-semibold text-theme-text-primary`}
             >
               Built With
             </h4>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:scale-105 transition-transform duration-300">
+            <div className="flex items-center justify-center sm:justify-start space-x-4">
+              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 transition-colors duration-300">
                 <SiNextdotjs className="w-6 h-6 text-theme-text-primary" />
                 <span className="text-sm text-theme-text-secondary">
                   Next.js
                 </span>
               </div>
-              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center space-x-2 p-3 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 transition-colors duration-300">
                 <SiVercel className="w-6 h-6 text-theme-text-primary" />
                 <span className="text-sm text-theme-text-secondary">
                   Vercel
@@ -211,8 +206,8 @@ const Footer = () => {
         </motion.div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-theme-border/50 py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="border-t border-theme-border/50 py-5 sm:py-8">
+          <div className="flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-0">
             {/* Copyright */}
             <div className="flex items-center space-x-2 text-theme-text-muted text-sm">
               <span>&copy; {currentYear} Aman Soni. All rights reserved.</span>
@@ -225,7 +220,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="flex justify-end items-center space-x-2">
+            <div className="flex items-center gap-2">
               {/* Report Bug */}
               <BugReportDialog />
 
