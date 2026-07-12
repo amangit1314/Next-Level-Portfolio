@@ -136,7 +136,7 @@ export default function ProjectCard3D({
         </div>
 
         <h3
-          className={`text-xl font-bold text-theme-text-primary group-hover:text-white leading-tight transition-colors duration-300 ${unbounded.className}`}
+          className={`text-xl font-bold text-theme-text-primary group-hover:text-theme-primary leading-tight transition-colors duration-300 ${unbounded.className}`}
         >
           {project.title}
         </h3>
@@ -197,7 +197,7 @@ export default function ProjectCard3D({
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center gap-1.5 text-xs font-semibold text-theme-primary border border-theme-primary/35 hover:bg-theme-primary hover:text-theme-bg-primary rounded-lg px-3 py-1.5 transition-all duration-300 ${unbounded.className}`}
+            className={`flex items-center gap-1.5 text-xs font-semibold text-theme-primary border border-theme-primary/35 hover:bg-theme-primary hover:text-white rounded-lg px-3 py-1.5 transition-all duration-300 ${unbounded.className}`}
           >
             Visit <FiArrowUpRight className="w-3 h-3" />
           </a>

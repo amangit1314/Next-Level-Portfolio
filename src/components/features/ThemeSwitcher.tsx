@@ -62,6 +62,9 @@ export const ThemeSwitcher = () => {
     setIsOpen(false);
   };
 
+  const darkThemes = availableThemes.filter((theme) => theme.mode === "dark");
+  const lightThemes = availableThemes.filter((theme) => theme.mode === "light");
+
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Toggle Button */}
@@ -103,14 +106,29 @@ export const ThemeSwitcher = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              {availableThemes.map((theme) => (
-                <ThemeCard
-                  key={theme.id}
-                  theme={theme}
-                  isActive={theme.id === currentTheme.id}
-                  onClick={() => handleThemeSelect(theme.id)}
-                />
-              ))}
+              {/* Dark themes — left column */}
+              <div className="flex flex-col gap-3">
+                {darkThemes.map((theme) => (
+                  <ThemeCard
+                    key={theme.id}
+                    theme={theme}
+                    isActive={theme.id === currentTheme.id}
+                    onClick={() => handleThemeSelect(theme.id)}
+                  />
+                ))}
+              </div>
+
+              {/* Light themes — right column */}
+              <div className="flex flex-col gap-3">
+                {lightThemes.map((theme) => (
+                  <ThemeCard
+                    key={theme.id}
+                    theme={theme}
+                    isActive={theme.id === currentTheme.id}
+                    onClick={() => handleThemeSelect(theme.id)}
+                  />
+                ))}
+              </div>
             </div>
           </motion.div>
         )}

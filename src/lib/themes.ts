@@ -2,7 +2,7 @@
  * Theme Configurations
  * 
  * Defines all available themes with their color palettes.
- * Includes 6 dark themes and 1 light theme (Coffee Latte).
+ * Includes 4 dark themes and 4 light themes.
  */
 
 import { Theme } from '@/types/theme';
@@ -39,74 +39,6 @@ export const themes: Theme[] = [
 
             border: '#3D0012',
             borderLight: '#5E0020',
-        },
-    },
-
-    // 2. Golden Void
-    {
-        id: 'golden-void',
-        name: 'Golden Void',
-        emoji: '✨',
-        mode: 'dark',
-        colors: {
-            mode: 'dark',
-
-            primaryLight: { hex: '#FCD34D', rgb: '252, 211, 77' },   // amber-300
-            primary: { hex: '#FBBF24', rgb: '251, 191, 36' },        // amber-400
-            primaryDark: { hex: '#F59E0B', rgb: '245, 158, 11' },    // amber-500
-
-            secondaryLight: { hex: '#7DD3FC', rgb: '125, 211, 252' }, // sky-300
-            secondary: { hex: '#38BDF8', rgb: '56, 189, 248' },      // sky-400
-            secondaryDark: { hex: '#0EA5E9', rgb: '14, 165, 233' },  // sky-500
-
-            accent: { hex: '#34D399', rgb: '52, 211, 153' },         // emerald-400
-
-            bgPrimary: '#080600',
-            bgSecondary: '#100E00',
-            bgTertiary: '#1A1600',
-            bgHover: '#262000',
-            bgLight: '#332C00',
-
-            textPrimary: '#FAFAFA',
-            textSecondary: '#E4E4E7',
-            textMuted: '#A1A1AA',
-
-            border: '#2A2200',
-            borderLight: '#3D3300',
-        },
-    },
-
-    // 4. Ocean Breeze
-    {
-        id: 'ocean-breeze',
-        name: 'Ocean Breeze',
-        emoji: '🌊',
-        mode: 'dark',
-        colors: {
-            mode: 'dark',
-
-            primaryLight: { hex: '#38BDF8', rgb: '56, 189, 248' },   // sky-400
-            primary: { hex: '#0EA5E9', rgb: '14, 165, 233' },        // sky-500
-            primaryDark: { hex: '#0284C7', rgb: '2, 132, 199' },     // sky-600
-
-            secondaryLight: { hex: '#22D3EE', rgb: '34, 211, 238' }, // cyan-400
-            secondary: { hex: '#06B6D4', rgb: '6, 182, 212' },       // cyan-500
-            secondaryDark: { hex: '#0891B2', rgb: '8, 145, 178' },   // cyan-600
-
-            accent: { hex: '#14B8A6', rgb: '20, 184, 166' },         // teal-500
-
-            bgPrimary: '#020617',    // slate-950
-            bgSecondary: '#0F172A',  // slate-900
-            bgTertiary: '#1E293B',   // slate-800
-            bgHover: '#334155',      // slate-700
-            bgLight: '#475569',      // slate-600
-
-            textPrimary: '#F8FAFC',  // slate-50
-            textSecondary: '#CBD5E1', // slate-300
-            textMuted: '#94A3B8',    // slate-400
-
-            border: '#334155',
-            borderLight: '#475569',
         },
     },
 
@@ -178,37 +110,105 @@ export const themes: Theme[] = [
         },
     },
 
-    // 7. Sakura (Light Theme)
+    // 7. Alpine Frost (Light Theme)
     {
-        id: 'sakura',
-        name: 'Sakura',
-        emoji: '🌸',
+        id: 'alpine-frost',
+        name: 'Alpine Frost',
+        emoji: '🏔️',
         mode: 'light',
         colors: {
             mode: 'light',
 
-            primaryLight: { hex: '#F43F5E', rgb: '244, 63, 94' },    // rose-500
-            primary: { hex: '#E11D48', rgb: '225, 29, 72' },         // rose-600
-            primaryDark: { hex: '#BE123C', rgb: '190, 18, 60' },     // rose-700
+            primaryLight: { hex: '#6FA3C7', rgb: '111, 163, 199' },  // soft glacier blue
+            primary: { hex: '#3D6E93', rgb: '61, 110, 147' },        // steel blue
+            primaryDark: { hex: '#2C5271', rgb: '44, 82, 113' },     // deep alpine blue
 
-            secondaryLight: { hex: '#A855F7', rgb: '168, 85, 247' }, // purple-500
-            secondary: { hex: '#9333EA', rgb: '147, 51, 234' },      // purple-600
-            secondaryDark: { hex: '#7E22CE', rgb: '126, 34, 206' },  // purple-700
+            secondaryLight: { hex: '#7FBCB3', rgb: '127, 188, 179' }, // soft teal (analogous to blue)
+            secondary: { hex: '#4E958A', rgb: '78, 149, 138' },      // pine teal
+            secondaryDark: { hex: '#397168', rgb: '57, 113, 104' },  // deep teal
 
-            accent: { hex: '#F97316', rgb: '249, 115, 22' },         // orange-500
+            accent: { hex: '#C9A876', rgb: '201, 168, 118' },        // warm champagne (single restrained accent)
 
-            bgPrimary: '#FFF8F9',    // near-white with barely-there rose tint
-            bgSecondary: '#FFE8ED',  // soft petal pink
-            bgTertiary: '#FFD6DE',   // blush
-            bgHover: '#FFC1CC',      // light sakura
-            bgLight: '#FFABB8',      // mid sakura
+            bgPrimary: '#FAFBFC',    // cool off-white
+            bgSecondary: '#EFF3F6',  // frost gray
+            bgTertiary: '#E3E9EE',
+            bgHover: '#D2DCE3',
+            bgLight: '#B8C6D0',
 
-            textPrimary: '#1A0008',  // near-black with rose undertone
-            textSecondary: '#4A0015', // deep rose-dark
-            textMuted: '#8B2040',    // muted rose
+            textPrimary: '#16232C',  // deep slate blue, near-black
+            textSecondary: '#33475A',
+            textMuted: '#64798C',
 
-            border: '#F9A8B8',       // soft rose border
-            borderLight: '#FFC1CC',  // light rose border
+            border: '#D7E1E8',
+            borderLight: '#E8EEF2',
+        },
+    },
+
+    // 10. Sage Linen (Light Theme)
+    {
+        id: 'sage-linen',
+        name: 'Sage Linen',
+        emoji: '🌿',
+        mode: 'light',
+        colors: {
+            mode: 'light',
+
+            primaryLight: { hex: '#8AA88E', rgb: '138, 168, 142' },  // muted sage
+            primary: { hex: '#5F7F63', rgb: '95, 127, 99' },         // sage green
+            primaryDark: { hex: '#4A6B4E', rgb: '74, 107, 78' },     // deep moss
+
+            secondaryLight: { hex: '#A3AD82', rgb: '163, 173, 130' }, // olive (analogous to sage)
+            secondary: { hex: '#7C8A5A', rgb: '124, 138, 90' },      // muted olive
+            secondaryDark: { hex: '#606B44', rgb: '96, 107, 68' },   // deep olive
+
+            accent: { hex: '#C9A227', rgb: '201, 162, 39' },         // warm mustard gold (single restrained accent)
+
+            bgPrimary: '#FAF8F3',    // warm linen white
+            bgSecondary: '#F2EEE3',  // linen
+            bgTertiary: '#E8E1D0',
+            bgHover: '#DCD3BA',
+            bgLight: '#C7BB98',
+
+            textPrimary: '#1C2419',  // deep charcoal-green, near-black
+            textSecondary: '#3A4530',
+            textMuted: '#6B7860',
+
+            border: '#DCD3BA',
+            borderLight: '#E8E1D0',
+        },
+    },
+
+    // 11. Velvet Blush (Light Theme)
+    {
+        id: 'velvet-blush',
+        name: 'Velvet Blush',
+        emoji: '💋',
+        mode: 'light',
+        colors: {
+            mode: 'light',
+
+            primaryLight: { hex: '#FB7185', rgb: '251, 113, 133' },  // rose-400
+            primary: { hex: '#9F1239', rgb: '159, 18, 57' },         // rose-800 (wine/burgundy)
+            primaryDark: { hex: '#881337', rgb: '136, 19, 55' },     // rose-900
+
+            secondaryLight: { hex: '#E9A6C4', rgb: '233, 166, 196' }, // orchid pink
+            secondary: { hex: '#86198F', rgb: '134, 24, 143' },      // fuchsia-800 (plum)
+            secondaryDark: { hex: '#701A75', rgb: '112, 26, 117' },  // fuchsia-900
+
+            accent: { hex: '#D4A017', rgb: '212, 160, 23' },         // champagne gold
+
+            bgPrimary: '#FFF7F5',    // blush cream
+            bgSecondary: '#FCE7EC',  // soft rose
+            bgTertiary: '#F9D4DE',   // deeper blush
+            bgHover: '#F3B6C6',
+            bgLight: '#E894AC',
+
+            textPrimary: '#2A0410',  // near-black wine
+            textSecondary: '#4A0E1F', // deep burgundy
+            textMuted: '#7A3348',    // muted mauve
+
+            border: '#EFC2D0',
+            borderLight: '#F9D4DE',
         },
     },
 

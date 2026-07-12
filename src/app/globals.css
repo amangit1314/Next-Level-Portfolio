@@ -217,15 +217,6 @@
   --theme-shadow: rgba(0, 0, 0, 0.5);
 }
 
-/* Theme utility classes */
-.bg-theme-primary {
-  background-color: var(--theme-primary);
-}
-
-.text-theme-primary {
-  color: var(--theme-primary);
-}
-
 /* Theme gradient utilities */
 @layer utilities {
   .theme-gradient-primary {
