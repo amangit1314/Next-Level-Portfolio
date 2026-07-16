@@ -131,7 +131,7 @@ export default function BlogCard3D({
           </div>
 
           <h3
-            className={`${featured ? "text-xl" : "text-lg"} font-bold text-theme-text-primary group-hover:text-white leading-tight transition-colors duration-300 line-clamp-2 ${unbounded.className}`}
+            className={`${featured ? "text-xl" : "text-lg"} font-bold text-theme-text-primary group-hover:text-theme-primary leading-tight transition-colors duration-300 line-clamp-2 ${unbounded.className}`}
           >
             {blog.title}
           </h3>

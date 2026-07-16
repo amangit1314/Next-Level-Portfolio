@@ -21,7 +21,7 @@ const Home = () => {
         <Header />
       </header>
 
-      <div className="pt-20">
+      <div className="pt-20 pb-24 lg:pb-0">
         <HeroSection />
         <AboutSection />
         <Skills />

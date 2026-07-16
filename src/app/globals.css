@@ -125,6 +125,8 @@
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
     /* Prevents bounce effect */
+    overflow-x: hidden;
+    /* body's overflow-x doesn't clip fixed-position descendants; guard on the root too */
   }
 
   body {
