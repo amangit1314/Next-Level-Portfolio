@@ -39,6 +39,7 @@ const ProjectsContent = () => {
   
   const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
   const [selectedCategory, setSelectedCategory] = useQueryState("cat", parseAsString.withDefault("All"));
+  const [activeTab, setActiveTab] = useQueryState("view", parseAsString.withDefault("featured"));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -207,59 +208,54 @@ const ProjectsContent = () => {
           </motion.div>
         ) : (() => {
           const featuredProjects = filtered.filter((p) => p.isAI);
-          const regularProjects = filtered.filter((p) => !p.isAI);
+          const hasFeatured = featuredProjects.length > 0;
+          // Featured tab only makes sense when there's something to feature —
+          // fall back to "all" rather than showing an empty tab as default.
+          const tab = hasFeatured ? activeTab : "all";
+          const visible = tab === "featured" ? featuredProjects : filtered;
+
           return (
-            <div className="pb-24 space-y-10">
-              {/* Featured row */}
-              {featuredProjects.length > 0 && (
-                <div>
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-1.5 h-4 rounded-full bg-theme-primary" />
-                    <span className={`text-xs font-semibold text-theme-text-secondary uppercase tracking-widest ${unbounded.className}`}>
-                      Featured
-                    </span>
-                  </div>
-                  <div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-5"
-                    style={{ perspective: "1200px" }}
-                  >
-                    {featuredProjects.map((project, index) => (
-                      <ProjectCard3D
-                        key={project._id}
-                        project={project}
-                        index={index}
-                        featured
-                      />
-                    ))}
-                  </div>
+            <div className="pb-24">
+              {/* Tab switcher */}
+              {hasFeatured && (
+                <div className="flex gap-2 mb-6">
+                  {(
+                    [
+                      { key: "featured", label: "Featured", count: featuredProjects.length },
+                      { key: "all", label: "All Projects", count: filtered.length },
+                    ] as const
+                  ).map((t) => (
+                    <button
+                      key={t.key}
+                      onClick={() => void setActiveTab(t.key)}
+                      className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                        tab === t.key
+                          ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
+                          : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
+                      }`}
+                    >
+                      {t.label}
+                      <span className="text-[10px] opacity-70">{t.count}</span>
+                    </button>
+                  ))}
                 </div>
               )}
 
-              {/* Regular grid */}
-              {regularProjects.length > 0 && (
-                <div>
-                  {featuredProjects.length > 0 && (
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-1.5 h-4 rounded-full bg-theme-border" />
-                      <span className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${unbounded.className}`}>
-                        All Projects
-                      </span>
-                    </div>
-                  )}
-                  <div
-                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
-                    style={{ perspective: "1200px" }}
-                  >
-                    {regularProjects.map((project, index) => (
-                      <ProjectCard3D
-                        key={project._id}
-                        project={project}
-                        index={featuredProjects.length + index}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+              <div
+                className={`grid grid-cols-1 gap-5 ${
+                  tab === "featured" ? "md:grid-cols-2" : "md:grid-cols-2 xl:grid-cols-3"
+                }`}
+                style={{ perspective: "1200px" }}
+              >
+                {visible.map((project, index) => (
+                  <ProjectCard3D
+                    key={project._id}
+                    project={project}
+                    index={index}
+                    featured={tab === "featured"}
+                  />
+                ))}
+              </div>
             </div>
           );
         })()}
