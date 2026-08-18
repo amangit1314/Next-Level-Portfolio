@@ -14,6 +14,7 @@ import ProjectsHeader from "./_components/ProjectsHeader";
 import ProjectCard3D from "./_components/ProjectCard3D";
 import { aiProjects } from "@/data/ai-projects";
 import { ProfileStats } from "@/types/profile-stats";
+import { useUIStore } from "@/stores/uiStore";
 
 interface Project {
   _id: string;
@@ -66,15 +67,17 @@ const ProjectsContent = () => {
     fetchData();
   }, []);
 
-  // AI Co-pilot search event (nuqs handles URL sync natively)
+  // AI Co-pilot same-page search handoff via uiStore — nuqs `q` param
+  // stays the canonical source of truth for the search box; this just
+  // consumes the one-shot signal and clears it.
+  const pendingProjectSearch = useUIStore((s) => s.pendingProjectSearch);
+  const clearPendingProjectSearch = useUIStore((s) => s.clearPendingProjectSearch);
   useEffect(() => {
-    const handler = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      if (detail?.query) void setSearchQuery(detail.query);
-    };
-    window.addEventListener("search-projects", handler);
-    return () => window.removeEventListener("search-projects", handler);
-  }, [setSearchQuery]);
+    if (pendingProjectSearch) {
+      void setSearchQuery(pendingProjectSearch);
+      clearPendingProjectSearch();
+    }
+  }, [pendingProjectSearch, setSearchQuery, clearPendingProjectSearch]);
 
   const allTechs = Array.from(
     new Set(projects.flatMap((p) => p.technologies || []))

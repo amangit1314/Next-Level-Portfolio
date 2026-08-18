@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageSquare, FiX, FiSend, FiCpu, FiZap, FiDownload } from "react-icons/fi";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useUIStore } from "@/stores/uiStore";
 import { client } from "@/sanity/lib/client";
 import { profileQuery } from "@/sanity/lib/queries";
 import { unbounded, inter } from "@/lib/fonts";
@@ -17,6 +18,7 @@ interface Message {
 
 export const AICopilot = () => {
   const pathname = usePathname();
+  const setPendingProjectSearch = useUIStore((s) => s.setPendingProjectSearch);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -161,11 +163,11 @@ export const AICopilot = () => {
         if (query) {
           // Check if on projects subpage
           if (window.location.pathname === "/projects") {
-            window.dispatchEvent(new CustomEvent("search-projects", { detail: { query } }));
+            setPendingProjectSearch(query);
             addSystemLog(`Searching projects: "${query}"`);
           } else {
-            // Redirect
-            window.location.href = `/projects?search=${encodeURIComponent(query)}`;
+            // Redirect — "q" matches the Projects page's nuqs search param.
+            window.location.href = `/projects?q=${encodeURIComponent(query)}`;
           }
         }
         break;
