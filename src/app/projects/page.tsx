@@ -5,7 +5,7 @@ import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
-import { projectsQuery, profileQuery } from "@/sanity/lib/queries";
+import { projectsQuery, profileQuery, skillsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -43,12 +43,19 @@ const ProjectsContent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [projectsData, profileData] = await Promise.all([
+        const [projectsData, profileData, skillsData] = await Promise.all([
           client.fetch(projectsQuery),
           client.fetch(profileQuery),
+          client.fetch(skillsQuery),
         ]);
         setProjects([...aiProjects.filter((p) => !p.hidden), ...projectsData]);
-        setStats(profileData?.stats || {});
+        // technologiesCount is derived live from actual skill docs rather than
+        // the hand-maintained profile.stats field, which drifts every time a
+        // skill is added/removed (see: years-of-experience consistency fix).
+        setStats({
+          ...profileData?.stats,
+          technologiesCount: `${skillsData?.length ?? 0}+`,
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
