@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/studio/", "/api/"],
+        disallow: ["/studio/", "/api/", "/dashboard/"],
       },
     ],
     sitemap: "https://amansoni.dev/sitemap.xml",
