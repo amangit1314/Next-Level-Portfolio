@@ -18,7 +18,7 @@ const container = {
 
 const Projects = () => {
   const { data: sanityProjects = [] } = useProjects();
-  const projects = [...aiProjects, ...sanityProjects];
+  const projects = [...aiProjects.filter((p) => !p.hidden), ...sanityProjects];
 
   return (
     <section id="projects" className="v2-section bg-theme-bg-primary">

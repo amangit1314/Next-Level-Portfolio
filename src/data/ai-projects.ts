@@ -30,6 +30,9 @@ export interface AIProject {
   // Local-only fields
   _isHardcoded?: boolean;
   blogSlug?: string;
+  // Set true to keep an entry in this file (data intact) but exclude it from
+  // every page that renders `aiProjects` — e.g. NDA-sensitive work.
+  hidden?: boolean;
 }
 
 export const aiProjects: AIProject[] = [
@@ -110,6 +113,8 @@ export const aiProjects: AIProject[] = [
     ],
     _isHardcoded: true,
     blogSlug: "npa-extraction-pipeline-scrapling-vertex-ai",
+    // NDA risk — keep the data here but don't render it anywhere for now.
+    hidden: true,
   },
   {
     _id: "ai-project-templateforge",

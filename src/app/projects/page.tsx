@@ -47,7 +47,7 @@ const ProjectsContent = () => {
           client.fetch(projectsQuery),
           client.fetch(profileQuery),
         ]);
-        setProjects([...aiProjects, ...projectsData]);
+        setProjects([...aiProjects.filter((p) => !p.hidden), ...projectsData]);
         setStats(profileData?.stats || {});
       } catch (error) {
         console.error("Error fetching data:", error);
