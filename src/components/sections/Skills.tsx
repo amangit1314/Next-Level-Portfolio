@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { inter, unbounded } from "@/lib/fonts";
 import SkillCard from "../cards/SkillCard";
 import { useState } from "react";
-import { useSkills, useProfile } from "@/hooks/useSanityQuery";
-import { PROJECTS } from "@/utils/constants";
+import { useSkills, useProjectsCount } from "@/hooks/useSanityQuery";
+import { useProfile } from "@/contexts/ProfileContext";
 
 const ORDERED_CATEGORIES = [
   "Frontend",
@@ -19,7 +19,8 @@ const ORDERED_CATEGORIES = [
 
 const Skills = () => {
   const { data: skills = [] } = useSkills();
-  const { data: profile } = useProfile();
+  const { profile } = useProfile();
+  const { data: liveProjectsCount } = useProjectsCount();
   const [activeCategory, setActiveCategory] = useState("All");
 
   // Categories that actually have skills
@@ -167,7 +168,7 @@ const Skills = () => {
           {[
             { value: profile?.stats?.experienceYears || "—", label: "Years Experience" },
             { value: `${skills.length}+`, label: "Technologies" },
-            { value: `${PROJECTS.length}+`, label: "Projects Built" },
+            { value: liveProjectsCount ? `${liveProjectsCount}+` : "—", label: "Projects Built" },
             { value: activeCategories.length, label: "Specializations" },
           ].map((stat, i) => (
             <div

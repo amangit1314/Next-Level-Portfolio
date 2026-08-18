@@ -6,11 +6,14 @@ import {
   skillsQuery,
   experiencesQuery,
   projectsQuery,
+  projectsCountQuery,
+  aiProjectsCountQuery,
   blogsQuery,
   profileQuery,
   testimonialsQuery,
   componentsQuery,
 } from "@/sanity/lib/queries";
+import { aiProjects } from "@/data/ai-projects";
 import type {
   SkillsQueryResult,
   ExperiencesQueryResult,
@@ -61,4 +64,30 @@ export const useComponents = () =>
   useQuery<ComponentsQueryResult>({
     queryKey: ["components"],
     queryFn: () => client.fetch<ComponentsQueryResult>(componentsQuery),
+  });
+
+// Single source of truth for "how many projects/AI systems" stats shown
+// across Hero, Skills, and Projects — all previously drifted independently
+// (Hero read a stale profile.stats field, Skills read a hardcoded static
+// PROJECTS array, Projects page computed it live). Every consumer of a
+// project count should use this hook instead of deriving its own.
+const visibleAiProjects = aiProjects.filter((p) => !p.hidden);
+
+export const useProjectsCount = () =>
+  useQuery<number>({
+    queryKey: ["projectsCount"],
+    queryFn: async () => {
+      const sanityCount = await client.fetch<number>(projectsCountQuery);
+      return sanityCount + visibleAiProjects.length;
+    },
+  });
+
+export const useAiProjectsCount = () =>
+  useQuery<number>({
+    queryKey: ["aiProjectsCount"],
+    queryFn: async () => {
+      const sanityAiCount = await client.fetch<number>(aiProjectsCountQuery);
+      // All hardcoded ai-projects.ts entries are AI systems by definition.
+      return sanityAiCount + visibleAiProjects.length;
+    },
   });

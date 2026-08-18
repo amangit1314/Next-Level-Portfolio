@@ -9,9 +9,7 @@ import { useProfile } from "@/contexts/ProfileContext";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import type { SocialLink } from "@/types/profile";
 import * as Icons from "react-icons/fi";
-import { client } from "@/sanity/lib/client";
-import { projectsCountQuery, aiProjectsCountQuery } from "@/sanity/lib/queries";
-import { aiProjects } from "@/data/ai-projects";
+import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -24,29 +22,15 @@ const HeroSection = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
-  const [liveProjectsCount, setLiveProjectsCount] = useState<number | null>(null);
-  const [liveAiProjectsCount, setLiveAiProjectsCount] = useState<number | null>(null);
-
-  // projectsCount and aiProjectsCount are derived live from actual project
-  // docs (Sanity counts + visible hardcoded AI entries) rather than
-  // hand-maintained profile.stats fields, which drift every time a project
-  // is added/removed (same drift bug as the years-of-experience and
-  // tech-count fixes). aiProjectsCount also replaces the old "Tokens
-  // orchestrated" stat — an unverifiable self-reported number — with
-  // something concrete and checkable.
-  useEffect(() => {
-    const visibleAiProjects = aiProjects.filter((p) => !p.hidden);
-    Promise.all([client.fetch<number>(projectsCountQuery), client.fetch<number>(aiProjectsCountQuery)])
-      .then(([sanityCount, sanityAiCount]) => {
-        setLiveProjectsCount(sanityCount + visibleAiProjects.length);
-        // All hardcoded ai-projects.ts entries are AI systems by definition.
-        setLiveAiProjectsCount(sanityAiCount + visibleAiProjects.length);
-      })
-      .catch(() => {
-        setLiveProjectsCount(null);
-        setLiveAiProjectsCount(null);
-      });
-  }, []);
+  // projectsCount and aiProjectsCount come from the shared useSanityQuery
+  // hooks — single source of truth also used by Skills, so this number
+  // can't drift from what Skills/Projects show (same drift bug as the
+  // years-of-experience/tech-count fixes, now happened a 3rd time via a
+  // stale hardcoded PROJECTS array in Skills.tsx). aiProjectsCount also
+  // replaces the old "Tokens orchestrated" stat — an unverifiable
+  // self-reported number — with something concrete and checkable.
+  const { data: liveProjectsCount } = useProjectsCount();
+  const { data: liveAiProjectsCount } = useAiProjectsCount();
 
   useEffect(() => {
     if (!profile?.typewriterTexts?.length) return;
