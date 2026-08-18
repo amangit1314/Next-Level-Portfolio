@@ -35,10 +35,15 @@ export async function GET(req: NextRequest) {
   const since = new Date(until.getTime() - days * 24 * 60 * 60 * 1000);
   const range = `projectId=${PROJECT_ID}&teamId=${TEAM_ID}&since=${since.toISOString()}&until=${until.toISOString()}`;
 
+  // Vercel's Web Analytics API caps `by=day` aggregation at 62 days of range
+  // ("invalid_group_by" 400 beyond that) — fall back to weekly buckets for
+  // the 90d view instead of erroring the whole request.
+  const bucket = days > 62 ? "week" : "day";
+
   try {
     const [totals, daily, topPages, topReferrers] = await Promise.all([
       vercelFetch(`/v1/query/web-analytics/visits/count?${range}`, token),
-      vercelFetch(`/v1/query/web-analytics/visits/aggregate?${range}&by=day`, token),
+      vercelFetch(`/v1/query/web-analytics/visits/aggregate?${range}&by=${bucket}`, token),
       vercelFetch(
         `/v1/query/web-analytics/visits/aggregate?${range}&by=requestPath&limit=8`,
         token
@@ -54,7 +59,7 @@ export async function GET(req: NextRequest) {
       daily: daily.data,
       topPages: topPages.data,
       topReferrers: topReferrers.data,
-      range: { since: since.toISOString(), until: until.toISOString(), days },
+      range: { since: since.toISOString(), until: until.toISOString(), days, bucket },
     });
   } catch (e) {
     console.error("Dashboard analytics fetch failed:", e);

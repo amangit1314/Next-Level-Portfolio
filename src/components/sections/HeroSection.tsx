@@ -9,6 +9,9 @@ import { useProfile } from "@/contexts/ProfileContext";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import type { SocialLink } from "@/types/profile";
 import * as Icons from "react-icons/fi";
+import { client } from "@/sanity/lib/client";
+import { projectsCountQuery, aiProjectsCountQuery } from "@/sanity/lib/queries";
+import { aiProjects } from "@/data/ai-projects";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -21,6 +24,29 @@ const HeroSection = () => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [liveProjectsCount, setLiveProjectsCount] = useState<number | null>(null);
+  const [liveAiProjectsCount, setLiveAiProjectsCount] = useState<number | null>(null);
+
+  // projectsCount and aiProjectsCount are derived live from actual project
+  // docs (Sanity counts + visible hardcoded AI entries) rather than
+  // hand-maintained profile.stats fields, which drift every time a project
+  // is added/removed (same drift bug as the years-of-experience and
+  // tech-count fixes). aiProjectsCount also replaces the old "Tokens
+  // orchestrated" stat — an unverifiable self-reported number — with
+  // something concrete and checkable.
+  useEffect(() => {
+    const visibleAiProjects = aiProjects.filter((p) => !p.hidden);
+    Promise.all([client.fetch<number>(projectsCountQuery), client.fetch<number>(aiProjectsCountQuery)])
+      .then(([sanityCount, sanityAiCount]) => {
+        setLiveProjectsCount(sanityCount + visibleAiProjects.length);
+        // All hardcoded ai-projects.ts entries are AI systems by definition.
+        setLiveAiProjectsCount(sanityAiCount + visibleAiProjects.length);
+      })
+      .catch(() => {
+        setLiveProjectsCount(null);
+        setLiveAiProjectsCount(null);
+      });
+  }, []);
 
   useEffect(() => {
     if (!profile?.typewriterTexts?.length) return;
@@ -54,8 +80,8 @@ const HeroSection = () => {
 
   const stats = [
     { value: profile.stats?.experienceYears, label: "Years Exp" },
-    { value: profile.stats?.projectsCount, label: "Projects" },
-    { value: profile.stats?.tokensOrchestrated, label: "Tokens" },
+    { value: liveProjectsCount ? `${liveProjectsCount}+` : profile.stats?.projectsCount, label: "Projects" },
+    { value: liveAiProjectsCount ? `${liveAiProjectsCount}+` : undefined, label: "AI Systems" },
     { value: profile.stats?.agentsDeployed, label: "Agents" },
   ].filter((s) => s.value);
 
@@ -93,7 +119,7 @@ const HeroSection = () => {
 
             {/* Name */}
             <motion.div {...fadeUp(0.1)}>
-              <h1 className={`font-black leading-[0.92] tracking-tighter ${unbounded.className}`}>
+              <h1 className={`font-black leading-[1.1] tracking-tighter ${unbounded.className}`}>
                 <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] theme-text-gradient bg-clip-text text-transparent">
                   {profile.name?.split(" ")[0]}
                 </span>

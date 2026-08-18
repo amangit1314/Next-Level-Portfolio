@@ -24,10 +24,17 @@ interface AnalyticsData {
   daily: DailyPoint[];
   topPages: BreakdownPoint[];
   topReferrers: BreakdownPoint[];
-  range: { since: string; until: string; days: number };
+  range: { since: string; until: string; days: number; bucket: "day" | "week" };
 }
 
 const RANGE_OPTIONS = [7, 30, 90];
+
+function formatBucketLabel(timestamp: string | undefined, bucket: "day" | "week") {
+  if (!timestamp) return "";
+  const date = new Date(timestamp);
+  const formatted = date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  return bucket === "week" ? `Week of ${formatted}` : formatted;
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -35,6 +42,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<{ error: string; detail?: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [days, setDays] = useState(30);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   const fetchData = async (range: number) => {
     setLoading(true);
@@ -154,17 +162,33 @@ export default function DashboardPage() {
             {/* Daily chart */}
             <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5 mb-8">
               <h2 className={`text-xs uppercase tracking-wide text-theme-text-muted mb-4 ${inter.className}`}>
-                Pageviews per day
+                Pageviews per {data.range.bucket}
               </h2>
-              <div className="flex items-end gap-1 h-32">
+              <div className="relative flex items-end gap-1 h-32">
+                {hoveredIdx !== null && data.daily[hoveredIdx] && (
+                  <div
+                    className={`absolute -top-9 z-10 -translate-x-1/2 rounded-lg border border-theme-border/50 bg-theme-bg-primary px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg ${inter.className}`}
+                    style={{ left: `${((hoveredIdx + 0.5) / data.daily.length) * 100}%` }}
+                  >
+                    <span className="text-theme-text-primary font-semibold">
+                      {data.daily[hoveredIdx].pageviews ?? 0} views
+                    </span>
+                    <span className="text-theme-text-muted ml-1.5">
+                      {formatBucketLabel(data.daily[hoveredIdx].timestamp, data.range.bucket)}
+                    </span>
+                  </div>
+                )}
                 {data.daily.map((d, i) => (
                   <motion.div
                     key={d.timestamp ?? i}
                     initial={{ height: 0 }}
                     animate={{ height: `${((d.pageviews ?? 0) / maxDaily) * 100}%` }}
                     transition={{ duration: 0.4, delay: i * 0.01 }}
-                    className="flex-1 min-w-[2px] bg-theme-primary/60 rounded-t-sm"
-                    title={`${d.timestamp}: ${d.pageviews ?? 0}`}
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onMouseLeave={() => setHoveredIdx(null)}
+                    className={`flex-1 min-w-[2px] rounded-t-sm transition-colors ${
+                      hoveredIdx === i ? "bg-theme-primary" : "bg-theme-primary/60"
+                    }`}
                   />
                 ))}
               </div>

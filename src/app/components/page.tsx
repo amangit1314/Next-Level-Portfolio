@@ -133,7 +133,7 @@ const ComponentsContent = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
+              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.15] mb-5 ${unbounded.className}`}
             >
               <span className="theme-text-gradient bg-clip-text text-transparent">Components</span>
             </motion.h1>
@@ -151,14 +151,14 @@ const ComponentsContent = () => {
 
               <div className="flex items-end gap-6 shrink-0">
                 <div>
-                  <div className={`text-3xl font-black text-theme-primary leading-none tabular-nums ${unbounded.className}`}>
+                  <div className={`text-3xl font-black text-theme-primary leading-[1.15] tabular-nums ${unbounded.className}`}>
                     {components.length}+
                   </div>
                   <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Components</div>
                 </div>
                 <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
                 <div>
-                  <div className={`text-3xl font-black text-theme-secondary leading-none tabular-nums ${unbounded.className}`}>
+                  <div className={`text-3xl font-black text-theme-secondary leading-[1.15] tabular-nums ${unbounded.className}`}>
                     {CATEGORIES.length - 1}
                   </div>
                   <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Categories</div>

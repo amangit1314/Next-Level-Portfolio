@@ -50,7 +50,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         )}
       </div>
       <span
-        className={`text-[11px] sm:text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-none ${unbounded.className}`}
+        className={`text-[11px] sm:text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-[1.15] ${unbounded.className}`}
       >
         {skill.name}
       </span>

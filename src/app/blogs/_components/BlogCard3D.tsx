@@ -113,7 +113,7 @@ export default function BlogCard3D({
           {/* Featured badge */}
           {featured && (
             <div className="absolute top-3 right-3 z-10">
-              <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border border-theme-primary/40 bg-theme-primary/15 text-theme-primary backdrop-blur-sm ${unbounded.className}`}>
+              <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md border border-theme-primary/40 bg-theme-bg-primary/85 text-theme-primary backdrop-blur-sm ${unbounded.className}`}>
                 Featured
               </span>
             </div>

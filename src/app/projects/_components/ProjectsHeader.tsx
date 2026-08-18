@@ -43,7 +43,7 @@ const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) 
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-none mb-5 ${unbounded.className}`}
+          className={`text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.15] mb-5 ${unbounded.className}`}
         >
           <span className="theme-text-gradient bg-clip-text text-transparent">My Projects</span>
         </motion.h1>
@@ -61,21 +61,21 @@ const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) 
 
           <div className="flex items-end gap-6 shrink-0">
             <div>
-              <div className={`text-3xl font-black text-theme-primary leading-none tabular-nums ${unbounded.className}`}>
+              <div className={`text-3xl font-black text-theme-primary leading-[1.15] tabular-nums ${unbounded.className}`}>
                 {projectCount}+
               </div>
               <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Projects</div>
             </div>
             <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
             <div>
-              <div className={`text-3xl font-black text-theme-secondary leading-none tabular-nums ${unbounded.className}`}>
+              <div className={`text-3xl font-black text-theme-secondary leading-[1.15] tabular-nums ${unbounded.className}`}>
                 {stats.experienceYears || "4+"}
               </div>
               <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Years</div>
             </div>
             <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
             <div>
-              <div className={`text-3xl font-black text-theme-accent leading-none tabular-nums ${unbounded.className}`}>
+              <div className={`text-3xl font-black text-theme-accent leading-[1.15] tabular-nums ${unbounded.className}`}>
                 {stats.technologiesCount || "24+"}
               </div>
               <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Technologies</div>

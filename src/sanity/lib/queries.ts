@@ -10,6 +10,11 @@ export const experiencesQuery = groq`*[_type == "experience"] | order(year desc)
   technologies
 }`;
 
+// Lightweight count-only queries for stats display (e.g. Hero) — avoid
+// fetching full project docs just to show a number.
+export const projectsCountQuery = groq`count(*[_type == "project"])`;
+export const aiProjectsCountQuery = groq`count(*[_type == "project" && isAI == true])`;
+
 export const projectsQuery = groq`*[_type == "project"] {
   _id,
   title,

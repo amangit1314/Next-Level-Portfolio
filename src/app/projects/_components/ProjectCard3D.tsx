@@ -118,7 +118,7 @@ export default function ProjectCard3D({
                 Featured
               </span>
             )}
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-md border border-theme-primary/40 bg-theme-primary/15 text-theme-primary backdrop-blur-sm">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-md border border-theme-primary/40 bg-theme-bg-primary/85 text-theme-primary backdrop-blur-sm">
               AI Agent
             </span>
           </div>
