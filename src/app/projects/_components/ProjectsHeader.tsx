@@ -69,14 +69,14 @@ const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) 
             <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
             <div>
               <div className={`text-3xl font-black text-theme-secondary leading-none tabular-nums ${unbounded.className}`}>
-                {stats.yearsExperience || 2}+
+                {stats.experienceYears || "4+"}
               </div>
               <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Years</div>
             </div>
             <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
             <div>
               <div className={`text-3xl font-black text-theme-accent leading-none tabular-nums ${unbounded.className}`}>
-                {stats.technologies || 24}+
+                {stats.technologiesCount || "24+"}
               </div>
               <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Technologies</div>
             </div>
