@@ -9,9 +9,9 @@ import {
   FiMail,
   FiGithub,
   FiLinkedin,
-  FiTwitter,
   FiArrowUp,
 } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import { MdArrowOutward } from "react-icons/md";
 import { SiNextdotjs, SiVercel } from "react-icons/si";
 import { BugReportDialog } from "../features/BugReportDialog";
@@ -23,21 +23,28 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Was a fully separate hardcoded array with placeholder URLs
+  // (amansoni53453) that didn't match the real handles anywhere else in the
+  // app — fixed to the real ones. Still not unified with `SOCIAL_LINKS`
+  // (constants/socialLinks.tsx) or Sanity's `profile.socialLinks` (Hero) —
+  // three sources for the same data exist across the app; flagged as a
+  // known issue, not consolidated in this pass (icon-shape differs: this
+  // array wants component refs, SOCIAL_LINKS stores rendered JSX).
   const socialLinks = [
     {
       name: "GitHub",
-      url: "https://github.com/amansoni53453",
+      url: "https://github.com/amangit1314",
       icon: FiGithub,
     },
     {
       name: "LinkedIn",
-      url: "https://linkedin.com/in/amansoni53453",
+      url: "https://www.linkedin.com/in/aman-soni1",
       icon: FiLinkedin,
     },
     {
-      name: "Twitter",
-      url: "https://twitter.com/amansoni53453",
-      icon: FiTwitter,
+      name: "X",
+      url: "https://x.com/amanshipss",
+      icon: FaXTwitter,
     },
     {
       name: "Email",

@@ -241,6 +241,16 @@
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    /* `background-clip: text` on a default `inline` element clips to a tight
+       glyph bounding box in Chromium/WebKit — descenders (g, j, p, q, y) get
+       cut off regardless of the parent's line-height. A prior fix (loosening
+       leading-none → leading-[1.1-1.15] sitewide) only addressed line-height
+       and didn't touch this, which is why the clipping persisted. The real
+       fix is on the gradient element itself: give it a real box (inline-block)
+       with room below the baseline for the clip mask to include descenders. */
+    display: inline-block;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
   }
 }
 

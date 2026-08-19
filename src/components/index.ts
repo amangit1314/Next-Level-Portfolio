@@ -15,7 +15,7 @@ export { default as ScrollProgress } from "./layout/ScrollProgress";
 export { Providers } from "./layout/Providers";
 
 // Features
-export { default as AICopilot } from "./features/AICopilot";
+export { default as AICopilot } from "@/features/ai-copilot/components/AICopilot";
 export { default as ThemeSwitcher } from "./features/ThemeSwitcher";
 export { BugReportDialog } from "./features/BugReportDialog";
 
