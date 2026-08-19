@@ -12,8 +12,13 @@ interface ProjectsHeaderProps {
 
 const ProjectsHeader: React.FC<ProjectsHeaderProps> = ({ projectCount, stats }) => {
   return (
-    <div className="relative pt-20 sm:pt-28 pb-12 overflow-hidden">
-      {/* Ambient orbs — fixed, not animated, to avoid layout recalc */}
+    <div className="relative pt-20 sm:pt-28 pb-12">
+      {/* Ambient orbs — fixed, not animated, to avoid layout recalc.
+          overflow-hidden lives here (their own wrapper), not on the outer
+          container — the outer one was redundant for the orbs (already
+          self-clipped) and was the actual cause of the heading's descender
+          clipping, not line-height (two earlier fixes at line-height alone
+          didn't work because this was never a line-height problem). */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-theme-primary/12 blur-[140px] rounded-full" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-theme-secondary/8 blur-[140px] rounded-full" />

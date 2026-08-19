@@ -3,6 +3,14 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  // @huggingface/transformers ships a native ONNX runtime binary
+  // (libonnxruntime.so). Turbopack/webpack bundling it into the serverless
+  // function moves it away from the relative path its own loader expects,
+  // breaking with "libonnxruntime.so.1: cannot open shared object file" at
+  // runtime (confirmed in production logs). Marking it external makes Next.js
+  // `require()` it normally from node_modules at runtime instead of bundling
+  // it, which is the documented fix for this class of native-binary package.
+  serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
   images: {
     qualities: [75, 95, 100],
     remotePatterns: [
