@@ -19,7 +19,16 @@ const MATCH_COUNT = 5;
 const MIN_SIMILARITY = 0.3;
 
 export async function searchContent(query: string): Promise<string> {
-    const queryEmbedding = await embedText(query);
+    let queryEmbedding: number[];
+    try {
+        queryEmbedding = await embedText(query);
+    } catch (e) {
+        // Local embeddings are currently non-functional in production (see
+        // docs/DECISIONS.md) — this catch is what keeps that a degraded
+        // answer instead of a full request crash while it's being sorted out.
+        console.error("searchContent: embedding failed:", e);
+        return "Search is temporarily unavailable. Answer from general knowledge if possible, and say the specifics couldn't be looked up right now.";
+    }
 
     const supabase = getSupabaseServerClient();
     const { data, error } = await supabase.rpc("match_portfolio_chunks", {

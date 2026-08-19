@@ -3,24 +3,15 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  // @huggingface/transformers ships a native ONNX runtime binary
-  // (libonnxruntime.so, via onnxruntime-node). Marking these external stops
-  // Turbopack from bundling them (so `require()` resolves normally at
-  // runtime) — necessary but NOT sufficient on its own: Vercel's own file
-  // tracing (which decides what ships in the deployed function, separate
-  // from bundling) was still leaving the native .so out, confirmed by the
-  // exact same "libonnxruntime.so.1: cannot open shared object file" error
-  // persisting in production after serverExternalPackages alone. The
-  // outputFileTracingIncludes entry below is what actually forces the
-  // binary into the deployment artifact.
+  // @huggingface/transformers (local embeddings) does not fit in Vercel's
+  // 250MB function size limit alongside /api/chat's other dependencies —
+  // 3 attempts (unscoped include: 537MB, linux/x64-only: 361MB, both over
+  // limit) confirmed this isn't fixable by narrowing what's included, only
+  // by not shipping the native onnx binary in this function at all. Local
+  // embeddings are on hold pending a real architecture decision (see
+  // docs/DECISIONS.md) — embedText/embedTexts in lib/ai/embeddings.ts now
+  // fail gracefully instead of crashing the whole chat route when called.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
-  // Scoped to linux/x64 only — Vercel's actual runtime platform. The
-  // original napi-v6/**/* wildcard pulled in darwin/win32/arm64 binaries
-  // too, blowing the function past the 250MB uncompressed size limit
-  // (537MB, confirmed in the failed build's deploy step).
-  outputFileTracingIncludes: {
-    "/api/chat": ["./node_modules/onnxruntime-node/bin/napi-v6/linux/x64/**/*"],
-  },
   images: {
     qualities: [75, 95, 100],
     remotePatterns: [
