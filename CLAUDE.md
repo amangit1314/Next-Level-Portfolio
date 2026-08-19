@@ -119,8 +119,7 @@ src/
       MobileBottomNav.tsx        → Bottom tab bar shown on mobile when menu closed
       ScrollProgress.tsx         → Top progress bar on scroll
       Providers.tsx               → QueryClientProvider (react-query) wrapper
-    features/                  → Self-contained interactive widgets
-      AICopilot.tsx               → Floating AI chat assistant
+    features/                  → Self-contained interactive widgets (UI only — see src/features/ for domain logic)
       ThemeSwitcher.tsx          → Theme selector UI
       BugReportDialog.tsx        → Bug report modal
     cards/                     → Reusable card presentational components
@@ -152,6 +151,14 @@ src/
     themes.ts                 → Theme definitions (colors, names)
     themeUtils.ts             → Theme helper functions
     utils.ts                  → cn() utility
+    ai/groq.ts                → Raw Groq chat-completions client (no domain logic —
+                                  that's in src/features/ai-copilot/services/)
+    ai/embeddings.ts           → Local embeddings (@huggingface/transformers,
+                                  Xenova/all-MiniLM-L6-v2, 384-dim) — zero API cost,
+                                  used by the RAG reindex script + searchContent tool
+  supabase/
+    serverClient.ts             → Service-role Supabase client, server-only. RAG table
+                                  (portfolio_rag_chunks) RLS is service-role-only.
   sanity/
     env.ts                    → Sanity env vars
     lib/client.ts             → Sanity client
@@ -161,9 +168,51 @@ src/
     schemaTypes/              → All schema definitions
     structure.ts              → Sanity Studio structure
   types/                      → TypeScript types for CMS data
-  utils/constants.tsx         → App-wide constants — NOTE: `PROJECTS` here is dead/stale,
-                                do not read it for a project count (see Known Issues)
+  constants/
+    socialLinks.tsx            → SOCIAL_LINKS — replaces old utils/constants.tsx (dead
+                                  EXPERIENCES/PROJECTS/TESTIMONIALS/CONTACT exports deleted,
+                                  all superseded by Sanity)
+  features/                    → Domain slices with real service logic (not UI widgets —
+                                  those stay in components/features/). Only created where
+                                  a domain earns it — see docs/DECISIONS.md 2026-08-19.
+    ai-copilot/
+      components/AICopilot.tsx   → moved from components/features/
+      services/systemPrompt.ts   → candidate-context + system-instruction builder (Sanity)
+      services/tools.ts          → Groq tool-calling definitions
+      types.ts                   → ChatRole/CopilotTool/ThemeMode/PortfolioSection enums
+                                    + ChatMessage/ToolCall types — centralized because each
+                                    is compared in 2+ files (schema + client switch)
+      hooks/useCopilotChat.ts    → messages state, tool executor, sendMessage — component
+                                    stays presentational
+      services/retrieval.ts      → searchContent — embeds query, calls Supabase
+                                    match_portfolio_chunks RPC. Executed server-side
+                                    in api/chat/route.ts, NOT in useCopilotChat's
+                                    client-side executeTool (unlike the other tools).
 ```
+
+**RAG infra (2026-08-19):** Supabase Postgres + pgvector, reusing the existing
+`ApplyPilot` project — dedicated `portfolio_rag_chunks` table, RLS locked to
+service-role. Reindex after any Sanity content edit: `npm run reindex`
+(fetches projects/skills/experience, embeds, upserts — not automatic/webhook).
+`GET /api/keepalive` + daily Vercel Cron (`vercel.json`) keep the Supabase
+free-tier project from pausing after 7 days idle. Full reasoning:
+`docs/DECISIONS.md` 2026-08-19 "Real RAG".
+
+**Central constants/enums (2026-08-19 app-wide pass — don't re-survey, this is current):**
+- `src/types/enums.ts` — `Route` (was hand-typed in 6 files: Header's `pageLinks`,
+  `middleware.ts`, `AICopilot.tsx`, `useCopilotChat.ts`, `Projects.tsx`), `QueryKey`
+  (react-query cache keys, used as `[QueryKey.X]` — array shape, not a bare enum value)
+- `src/config/site.ts` — `SITE_URL`
+- `src/config/query.ts` — `STALE_TIME`, `GC_TIME`, `REQUEST_TIMEOUT_MS`
+- Checked and deliberately left alone (real duplication, not worth centralizing —
+  don't re-flag these): `"Server config error"` string in 2 API routes (each
+  guards a different env var, zero functional risk from divergence); hex colors
+  in `playground/page.tsx` and `terminal/page.tsx` (single-file, semantically
+  local to one visualization, not theme-system colors)
+- Found but NOT yet acted on: `src/components/primitives/Avatar.tsx` and
+  `BackgroundCircles.tsx` have zero importers anywhere in `src/` — dead code,
+  predates the theme system (raw hex borders/gradients, not `bg-theme-*`).
+  Candidate for deletion; ask before removing since not explicitly requested.
 
 ### Key Lookups
 
@@ -194,71 +243,99 @@ src/
 
 ## Explored Map
 
-| Path | What it does | Last touched |
-|------|-------------|--------------|
-| `src/app/page.tsx` | Home page — renders all sections, scroll tracking, mobile menu state. HeroSection + AboutSection rendered directly (no wrapper section) | Phase 1 |
-| `src/app/layout.tsx` | Root layout — fonts, metadata, ThemeProvider > ProfileProvider > children + AICopilot | Phase 1 |
-| `src/app/globals.css` | Tailwind v4 import + all theme CSS variables (:root block) + utility classes | Initial scan |
-| `src/components/HeroSection.tsx` | Section #home — uses useProfile(), HeroSkeleton on load, typewriter, profile image, stats, CTAs | Phase 1 |
-| `src/components/AboutSection.tsx` | Section #about — uses useProfile(), AboutSkeleton on load, bio, tech stack, ExperienceCards | Phase 1 |
-| `src/contexts/ProfileContext.tsx` | ProfileProvider — single Sanity profileQuery fetch, exposes { profile, isLoading } via useProfile() | Phase 1 |
-| `src/components/skeletons/HeroSkeleton.tsx` | Full-height loading skeleton matching HeroSection layout | Phase 1 |
-| `src/components/skeletons/AboutSkeleton.tsx` | Loading skeleton matching AboutSection layout | Phase 1 |
-| `src/components/Header.tsx` | Fixed nav — pageLinks (6 routes), sectionLinks, hamburger sidebar, ThemeSwitcher, Resume download | Initial scan |
-| `src/sanity/lib/queries.ts` | All GROQ queries — profileQuery is the main one (profile + techStack + stats + socialLinks + resume) | Initial scan |
-| `src/lib/fonts.ts` | Next.js font instances: inter, poppins, caveat, unbounded, righteous | Initial scan |
-| `src/contexts/ThemeContext.tsx` | Theme state + CSS variable injection on :root | Initial scan |
-| `src/data/ai-projects.ts` | Static AI project data (used when Sanity has no data) | Initial scan |
-| `src/data/ai-blogs.ts` | Static AI blog metadata | Initial scan |
-| `src/utils/constants.tsx` | PROJECTS constant + other app-wide constants | Initial scan |
+Full-codebase pass done 2026-08-19 (122 files under `src/`). This table is
+current — re-verify only the specific area you're about to touch, don't
+re-survey the whole tree.
+
+| Path | What it does |
+|------|-------------|
+| `src/app/page.tsx` | Home — renders Header, HeroSection, AboutSection, Skills, Experience, Projects, Testimonials, Contact, Footer directly. No wrapper `<section>` anywhere — each section owns its own `<section id="...">`. Confirmed clean 2026-08-19. |
+| `src/app/layout.tsx` | Root layout — fonts, metadata (uses `SITE_URL`), `<StructuredData>` (Person JSON-LD), `Providers` (react-query + nuqs + ThemeProvider), `AICopilot`, `MobileBottomNav` |
+| `src/app/sitemap.ts` | Merges 3 sources: static app routes, static AI blog slugs (`data/ai-blogs.ts`), live Sanity blog slugs. All three needed — the AI blogs aren't in Sanity, dropping them was a real regression caught and fixed 2026-08-19. |
+| `src/app/robots.ts` | Static rules, `sitemap` field uses `SITE_URL` |
+| `src/app/llms.txt/route.ts` | AI-crawler summary (llmstxt.org convention) — merges Sanity projects/skills with static `data/ai-projects.ts` (same merge requirement as sitemap.ts, same bug class, fixed same day) |
+| `src/components/layout/StructuredData.tsx` | Server component, Person JSON-LD from `profileQuery` |
+| `src/components/layout/Header.tsx` | `pageLinks` (uses `Route` enum) + `sectionLinks`, hamburger sidebar, ThemeSwitcher, Resume download |
+| `src/components/sections/*.tsx` | One file per home-page section (Hero, About, Skills, Experience, Projects, Testimonials, Contact) — each owns its own `<section id>`, uses `useProfile()` from `useSanityQuery.ts` |
+| `src/hooks/useSanityQuery.ts` | Every Sanity read goes through here — `useSkills/useExperiences/useProjects/useBlogs/useProfile/useTestimonials/useComponents/useProjectsCount/useAiProjectsCount`. All use `QueryKey` enum + `STALE_TIME` from `config/query.ts`. Single source of truth — don't hand-roll a `client.fetch()` elsewhere. |
+| `src/features/ai-copilot/` | AI Copilot — see "RAG infra" note below, full detail in `docs/DECISIONS.md` |
+| `src/app/api/chat/route.ts` | Thin HTTP wrapper — rate-limits, calls `runCopilotChat()` (chatService.ts), returns JSON |
+| `src/app/dashboard/` | Password-gated analytics dashboard (`page.tsx`, `login/page.tsx`, `layout.tsx`) — gated by `middleware.ts` checking a `dashboard_session` cookie set by `api/dashboard/auth/route.ts`. `api/dashboard/analytics/route.ts` reads Vercel Analytics via `DASHBOARD_VERCEL_TOKEN`. Real domain logic, correctly organized as an App Router route (not `src/features/` — it's a page, not a cross-cutting widget). |
+| `src/app/playground/page.tsx` | Interactive playground — has its own local status-visualization hex colors (`#10b981` etc.), single-file/local, not a theme-system violation |
+| `src/app/terminal/page.tsx` | Terminal UI — `sanityData` state merges `useProfile()` (context) with its own `projects/experiences/skills` fetch |
+| `src/app/components/` | `/components` showcase page + `[slug]` detail page — separate from `src/components/` (the actual React component folder); this is a portfolio content type (reusable code snippets shown off), sourced from `componentsQuery`/`componentBySlugQuery` |
+| `src/app/blogs/` | `page.tsx` (listing), `[slug]/page.tsx` (Sanity-driven posts), plus 3 static bundled posts under their own slug folders (`doc-extraction-agent-visual-grounding/`, etc.) sourced from `data/ai-blogs.ts`, `_components/BlogArticleLayout.tsx` shared layout |
+| `src/app/api/report-bug/route.ts` | 33-line webhook proxy to `N8N_BUG_WEBHOOK_URL` — intentionally not a `src/features/` slice, too small to earn it (checked 2026-08-19) |
+| `src/middleware.ts` | Gates `/dashboard*` + `/api/dashboard*` behind the session cookie; uses `Route.Dashboard` enum |
+| `src/contexts/ThemeContext.tsx` | Theme state + CSS variable injection on `:root` — the only remaining Context (ProfileContext deleted 2026-08-19, react-query replaced it entirely) |
+| `src/stores/uiStore.ts` | Zustand — confirmed genuinely used: `Header.tsx` (mobile menu), `projects/page.tsx` + `useCopilotChat.ts` (AI-Copilot→Projects search handoff) |
+| `src/data/ai-projects.ts` / `ai-blogs.ts` | Static, bundled content — NOT a Sanity fallback, these are permanent hand-authored entries merged alongside Sanity content everywhere they're shown (Projects page, counts, sitemap, llms.txt). A rebuild+redeploy is required to reflect edits. |
+| `src/config/site.ts` | `SITE_URL` |
+| `src/config/query.ts` | `STALE_TIME`, `GC_TIME`, `REQUEST_TIMEOUT_MS` |
+| `src/types/enums.ts` | `Route`, `QueryKey` — project's only centralized cross-file enums |
+| `src/constants/socialLinks.tsx` | `SOCIAL_LINKS` — the one surviving export from the deleted `utils/constants.tsx` |
+| `src/lib/ai/groq.ts` | Raw Groq client, `max_completion_tokens`/`reasoning_effort` for gpt-oss-120b, `AbortSignal.timeout()` |
+| `src/lib/ai/embeddings.ts` | Local embeddings, `@huggingface/transformers`, `Xenova/all-MiniLM-L6-v2`, 384-dim, zero API cost |
+| `src/lib/supabase/serverClient.ts` | Service-role Supabase client, server-only |
+| `scripts/reindex-rag.ts` / `eval-copilot.ts` / `promote-interactions.ts` | `npm run reindex` / `eval` / `eval:review` |
+
+**RAG infra (2026-08-19):** Supabase (`ApplyPilot` project, reused — dedicated
+`portfolio_rag_chunks` + `portfolio_copilot_interactions` tables, RLS
+service-role-only) + pgvector + local embeddings. `searchContent` tool
+resolved server-side in `chatService.ts` (2-pass Groq call). Full reasoning
+and the AI Gateway billing dead-end that led to local embeddings:
+`docs/DECISIONS.md` 2026-08-19 "Real RAG".
 
 ---
 
 ## Known Issues
 
-| Issue | Location | Impact |
-|-------|----------|--------|
-| ~~Double section IDs + double padding~~ | FIXED — HeroSection + AboutSection rendered directly in page.tsx, no wrapper sections | Phase 1 |
-| ~~Sanity data loading — no loading state~~ | FIXED — HeroSkeleton + AboutSkeleton shown while ProfileContext loads | Phase 1 |
-| ~~Double profileQuery fetch~~ | FIXED (again) — Skills.tsx had silently reintroduced this via its own `useProfile` import from `useSanityQuery.ts` (react-query) instead of the shared `ProfileContext`. Fixed to use `ProfileContext` like every other section. **Watch for this recurring** — two hooks are both named `useProfile` (`@/contexts/ProfileContext` vs `@/hooks/useSanityQuery`), easy to import the wrong one. | 2026-08-18 |
-| ~~Project-count stat drift~~ | FIXED — three independent sources disagreed (Hero's stale `profile.stats.projectsCount`, Skills' hardcoded `PROJECTS` array from `utils/constants.tsx`, Projects page's live computation). Unified via `useProjectsCount()`/`useAiProjectsCount()` in `useSanityQuery.ts` — this is now the only place that should compute a project count. | 2026-08-18 |
-| `PROJECTS` array in `utils/constants.tsx` is dead code | Nothing reads it anymore after the count-drift fix above | Cleanup candidate, not yet removed | 2026-08-18 |
-| All Sanity fetches are client-side | `useEffect + client.fetch` in every section — no server fetch, no caching, multiple round trips | Future — server components pass |
-| Skills, Experience, Projects, Contact, Testimonials | Still have section wrappers in page.tsx — may have same double-ID issue, not yet audited | TBD |
+| Issue | Status |
+|-------|--------|
+| ~~Double section IDs + double padding~~ | FIXED, confirmed clean app-wide 2026-08-19 — every home-page section owns its own `<section id>`, page.tsx adds no wrapper |
+| ~~Sanity data loading — no loading state~~ | FIXED — HeroSkeleton + AboutSkeleton |
+| ~~Double/scattered profileQuery fetch~~ | FIXED FOR GOOD 2026-08-19 — `ProfileContext.tsx` deleted, only `hooks/useSanityQuery.ts`'s `useProfile()` exists now. Collision is structurally impossible. |
+| ~~Project-count stat drift~~ | FIXED — unified via `useProjectsCount()`/`useAiProjectsCount()` |
+| ~~`utils/constants.tsx` dead code~~ | FIXED — deleted, `SOCIAL_LINKS` moved to `src/constants/socialLinks.tsx` |
+| ~~Route paths hand-typed in 6 files~~ | FIXED 2026-08-19 — `Route` enum in `src/types/enums.ts` |
+| ~~Sitemap/llms.txt dropped static AI blogs/projects~~ | FIXED 2026-08-19 — a regression from the same day's earlier fix (Sanity-only fetch replaced a list that also needed the static entries); both routes now merge both sources |
+| All Sanity fetches are client-side | `useEffect`/react-query in every section — no server components/fetch yet. Not urgent; noted as future work below. |
+| Rate limiter in `api/chat/route.ts` is in-memory | Resets per server instance — not a real global limit under Vercel's horizontally-scaled Fluid Compute. Proper fix is Upstash Redis (new infra dependency) — flagged, not silently added, your call. |
+| `Avatar.tsx` / `BackgroundCircles.tsx` (primitives) | Zero importers anywhere in `src/` — dead code, predates the theme system (raw hex, not `bg-theme-*`). Not deleted — wasn't asked, flagging for a decision. |
 
 ---
 
 ## Session Learnings
 
-- [Initial scan] Each section component owns its own `<section id="...">` — page.tsx must not add another wrapper section with the same ID.
-- [Initial scan] Theme system is fully custom CSS variables on `:root` — never import or use next-themes.
-- [Phase 1] profileQuery now fetched once via ProfileProvider in layout.tsx. HeroSection + AboutSection use useProfile() hook. Don't add new direct client.fetch(profileQuery) calls anywhere.
-- [Phase 1] HeroSection and AboutSection render skeletons (not null) while loading — eliminates layout shift for those two sections.
-- [Initial scan] `src/data/ai-projects.ts` and `src/data/ai-blogs.ts` are static fallbacks — the real data comes from Sanity. Don't confuse the two.
-- [Initial scan] HeroSection needs `min-h-screen` + full-width background — do NOT wrap it in max-w-7xl from page.tsx.
-- [Phase 1] npm run build fails with "id argument must be of type string" — pre-existing Next.js build worker issue, not caused by our changes. TypeScript type-check passes clean.
-- [2026-08-18] Folder structure listed above WAS stale for months — the actual `components/` split into `sections/`, `layout/`, `cards/`, `features/`, `primitives/`, `skeletons/` happened in a past `refactor(v2)` commit but this doc was never updated to match. Re-verify this doc against `ls src/components` periodically rather than trusting it blindly.
-- [2026-08-18] `src/stores/uiStore.ts` (Zustand) already exists for cross-component client UI state — use it for new global UI state instead of a new Context or a `window.dispatchEvent`/CustomEvent hack (found and replaced one: AICopilot → Projects page search used a CustomEvent, now goes through `uiStore.pendingProjectSearch`). Never put Sanity/server data in this store — that's react-query's job via `useSanityQuery.ts`.
-- [2026-08-18] Any new "stat" derived from Sanity content (counts, totals) must go through a shared hook in `useSanityQuery.ts`, not a fresh per-component `client.fetch()` or a hardcoded fallback array — this exact mistake caused 3 independent project-count values to drift in three different places before being caught.
+- Each section component owns its own `<section id="...">` — page.tsx must not add another wrapper section with the same ID. Confirmed true app-wide, not just Hero/About.
+- Theme system is fully custom CSS variables on `:root` — never import or use next-themes.
+- `src/data/ai-projects.ts` and `ai-blogs.ts` are NOT Sanity fallbacks — they're permanent static content merged alongside Sanity everywhere content is aggregated (project/blog lists, counts, sitemap, llms.txt). Any new aggregation point (a new count, a new feed, a new crawler-facing route) must merge both sources or it'll silently under-report — this exact mistake happened twice in one day (sitemap.ts, then llms.txt) before being caught.
+- `npm run build` fails with "id argument must be of type string" — pre-existing Next.js build worker issue, unrelated to app changes. `tsc --noEmit` is the reliable check.
+- `src/stores/uiStore.ts` (Zustand) is for cross-component client UI state only (mobile menu, AI-Copilot→Projects search handoff) — never Sanity/server data, that's react-query's job.
+- Any new "stat" derived from Sanity content must go through `useSanityQuery.ts`, never a fresh per-component `client.fetch()` — this caused a 3-way count drift before being caught once already.
+- Centralize a value into `src/types/enums.ts`/`src/config/` only when compared/branched on in 2+ files (the drift-test in `~/.claude/CLAUDE.md`). Checked and deliberately left alone 2026-08-19: `"Server config error"` string duplicated in 2 API routes (each guards a different env var, zero functional risk), hex colors in `playground/page.tsx`/`terminal/page.tsx` (single-file, local to one visualization). Don't re-flag these.
+- AI-copilot's own enums (`ChatRole`, `CopilotTool`, `ThemeMode`, `PortfolioSection`) deliberately stay in `features/ai-copilot/types.ts`, not the central `enums.ts` — compared only within that one feature, centralizing would be indirection with no second consumer to protect.
+- `src/features/` is reserved for domains with real service logic that aren't a page (currently only `ai-copilot`). Checked 2026-08-19: bug-report (33-line webhook proxy) and dashboard (real logic, but it's already a correctly-organized App Router route, not a widget) don't qualify — don't promote them without new logic that actually earns it.
 
 ---
 
 ## Growth Tips — AI Engineer Path
 
-These are patterns in this codebase worth owning, not just accepting:
-
 ### Study Queue (from this codebase)
-- [ ] **Framer Motion `layoutId`** — used in Header for active nav pill animation. Understand why it needs a stable `layoutId` across renders.
-- [ ] **CSS Custom Properties cascade** — how `var(--theme-primary)` in `:root` gets consumed by Tailwind v4's `@theme` block. This is Tailwind v4's new "CSS-first config."
-- [ ] **Next.js `metadata` API** — `layout.tsx` has full OG + Twitter + robots config. Worth knowing for SEO.
-- [ ] **GROQ query language** — `profileQuery` in `sanity/lib/queries.ts`. Understand the `->` dereference operator and projection syntax.
-- [ ] **Framer Motion `whileInView` + `viewport`** — used in AboutSection for scroll-triggered animations. Learn `once: true` vs repeated.
+- [ ] **Framer Motion `layoutId`** — Header's active nav pill animation.
+- [ ] **CSS Custom Properties cascade** — `var(--theme-primary)` → Tailwind v4's `@theme` block.
+- [ ] **Next.js `metadata` API** — `layout.tsx`'s OG + Twitter + robots config.
+- [ ] **GROQ query language** — `->` dereference + projection syntax in `sanity/lib/queries.ts`.
+- [ ] **pgvector + HNSW indexing** — `docs/DECISIONS.md`'s RAG entry; understand cosine distance (`<=>`) vs the similarity floor used in `retrieval.ts`.
+- [ ] **Reasoning-model token budgets** — why gpt-oss-120b needed `max_completion_tokens` + `reasoning_effort` instead of the old `max_tokens` (see Groq model-swap decision).
 
 ### What to build next (portfolio impact, high signal for AI Engineer roles)
-1. ~~**Shared Sanity data context**~~ — DONE. ProfileProvider in layout.tsx, useProfile() in Hero + About.
-2. ~~**Loading skeletons for Hero + About**~~ — DONE. HeroSkeleton + AboutSkeleton wired.
-3. **Audit remaining sections for double-ID** — Skills, Experience, Projects, Contact may also have duplicate section wrappers in page.tsx. Quick grep job.
-4. **Convert Sanity fetches to server components** — right now everything is client-side `useEffect`. Moving to `async` Server Components with `cache()` would show you understand Next.js rendering model deeply. High employer signal.
-5. **AI Copilot with RAG (Groq)** — `AICopilot.tsx` exists but the `/api/chat` endpoint is likely a stub. Wire it with Groq (llama-3.3-70b), RAG over Sanity content. The highest-signal portfolio piece for AI Engineer roles.
-6. **Hero + About positioning copy** — rewrite headline and bio to signal AI Engineer seniority, not just list tech.
-7. **Blog content from Sanity with MDX** — check if blog pulls real Sanity content or static data.
+1. ~~Shared Sanity data context~~ — DONE, then further consolidated onto react-query only (ProfileContext deleted).
+2. ~~Loading skeletons for Hero + About~~ — DONE.
+3. ~~Audit remaining sections for double-ID~~ — DONE, confirmed clean 2026-08-19.
+4. ~~AI Copilot with real RAG~~ — DONE 2026-08-19 (Groq gpt-oss-120b, Supabase pgvector, local embeddings).
+5. ~~Eval harness~~ — DONE 2026-08-19 (`npm run eval`, 12 golden questions, no LLM judge).
+6. **Convert Sanity fetches to server components** — still client-side `useEffect`/react-query everywhere. Moving key pages to `async` Server Components with `cache()` is the next high-signal Next.js-rendering-model demonstration. Not started.
+7. **Streaming chat responses** — copilot still returns a single blocking JSON response. Token-by-token streaming is expected UX for a production LLM chat surface.
+8. **Rate limiting via Upstash Redis** — replace the in-memory Map (see Known Issues).
+9. Hero + About positioning copy — still worth a pass for AI-engineer-seniority signal specifically.

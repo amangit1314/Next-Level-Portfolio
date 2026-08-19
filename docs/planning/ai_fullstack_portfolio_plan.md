@@ -1,3 +1,12 @@
+> **Status (2026-08-19):** Original aspirational plan — partially superseded by
+> what's actually shipped since. Real RAG (Supabase pgvector + local embeddings),
+> the eval harness, and the AI Copilot restructure are DONE — see
+> `docs/DECISIONS.md` for what was actually built and why (may differ in
+> approach from what's proposed below, e.g. no LlamaIndex/hybrid-search/reranking
+> — a local-embedding + pgvector setup was the right scope for this content
+> size). Treat this file as directional history, not a current source of truth
+> for what exists; `docs/DECISIONS.md` and `CLAUDE.md` are current.
+
 # Transition Plan: Top 1% AI Engineer & Full-Stack Architect Portfolio (Groq + Vercel)
 
 This document outlines the strategy, architecture, and step-by-step roadmap to transform a standard full-stack developer portfolio into an elite showcase for a **4 to 5 Years of Experience (YOE) AI Engineer + Full-Stack Architect**. 
