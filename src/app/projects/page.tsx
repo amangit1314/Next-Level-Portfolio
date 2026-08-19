@@ -5,7 +5,8 @@ import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
-import { projectsQuery, profileQuery, skillsQuery } from "@/sanity/lib/queries";
+import { projectsQuery, skillsQuery } from "@/sanity/lib/queries";
+import { useProfile } from "@/hooks/useSanityQuery";
 import { inter, unbounded } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -35,9 +36,10 @@ const MAX_FILTER_CHIPS = 10;
 
 const ProjectsContent = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [stats, setStats] = useState<ProfileStats>({});
+  const [technologiesCount, setTechnologiesCount] = useState<string>("");
   const [loading, setLoading] = useState(true);
-  
+  const { data: profile } = useProfile();
+
   const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
   const [selectedCategory, setSelectedCategory] = useQueryState("cat", parseAsString.withDefault("All"));
   const [activeTab, setActiveTab] = useQueryState("view", parseAsString.withDefault("featured"));
@@ -45,19 +47,12 @@ const ProjectsContent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [projectsData, profileData, skillsData] = await Promise.all([
-          client.fetch(projectsQuery),
-          client.fetch(profileQuery),
-          client.fetch(skillsQuery),
-        ]);
+        const [projectsData, skillsData] = await Promise.all([client.fetch(projectsQuery), client.fetch(skillsQuery)]);
         setProjects([...aiProjects.filter((p) => !p.hidden), ...projectsData]);
         // technologiesCount is derived live from actual skill docs rather than
         // the hand-maintained profile.stats field, which drifts every time a
         // skill is added/removed (see: years-of-experience consistency fix).
-        setStats({
-          ...profileData?.stats,
-          technologiesCount: `${skillsData?.length ?? 0}+`,
-        });
+        setTechnologiesCount(`${skillsData?.length ?? 0}+`);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -66,6 +61,11 @@ const ProjectsContent = () => {
     };
     fetchData();
   }, []);
+
+  // profile comes from the shared ProfileContext (already fetched once in
+  // layout.tsx) — this page only needs to layer its own live technologiesCount
+  // on top, not re-fetch the whole profile.
+  const stats: ProfileStats = { ...profile?.stats, technologiesCount };
 
   // AI Co-pilot same-page search handoff via uiStore — nuqs `q` param
   // stays the canonical source of truth for the search box; this just

@@ -5,7 +5,7 @@ import { inter, unbounded } from "@/lib/fonts";
 import SkillCard from "../cards/SkillCard";
 import { useState } from "react";
 import { useSkills, useProjectsCount } from "@/hooks/useSanityQuery";
-import { useProfile } from "@/contexts/ProfileContext";
+import { useProfile } from "@/hooks/useSanityQuery";
 
 const ORDERED_CATEGORIES = [
   "Frontend",
@@ -19,7 +19,7 @@ const ORDERED_CATEGORIES = [
 
 const Skills = () => {
   const { data: skills = [] } = useSkills();
-  const { profile } = useProfile();
+  const { data: profile } = useProfile();
   const { data: liveProjectsCount } = useProjectsCount();
   const [activeCategory, setActiveCategory] = useState("All");
 

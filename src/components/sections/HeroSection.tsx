@@ -5,9 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FiArrowDown, FiExternalLink } from "react-icons/fi";
-import { useProfile } from "@/contexts/ProfileContext";
+import { useProfile } from "@/hooks/useSanityQuery";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
-import type { SocialLink } from "@/types/profile";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
 
@@ -18,7 +17,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 const HeroSection = () => {
-  const { profile, isLoading } = useProfile();
+  const { data: profile, isLoading } = useProfile();
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -47,7 +46,7 @@ const HeroSection = () => {
       if (displayedText.length > 0) {
         timeout = setTimeout(() => setDisplayedText(displayedText.slice(0, -1)), 40);
       } else {
-        setCurrentTextIndex((prev) => (prev + 1) % profile.typewriterTexts.length);
+        setCurrentTextIndex((prev) => (prev + 1) % (profile.typewriterTexts?.length ?? 1));
         setIsTyping(true);
       }
     }
@@ -96,7 +95,7 @@ const HeroSection = () => {
               <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-theme-bg-secondary border border-theme-border/50">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className={`text-xs font-medium text-theme-text-secondary ${inter.className}`}>
-                  Available for new projects
+                  Open to full-time opportunities
                 </span>
               </div>
             </motion.div>
@@ -175,10 +174,10 @@ const HeroSection = () => {
             </motion.div>
 
             {/* Social links */}
-            {profile.socialLinks?.length > 0 && (
+            {(profile.socialLinks?.length ?? 0) > 0 && (
               <motion.div {...fadeUp(0.35)} className="flex items-center justify-center lg:justify-start gap-2.5">
-                {profile.socialLinks.map((social: SocialLink) => {
-                  const Icon = getIcon(social.iconName);
+                {profile.socialLinks!.map((social: NonNullable<typeof profile.socialLinks>[number]) => {
+                  const Icon = getIcon(social.iconName ?? "");
                   return (
                     <motion.a
                       key={social.platform ?? social.url}

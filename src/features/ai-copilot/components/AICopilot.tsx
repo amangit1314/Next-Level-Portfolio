@@ -1,200 +1,32 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageSquare, FiX, FiSend, FiCpu, FiZap, FiDownload } from "react-icons/fi";
-import { useTheme } from "@/contexts/ThemeContext";
-import { useUIStore } from "@/stores/uiStore";
-import { client } from "@/sanity/lib/client";
-import { profileQuery } from "@/sanity/lib/queries";
 import { unbounded, inter } from "@/lib/fonts";
-
-interface Message {
-  role: "user" | "assistant" | "system";
-  content: string;
-  isError?: boolean;
-}
+import { ChatRole } from "../types";
+import { useCopilotChat } from "../hooks/useCopilotChat";
+import { Route } from "@/types/enums";
 
 export const AICopilot = () => {
   const pathname = usePathname();
-  const setPendingProjectSearch = useUIStore((s) => s.setPendingProjectSearch);
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content: "Hello! I am your AI Co-pilot. I can answer questions about Aman's experience, skills, and projects, or directly run commands on this website. Try asking me to switch themes, search projects, or scroll to a section!",
-    },
-  ]);
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
-
-  const { currentTheme, setTheme, availableThemes } = useTheme();
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const { messages, isLoading, sendMessage, chatEndRef } = useCopilotChat();
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Auto scroll to bottom of chat
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading]);
-
-  // Fetch profile to retrieve resume url dynamically
-  useEffect(() => {
-    const fetchResume = async () => {
-      try {
-        const profile = await client.fetch(profileQuery);
-        if (profile?.resume?.asset?.url) {
-          setResumeUrl(profile.resume.asset.url);
-        }
-      } catch (e) {
-        console.error("Failed to fetch resume URL for co-pilot:", e);
-      }
-    };
-    fetchResume();
-  }, []);
-
   // Hide on terminal and sanity studio routes
-  if (pathname === "/terminal" || pathname === "/studio" || pathname?.startsWith("/studio")) {
+  if (pathname === Route.Terminal || pathname === Route.Studio || pathname?.startsWith(Route.Studio)) {
     return null;
   }
 
-  const handleSendMessage = async (textToSend?: string) => {
-    const query = (textToSend || input).trim();
-    if (!query || isLoading) return;
-
+  const handleSendMessage = (textToSend?: string) => {
+    const query = textToSend || input;
     if (!textToSend) {
       setInput("");
     }
-
-    const newUserMessage: Message = { role: "user", content: query };
-    const updatedMessages = [...messages, newUserMessage];
-    setMessages(updatedMessages);
-    setIsLoading(true);
-
-    try {
-      // Proxy chat route
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: updatedMessages.map(({ role, content }) => ({ role, content })),
-        }),
-      });
-
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to communicate with LLM proxy");
-      }
-
-      const data = await response.json();
-
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: data.content || "",
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-
-      // Check for tool calls / function calling
-      if (data.tool_calls && Array.isArray(data.tool_calls)) {
-        for (const toolCall of data.tool_calls) {
-          executeTool(toolCall);
-        }
-      }
-    } catch (e: any) {
-      console.error("Co-pilot chat error:", e);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: e.message || "An unexpected error occurred. Please try again.",
-          isError: true,
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Client-Side Tool Executor
-  const executeTool = (toolCall: any) => {
-    const { name, arguments: argsString } = toolCall.function || {};
-    if (!name) return;
-
-    let args: any = {};
-    try {
-      args = argsString ? JSON.parse(argsString) : {};
-    } catch (e) {
-      console.error("Failed to parse tool arguments:", e);
-    }
-
-    console.log("Executing tool:", name, args);
-
-    switch (name) {
-      case "changeTheme":
-        const targetTheme = args.theme;
-        if (targetTheme === "light") {
-          setTheme("coffee-latte");
-          addSystemLog("Theme switched to Coffee Latte (Light Mode)");
-        } else if (targetTheme === "dark") {
-          // Switch to emerald or purple
-          setTheme("forest-emerald");
-          addSystemLog("Theme switched to Forest Emerald (Dark Mode)");
-        }
-        break;
-
-      case "scrollToSection":
-        const section = args.section;
-        const element = document.getElementById(section);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-          addSystemLog(`Scrolled to section: ${section}`);
-        } else {
-          // If on subpage, redirect to home with anchor
-          window.location.href = `/#${section}`;
-        }
-        break;
-
-      case "searchProjects":
-        const query = args.query;
-        if (query) {
-          // Check if on projects subpage
-          if (window.location.pathname === "/projects") {
-            setPendingProjectSearch(query);
-            addSystemLog(`Searching projects: "${query}"`);
-          } else {
-            // Redirect — "q" matches the Projects page's nuqs search param.
-            window.location.href = `/projects?q=${encodeURIComponent(query)}`;
-          }
-        }
-        break;
-
-      case "downloadResume":
-        if (resumeUrl) {
-          window.open(resumeUrl, "_blank");
-          addSystemLog("Resume downloaded/opened in new tab");
-        } else {
-          // Trigger click on DOM element if exists
-          const cvBtn = document.querySelector("a[href*='resume']") as HTMLAnchorElement;
-          if (cvBtn) {
-            cvBtn.click();
-            addSystemLog("CV download triggered");
-          } else {
-            addSystemLog("Resume URL is currently unavailable.");
-          }
-        }
-        break;
-
-      default:
-        console.warn("Unknown tool called:", name);
-    }
-  };
-
-  const addSystemLog = (text: string) => {
-    setMessages((prev) => [...prev, { role: "system", content: `⚙️ [System Command] ${text}` }]);
+    sendMessage(query);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -279,8 +111,8 @@ export const AICopilot = () => {
               className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar"
             >
               {messages.map((msg, index) => {
-                const isSystem = msg.role === "system";
-                const isUser = msg.role === "user";
+                const isSystem = msg.role === ChatRole.System;
+                const isUser = msg.role === ChatRole.User;
 
                 if (isSystem) {
                   return (

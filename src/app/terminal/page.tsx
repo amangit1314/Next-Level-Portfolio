@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { client } from "@/sanity/lib/client";
-import { profileQuery, projectsQuery, experiencesQuery, skillsQuery } from "@/sanity/lib/queries";
+import { projectsQuery, experiencesQuery, skillsQuery } from "@/sanity/lib/queries";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useProfile } from "@/hooks/useSanityQuery";
 import Header from "@/components/layout/Header";
 
 interface TerminalLine {
@@ -26,6 +27,7 @@ export default function TerminalPage() {
 
   
   const { currentTheme, setTheme } = useTheme();
+  const { data: profile } = useProfile();
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,23 +43,27 @@ export default function TerminalPage() {
     terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history, booted]);
 
-  // Fetch Sanity Data on Mount
+  // Fetch Sanity Data on Mount — profile comes from the shared ProfileContext
+  // (already fetched once in layout.tsx), only these three are terminal-specific.
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [profile, projects, experiences, skills] = await Promise.all([
-          client.fetch(profileQuery),
+        const [projects, experiences, skills] = await Promise.all([
           client.fetch(projectsQuery),
           client.fetch(experiencesQuery),
           client.fetch(skillsQuery),
         ]);
-        setSanityData({ profile, projects, experiences, skills });
+        setSanityData((prev: typeof sanityData) => ({ ...prev, projects, experiences, skills }));
       } catch (e) {
         console.error("Failed to load sanity data for terminal:", e);
       }
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setSanityData((prev: typeof sanityData) => ({ ...prev, profile }));
+  }, [profile]);
 
   // Boot sequence animation
   useEffect(() => {

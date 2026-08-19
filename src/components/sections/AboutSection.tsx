@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FiCode, FiServer, FiArrowRight, FiAward, FiUsers, FiTrendingUp, FiCpu } from "react-icons/fi";
 import ExperienceCard from "../cards/ExperienceCard";
 import { inter, unbounded, jetbrainsMono } from "@/lib/fonts";
-import { useProfile } from "@/contexts/ProfileContext";
+import { useProfile } from "@/hooks/useSanityQuery";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
 import {
   SiReact, SiNodedotjs, SiMongodb, SiTypescript, SiNextdotjs, SiTailwindcss,
@@ -55,7 +55,7 @@ const reveal = {
 };
 
 export const AboutSection = () => {
-  const { profile, isLoading } = useProfile();
+  const { data: profile, isLoading } = useProfile();
 
   const getTechIcon = (techName: string) =>
     skillToIconMap[techName.trim()] ?? SiJavascript;
@@ -150,13 +150,13 @@ export const AboutSection = () => {
             </div>
 
             {/* Tech Stack */}
-            {profile.techStackPreview?.length > 0 && (
+            {(profile.techStackPreview?.length ?? 0) > 0 && (
               <div className="v2-card p-5">
                 <div className={`text-sm font-semibold text-theme-text-primary mb-4 ${unbounded.className}`}>
                   Tech Stack
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  {profile.techStackPreview.map((techName: string) => {
+                  {profile.techStackPreview!.map((techName: string) => {
                     const Icon = getTechIcon(techName);
                     return (
                       <motion.div
@@ -223,14 +223,14 @@ export const AboutSection = () => {
             </motion.div>
 
             {/* Key Strengths */}
-            {profile.keyStrengths?.length > 0 && (
+            {(profile.keyStrengths?.length ?? 0) > 0 && (
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 className="space-y-2.5"
               >
-                {profile.keyStrengths.map((strength: string, i: number) => (
+                {profile.keyStrengths!.map((strength: string, i: number) => (
                   <motion.div
                     key={strength}
                     custom={i}

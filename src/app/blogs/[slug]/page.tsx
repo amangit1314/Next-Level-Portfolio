@@ -6,12 +6,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiArrowLeft, FiCalendar, FiClock, FiUser } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
-import { blogBySlugQuery, profileQuery } from "@/sanity/lib/queries";
+import { blogBySlugQuery } from "@/sanity/lib/queries";
 import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { BlogPostSkeleton } from "@/components/skeletons/BlogPostSkeleton";
+import { useProfile } from "@/hooks/useSanityQuery";
 
 interface BlogPost {
   _id: string;
@@ -41,31 +42,19 @@ interface BlogPost {
   publishedAt: string;
 }
 
-interface ProfileData {
-  name: string;
-  profileImage?: {
-    asset: {
-      url: string;
-    };
-  };
-}
-
 const BlogPostPage = () => {
   const params = useParams();
   const slug = params?.slug as string;
   const [blog, setBlog] = useState<BlogPost | null>(null);
-  const [profile, setProfile] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const { data: profile } = useProfile();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [blogData, profileData] = await Promise.all([
-          client.fetch(blogBySlugQuery, { slug }),
-          client.fetch(profileQuery),
-        ]);
+        const blogData = await client.fetch(blogBySlugQuery, { slug });
         setBlog(blogData);
-        setProfile(profileData);
       } catch (error) {
         console.error("Error fetching blog:", error);
       } finally {
