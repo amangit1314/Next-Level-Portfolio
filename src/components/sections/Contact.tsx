@@ -1,6 +1,6 @@
 "use client";
 
-import { SOCIAL_LINKS } from "@/utils/constants";
+import { SOCIAL_LINKS } from "@/constants/socialLinks";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaMailBulk } from "react-icons/fa";

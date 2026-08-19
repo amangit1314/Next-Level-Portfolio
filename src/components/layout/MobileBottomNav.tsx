@@ -3,26 +3,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import {
-  FiHome,
-  FiUser,
-  FiCode,
-  FiBriefcase,
-  FiMail,
-  FiGithub,
-} from "react-icons/fi";
 import { inter } from "@/lib/fonts";
+import { sectionLinks } from "./Header";
+import { SectionId, SectionLabel } from "@/types/enums";
 
-const SECTION_IDS = ["home", "about", "skills", "experience", "projects", "contact"];
+// Was its own independently-hardcoded array (same 6 sections, different
+// labels/icons) — real drift risk, since adding/renaming a section in
+// Header's sectionLinks wouldn't touch this file. Now derives from Header's
+// exported source of truth; only the compact-tab-bar label/icon choice stays local.
+const SECTION_IDS = sectionLinks.map((s) => s.id);
 
-const navLinks = [
-  { name: "Home",     path: "#home",       id: "home",       icon: FiHome },
-  { name: "About",    path: "#about",      id: "about",      icon: FiUser },
-  { name: "Skills",   path: "#skills",     id: "skills",     icon: FiCode },
-  { name: "Work",     path: "#experience", id: "experience", icon: FiBriefcase },
-  { name: "Projects", path: "#projects",   id: "projects",   icon: FiGithub },
-  { name: "Contact",  path: "#contact",    id: "contact",    icon: FiMail },
-];
+const navLinks = sectionLinks.map((s) => ({
+  name: s.id === SectionId.Experience ? SectionLabel.Work : s.name === SectionLabel.Intro ? SectionLabel.Home : s.name,
+  path: `#${s.id}`,
+  id: s.id,
+  icon: s.icon,
+}));
 
 // Self-contained: tracks its own scroll state, needs no props
 const MobileBottomNav = () => {

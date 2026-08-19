@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { unbounded, jetbrainsMono } from "@/lib/fonts";
 import ProjectCard from "../cards/ProjectCard";
+import { Route } from "@/types/enums";
 import { aiProjects } from "@/data/ai-projects";
 import { useProjects } from "@/hooks/useSanityQuery";
 
@@ -78,7 +79,7 @@ const Projects = () => {
           className="text-center mt-10 sm:mt-16"
         >
           <a
-            href="/projects"
+            href={Route.Projects}
             className={`group inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${unbounded.className}`}
           >
             Discover All Projects

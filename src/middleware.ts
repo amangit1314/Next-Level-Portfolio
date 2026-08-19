@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Route } from "@/types/enums";
 
 // Gates every /dashboard route (except the login page + its auth API) behind
 // a session cookie. The cookie value is an opaque secret set by
@@ -8,8 +9,8 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isPublic =
-    pathname === "/dashboard/login" || pathname === "/api/dashboard/auth";
-  if (!pathname.startsWith("/dashboard") && !pathname.startsWith("/api/dashboard")) {
+    pathname === `${Route.Dashboard}/login` || pathname === "/api/dashboard/auth";
+  if (!pathname.startsWith(Route.Dashboard) && !pathname.startsWith("/api/dashboard")) {
     return NextResponse.next();
   }
   if (isPublic) {

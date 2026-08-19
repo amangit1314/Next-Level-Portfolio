@@ -20,25 +20,27 @@ import { usePathname, useRouter } from "next/navigation";
 import { Variants, Transition } from "framer-motion";
 import ThemeSwitcher from "../features/ThemeSwitcher";
 import Magnetic from "../primitives/Magnetic";
+import { Route, SectionId, SectionLabel } from "@/types/enums";
+import { useProfile } from "@/hooks/useSanityQuery";
 
 // PAGE-LEVEL NAV (top bar)
 export const pageLinks = [
-  { name: "Home", path: "/", icon: FiHome },
-  { name: "Projects", path: "/projects", icon: FiGithub },
-  { name: "Playground", path: "/playground", icon: FiSliders },
-  { name: "Terminal", path: "/terminal", icon: FiTerminal },
-  { name: "Components", path: "/components", icon: FiLayers },
-  { name: "Blogs", path: "/blogs", icon: FiFileText },
+  { name: "Home", path: Route.Home, icon: FiHome },
+  { name: "Projects", path: Route.Projects, icon: FiGithub },
+  { name: "Playground", path: Route.Playground, icon: FiSliders },
+  { name: "Terminal", path: Route.Terminal, icon: FiTerminal },
+  { name: "Components", path: Route.Components, icon: FiLayers },
+  { name: "Blogs", path: Route.Blogs, icon: FiFileText },
 ];
 
 // SECTION NAV (used only on home page in a separate vertical component)
 export const sectionLinks = [
-  { name: "Intro", id: "home", icon: FiHome },
-  { name: "About", id: "about", icon: FiBriefcase },
-  { name: "Skills", id: "skills", icon: FiLayers },
-  { name: "Experience", id: "experience", icon: FiBookOpen },
-  { name: "Projects", id: "projects", icon: FiGithub },
-  { name: "Contact", id: "contact", icon: FiMail },
+  { name: SectionLabel.Intro, id: SectionId.Home, icon: FiHome },
+  { name: SectionLabel.About, id: SectionId.About, icon: FiBriefcase },
+  { name: SectionLabel.Skills, id: SectionId.Skills, icon: FiLayers },
+  { name: SectionLabel.Experience, id: SectionId.Experience, icon: FiBookOpen },
+  { name: SectionLabel.Projects, id: SectionId.Projects, icon: FiGithub },
+  { name: SectionLabel.Contact, id: SectionId.Contact, icon: FiMail },
 ];
 
 export const sidebarTransition: Transition = {
@@ -83,6 +85,11 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  // Resume was hardcoded to a static bundled PDF here (stale — required a
+  // redeploy to update) while every other resume link (Hero, terminal,
+  // AI Copilot) already read the live Sanity-uploaded file. Consolidated.
+  const { data: profile } = useProfile();
+  const resumeUrl = profile?.resume?.asset?.url;
 
   // Check if mobile
   useEffect(() => {
@@ -215,7 +222,7 @@ const Header = () => {
               {/* Resume Button */}
               <Magnetic>
                 <motion.a
-                  href="/assets/aman_resume_new.pdf"
+                  href={resumeUrl || "/assets/aman_resume_new.pdf"}
                   download
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
