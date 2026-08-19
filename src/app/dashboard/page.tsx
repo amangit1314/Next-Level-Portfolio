@@ -64,7 +64,6 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchData(days);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days]);
 
   const handleLogout = async () => {

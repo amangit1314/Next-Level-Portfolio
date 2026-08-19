@@ -31,8 +31,15 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
         // Apply theme immediately
         applyThemeVariables(theme);
+        /* eslint-disable react-hooks/set-state-in-effect -- reading
+           localStorage during a lazy useState initializer (the rule's
+           suggested fix) would run on the client's first render pass and
+           mismatch SSR's getDefaultTheme() output, causing a real hydration
+           error. Loading after mount via effect is the correct pattern
+           here, not a bug. */
         setCurrentTheme(theme);
         setIsInitialized(true);
+        /* eslint-enable react-hooks/set-state-in-effect */
 
         // Re-enable transitions after a short delay
         setTimeout(() => {

@@ -18,8 +18,11 @@ export default function TerminalPage() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [booted, setBooted] = useState(false);
+  // profile is NOT stored here — it comes straight from useProfile() below.
+  // It used to be synced in via a separate effect (setSanityData({...profile})
+  // on every profile change), which is exactly the anti-pattern of copying
+  // external state into local state instead of reading it directly.
   const [sanityData, setSanityData] = useState<any>({
-    profile: null,
     projects: [],
     experiences: [],
     skills: [],
@@ -60,10 +63,6 @@ export default function TerminalPage() {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    setSanityData((prev: typeof sanityData) => ({ ...prev, profile }));
-  }, [profile]);
 
   // Boot sequence animation
   useEffect(() => {
@@ -177,7 +176,6 @@ export default function TerminalPage() {
   };
 
   const printAbout = () => {
-    const profile = sanityData.profile;
     const desc = profile?.longBio || profile?.shortBio || "AI Engineer & Full-Stack Architect (4-5 YOE). Specialize in LangGraph, vector-search pipelines, low latency APIs, and robust front-ends.";
     const lines = [
       `NAME: ${profile?.name || "Aman Soni"}`,
@@ -265,7 +263,6 @@ export default function TerminalPage() {
   };
 
   const printContact = () => {
-    const profile = sanityData.profile;
     const lines = [
       "Contact Details:",
       "  GitHub:   github.com/amangit1314",
@@ -280,7 +277,7 @@ export default function TerminalPage() {
   };
 
   const triggerDownload = () => {
-    const url = sanityData.profile?.resume?.asset?.url;
+    const url = profile?.resume?.asset?.url;
     if (url) {
       window.open(url, "_blank");
       setHistory((prev) => [...prev, { text: "Resume PDF download triggered.", type: "system" }]);

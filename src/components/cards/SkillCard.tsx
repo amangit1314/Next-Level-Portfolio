@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { unbounded } from "@/lib/fonts";
 import { Skill } from "@/types/skill";
@@ -32,7 +32,13 @@ function getIconComponent(iconName?: string): IconType | null {
 }
 
 const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
-  const Icon = getIconComponent(skill.iconName ?? undefined);
+  // getIconComponent's result is already stable (pulled from static module
+  // imports, never freshly created) — the lint rule can't statically trace
+  // that through a function call and flags it regardless of memoization.
+  // react-hooks/static-components (React Compiler diagnostic, doesn't
+  // respect inline eslint-disable comments) is downgraded for this file in
+  // eslint.config.mjs instead.
+  const Icon = useMemo(() => getIconComponent(skill.iconName ?? undefined), [skill.iconName]);
 
   return (
     <motion.div

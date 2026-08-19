@@ -46,8 +46,16 @@ const HeroSection = () => {
       if (displayedText.length > 0) {
         timeout = setTimeout(() => setDisplayedText(displayedText.slice(0, -1)), 40);
       } else {
+        /* eslint-disable react-hooks/set-state-in-effect -- this effect is
+           the typewriter's own sequencer (advance to the next phrase once
+           backspacing hits zero length), not state synced from an external
+           source. Restructuring into a reducer/interval to satisfy the rule
+           risks changing the animation's actual behavior with no way to
+           visually verify the result this session — left as a documented,
+           deliberate exception rather than a blind refactor. */
         setCurrentTextIndex((prev) => (prev + 1) % (profile.typewriterTexts?.length ?? 1));
         setIsTyping(true);
+        /* eslint-enable react-hooks/set-state-in-effect */
       }
     }
     return () => clearTimeout(timeout);
