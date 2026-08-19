@@ -18,13 +18,15 @@ const inter = Inter({
 
 import { Providers } from "@/components/layout/Providers";
 import ScrollProgress from "@/components/layout/ScrollProgress";
-import AICopilot from "@/components/features/AICopilot";
+import AICopilot from "@/features/ai-copilot/components/AICopilot";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
+import StructuredData from "@/components/layout/StructuredData";
+import { SITE_URL } from "@/config/site";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://amansoni.dev"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Aman Soni | AI Engineer & Full-Stack Architect — Next Level Portfolio",
     template: "%s | Aman Soni Portfolio",
@@ -51,13 +53,13 @@ export const metadata: Metadata = {
     "Machine Learning Engineer",
     "Portfolio Website",
   ],
-  authors: [{ name: "Aman Soni", url: "https://amansoni.dev" }],
+  authors: [{ name: "Aman Soni", url: SITE_URL }],
   creator: "Aman Soni",
   publisher: "Aman Soni",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://amansoni.dev",
+    url: SITE_URL,
     siteName: "Aman Soni — Next Level Portfolio",
     title: "Aman Soni | AI Engineer & Full-Stack Architect Portfolio",
     description:
@@ -68,7 +70,7 @@ export const metadata: Metadata = {
     title: "Aman Soni | AI Engineer & Full-Stack Architect Portfolio",
     description:
       "Explore the next-level portfolio of Aman Soni — building agentic AI systems, document intelligence agents, and full-stack applications.",
-    creator: "@AmanSoni",
+    creator: "@amanshipss",
   },
   robots: {
     index: true,
@@ -82,7 +84,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://amansoni.dev",
+    canonical: SITE_URL,
   },
   category: "technology",
 };
@@ -99,6 +101,7 @@ export default function RootLayout({
       className={`${poppins.variable} ${inter.variable}`}
     >
       <body className="font-inter" suppressHydrationWarning>
+        <StructuredData />
         <Providers>
           <ScrollProgress />
           {children}
