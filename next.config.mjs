@@ -4,13 +4,19 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   // @huggingface/transformers ships a native ONNX runtime binary
-  // (libonnxruntime.so). Turbopack/webpack bundling it into the serverless
-  // function moves it away from the relative path its own loader expects,
-  // breaking with "libonnxruntime.so.1: cannot open shared object file" at
-  // runtime (confirmed in production logs). Marking it external makes Next.js
-  // `require()` it normally from node_modules at runtime instead of bundling
-  // it, which is the documented fix for this class of native-binary package.
+  // (libonnxruntime.so, via onnxruntime-node). Marking these external stops
+  // Turbopack from bundling them (so `require()` resolves normally at
+  // runtime) — necessary but NOT sufficient on its own: Vercel's own file
+  // tracing (which decides what ships in the deployed function, separate
+  // from bundling) was still leaving the native .so out, confirmed by the
+  // exact same "libonnxruntime.so.1: cannot open shared object file" error
+  // persisting in production after serverExternalPackages alone. The
+  // outputFileTracingIncludes entry below is what actually forces the
+  // binary into the deployment artifact.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
+  outputFileTracingIncludes: {
+    "/api/chat": ["./node_modules/onnxruntime-node/bin/napi-v6/**/*"],
+  },
   images: {
     qualities: [75, 95, 100],
     remotePatterns: [

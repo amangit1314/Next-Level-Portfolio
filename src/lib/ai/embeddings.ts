@@ -18,6 +18,11 @@ let _extractor: Promise<FeatureExtractionPipeline> | null = null;
 
 function getExtractor() {
     if (!_extractor) {
+        // Node build of this package only supports device "cpu" (routes
+        // through onnxruntime-node's native binary) — "wasm" is not a valid
+        // option here (confirmed locally: throws "Unsupported device").
+        // The native .so missing from Vercel's deployment bundle is fixed
+        // via outputFileTracingIncludes in next.config.mjs instead.
         _extractor = pipeline("feature-extraction", MODEL_ID);
     }
     return _extractor;
