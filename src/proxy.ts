@@ -5,7 +5,7 @@ import { Route } from "@/types/enums";
 // a session cookie. The cookie value is an opaque secret set by
 // /api/dashboard/auth on successful login — never derived from the password
 // itself, so it can't be reverse-engineered even if the cookie leaks.
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isPublic =
