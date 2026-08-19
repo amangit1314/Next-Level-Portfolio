@@ -102,7 +102,7 @@ const HeroSection = () => {
 
             {/* Name */}
             <motion.div {...fadeUp(0.1)}>
-              <h1 className={`font-black leading-[1.1] tracking-tighter ${unbounded.className}`}>
+              <h1 className={`font-black leading-[1.35] tracking-tighter ${unbounded.className}`}>
                 <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] theme-text-gradient bg-clip-text text-transparent">
                   {profile.name?.split(" ")[0]}
                 </span>

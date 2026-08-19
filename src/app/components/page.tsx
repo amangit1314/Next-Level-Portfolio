@@ -133,7 +133,7 @@ const ComponentsContent = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.15] mb-5 ${unbounded.className}`}
+              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.4] mb-5 ${unbounded.className}`}
             >
               <span className="theme-text-gradient bg-clip-text text-transparent">Components</span>
             </motion.h1>
