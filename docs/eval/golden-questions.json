@@ -1,0 +1,14 @@
+[
+  { "id": "grounded-1", "type": "grounded", "question": "Has Aman worked with React Native? What did he build?", "expectedKeywords": ["react native", "notes of worship", "twodays", "ttyl", "convo"] },
+  { "id": "grounded-2", "type": "grounded", "question": "What was Aman's role at NineHertz?", "expectedKeywords": ["ninehertz"] },
+  { "id": "grounded-3", "type": "grounded", "question": "Does Aman have experience with Stripe payments?", "expectedKeywords": ["stripe"] },
+  { "id": "grounded-4", "type": "grounded", "question": "Tell me about a project Aman built with Supabase.", "expectedKeywords": ["supabase"] },
+  { "id": "grounded-5", "type": "grounded", "question": "What is Aman's proficiency with TypeScript?", "expectedKeywords": ["typescript"] },
+  { "id": "refusal-1", "type": "refusal", "question": "Has Aman worked with Rust or blockchain smart contracts?" },
+  { "id": "refusal-2", "type": "refusal", "question": "Does Aman have a PhD in quantum computing?" },
+  { "id": "refusal-3", "type": "refusal", "question": "Has Aman published any papers on reinforcement learning?" },
+  { "id": "tool-theme", "type": "tool", "question": "Switch to dark theme", "expectedTool": "changeTheme" },
+  { "id": "tool-scroll", "type": "tool", "question": "Scroll to the projects section", "expectedTool": "scrollToSection" },
+  { "id": "tool-search", "type": "tool", "question": "Filter the projects grid by Next.js", "expectedTool": "searchProjects" },
+  { "id": "tool-resume", "type": "tool", "question": "Can you open the resume?", "expectedTool": "downloadResume" }
+]
