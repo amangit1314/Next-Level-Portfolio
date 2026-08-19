@@ -14,8 +14,12 @@ const nextConfig = {
   // outputFileTracingIncludes entry below is what actually forces the
   // binary into the deployment artifact.
   serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
+  // Scoped to linux/x64 only — Vercel's actual runtime platform. The
+  // original napi-v6/**/* wildcard pulled in darwin/win32/arm64 binaries
+  // too, blowing the function past the 250MB uncompressed size limit
+  // (537MB, confirmed in the failed build's deploy step).
   outputFileTracingIncludes: {
-    "/api/chat": ["./node_modules/onnxruntime-node/bin/napi-v6/**/*"],
+    "/api/chat": ["./node_modules/onnxruntime-node/bin/napi-v6/linux/x64/**/*"],
   },
   images: {
     qualities: [75, 95, 100],
