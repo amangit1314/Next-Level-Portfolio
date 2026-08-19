@@ -17,5 +17,8 @@ export const GC_TIME = {
 
 /** External HTTP call timeouts (fetch AbortSignal.timeout, etc.). */
 export const REQUEST_TIMEOUT_MS = {
-  DEFAULT: 15_000,
+  // 15s was too tight for gpt-oss-120b's reasoning overhead, especially on a
+  // cold Groq/serverless instance — a real production 500 traced back to
+  // this timeout firing with no graceful handling (see lib/ai/groq.ts).
+  DEFAULT: 25_000,
 } as const;
