@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    // Stripping console.error along with everything else silenced the exact
+    // error text needed to debug a real production 502 (Groq fetch()
+    // failure in lib/ai/groq.ts) — confirmed by finding zero log output for
+    // a request that unambiguously hit the console.error call in
+    // api/chat/route.ts. Keep error visible in production, strip the rest.
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
   // @huggingface/transformers (local embeddings) does not fit in Vercel's
   // 250MB function size limit alongside /api/chat's other dependencies —
