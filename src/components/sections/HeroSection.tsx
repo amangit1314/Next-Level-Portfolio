@@ -9,6 +9,7 @@ import { useProfile } from "@/hooks/useSanityQuery";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
+import { HeroScene } from "@/components/three/HeroScene";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -86,6 +87,9 @@ const HeroSection = () => {
         <div className="v2-grid-bg absolute inset-0" />
         <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-theme-primary/6 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-theme-secondary/5 rounded-full blur-[100px]" />
+        {/* 3D AI-core orb — silently renders nothing on no-WebGL/unsupported
+            devices, leaving the glows above as the fallback background. */}
+        <HeroScene />
       </div>
 
       <div className="v2-container py-14 lg:py-24 w-full">
