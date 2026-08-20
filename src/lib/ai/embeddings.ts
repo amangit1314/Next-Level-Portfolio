@@ -1,48 +1,49 @@
-// Local, open-source embeddings via @huggingface/transformers (the
-// maintained successor to @xenova/transformers) — runs entirely in-process,
-// no external API, no cost. Swapped in after the Vercel AI Gateway's
-// embedding endpoint required a card on file even for free-tier credits.
-// Same idea repo-rag uses (sentence-transformers, Python) — this is the JS
-// equivalent of the same model family.
-//
-// STATUS: non-functional in production right now (see docs/DECISIONS.md).
-// The native onnxruntime-node binary doesn't fit Vercel's 250MB function
-// size limit alongside this route's other dependencies. import() is
-// dynamic (not a top-level static import) specifically so that failure
-// happens inside the try/catch in retrieval.ts's searchContent(), not at
-// module-load time before any of our code runs — a static import here
-// crashes the whole route's module graph on boot, uncatchable from outside.
-//
-// Model download (~30MB, quantized) happens once per warm serverless
-// instance and is cached after that — Vercel Fluid Compute reuses instances
-// across requests, so this cost is amortized, not paid per-request.
+// Hosted embeddings via Gemini's embedContent API. Replaces the local
+// @huggingface/transformers pipeline — that model's native onnxruntime
+// binary never fit Vercel's function size limit alongside /api/chat's
+// other dependencies (see docs/DECISIONS.md), so searchContent degraded
+// to "search unavailable" on every single call in production. Gemini's
+// free tier needs no card (unlike the Vercel AI Gateway path tried first),
+// which is why this wasn't the original choice.
 
-import type { FeatureExtractionPipeline } from "@huggingface/transformers";
+const EMBED_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents";
 
-const MODEL_ID = "Xenova/all-MiniLM-L6-v2";
-export const EMBEDDING_DIMENSIONS = 384;
+// Matryoshka-truncated to 768 — a supported output size for this model,
+// matching the common embedding dimension convention. Changing this
+// requires a matching Supabase column migration (see docs/DECISIONS.md).
+export const EMBEDDING_DIMENSIONS = 768;
 
-let _extractor: Promise<FeatureExtractionPipeline> | null = null;
-
-async function getExtractor() {
-    if (!_extractor) {
-        const { pipeline } = await import("@huggingface/transformers");
-        _extractor = pipeline("feature-extraction", MODEL_ID);
+async function embedBatch(values: string[]): Promise<number[][]> {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+        throw new Error("GEMINI_API_KEY is not set — required for embeddings (reindex script + searchContent tool).");
     }
-    return _extractor;
-}
 
-async function runExtraction(values: string[]): Promise<number[][]> {
-    const extractor = await getExtractor();
-    const output = await extractor(values, { pooling: "mean", normalize: true });
-    return output.tolist();
+    const response = await fetch(`${EMBED_URL}?key=${apiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            requests: values.map((value) => ({
+                model: "models/gemini-embedding-001",
+                content: { parts: [{ text: value }] },
+                outputDimensionality: EMBEDDING_DIMENSIONS,
+            })),
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error(`Gemini embed request failed: ${response.status} ${await response.text()}`);
+    }
+
+    const data = await response.json();
+    return data.embeddings.map((e: { values: number[] }) => e.values);
 }
 
 export async function embedText(value: string): Promise<number[]> {
-    const [embedding] = await runExtraction([value]);
+    const [embedding] = await embedBatch([value]);
     return embedding;
 }
 
 export async function embedTexts(values: string[]): Promise<number[][]> {
-    return runExtraction(values);
+    return embedBatch(values);
 }

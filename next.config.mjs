@@ -8,15 +8,6 @@ const nextConfig = {
     // api/chat/route.ts. Keep error visible in production, strip the rest.
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
   },
-  // @huggingface/transformers (local embeddings) does not fit in Vercel's
-  // 250MB function size limit alongside /api/chat's other dependencies —
-  // 3 attempts (unscoped include: 537MB, linux/x64-only: 361MB, both over
-  // limit) confirmed this isn't fixable by narrowing what's included, only
-  // by not shipping the native onnx binary in this function at all. Local
-  // embeddings are on hold pending a real architecture decision (see
-  // docs/DECISIONS.md) — embedText/embedTexts in lib/ai/embeddings.ts now
-  // fail gracefully instead of crashing the whole chat route when called.
-  serverExternalPackages: ["@huggingface/transformers", "onnxruntime-node"],
   images: {
     qualities: [75, 95, 100],
     remotePatterns: [

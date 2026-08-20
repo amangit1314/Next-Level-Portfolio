@@ -3,6 +3,38 @@
 A running log of non-obvious engineering decisions: what was chosen, why,
 and what was rejected. Newest entry on top. Append — don't rewrite history.
 
+---
+
+## 2026-08-20 — Local embeddings replaced with Gemini's hosted embedContent API
+
+**Context:** The 2026-08-19 "local embeddings" decision (`@huggingface/transformers`,
+MiniLM, 384-dim) never actually worked in production — its native
+onnxruntime binary doesn't fit Vercel's function size limit alongside
+`/api/chat`'s other dependencies (confirmed via three failed file-tracing
+attempts the same night, see the entries below). `searchContent` degraded
+to "search unavailable" on every single call, silently, since the day it
+shipped.
+
+**Decision:** Call Gemini's `embedContent` API (`gemini-embedding-001`,
+Matryoshka-truncated to 768 dimensions) over HTTP instead of running any
+model in-process. `lib/ai/embeddings.ts` keeps the same `embedText`/
+`embedTexts` interface — `retrieval.ts` and `reindex-rag.ts` needed zero
+changes. Supabase's `portfolio_rag_chunks.embedding` column migrated from
+`vector(384)` to `vector(768)` (table truncated and repopulated via
+`npm run reindex` — no ivfflat/hnsw index existed to rebuild, table is
+small enough for a brute-force scan).
+
+**Why not Vercel AI Gateway (tried first, both times):** requires a card
+on file even for free-tier credits (`customer_verification_required`) —
+still true today. Gemini's API key (from Google AI Studio) needs no
+billing info for its free tier and has generous enough limits for a
+portfolio's traffic.
+
+**Library/tool (if any):** none new — plain `fetch()`, same raw-client
+style as `lib/ai/groq.ts`. `@huggingface/transformers` dependency removed
+entirely; `next.config.mjs`'s `serverExternalPackages` entry for it and
+`onnxruntime-node` removed (no longer needed).
+
 Purpose: six months from now, "why did I do it this way?" should be
 answerable by scrolling this file, not by re-deriving the reasoning from
 the diff.
