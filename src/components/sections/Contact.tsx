@@ -34,12 +34,9 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="v2-section bg-theme-bg-primary"
+      className="v2-section [background-color:var(--hud-bg)]"
     >
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
-      </div>
+      <div className="absolute inset-0 pointer-events-none hud-grid-bg" />
 
       <div className="v2-container max-w-3xl mx-auto">
         <motion.div
@@ -52,17 +49,17 @@ const Contact = () => {
           {/* Section Header */}
           <motion.div className="text-center space-y-4">
             <div className="v2-label mb-4">
-              <div className="v2-label-line" />
-              <span className={`v2-label-text ${jetbrainsMono.className}`}>
-                Let&apos;s Connect
+              <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
+              <span className={`v2-label-text ${jetbrainsMono.className} [color:var(--hud-text-muted)] uppercase tracking-widest`}>
+                [ Wanna Say Hello? ]
               </span>
-              <div className="v2-label-line" />
+              <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
             </div>
-            <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+            <h2 className={`text-4xl sm:text-5xl font-black [color:var(--hud-text-primary)] ${unbounded.className}`}>
               Get In Touch
             </h2>
-            <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
-            <p className="text-theme-text-muted max-w-2xl mx-auto">
+            <div className="w-16 h-0.5 mx-auto rounded-full" style={{ backgroundColor: "var(--hud-border)" }} />
+            <p className={`${jetbrainsMono.className} [color:var(--hud-text-muted)] max-w-2xl mx-auto`}>
               Ready to bring your next project to life? Let&apos;s discuss how
               we can work together.
             </p>
@@ -74,16 +71,15 @@ const Contact = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="relative bg-theme-bg-secondary/40 backdrop-blur-sm rounded-2xl border border-theme-border/30 p-5 sm:p-8 md:p-12 overflow-hidden group"
+            className="relative p-5 sm:p-8 md:p-12 overflow-hidden group border"
+            style={{ backgroundColor: "var(--hud-bg-elevated)", borderColor: "var(--hud-border)" }}
           >
-            {/* Gradient Background on Hover */}
-            <div className="absolute inset-0 bg-linear-to-br from-theme-primary/5 via-theme-secondary/5 to-theme-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <div className="relative z-10 space-y-5 sm:space-y-8">
               {/* Intro Text */}
               <motion.p
                 variants={itemVariants}
-                className="text-center text-theme-text-secondary text-sm sm:text-base leading-relaxed"
+                className={`text-center ${jetbrainsMono.className} text-sm sm:text-base leading-relaxed [color:var(--hud-text-muted)]`}
               >
                 Have a project in mind or want to collaborate? I&apos;m always
                 open to discussing new opportunities and creative ideas.
@@ -94,7 +90,7 @@ const Contact = () => {
                 variants={containerVariants}
                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4"
               >
-                {SOCIAL_LINKS.map((social, index) => (
+                {SOCIAL_LINKS.map((social) => (
                   <motion.div
                     key={social.name}
                     variants={itemVariants}
@@ -109,15 +105,15 @@ const Contact = () => {
                       <motion.div
                         whileHover={{ y: -2 }}
                         whileTap={{ scale: 0.97 }}
-                        className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-theme-bg-tertiary/30 rounded-xl border border-theme-border/30 hover:border-theme-primary/50 transition-all duration-300 group-hover/link:bg-theme-bg-tertiary/50"
+                        className="flex flex-col items-center gap-2 sm:gap-3 p-3 sm:p-4 border transition-all duration-300"
+                        style={{ borderColor: "var(--hud-border)" }}
                       >
-                        <div className="p-2 sm:p-3 rounded-full bg-theme-bg-hover/30 group-hover/link:bg-gradient-to-r from-theme-primary/20 to-theme-secondary/20 transition-all duration-300">
+                        <div className="p-2 sm:p-3 rounded-full">
                           {React.cloneElement(social.icon, {
-                            className:
-                              "w-5 h-5 sm:w-6 sm:h-6 text-theme-text-secondary group-hover/link:text-theme-primary transition-colors duration-300",
+                            className: "w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300 [color:var(--hud-text-muted)] group-hover/link:[color:var(--hud-text-primary)]",
                           })}
                         </div>
-                        <span className={`text-xs sm:text-sm font-medium text-theme-text-secondary group-hover/link:text-theme-text-primary transition-colors duration-300 ${unbounded.className}`}>
+                        <span className={`text-xs sm:text-sm font-medium transition-colors duration-300 [color:var(--hud-text-muted)] group-hover/link:[color:var(--hud-text-primary)] ${jetbrainsMono.className} uppercase`}>
                           {social.name}
                         </span>
                       </motion.div>
@@ -126,25 +122,27 @@ const Contact = () => {
                 ))}
               </motion.div>
 
-              {/* Email Section - FIXED FOR MOBILE */}
+              {/* Email Section */}
               <motion.div
                 variants={itemVariants}
-                className="text-center pt-5 sm:pt-8 border-t border-theme-border/50"
+                className="text-center pt-5 sm:pt-8 border-t"
+                style={{ borderColor: "var(--hud-border)" }}
               >
-                <p className="text-theme-text-muted text-sm mb-6">
+                <p className={`${jetbrainsMono.className} text-sm mb-6 [color:var(--hud-text-muted)]`}>
                   Prefer email? Reach out directly at:
                 </p>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-flex flex-row items-center gap-3 bg-theme-bg-tertiary/30 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 rounded-xl border border-theme-border/30 hover:border-theme-primary/50 transition-all duration-300 group/email w-full max-w-md mx-auto"
+                  className="inline-flex flex-row items-center gap-3 px-4 py-3 sm:px-6 sm:py-4 border transition-all duration-300 group/email w-full max-w-md mx-auto"
+                  style={{ borderColor: "var(--hud-border)" }}
                 >
-                  <div className="p-2 rounded-full bg-gradient-to-r from-theme-primary/20 to-theme-secondary/20 flex-shrink-0">
-                    <FaMailBulk className="w-5 h-5 text-theme-primary" />
+                  <div className="p-2 rounded-full flex-shrink-0">
+                    <FaMailBulk className="w-5 h-5 [color:var(--hud-text-primary)]" />
                   </div>
                   <Link
                     href="mailto:amansoni53453@gmail.com"
-                    className={`text-xs sm:text-base font-semibold text-theme-text-primary hover:text-theme-primary-light transition-colors duration-300 flex items-center gap-2 break-all ${unbounded.className}`}
+                    className={`text-xs sm:text-base font-semibold transition-colors duration-300 flex items-center gap-2 break-all [color:var(--hud-text-primary)] ${jetbrainsMono.className}`}
                   >
                     amansoni53453@gmail.com
                     <FiArrowUpRight className="w-4 h-4 opacity-0 group-hover/email:opacity-100 transition-opacity duration-300 flex-shrink-0" />
@@ -154,15 +152,15 @@ const Contact = () => {
 
               {/* CTA */}
               <motion.div variants={itemVariants} className="text-center pt-6">
-                <p className="text-theme-text-muted text-sm">
+                <p className={`text-sm [color:var(--hud-text-muted)] ${jetbrainsMono.className}`}>
                   I typically respond within 24 hours
                 </p>
               </motion.div>
             </div>
 
-            {/* Decorative Elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-theme-primary/30 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-theme-secondary/30 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Decorative corner brackets — technical HUD framing detail */}
+            <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: "var(--hud-text-muted)" }} />
+            <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: "var(--hud-text-muted)" }} />
           </motion.div>
         </motion.div>
       </div>

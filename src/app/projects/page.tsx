@@ -5,14 +5,13 @@ import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
-import { projectsQuery, skillsQuery } from "@/sanity/lib/queries";
-import { useProfile } from "@/hooks/useSanityQuery";
+import { projectsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
-import ProjectsHeader from "./_components/ProjectsHeader";
-import ProjectCard3D from "./_components/ProjectCard3D";
+import { ProjectListRowSkeleton } from "@/components/skeletons/ProjectListRowSkeleton";
+import { ProjectListRow } from "./_components/ProjectListRow";
+import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
+import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
 import { aiProjects } from "@/data/ai-projects";
-import { ProfileStats } from "@/types/profile-stats";
 import { useUIStore } from "@/stores/uiStore";
 
 interface Project {
@@ -34,9 +33,7 @@ const MAX_FILTER_CHIPS = 10;
 
 const ProjectsContent = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [technologiesCount, setTechnologiesCount] = useState<string>("");
   const [loading, setLoading] = useState(true);
-  const { data: profile } = useProfile();
 
   const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
   const [selectedCategory, setSelectedCategory] = useQueryState("cat", parseAsString.withDefault("All"));
@@ -45,12 +42,8 @@ const ProjectsContent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [projectsData, skillsData] = await Promise.all([client.fetch(projectsQuery), client.fetch(skillsQuery)]);
+        const projectsData = await client.fetch(projectsQuery);
         setProjects([...aiProjects.filter((p) => !p.hidden), ...projectsData]);
-        // technologiesCount is derived live from actual skill docs rather than
-        // the hand-maintained profile.stats field, which drifts every time a
-        // skill is added/removed (see: years-of-experience consistency fix).
-        setTechnologiesCount(`${skillsData?.length ?? 0}+`);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -59,11 +52,6 @@ const ProjectsContent = () => {
     };
     fetchData();
   }, []);
-
-  // profile comes from the shared ProfileContext (already fetched once in
-  // layout.tsx) — this page only needs to layer its own live technologiesCount
-  // on top, not re-fetch the whole profile.
-  const stats: ProfileStats = { ...profile?.stats, technologiesCount };
 
   // AI Co-pilot same-page search handoff via uiStore — nuqs `q` param
   // stays the canonical source of truth for the search box; this just
@@ -100,35 +88,29 @@ const ProjectsContent = () => {
 
   if (loading) {
     return (
-      <>
-        <div className="min-h-screen bg-theme-bg-primary">
-          <div className="max-w-7xl mx-auto px-4 pt-32">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-              {[...Array(6)].map((_, i) => (
-                <ProjectCardSkeleton key={i} />
-              ))}
-            </div>
+      <div className="min-h-screen [background-color:var(--hud-bg)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32">
+          <HudPageTitle title="PROJECTS" breadcrumb={["HOME", "PROJECTS"]} />
+          <div className="mt-8">
+            {[...Array(6)].map((_, i) => (
+              <ProjectListRowSkeleton key={i} />
+            ))}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-theme-bg-primary relative overflow-x-hidden">
-      {/* Ambient background — fixed so it doesn't scroll */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute -top-48 left-1/4 w-[700px] h-[700px] bg-theme-primary/7 blur-[180px] rounded-full" />
-        <div className="absolute top-1/3 -right-24 w-[500px] h-[500px] bg-theme-secondary/5 blur-[160px] rounded-full" />
-        <div className="absolute bottom-0 -left-16 w-[400px] h-[400px] bg-theme-accent/4 blur-[130px] rounded-full" />
-        {/* Subtle dot grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px]" />
-      </div>
+    <div className="min-h-screen [background-color:var(--hud-bg)] relative overflow-x-hidden">
+      <div className="absolute inset-0 pointer-events-none hud-grid-bg" />
+
+      <HudScrollSlider />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Hero */}
-        <ProjectsHeader projectCount={projects.length} stats={stats} />
+        <HudPageTitle title="PROJECTS" breadcrumb={["HOME", "PROJECTS"]} />
 
         {/* Filter bar — search + scrollable pills */}
         <motion.div
@@ -140,18 +122,19 @@ const ProjectsContent = () => {
         >
           {/* Search input */}
           <div className="relative w-full sm:w-48">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-theme-text-secondary pointer-events-none" />
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none [color:var(--hud-text-muted)]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search projects..."
-              className={`w-full pl-[30px] pr-7 py-2 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
+              className={`w-full pl-[30px] pr-7 py-2 border text-[11px] focus:outline-none transition-all duration-200 ${inter.className}`}
+              style={{ borderColor: "var(--hud-border)", backgroundColor: "var(--hud-bg-elevated)", color: "var(--hud-text-primary)" }}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-theme-text-muted hover:text-theme-text-primary transition-colors"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 transition-colors [color:var(--hud-text-muted)] hover:[color:var(--hud-text-primary)]"
               >
                 <FiX className="w-3 h-3" />
               </button>
@@ -164,11 +147,12 @@ const ProjectsContent = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`shrink-0 text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 ${unbounded.className}`}
+                style={
                   selectedCategory === cat
-                    ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                    : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
-                }`}
+                    ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                    : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
+                }
               >
                 {cat}
               </button>
@@ -178,8 +162,8 @@ const ProjectsContent = () => {
 
         {/* Result count + clear */}
         <div className="mb-5 flex items-center gap-3">
-          <span className={`text-sm text-theme-text-muted ${inter.className}`}>
-            <span className={`text-theme-text-secondary font-semibold ${unbounded.className}`}>
+          <span className={`text-sm ${inter.className} [color:var(--hud-text-muted)]`}>
+            <span className={`font-semibold ${unbounded.className} [color:var(--hud-text-primary)]`}>
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "project" : "projects"}
@@ -187,7 +171,7 @@ const ProjectsContent = () => {
           {(searchQuery || selectedCategory !== "All") && (
             <button
               onClick={clearFilters}
-              className={`text-xs text-theme-primary hover:underline underline-offset-2 ${unbounded.className}`}
+              className={`text-xs hover:underline underline-offset-2 ${unbounded.className} [color:var(--hud-text-primary)]`}
             >
               Clear
             </button>
@@ -201,7 +185,7 @@ const ProjectsContent = () => {
             animate={{ opacity: 1 }}
             className="py-24 text-center"
           >
-            <p className={`text-theme-text-muted ${inter.className}`}>
+            <p className={`${inter.className} [color:var(--hud-text-muted)]`}>
               No projects match &ldquo;{searchQuery}&rdquo;.
             </p>
           </motion.div>
@@ -227,11 +211,12 @@ const ProjectsContent = () => {
                     <button
                       key={t.key}
                       onClick={() => void setActiveTab(t.key)}
-                      className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                      className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 border transition-all duration-200 ${unbounded.className}`}
+                      style={
                         tab === t.key
-                          ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                          : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
-                      }`}
+                          ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                          : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
+                      }
                     >
                       {t.label}
                       <span className="text-[10px] opacity-70">{t.count}</span>
@@ -240,18 +225,16 @@ const ProjectsContent = () => {
                 </div>
               )}
 
-              <div
-                className={`grid grid-cols-1 gap-5 ${
-                  tab === "featured" ? "md:grid-cols-2" : "md:grid-cols-2 xl:grid-cols-3"
-                }`}
-                style={{ perspective: "1200px" }}
-              >
-                {visible.map((project, index) => (
-                  <ProjectCard3D
+              <div>
+                {visible.map((project, i) => (
+                  <ProjectListRow
                     key={project._id}
-                    project={project}
-                    index={index}
-                    featured={tab === "featured"}
+                    index={i + 1}
+                    title={project.title}
+                    description={project.description}
+                    tags={[project.isAI ? "AI SYSTEM" : "WEB APP", ...(project.technologies?.slice(0, 1) ?? [])]}
+                    imageUrl={project.image?.asset?.url}
+                    href={project.link || project.code}
                   />
                 ))}
               </div>

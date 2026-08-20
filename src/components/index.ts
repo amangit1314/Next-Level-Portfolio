@@ -8,8 +8,11 @@ export { default as Testimonials } from "./sections/Testimonials";
 export { default as Contact } from "./sections/Contact";
 
 // Layout
-export { default as Header } from "./layout/Header";
-export { default as Footer } from "./layout/Footer";
+// Header/Footer are NOT re-exported here anymore — their rendered output
+// was replaced site-wide by src/components/layout/hud/HudChrome.tsx
+// (mounted once in layout.tsx). The files themselves still exist for their
+// data exports (pageLinks, sectionLinks — imported directly from
+// "./layout/Header" by HudChrome.tsx and MobileBottomNav.tsx).
 export { default as MobileBottomNav } from "./layout/MobileBottomNav";
 export { default as ScrollProgress } from "./layout/ScrollProgress";
 export { Providers } from "./layout/Providers";
