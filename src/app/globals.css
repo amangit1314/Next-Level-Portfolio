@@ -386,3 +386,27 @@
     will-change: transform;
   }
 }
+
+/* ============================================================
+ * HUD chrome — deliberately fixed monochrome, OUTSIDE the theme
+ * system. Do NOT use var(--theme-*) tokens in here and do not pull
+ * these tokens into the theme system — this is an intentional,
+ * permanent exception (matches a reference site's fixed black/
+ * white/gray look regardless of the active theme preset), not a
+ * temporary placeholder. See src/components/layout/hud/.
+ * ============================================================ */
+:root {
+  --hud-bg: #0a0a0a;
+  --hud-bg-elevated: #141414;
+  --hud-border: rgba(255, 255, 255, 0.12);
+  --hud-text-primary: #f5f5f5;
+  --hud-text-muted: rgba(245, 245, 245, 0.55);
+  --hud-grid-line: rgba(255, 255, 255, 0.05);
+}
+
+.hud-grid-bg {
+  background-image:
+    linear-gradient(30deg, var(--hud-grid-line) 1px, transparent 1px),
+    linear-gradient(150deg, var(--hud-grid-line) 1px, transparent 1px);
+  background-size: 40px 70px;
+}

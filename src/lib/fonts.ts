@@ -1,4 +1,4 @@
-import { Inter, JetBrains_Mono, Maven_Pro, Momo_Signature, Righteous, Unbounded } from "next/font/google";
+import { Anton, Inter, JetBrains_Mono, Maven_Pro, Momo_Signature, Righteous, Unbounded } from "next/font/google";
 
 export const inter = Inter({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -27,6 +27,14 @@ export const unbounded = Unbounded({
 
 // decorative signature font — used in Header logo only
 export const signature = Momo_Signature({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+// Bold condensed grotesk — giant page titles in the HUD chrome only
+// (src/components/layout/hud/). jetbrainsMono above covers that chrome's
+// terminal/status text; this covers its display headings.
+export const anton = Anton({
   weight: ["400"],
   subsets: ["latin"],
 });
