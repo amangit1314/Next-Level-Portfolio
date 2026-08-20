@@ -134,12 +134,21 @@ export function useCopilotChat() {
             }
 
             const data = await response.json();
-            const assistantMessage: ChatMessage = { role: ChatRole.Assistant, content: data.content || "" };
-            setMessages((prev) => [...prev, assistantMessage]);
+            // A tool-only turn (model calls e.g. search_projects with no visible
+            // reply) left content empty — pushing that as an assistant bubble
+            // rendered nothing after the tool's system-log line, so the panel
+            // looked stuck even though the action had already completed. Skip
+            // the empty bubble and add a real confirmation once the tool runs.
+            if (data.content) {
+                setMessages((prev) => [...prev, { role: ChatRole.Assistant, content: data.content }]);
+            }
 
             if (data.tool_calls && Array.isArray(data.tool_calls)) {
                 for (const toolCall of data.tool_calls) {
                     executeTool(toolCall);
+                }
+                if (!data.content) {
+                    setMessages((prev) => [...prev, { role: ChatRole.Assistant, content: "Done!" }]);
                 }
             }
         } catch (e) {
