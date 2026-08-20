@@ -9,6 +9,7 @@ import { useProfile } from "@/hooks/useSanityQuery";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
+import { ParticlePortrait } from "@/components/three/ParticlePortrait";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -226,6 +227,10 @@ const HeroSection = () => {
                   quality={95}
                   priority
                 />
+                {/* Dot-matrix particle portrait, layered over the plain photo
+                    above — renders nothing (photo stays visible) on no-WebGL,
+                    prefers-reduced-motion, or a CORS-tainted canvas read. */}
+                <ParticlePortrait imageUrl={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"} />
                 {/* Bottom fade */}
                 <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-theme-bg-primary/40 to-transparent" />
               </div>
