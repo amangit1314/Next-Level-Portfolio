@@ -418,7 +418,6 @@ import {
 import { client } from "@/sanity/lib/client";
 import { componentBySlugQuery } from "@/sanity/lib/queries";
 import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { ComponentDetailSkeleton } from "@/components/skeletons/ComponentDetailSkeleton";
@@ -710,7 +709,6 @@ const ComponentDetailPage = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <ComponentDetailSkeleton />
       </>
     );
@@ -719,7 +717,6 @@ const ComponentDetailPage = () => {
   if (!component) {
     return (
       <>
-        <Header />
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
             className={`text-4xl font-bold text-theme-text-primary mb-4 ${unbounded.className}`}
@@ -739,7 +736,6 @@ const ComponentDetailPage = () => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary pt-20 overflow-x-hidden">
         {/* Background Effects */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">

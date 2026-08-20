@@ -8,7 +8,6 @@ import { FiArrowLeft, FiCalendar, FiClock, FiUser } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogBySlugQuery } from "@/sanity/lib/queries";
 import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { BlogPostSkeleton } from "@/components/skeletons/BlogPostSkeleton";
@@ -210,7 +209,6 @@ const BlogPostPage = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <BlogPostSkeleton />
       </>
     );
@@ -219,7 +217,6 @@ const BlogPostPage = () => {
   if (!blog) {
     return (
       <>
-        <Header />
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
             className={`text-4xl font-bold text-theme-text-primary mb-4 ${unbounded.className}`}
@@ -243,7 +240,6 @@ const BlogPostPage = () => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80 pt-20">
         {/* Background Effects */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">

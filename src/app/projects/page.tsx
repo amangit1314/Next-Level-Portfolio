@@ -8,8 +8,6 @@ import { client } from "@/sanity/lib/client";
 import { projectsQuery, skillsQuery } from "@/sanity/lib/queries";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { ProjectCardSkeleton } from "@/components/skeletons/ProjectCardSkeleton";
 import ProjectsHeader from "./_components/ProjectsHeader";
 import ProjectCard3D from "./_components/ProjectCard3D";
@@ -103,7 +101,6 @@ const ProjectsContent = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen bg-theme-bg-primary">
           <div className="max-w-7xl mx-auto px-4 pt-32">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -129,7 +126,6 @@ const ProjectsContent = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <Header />
 
         {/* Hero */}
         <ProjectsHeader projectCount={projects.length} stats={stats} />
@@ -265,7 +261,6 @@ const ProjectsContent = () => {
       </div>
 
       <div className="relative z-10 border-t border-theme-border/30">
-        <Footer />
       </div>
     </div>
   );

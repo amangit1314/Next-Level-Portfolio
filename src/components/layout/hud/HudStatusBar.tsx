@@ -21,6 +21,11 @@ export function HudStatusBar({
   const [time, setTime] = useState('');
 
   useEffect(() => {
+    // Hydration-safety flag, not state synced from an external source —
+    // same documented exception pattern used elsewhere in this codebase
+    // (ThemeContext.tsx/HeroSection.tsx) for "don't render server/client-
+    // mismatched content until mounted."
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
 
     const updateTime = () => {

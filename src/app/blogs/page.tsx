@@ -7,7 +7,6 @@ import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
 import { BlogCardSkeleton } from "@/components/skeletons/BlogCardSkeleton";
 import BlogCard3D from "./_components/BlogCard3D";
 import { aiBlogs } from "@/data/ai-blogs";
@@ -77,7 +76,6 @@ const BlogsContent = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen bg-theme-bg-primary">
           <div className="max-w-7xl mx-auto px-4 pt-32">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -102,7 +100,6 @@ const BlogsContent = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <Header />
 
         {/* Hero */}
         <div className="relative pt-20 sm:pt-28 pb-12">

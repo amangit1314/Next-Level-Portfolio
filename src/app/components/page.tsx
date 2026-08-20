@@ -7,8 +7,6 @@ import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { componentsQuery } from "@/sanity/lib/queries";
 import { inter, unbounded } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { ComponentCardSkeleton } from "@/components/skeletons/ComponentCardSkeleton";
 import ComponentCard3D from "./_components/ComponentCard3D";
 
@@ -76,7 +74,6 @@ const ComponentsContent = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen bg-theme-bg-primary">
           <div className="max-w-7xl mx-auto px-4 pt-32">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -101,7 +98,6 @@ const ComponentsContent = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <Header />
 
         {/* Hero */}
         <div className="relative pt-28 pb-12">
@@ -258,7 +254,6 @@ const ComponentsContent = () => {
       </div>
 
       <div className="relative z-10 border-t border-theme-border/30">
-        <Footer />
       </div>
     </div>
   );

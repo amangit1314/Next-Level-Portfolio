@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { inter, unbounded } from "@/lib/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSliders, FiEye, FiCpu, FiPlay, FiRefreshCw } from "react-icons/fi";
@@ -195,7 +193,6 @@ Answer:`;
 
   return (
     <main className="min-h-screen bg-linear-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary text-theme-text-primary overflow-x-hidden">
-      <Header />
       
       <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 md:px-8">
         
@@ -458,7 +455,6 @@ Answer:`;
         </div>
 
       </div>
-      <Footer />
     </main>
   );
 }

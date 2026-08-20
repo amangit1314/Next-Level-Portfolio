@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiUser, FiArrowLeft, FiShare2 } from "react-icons/fi";
 import { unbounded, inter } from "@/lib/fonts";
-import Header from "@/components/layout/Header";
 
 interface BlogSection {
   title: string;
@@ -135,7 +134,6 @@ export default function BlogArticleLayout({
 
   return (
     <>
-      <Header />
       <article className="relative min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary">
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -5,7 +5,6 @@ import { client } from "@/sanity/lib/client";
 import { projectsQuery, experiencesQuery, skillsQuery } from "@/sanity/lib/queries";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useProfile } from "@/hooks/useSanityQuery";
-import Header from "@/components/layout/Header";
 
 interface TerminalLine {
   text: string;
@@ -332,7 +331,6 @@ export default function TerminalPage() {
 
   return (
     <div className="min-h-screen bg-black flex flex-col">
-      <Header />
       <div
         className="flex-1 text-green-400 font-mono p-4 pt-20 md:p-8 md:pt-24 flex flex-col relative overflow-hidden select-none"
         onClick={() => inputRef.current?.focus()}
