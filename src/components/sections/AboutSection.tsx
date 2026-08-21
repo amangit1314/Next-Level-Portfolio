@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiCode, FiServer, FiArrowRight, FiAward, FiUsers, FiTrendingUp, FiCpu } from "react-icons/fi";
 import ExperienceCard from "../cards/ExperienceCard";
-import { inter, unbounded, jetbrainsMono } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
 import {
@@ -73,7 +73,6 @@ export const AboutSection = () => {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-theme-secondary/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="v2-container space-y-10 lg:space-y-16">
@@ -91,10 +90,10 @@ export const AboutSection = () => {
             <span className={`v2-label-text ${jetbrainsMono.className}`}>About Me</span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-3xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
             The Engineer Behind the Code
           </h2>
-          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
         </motion.div>
 
         {/* ── Main Grid ──────────────────────────────── */}
@@ -111,11 +110,11 @@ export const AboutSection = () => {
             {/* Avatar */}
             <div className="relative group">
               {/* Glow */}
-              <div className="absolute -inset-3 bg-theme-primary/10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              <div className="absolute -inset-3 bg-theme-primary/10 rounded-none blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
               <div className="relative w-full max-w-sm mx-auto">
                 {/* Image */}
-                <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-theme-border/50 shadow-2xl">
+                <div className="relative w-full aspect-[4/5] rounded-none overflow-hidden border border-theme-border/50 shadow-2xl">
                   <Image
                     src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
                     alt={`${profile.name} — ${profile.role}`}
@@ -137,7 +136,7 @@ export const AboutSection = () => {
                           className="flex-1 v2-card p-3 text-center bg-theme-bg-secondary/80"
                         >
                           <stat.icon className="w-3.5 h-3.5 text-theme-primary mx-auto mb-1" />
-                          <div className={`text-sm font-bold text-theme-text-primary ${unbounded.className}`}>
+                          <div className={`text-sm font-bold text-theme-text-primary ${anton.className}`}>
                             {stat.value}
                           </div>
                           <div className="text-[10px] text-theme-text-muted">{stat.label}</div>
@@ -152,7 +151,7 @@ export const AboutSection = () => {
             {/* Tech Stack */}
             {(profile.techStackPreview?.length ?? 0) > 0 && (
               <div className="v2-card p-5">
-                <div className={`text-sm font-semibold text-theme-text-primary mb-4 ${unbounded.className}`}>
+                <div className={`text-sm font-semibold text-theme-text-primary mb-4 uppercase tracking-wide ${jetbrainsMono.className}`}>
                   Tech Stack
                 </div>
                 <div className="flex flex-wrap gap-4">
@@ -206,7 +205,7 @@ export const AboutSection = () => {
               custom={1}
               className="space-y-4"
             >
-              <h3 className={`text-2xl sm:text-3xl font-black text-theme-text-primary ${unbounded.className}`}>
+              <h3 className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                 {profile.headline ?? "What I Actually Build"}
               </h3>
               <p className={`text-theme-text-secondary leading-relaxed ${inter.className}`}>

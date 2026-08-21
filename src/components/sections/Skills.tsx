@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import SkillCard from "../cards/SkillCard";
 import { useState } from "react";
 import { useSkills, useProjectsCount } from "@/hooks/useSanityQuery";
@@ -45,8 +45,6 @@ const Skills = () => {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0 opacity-40" />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-theme-secondary/4 rounded-full blur-[100px]" />
       </div>
 
       <div className="v2-container relative z-10">
@@ -60,12 +58,12 @@ const Skills = () => {
         >
           <div className="v2-label">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${unbounded.className}`}>Technical Arsenal</span>
+            <span className={`v2-label-text ${jetbrainsMono.className}`}>Technical Arsenal</span>
             <div className="v2-label-line" />
           </div>
 
           <h2
-            className={`text-4xl sm:text-5xl font-black text-center text-theme-text-primary ${unbounded.className}`}
+            className={`text-4xl sm:text-6xl uppercase leading-none text-center text-theme-text-primary ${anton.className}`}
           >
             Skills
           </h2>
@@ -88,7 +86,7 @@ const Skills = () => {
               <button
                 key={tab}
                 onClick={() => setActiveCategory(tab)}
-                className={`shrink-0 text-[11px] px-4 py-2 rounded-full border transition-all duration-200 ${unbounded.className} ${
+                className={`shrink-0 text-[11px] px-4 py-2 rounded-none border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className} ${
                   activeCategory === tab
                     ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
                     : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary"
@@ -117,7 +115,7 @@ const Skills = () => {
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-theme-primary" />
                     <span
-                      className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${unbounded.className}`}
+                      className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${jetbrainsMono.className}`}
                     >
                       {category}
                     </span>
@@ -163,7 +161,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-theme-border/30 rounded-2xl overflow-hidden border border-theme-border/30"
+          className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-theme-border/30 rounded-none overflow-hidden border border-theme-border/30"
         >
           {[
             { value: profile?.stats?.experienceYears || "—", label: "Years Experience" },
@@ -176,7 +174,7 @@ const Skills = () => {
               className="flex flex-col items-center justify-center py-5 sm:py-8 bg-theme-bg-secondary/30 hover:bg-theme-bg-secondary/60 transition-colors duration-200"
             >
               <div
-                className={`text-2xl sm:text-3xl font-black theme-text-gradient bg-clip-text text-transparent mb-1 ${unbounded.className}`}
+                className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary mb-1 ${anton.className}`}
               >
                 {stat.value}
               </div>

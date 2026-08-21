@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { projectsQuery } from "@/sanity/lib/queries";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono } from "@/lib/fonts";
 import { ProjectListRowSkeleton } from "@/components/skeletons/ProjectListRowSkeleton";
 import { ProjectListRow } from "./_components/ProjectListRow";
 import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
@@ -147,7 +147,7 @@ const ProjectsContent = () => {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 ${unbounded.className}`}
+                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className}`}
                 style={
                   selectedCategory === cat
                     ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
@@ -163,7 +163,7 @@ const ProjectsContent = () => {
         {/* Result count + clear */}
         <div className="mb-5 flex items-center gap-3">
           <span className={`text-sm ${inter.className} [color:var(--hud-text-muted)]`}>
-            <span className={`font-semibold ${unbounded.className} [color:var(--hud-text-primary)]`}>
+            <span className={`font-semibold ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}>
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "project" : "projects"}
@@ -171,7 +171,7 @@ const ProjectsContent = () => {
           {(searchQuery || selectedCategory !== "All") && (
             <button
               onClick={clearFilters}
-              className={`text-xs hover:underline underline-offset-2 ${unbounded.className} [color:var(--hud-text-primary)]`}
+              className={`text-xs hover:underline underline-offset-2 uppercase tracking-wide ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}
             >
               Clear
             </button>
@@ -211,7 +211,7 @@ const ProjectsContent = () => {
                     <button
                       key={t.key}
                       onClick={() => void setActiveTab(t.key)}
-                      className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 border transition-all duration-200 ${unbounded.className}`}
+                      className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 border transition-all duration-200 ${jetbrainsMono.className}`}
                       style={
                         tab === t.key
                           ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }

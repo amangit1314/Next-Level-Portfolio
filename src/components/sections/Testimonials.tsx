@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { inter, jetbrainsMono, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import Marquee from "../magicui/marquee";
 import TestimonialCard from "../cards/TestimonialCard";
 import { useTestimonials } from "@/hooks/useSanityQuery";
@@ -14,7 +14,6 @@ const Testimonials = () => {
     <section id="testimonials" className="v2-section bg-theme-bg-primary">
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-theme-primary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="v2-container">
@@ -31,12 +30,12 @@ const Testimonials = () => {
             <span className={`v2-label-text ${jetbrainsMono.className}`}>
               Client Feedback
             </span>
-            <div className="w-8 h-px theme-gradient-secondary" />
+            <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
             Testimonials
           </h2>
-          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
           <p className={`text-theme-text-muted max-w-xl mx-auto ${inter.className}`}>
             What people say about working with me
           </p>

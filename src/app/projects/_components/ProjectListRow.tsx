@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { unbounded, jetbrainsMono } from "@/lib/fonts";
+import { anton, jetbrainsMono } from "@/lib/fonts";
 
 interface ProjectListRowProps {
   index: number;
@@ -56,7 +56,7 @@ export function ProjectListRow({
           ))}
         </div>
         <div
-          className={`text-2xl font-bold mb-1 ${unbounded.className}`}
+          className={`text-2xl uppercase leading-tight mb-1 ${anton.className}`}
           style={{ color: "var(--hud-text-primary)" }}
         >
           {title}

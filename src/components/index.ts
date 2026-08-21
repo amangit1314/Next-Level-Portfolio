@@ -19,7 +19,6 @@ export { Providers } from "./layout/Providers";
 
 // Features
 export { default as AICopilot } from "@/features/ai-copilot/components/AICopilot";
-export { default as ThemeSwitcher } from "./features/ThemeSwitcher";
 export { BugReportDialog } from "./features/BugReportDialog";
 
 // Cards
@@ -29,5 +28,4 @@ export { default as SkillCard } from "./cards/SkillCard";
 export { default as TestimonialCard } from "./cards/TestimonialCard";
 
 // Primitives
-export { default as Avatar } from "./primitives/Avatar";
 export { default as Magnetic } from "./primitives/Magnetic";

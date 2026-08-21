@@ -40,7 +40,12 @@ export function HudChrome() {
 
     return (
         <>
-            <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none">
+            {/* overflow-hidden here (the actual fixed, full-viewport-width box) is
+                load-bearing: html/body's overflow-x:hidden does NOT clip
+                position:fixed descendants (a real CSS quirk, not a Tailwind gap),
+                so without this the ticker's marquee track bled past the browser
+                edge — visible as pills overflowing off-screen. */}
+            <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none overflow-hidden">
                 <div className="pointer-events-auto max-w-2xl ml-auto">
                     <HudTicker />
                 </div>

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-import { unbounded, jetbrainsMono } from "@/lib/fonts";
+import { jetbrainsMono, anton } from "@/lib/fonts";
 import ProjectCard from "../cards/ProjectCard";
 import { Route } from "@/types/enums";
 import { aiProjects } from "@/data/ai-projects";
@@ -25,7 +25,6 @@ const Projects = () => {
     <section id="projects" className="v2-section bg-theme-bg-primary">
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="v2-container">
@@ -44,10 +43,10 @@ const Projects = () => {
             </span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
             Featured Projects
           </h2>
-          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
           <p className="max-w-2xl mx-auto text-lg text-theme-text-muted">
             Crafting digital experiences with modern technologies and creative solutions
           </p>
@@ -80,7 +79,7 @@ const Projects = () => {
         >
           <a
             href={Route.Projects}
-            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${unbounded.className}`}
+            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-none border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${jetbrainsMono.className}`}
           >
             Discover All Projects
             <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

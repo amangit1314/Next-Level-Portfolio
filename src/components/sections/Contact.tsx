@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FaMailBulk } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import React from "react";
-import { inter, jetbrainsMono, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 
 const Contact = () => {
   const containerVariants = {
@@ -51,11 +51,11 @@ const Contact = () => {
             <div className="v2-label mb-4">
               <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
               <span className={`v2-label-text ${jetbrainsMono.className} [color:var(--hud-text-muted)] uppercase tracking-widest`}>
-                [ Wanna Say Hello? ]
+                Wanna Say Hello?
               </span>
               <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
             </div>
-            <h2 className={`text-4xl sm:text-5xl font-black [color:var(--hud-text-primary)] ${unbounded.className}`}>
+            <h2 className={`text-5xl sm:text-7xl uppercase leading-none [color:var(--hud-text-primary)] ${anton.className}`}>
               Get In Touch
             </h2>
             <div className="w-16 h-0.5 mx-auto rounded-full" style={{ backgroundColor: "var(--hud-border)" }} />

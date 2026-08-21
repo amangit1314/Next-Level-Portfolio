@@ -3,12 +3,14 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { useQueryState, parseAsString } from "nuqs";
 import { motion } from "framer-motion";
-import { FiSearch, FiX, FiHome, FiChevronRight } from "react-icons/fi";
+import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { componentsQuery } from "@/sanity/lib/queries";
-import { inter, unbounded } from "@/lib/fonts";
-import { ComponentCardSkeleton } from "@/components/skeletons/ComponentCardSkeleton";
-import ComponentCard3D from "./_components/ComponentCard3D";
+import { inter, jetbrainsMono } from "@/lib/fonts";
+import { ComponentListRowSkeleton } from "@/components/skeletons/ComponentListRowSkeleton";
+import { ComponentListRow } from "./_components/ComponentListRow";
+import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
+import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
 
 interface Component {
   _id: string;
@@ -38,7 +40,7 @@ const CATEGORIES = [
 const ComponentsContent = () => {
   const [components, setComponents] = useState<Component[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [searchQuery, setSearchQuery] = useQueryState("q", parseAsString.withDefault(""));
   const [selectedCategory, setSelectedCategory] = useQueryState("cat", parseAsString.withDefault("all"));
 
@@ -73,147 +75,75 @@ const ComponentsContent = () => {
 
   if (loading) {
     return (
-      <>
-        <div className="min-h-screen bg-theme-bg-primary">
-          <div className="max-w-7xl mx-auto px-4 pt-32">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-              {[...Array(6)].map((_, i) => (
-                <ComponentCardSkeleton key={i} />
-              ))}
-            </div>
+      <div className="min-h-screen [background-color:var(--hud-bg)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32">
+          <HudPageTitle title="COMPONENTS" breadcrumb={["HOME", "COMPONENTS"]} />
+          <div className="mt-8">
+            {[...Array(6)].map((_, i) => (
+              <ComponentListRowSkeleton key={i} />
+            ))}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-theme-bg-primary relative overflow-x-hidden">
-      {/* Ambient background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute -top-48 right-1/4 w-[600px] h-[600px] bg-theme-secondary/7 blur-[170px] rounded-full" />
-        <div className="absolute top-1/2 -left-24 w-[500px] h-[500px] bg-theme-primary/5 blur-[150px] rounded-full" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-theme-accent/4 blur-[130px] rounded-full" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px]" />
-      </div>
+    <div className="min-h-screen [background-color:var(--hud-bg)] relative overflow-x-hidden">
+      <div className="absolute inset-0 pointer-events-none hud-grid-bg" />
+
+      <HudScrollSlider />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <HudPageTitle title="COMPONENTS" breadcrumb={["HOME", "COMPONENTS"]} />
 
-        {/* Hero */}
-        <div className="relative pt-28 pb-12">
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute -top-32 right-1/4 w-[500px] h-[500px] bg-theme-secondary/12 blur-[140px] rounded-full" />
-          </div>
-
-          <div className="relative z-10">
-            {/* Breadcrumb */}
-            <motion.nav
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="flex items-center gap-1.5 mb-8 text-sm"
-            >
-              <a
-                href="/"
-                className={`flex items-center gap-1.5 text-theme-text-muted hover:text-theme-primary transition-colors duration-200 ${inter.className}`}
-              >
-                <FiHome className="w-3.5 h-3.5" />
-                Home
-              </a>
-              <FiChevronRight className="w-3.5 h-3.5 text-theme-border" />
-              <span className={`text-theme-primary font-semibold ${unbounded.className}`}>Components</span>
-            </motion.nav>
-
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className={`text-5xl md:text-7xl xl:text-8xl font-black tracking-tight leading-[1.4] mb-5 ${unbounded.className}`}
-            >
-              <span className="theme-text-gradient bg-clip-text text-transparent">Components</span>
-            </motion.h1>
-
-            {/* Subtitle + stats — subtitle left, stats pinned right */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.22, duration: 0.5 }}
-              className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6"
-            >
-              <p className={`text-theme-text-secondary text-base md:text-lg max-w-xs ${inter.className}`}>
-                Copy-paste ready React components — accessible, animated, and themeable.
-              </p>
-
-              <div className="flex items-end gap-6 shrink-0">
-                <div>
-                  <div className={`text-3xl font-black text-theme-primary leading-[1.15] tabular-nums ${unbounded.className}`}>
-                    {components.length}+
-                  </div>
-                  <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Components</div>
-                </div>
-                <div className="w-px h-10 bg-theme-border/50 mb-0.5" />
-                <div>
-                  <div className={`text-3xl font-black text-theme-secondary leading-[1.15] tabular-nums ${unbounded.className}`}>
-                    {CATEGORIES.length - 1}
-                  </div>
-                  <div className={`text-[11px] text-theme-text-muted mt-1 ${inter.className}`}>Categories</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Filter bar — search + pills in one row */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="mb-8 flex flex-wrap items-center gap-2"
+          className="mb-8 space-y-3"
         >
-          {/* Search input */}
-          <div className="relative w-48 shrink-0">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-theme-text-secondary pointer-events-none" />
+          <div className="relative w-full sm:w-48">
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none [color:var(--hud-text-muted)]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className={`w-full pl-[30px] pr-7 py-1.5 rounded-full border border-theme-border/60 bg-theme-bg-secondary/50 backdrop-blur-md text-[11px] text-theme-text-primary placeholder:text-theme-text-muted focus:outline-none focus:border-theme-primary/50 transition-all duration-200 ${inter.className}`}
+              placeholder="Search components..."
+              className={`w-full pl-[30px] pr-7 py-2 border text-[11px] focus:outline-none transition-all duration-200 ${inter.className}`}
+              style={{ borderColor: "var(--hud-border)", backgroundColor: "var(--hud-bg-elevated)", color: "var(--hud-text-primary)" }}
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-theme-text-muted hover:text-theme-text-primary transition-colors"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 transition-colors [color:var(--hud-text-muted)] hover:[color:var(--hud-text-primary)]"
               >
                 <FiX className="w-3 h-3" />
               </button>
             )}
           </div>
 
-          {/* Divider */}
-          <div className="w-px h-5 bg-theme-border/50 mx-1" />
-
-          {/* Category pills */}
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`text-[11px] px-3 py-1.5 rounded-full border transition-all duration-200 ${unbounded.className} ${
-                selectedCategory === cat.value
-                  ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
-                  : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary bg-transparent"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+          <div className="flex overflow-x-auto scrollbar-none gap-2 -mx-4 sm:mx-0 px-4 sm:px-0 pb-1 sm:flex-wrap">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => setSelectedCategory(cat.value)}
+                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className}`}
+                style={
+                  selectedCategory === cat.value
+                    ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                    : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
+                }
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Result count */}
         <div className="mb-5 flex items-center gap-3">
-          <span className={`text-sm text-theme-text-muted ${inter.className}`}>
-            <span className={`text-theme-text-secondary font-semibold ${unbounded.className}`}>
+          <span className={`text-sm ${inter.className} [color:var(--hud-text-muted)]`}>
+            <span className={`font-semibold ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}>
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "component" : "components"}
@@ -221,39 +151,35 @@ const ComponentsContent = () => {
           {(searchQuery || selectedCategory !== "all") && (
             <button
               onClick={clearFilters}
-              className={`text-xs text-theme-primary hover:underline underline-offset-2 ${unbounded.className}`}
+              className={`text-xs hover:underline underline-offset-2 uppercase tracking-wide ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}
             >
               Clear
             </button>
           )}
         </div>
 
-        {/* Grid */}
         {filtered.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="py-24 text-center"
-          >
-            <p className={`text-theme-text-muted ${inter.className}`}>
-              {searchQuery
-                ? `No components match "${searchQuery}".`
-                : "No components found."}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-24 text-center">
+            <p className={`${inter.className} [color:var(--hud-text-muted)]`}>
+              {searchQuery ? `No components match "${searchQuery}".` : "No components found."}
             </p>
           </motion.div>
         ) : (
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 pb-24"
-            style={{ perspective: "1200px" }}
-          >
-            {filtered.map((component, index) => (
-              <ComponentCard3D key={component._id} component={component} index={index} />
+          <div className="pb-24">
+            {filtered.map((component, i) => (
+              <ComponentListRow
+                key={component._id}
+                index={i + 1}
+                slug={component.slug.current}
+                title={component.title}
+                description={component.description}
+                category={component.category}
+                difficulty={component.difficulty}
+                imageUrl={component.previewImage?.asset?.url}
+              />
             ))}
           </div>
         )}
-      </div>
-
-      <div className="relative z-10 border-t border-theme-border/30">
       </div>
     </div>
   );

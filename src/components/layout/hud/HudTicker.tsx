@@ -39,7 +39,7 @@ export function HudTicker() {
   }, []);
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden w-full">
       <div
         ref={trackRef}
         className={`flex gap-4 ${jetbrainsMono.className}`}

@@ -64,7 +64,7 @@ const MobileBottomNav = () => {
         transition={{ type: "spring", damping: 26, stiffness: 300, delay: 0.3 }}
       >
         <div
-          className="flex items-center justify-between px-2 py-2 rounded-2xl border border-theme-border/60"
+          className="flex items-center justify-between px-2 py-2 rounded-none border border-theme-border/60"
           style={{
             background: "color-mix(in srgb, var(--theme-bg-secondary) 94%, transparent)",
             backdropFilter: "blur(20px)",
@@ -80,13 +80,13 @@ const MobileBottomNav = () => {
                 key={link.path}
                 onClick={() => handleNavClick(link.path)}
                 whileTap={{ scale: 0.86 }}
-                className="relative flex flex-col items-center justify-center flex-1 py-1.5 rounded-xl min-w-0"
+                className="relative flex flex-col items-center justify-center flex-1 py-1.5 rounded-none min-w-0"
                 aria-label={link.name}
               >
                 {isActive && (
                   <motion.div
                     layoutId="mobileNavPill"
-                    className="absolute inset-0 rounded-xl"
+                    className="absolute inset-0 rounded-none"
                     style={{
                       background:
                         "color-mix(in srgb, var(--theme-primary) 16%, transparent)",

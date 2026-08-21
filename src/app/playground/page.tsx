@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, anton, jetbrainsMono } from "@/lib/fonts";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSliders, FiEye, FiCpu, FiPlay, FiRefreshCw } from "react-icons/fi";
 
@@ -202,7 +202,7 @@ Answer:`;
             <FiCpu className="animate-spin-slow" />
             <span>AI Engineering Simulator</span>
           </div>
-          <h1 className={`text-4xl md:text-6xl font-black theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}>
+          <h1 className={`text-4xl md:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
             Visual RAG Explorer
           </h1>
           <p className="max-w-xl mx-auto text-theme-text-muted text-sm md:text-base leading-relaxed">
@@ -217,8 +217,8 @@ Answer:`;
           <div className="p-6 rounded-3xl bg-theme-bg-secondary/40 backdrop-blur-md border border-theme-border flex flex-col justify-between">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">1</span>
-                <h3 className={`text-xl font-bold ${unbounded.className}`}>Document Chunking</h3>
+                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-theme-bg-primary font-mono text-sm font-bold">1</span>
+                <h3 className={`text-xl uppercase leading-none ${anton.className}`}>Document Chunking</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Large documents exceed LLM context windows and degrade relevance. We segment text into sliding windows.
@@ -272,7 +272,7 @@ Answer:`;
                     key={index}
                     className="p-2.5 pt-7 rounded-lg text-[11px] leading-relaxed border border-theme-border/30 bg-theme-bg-secondary/40 text-theme-text-secondary relative"
                   >
-                    <span className="absolute top-2 right-2 z-10 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold text-white bg-theme-primary">
+                    <span className="absolute top-2 right-2 z-10 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold text-theme-bg-primary bg-theme-primary">
                       Chunk #{index + 1}
                     </span>
                     {chunk.text}
@@ -286,8 +286,8 @@ Answer:`;
           <div className="p-6 rounded-3xl bg-theme-bg-secondary/40 backdrop-blur-md border border-theme-border flex flex-col justify-between">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">2</span>
-                <h3 className={`text-xl font-bold ${unbounded.className}`}>Vector Space Matcher</h3>
+                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-theme-bg-primary font-mono text-sm font-bold">2</span>
+                <h3 className={`text-xl uppercase leading-none ${anton.className}`}>Vector Space Matcher</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Chunks are mapped to dense vector dimensions. similarity queries return the closest matches.
@@ -305,7 +305,7 @@ Answer:`;
                 <button
                   onClick={handleRetrieve}
                   disabled={isSearching}
-                  className="px-4 py-2 theme-gradient-primary text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 hover:shadow-lg transition"
+                  className="px-4 py-2 theme-gradient-primary text-theme-bg-primary text-xs font-semibold rounded-xl flex items-center gap-1.5 hover:shadow-lg transition"
                 >
                   <FiPlay />
                   <span>Query</span>
@@ -336,7 +336,7 @@ Answer:`;
                       transition={{ duration: 0.4 }}
                     >
                       {/* Tooltip */}
-                      <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-theme-primary px-2 py-1 rounded text-[9px] font-semibold text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
+                      <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-theme-primary px-2 py-1 rounded text-[9px] font-semibold text-theme-bg-primary whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
                         {doc.title} {resultDoc?.score ? `(Score: ${resultDoc.score})` : ""}
                       </span>
                     </motion.div>
@@ -399,8 +399,8 @@ Answer:`;
           <div className="p-6 rounded-3xl bg-theme-bg-secondary/40 backdrop-blur-md border border-theme-border flex flex-col justify-between">
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-white font-mono text-sm font-bold">3</span>
-                <h3 className={`text-xl font-bold ${unbounded.className}`}>LLM Generation</h3>
+                <span className="w-8 h-8 rounded-xl theme-gradient-primary flex items-center justify-center text-theme-bg-primary font-mono text-sm font-bold">3</span>
+                <h3 className={`text-xl uppercase leading-none ${anton.className}`}>LLM Generation</h3>
               </div>
               <p className="text-xs text-theme-text-muted">
                 Synthesized instructions are compiled and fed to the LLM to write a verified reply.
@@ -421,7 +421,7 @@ Answer:`;
               <button
                 onClick={handleGenerate}
                 disabled={!promptText || isGenerating}
-                className="w-full py-3 theme-gradient-primary text-white text-xs font-bold rounded-2xl flex items-center justify-center gap-2 hover:shadow-lg transition disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full py-3 theme-gradient-primary text-theme-bg-primary text-xs font-bold rounded-2xl flex items-center justify-center gap-2 hover:shadow-lg transition disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isGenerating ? (
                   <>

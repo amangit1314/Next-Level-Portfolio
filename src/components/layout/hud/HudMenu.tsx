@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { jetbrainsMono } from '@/lib/fonts';
 import { FiX } from 'react-icons/fi';
@@ -33,11 +34,46 @@ export function HudMenu({
   currentPath,
   onNavigate,
 }: HudMenuProps) {
+  // The overlay only covers the viewport visually — it doesn't stop the
+  // underlying page from receiving wheel/trackpad scroll, so the page behind
+  // was scrolling right through the (now-translucent) overlay while the
+  // menu sat fixed on top of it. `body.overflow:hidden` alone didn't fix it
+  // because `<html>` (documentElement), not `<body>`, is the element that's
+  // actually scrolling here — locking body did nothing since html was still
+  // free to scroll. Lock both, with height pinned so there's no scroll track
+  // left at all (the menu's own content pane keeps its own overflow-y-auto
+  // for internal scrolling, unaffected by this).
+  useEffect(() => {
+    if (!isOpen) return;
+    const { documentElement, body } = document;
+    const previous = {
+      htmlOverflow: documentElement.style.overflow,
+      htmlHeight: documentElement.style.height,
+      bodyOverflow: body.style.overflow,
+      bodyHeight: body.style.height,
+    };
+    documentElement.style.overflow = 'hidden';
+    documentElement.style.height = '100%';
+    body.style.overflow = 'hidden';
+    body.style.height = '100%';
+    return () => {
+      documentElement.style.overflow = previous.htmlOverflow;
+      documentElement.style.height = previous.htmlHeight;
+      body.style.overflow = previous.bodyOverflow;
+      body.style.height = previous.bodyHeight;
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Full-screen overlay */}
+          {/* Full-screen overlay — was a fully OPAQUE --hud-bg fill, so closing
+              the menu via a nav link (onNavigate closes it, then router.push
+              navigates) blacked out the entire screen — ticker, status bar,
+              the new page underneath, everything — for the whole 0.35s exit
+              fade. Looked like the app had crashed. Translucent now, so the
+              page is dimly visible through it during that transition. */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -45,7 +81,7 @@ export function HudMenu({
             transition={{ duration: 0.35 }}
             onClick={onClose}
             className="fixed inset-0 z-50"
-            style={{ backgroundColor: 'var(--hud-bg)' }}
+            style={{ backgroundColor: 'color-mix(in srgb, var(--hud-bg) 80%, transparent)' }}
           />
 
           {/* Slide-in panel */}

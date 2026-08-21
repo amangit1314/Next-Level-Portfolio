@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiEye, FiUsers, FiLogOut, FiRefreshCw } from "react-icons/fi";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 
 interface DailyPoint {
   timestamp: string;
@@ -79,7 +79,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className={`text-2xl font-black text-theme-text-primary ${unbounded.className}`}>
+            <h1 className={`text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
               Portfolio Analytics
             </h1>
             <p className={`text-xs text-theme-text-muted mt-1 ${inter.className}`}>
@@ -89,14 +89,14 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => fetchData(days)}
-              className="p-2 rounded-lg border border-theme-border/50 text-theme-text-muted hover:text-theme-primary hover:border-theme-primary/40 transition-colors"
+              className="p-2 rounded-none border border-theme-border/50 text-theme-text-muted hover:text-theme-primary hover:border-theme-primary/40 transition-colors"
               title="Refresh"
             >
               <FiRefreshCw className="w-4 h-4" />
             </button>
             <button
               onClick={handleLogout}
-              className={`flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg border border-theme-border/50 text-theme-text-muted hover:text-red-400 hover:border-red-400/40 transition-colors ${inter.className}`}
+              className={`flex items-center gap-1.5 text-xs px-3 py-2 rounded-none border border-theme-border/50 text-theme-text-muted hover:text-red-400 hover:border-red-400/40 transition-colors ${inter.className}`}
             >
               <FiLogOut className="w-3.5 h-3.5" />
               Log out
@@ -110,7 +110,7 @@ export default function DashboardPage() {
             <button
               key={r}
               onClick={() => setDays(r)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${unbounded.className} ${
+              className={`text-xs px-3 py-1.5 rounded-none border transition-colors uppercase tracking-wide ${jetbrainsMono.className} ${
                 days === r
                   ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
                   : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30"
@@ -122,7 +122,7 @@ export default function DashboardPage() {
         </div>
 
         {error && (
-          <div className="rounded-xl border border-red-400/30 bg-red-400/5 p-5 mb-6">
+          <div className="rounded-none border border-red-400/30 bg-red-400/5 p-5 mb-6">
             <p className={`text-sm text-red-400 font-semibold ${inter.className}`}>{error.error}</p>
             {error.detail && (
               <p className={`text-xs text-theme-text-muted mt-1 ${inter.className}`}>{error.detail}</p>
@@ -138,35 +138,35 @@ export default function DashboardPage() {
           <>
             {/* Stat cards */}
             <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
+              <div className="rounded-none border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
                 <div className="flex items-center gap-2 text-theme-text-muted mb-2">
                   <FiEye className="w-3.5 h-3.5" />
                   <span className={`text-xs uppercase tracking-wide ${inter.className}`}>Pageviews</span>
                 </div>
-                <div className={`text-3xl font-black text-theme-text-primary ${unbounded.className}`}>
+                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                   {data.totals?.pageviews?.toLocaleString() ?? 0}
                 </div>
               </div>
-              <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
+              <div className="rounded-none border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
                 <div className="flex items-center gap-2 text-theme-text-muted mb-2">
                   <FiUsers className="w-3.5 h-3.5" />
                   <span className={`text-xs uppercase tracking-wide ${inter.className}`}>Visitors</span>
                 </div>
-                <div className={`text-3xl font-black text-theme-text-primary ${unbounded.className}`}>
+                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                   {data.totals?.visitors?.toLocaleString() ?? 0}
                 </div>
               </div>
             </div>
 
             {/* Daily chart */}
-            <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5 mb-8">
+            <div className="rounded-none border border-theme-border/40 bg-theme-bg-secondary/30 p-5 mb-8">
               <h2 className={`text-xs uppercase tracking-wide text-theme-text-muted mb-4 ${inter.className}`}>
                 Pageviews per {data.range.bucket}
               </h2>
               <div className="relative flex items-end gap-1 h-32">
                 {hoveredIdx !== null && data.daily[hoveredIdx] && (
                   <div
-                    className={`absolute -top-9 z-10 -translate-x-1/2 rounded-lg border border-theme-border/50 bg-theme-bg-primary px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg ${inter.className}`}
+                    className={`absolute -top-9 z-10 -translate-x-1/2 rounded-none border border-theme-border/50 bg-theme-bg-primary px-2.5 py-1.5 text-xs whitespace-nowrap shadow-lg ${inter.className}`}
                     style={{ left: `${((hoveredIdx + 0.5) / data.daily.length) * 100}%` }}
                   >
                     <span className="text-theme-text-primary font-semibold">
@@ -195,7 +195,7 @@ export default function DashboardPage() {
 
             {/* Top pages + referrers */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
+              <div className="rounded-none border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
                 <h2 className={`text-xs uppercase tracking-wide text-theme-text-muted mb-4 ${inter.className}`}>
                   Top Pages
                 </h2>
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                   )}
                 </ul>
               </div>
-              <div className="rounded-xl border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
+              <div className="rounded-none border border-theme-border/40 bg-theme-bg-secondary/30 p-5">
                 <h2 className={`text-xs uppercase tracking-wide text-theme-text-muted mb-4 ${inter.className}`}>
                   Top Referrers
                 </h2>

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { jetbrainsMono } from '@/lib/fonts';
-import { FiActivity, FiSettings } from 'react-icons/fi';
+import { FiActivity, FiSettings, FiCpu } from 'react-icons/fi';
+import { useUIStore } from '@/stores/uiStore';
 
 interface HudStatusBarProps {
   email: string;
@@ -19,6 +20,8 @@ export function HudStatusBar({
 }: HudStatusBarProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState('');
+  const isCopilotOpen = useUIStore((s) => s.isCopilotOpen);
+  const toggleCopilot = useUIStore((s) => s.toggleCopilot);
 
   useEffect(() => {
     // Hydration-safety flag, not state synced from an external source —
@@ -85,33 +88,53 @@ export function HudStatusBar({
         </div>
       )}
 
-      {/* Right Section: Activity + Settings + Page (hidden on mobile) */}
-      <div className="hidden items-center gap-4 sm:flex">
-        {/* Activity Icon */}
-        <div style={{ color: 'var(--hud-text-muted)' }}>
-          <FiActivity size={16} />
+      {/* Right Section */}
+      <div className="flex items-center gap-3 sm:gap-4">
+        {/* Activity + Settings + Page pill — hidden on mobile, unchanged */}
+        <div className="hidden items-center gap-4 sm:flex">
+          <div style={{ color: 'var(--hud-text-muted)' }}>
+            <FiActivity size={16} />
+          </div>
+
+          <button
+            onClick={onSettingsClick}
+            className="transition-opacity hover:opacity-75"
+            style={{ color: 'var(--hud-text-muted)' }}
+            aria-label="Settings"
+          >
+            <FiSettings size={16} />
+          </button>
+
+          <div
+            className="rounded border border-[1px] px-2 py-1 text-xs"
+            style={{
+              borderColor: 'var(--hud-border)',
+              color: 'var(--hud-text-primary)',
+            }}
+          >
+            [{pageIndex}] {pageLabel.toUpperCase()}
+          </div>
         </div>
 
-        {/* Settings Button */}
+        {/* AI Copilot toggle — moved here from a floating FAB that overlapped
+            page content bottom-right (see AICopilot.tsx). Deliberately NOT
+            inside the sm:flex group above: the status bar is the one piece
+            of chrome that's always on screen on every breakpoint, which is
+            the whole point of putting it here instead of a corner button. */}
         <button
-          onClick={onSettingsClick}
-          className="transition-opacity hover:opacity-75"
-          style={{ color: 'var(--hud-text-muted)' }}
-          aria-label="Settings"
-        >
-          <FiSettings size={16} />
-        </button>
-
-        {/* Page Indicator Pill */}
-        <div
-          className="rounded border border-[1px] px-2 py-1 text-xs"
+          onClick={toggleCopilot}
+          className="relative flex items-center justify-center w-8 h-8 border transition-colors"
           style={{
-            borderColor: 'var(--hud-border)',
-            color: 'var(--hud-text-primary)',
+            borderColor: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-border)',
+            color: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-text-muted)',
           }}
+          aria-label={isCopilotOpen ? 'Close AI Co-pilot' : 'Open AI Co-pilot'}
         >
-          [{pageIndex}] {pageLabel.toUpperCase()}
-        </div>
+          <FiCpu size={16} />
+          {!isCopilotOpen && (
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+          )}
+        </button>
       </div>
     </div>
   );

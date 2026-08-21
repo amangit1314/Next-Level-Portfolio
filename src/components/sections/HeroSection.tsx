@@ -1,6 +1,6 @@
 "use client";
 
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, anton, jetbrainsMono } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -85,8 +85,6 @@ const HeroSection = () => {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-theme-primary/6 rounded-full blur-[140px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-theme-secondary/5 rounded-full blur-[100px]" />
       </div>
 
       <div className="v2-container py-14 lg:py-24 w-full">
@@ -101,7 +99,7 @@ const HeroSection = () => {
           >
             {/* Status badge */}
             <motion.div {...fadeUp(0.05)}>
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-theme-bg-secondary border border-theme-border/50">
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-none bg-theme-bg-secondary border border-theme-border/50">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                 <span className={`text-xs font-medium text-theme-text-secondary ${inter.className}`}>
                   Open to full-time opportunities
@@ -111,11 +109,11 @@ const HeroSection = () => {
 
             {/* Name */}
             <motion.div {...fadeUp(0.1)}>
-              <h1 className={`font-black leading-[1.35] tracking-tighter ${unbounded.className}`}>
-                <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] theme-text-gradient bg-clip-text text-transparent">
+              <h1 className={`uppercase leading-[0.95] tracking-tight ${anton.className}`}>
+                <span className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
                   {profile.name?.split(" ")[0]}
                 </span>
-                <span className="block text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-theme-text-primary">
+                <span className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
                   {profile.name?.split(" ")[1]}
                 </span>
               </h1>
@@ -142,7 +140,7 @@ const HeroSection = () => {
                 {stats.map((stat, i) => (
                   <React.Fragment key={stat.label}>
                     <div>
-                      <div className={`text-2xl font-black text-theme-text-primary ${unbounded.className}`}>
+                      <div className={`text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                         {stat.value}
                       </div>
                       <div className={`text-xs text-theme-text-muted mt-0.5 ${inter.className}`}>
@@ -195,7 +193,7 @@ const HeroSection = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.9 }}
-                      className="p-2.5 bg-theme-bg-secondary border border-theme-border/50 hover:border-theme-primary/50 rounded-xl transition-all duration-300 group"
+                      className="p-2.5 bg-theme-bg-secondary border border-theme-border/50 hover:border-theme-primary/50 rounded-none transition-all duration-300 group"
                     >
                       <Icon className="w-4 h-4 text-theme-text-muted group-hover:text-theme-primary transition-colors" />
                     </motion.a>
@@ -214,10 +212,10 @@ const HeroSection = () => {
           >
             <div className="relative">
               {/* Glow behind avatar */}
-              <div className="absolute inset-6 bg-theme-primary/20 rounded-3xl blur-3xl" />
+              <div className="absolute inset-6 bg-theme-primary/20 rounded-none blur-3xl" />
 
               {/* Avatar frame */}
-              <div className="relative w-44 h-44 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] rounded-3xl overflow-hidden border border-theme-border/60 shadow-2xl">
+              <div className="relative w-44 h-44 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] rounded-none overflow-hidden border border-theme-border/60 shadow-2xl">
                 <Image
                   src={profile.profileImage?.asset?.url || "/images/aman_avatar.webp"}
                   alt={`${profile.name} — ${profile.role}`}
@@ -237,7 +235,7 @@ const HeroSection = () => {
 
               {/* Role badge — bottom right */}
               <div className="absolute -bottom-3 -right-3 px-4 py-2.5 v2-card shadow-lg">
-                <div className={`text-xs font-semibold text-theme-text-primary ${unbounded.className}`}>
+                <div className={`text-xs font-semibold text-theme-text-primary uppercase tracking-wide ${jetbrainsMono.className}`}>
                   {profile.role}
                 </div>
               </div>

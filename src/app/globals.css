@@ -165,25 +165,27 @@
   /* Theme mode */
   --theme-mode: "dark";
 
-  /* Primary colors - Default: Cyber Emerald */
-  --theme-primary-light: #34d399;
-  --theme-primary-light-rgb: 52, 211, 153;
-  --theme-primary: #10b981;
-  --theme-primary-rgb: 16, 185, 129;
-  --theme-primary-dark: #047857;
-  --theme-primary-dark-rgb: 4, 120, 87;
+  /* v2 (feat/hud-chrome) ships one fixed theme (lib/themes.ts: hud-mono) —
+     these are its SSR/pre-hydration defaults, kept in sync by hand since
+     ThemeContext only applies them via JS after mount. Before this fix
+     these were still the old v1 "Cyber Emerald" hex values, so every page
+     flashed green/indigo for a frame before JS repainted it monochrome. */
+  --theme-primary-light: #fafafa;
+  --theme-primary-light-rgb: 250, 250, 250;
+  --theme-primary: #f5f5f5;
+  --theme-primary-rgb: 245, 245, 245;
+  --theme-primary-dark: #e5e5e5;
+  --theme-primary-dark-rgb: 229, 229, 229;
 
-  /* Secondary colors - Default: Neon Indigo */
-  --theme-secondary-light: #a5b4fc;
-  --theme-secondary-light-rgb: 165, 180, 252;
-  --theme-secondary: #6366f1;
-  --theme-secondary-rgb: 99, 102, 241;
-  --theme-secondary-dark: #4338ca;
-  --theme-secondary-dark-rgb: 67, 56, 202;
+  --theme-secondary-light: #fafafa;
+  --theme-secondary-light-rgb: 250, 250, 250;
+  --theme-secondary: #f5f5f5;
+  --theme-secondary-rgb: 245, 245, 245;
+  --theme-secondary-dark: #e5e5e5;
+  --theme-secondary-dark-rgb: 229, 229, 229;
 
-  /* Accent color - Default: Electric Cyan */
-  --theme-accent: #06b6d4;
-  --theme-accent-rgb: 6, 182, 212;
+  --theme-accent: #f5f5f5;
+  --theme-accent-rgb: 245, 245, 245;
 
   /* Scroll progress bar gradient */
   --scroll-progress-gradient: linear-gradient(
@@ -194,20 +196,20 @@
   );
 
   /* Background colors */
-  --theme-bg-primary: #09090b;
-  --theme-bg-secondary: #18181b;
-  --theme-bg-tertiary: #27272a;
-  --theme-bg-hover: #3f3f46;
-  --theme-bg-light: #52525b;
+  --theme-bg-primary: #0a0a0a;
+  --theme-bg-secondary: #141414;
+  --theme-bg-tertiary: #1a1a1a;
+  --theme-bg-hover: #202020;
+  --theme-bg-light: #2a2a2a;
 
   /* Text colors */
-  --theme-text-primary: #fafafa;
-  --theme-text-secondary: #d4d4d8;
-  --theme-text-muted: #a1a1aa;
+  --theme-text-primary: #f5f5f5;
+  --theme-text-secondary: #c7c7c7;
+  --theme-text-muted: #8f8f8f;
 
   /* Border colors */
-  --theme-border: #3f3f46;
-  --theme-border-light: #52525b;
+  --theme-border: #272727;
+  --theme-border-light: #3b3b3b;
 }
 
 /* Light theme shadow adjustments */
@@ -335,44 +337,61 @@
     @apply pb-24 lg:pb-0;
   }
 
-  /* Card primitive — ONE pattern used everywhere */
+  /* Card primitive — ONE pattern used everywhere. Hard-edged (no rounding,
+     no blur) — HUD language borrowed from the Projects/Blogs/Components
+     list pages, not the v1 soft-glass-card look. */
   .v2-card {
-    @apply bg-theme-bg-secondary/50 border border-theme-border/50 rounded-2xl backdrop-blur-sm;
+    @apply bg-theme-bg-secondary/60 border border-theme-border/60 rounded-none;
     transition: border-color 0.3s, box-shadow 0.3s;
   }
 
   .v2-card:hover {
-    border-color: color-mix(in srgb, var(--theme-primary) 30%, transparent);
+    border-color: var(--theme-text-primary);
   }
 
-  /* Section label — the line · text · line pattern */
+  /* Section label — the line · [ TEXT ] · line pattern (brackets added here,
+     once, instead of hand-typed in every section) */
   .v2-label {
     @apply flex items-center justify-center gap-3;
   }
 
   .v2-label-line {
-    @apply h-px w-12 bg-theme-primary/40;
+    @apply h-px w-12 bg-theme-border;
   }
 
+  /* Font comes from each caller's jetbrainsMono.className (next/font
+     generates a scoped class, not a CSS var, so it can't be set here) —
+     About/Skills/Experience's labels were on unbounded.className before,
+     fixed to jetbrainsMono to match Testimonials/Projects. */
   .v2-label-text {
-    @apply text-xs tracking-[0.2em] uppercase text-theme-primary font-medium;
+    @apply text-xs tracking-[0.2em] uppercase text-theme-text-muted font-medium;
   }
 
-  /* Buttons */
+  .v2-label-text::before {
+    content: "[ ";
+  }
+
+  .v2-label-text::after {
+    content: " ]";
+  }
+
+  /* Buttons — filled light-on-dark primary, hard edges. theme-primary/
+     secondary are the same near-white value (lib/themes.ts), so this reads
+     as a solid fill, not a gradient. */
   .v2-btn-primary {
-    @apply px-8 py-3.5 rounded-xl font-semibold text-white text-sm;
-    @apply shadow-lg transition-shadow duration-300;
-    background: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
-    box-shadow: 0 4px 24px color-mix(in srgb, var(--theme-primary) 20%, transparent);
+    @apply px-8 py-3.5 rounded-none font-semibold text-sm;
+    @apply transition-opacity duration-300;
+    background: var(--theme-text-primary);
+    color: var(--theme-bg-primary);
   }
 
   .v2-btn-primary:hover {
-    box-shadow: 0 4px 32px color-mix(in srgb, var(--theme-primary) 35%, transparent);
+    opacity: 0.85;
   }
 
   .v2-btn-ghost {
-    @apply px-8 py-3.5 border border-theme-border text-theme-text-secondary rounded-xl font-semibold text-sm;
-    @apply hover:border-theme-primary/50 hover:text-theme-primary transition-all duration-300;
+    @apply px-8 py-3.5 border border-theme-border text-theme-text-secondary rounded-none font-semibold text-sm;
+    @apply hover:border-theme-text-primary hover:text-theme-text-primary transition-all duration-300;
   }
 
   /* Stat divider row */

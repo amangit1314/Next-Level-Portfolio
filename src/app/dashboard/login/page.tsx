@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiLock } from "react-icons/fi";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, anton, jetbrainsMono } from "@/lib/fonts";
 
 export default function DashboardLoginPage() {
   const router = useRouter();
@@ -43,11 +43,11 @@ export default function DashboardLoginPage() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-sm rounded-2xl border border-theme-border/50 bg-theme-bg-secondary/40 backdrop-blur-md p-8"
+        className="w-full max-w-sm rounded-none border border-theme-border/50 bg-theme-bg-secondary/40 p-8"
       >
         <div className="flex items-center gap-2 mb-6">
           <FiLock className="w-4 h-4 text-theme-primary" />
-          <h1 className={`text-lg font-bold text-theme-text-primary ${unbounded.className}`}>
+          <h1 className={`text-lg uppercase leading-none text-theme-text-primary ${anton.className}`}>
             Dashboard
           </h1>
         </div>
@@ -64,7 +64,7 @@ export default function DashboardLoginPage() {
           autoFocus
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className={`w-full px-3 py-2.5 rounded-lg border border-theme-border/60 bg-theme-bg-primary/60 text-sm text-theme-text-primary focus:outline-none focus:border-theme-primary/50 transition-colors ${inter.className}`}
+          className={`w-full px-3 py-2.5 rounded-none border border-theme-border/60 bg-theme-bg-primary/60 text-sm text-theme-text-primary focus:outline-none focus:border-theme-primary/50 transition-colors ${inter.className}`}
         />
 
         {error && (
@@ -74,7 +74,7 @@ export default function DashboardLoginPage() {
         <button
           type="submit"
           disabled={loading || !password}
-          className={`w-full mt-5 py-2.5 rounded-lg bg-theme-primary text-white text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity ${unbounded.className}`}
+          className={`w-full mt-5 py-2.5 rounded-none bg-theme-primary text-theme-bg-primary text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity uppercase tracking-wide ${jetbrainsMono.className}`}
         >
           {loading ? "Checking..." : "Enter"}
         </button>

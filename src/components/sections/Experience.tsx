@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { FiExternalLink, FiArrowRight } from "react-icons/fi";
-import { inter, unbounded } from "@/lib/fonts";
+import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import { useExperiences } from "@/hooks/useSanityQuery";
 import type { ExperiencesQueryResult } from "../../../sanity.types";
 
@@ -62,7 +62,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onMouseEnter={() => setHovered(true)}
-        className="group relative rounded-2xl border border-theme-border/60 bg-theme-bg-secondary/80 backdrop-blur-md overflow-hidden cursor-default transition-[border-color,box-shadow] duration-300 hover:border-theme-primary/40 shadow-sm shadow-black/[0.06]"
+        className="group relative rounded-none border border-theme-border/60 bg-theme-bg-secondary/80 overflow-hidden cursor-default transition-[border-color,box-shadow] duration-300 hover:border-theme-primary/40 shadow-sm shadow-black/[0.06]"
       >
         {/* Cursor glow */}
         <div
@@ -81,7 +81,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
             <div className="space-y-1.5">
               <h3
-                className={`text-xl lg:text-2xl font-black theme-text-gradient bg-clip-text text-transparent ${unbounded.className}`}
+                className={`text-xl lg:text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}
               >
                 {experience.role}
               </h3>
@@ -89,7 +89,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
                 href={experience.companyLink || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 text-theme-text-secondary hover:text-theme-primary transition-colors duration-200 text-sm font-semibold ${unbounded.className}`}
+                className={`inline-flex items-center gap-1.5 text-theme-text-secondary hover:text-theme-primary transition-colors duration-200 text-sm font-semibold ${jetbrainsMono.className}`}
               >
                 {experience.company}
                 <FiExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -98,7 +98,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
 
             {experience.year && (
               <span
-                className={`shrink-0 self-start px-3 py-1.5 rounded-lg border border-theme-primary/25 bg-theme-primary/8 text-xs font-semibold text-theme-primary ${unbounded.className}`}
+                className={`shrink-0 self-start px-3 py-1.5 rounded-none border border-theme-primary/25 bg-theme-primary/8 text-xs font-semibold text-theme-primary ${jetbrainsMono.className}`}
               >
                 {experience.year}
               </span>
@@ -116,7 +116,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
               {experience.technologies!.map((tech: string, i: number) => (
                 <span
                   key={i}
-                  className={`px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-md sm:rounded-lg border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${unbounded.className}`}
+                  className={`px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${jetbrainsMono.className}`}
                 >
                   {tech}
                 </span>
@@ -136,8 +136,6 @@ const Experience = () => {
     <section id="experience" className="v2-section bg-theme-bg-secondary/30 relative">
       <div className="absolute inset-0 pointer-events-none">
         <div className="v2-grid-bg absolute inset-0" />
-        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-theme-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-theme-secondary/4 rounded-full blur-[100px]" />
       </div>
 
       <div className="v2-container relative z-10">
@@ -151,13 +149,13 @@ const Experience = () => {
         >
           <div className="v2-label">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${unbounded.className}`}>Career</span>
+            <span className={`v2-label-text ${jetbrainsMono.className}`}>Career</span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-5xl font-black text-theme-text-primary ${unbounded.className}`}>
+          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
             Professional Experience
           </h2>
-          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-full" />
+          <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
         </motion.div>
 
         {/* Timeline */}
@@ -188,10 +186,8 @@ const Experience = () => {
         >
           <div className="relative group">
             {/* Outer glow on hover */}
-            <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-theme-primary/40 via-theme-secondary/30 to-theme-accent/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-
             {/* Card */}
-            <div className="relative rounded-2xl border border-theme-border/60 bg-theme-bg-secondary/80 backdrop-blur-md overflow-hidden shadow-sm shadow-black/[0.06] transition-[border-color] duration-300 group-hover:border-theme-primary/40">
+            <div className="relative rounded-none border border-theme-border/60 bg-theme-bg-secondary/80 overflow-hidden shadow-sm shadow-black/[0.06] transition-[border-color] duration-300 group-hover:border-theme-primary/40">
               {/* Persistent tinted fill */}
               <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/6 via-transparent to-theme-secondary/4 pointer-events-none" />
 
@@ -201,7 +197,7 @@ const Experience = () => {
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 p-6 sm:p-8 lg:p-10">
                 {/* Text */}
                 <div className="space-y-2">
-                  <h3 className={`text-2xl lg:text-3xl font-black text-theme-text-primary leading-tight ${unbounded.className}`}>
+                  <h3 className={`text-2xl lg:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                     Ready to Build Something{" "}
                     <span className="theme-text-gradient bg-clip-text text-transparent">Amazing?</span>
                   </h3>
@@ -214,9 +210,9 @@ const Experience = () => {
                 <motion.div className="shrink-0 w-full sm:w-auto" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                   <Link
                     href="#contact"
-                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-xl font-bold text-white shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto ${unbounded.className}`}
+                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-none font-bold text-theme-bg-primary shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto uppercase tracking-wide ${jetbrainsMono.className}`}
                   >
-                    <div className="absolute inset-0 overflow-hidden rounded-xl">
+                    <div className="absolute inset-0 overflow-hidden rounded-none">
                       <div className="absolute top-0 -left-10 w-7 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />
                     </div>
                     <span className="relative z-10 text-sm whitespace-nowrap">Let&apos;s Work Together</span>

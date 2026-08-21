@@ -1,10 +1,14 @@
 import { create } from "zustand";
 
 interface UIState {
-  isMenuOpen: boolean;
-  openMenu: () => void;
-  closeMenu: () => void;
-  toggleMenu: () => void;
+  // AI Copilot drawer — the toggle button lives in HudStatusBar (always
+  // visible, bottom bar) and the drawer itself renders from AICopilot.tsx;
+  // both are siblings under root layout.tsx, so the open/close state has to
+  // live here rather than as local state in either one.
+  isCopilotOpen: boolean;
+  openCopilot: () => void;
+  closeCopilot: () => void;
+  toggleCopilot: () => void;
 
   // One-shot signal from AICopilot -> Projects page for a same-page search
   // request. Replaces a window.dispatchEvent("search-projects") CustomEvent
@@ -17,10 +21,10 @@ interface UIState {
 }
 
 export const useUIStore = create<UIState>((set) => ({
-  isMenuOpen: false,
-  openMenu: () => set({ isMenuOpen: true }),
-  closeMenu: () => set({ isMenuOpen: false }),
-  toggleMenu: () => set((s) => ({ isMenuOpen: !s.isMenuOpen })),
+  isCopilotOpen: false,
+  openCopilot: () => set({ isCopilotOpen: true }),
+  closeCopilot: () => set({ isCopilotOpen: false }),
+  toggleCopilot: () => set((s) => ({ isCopilotOpen: !s.isCopilotOpen })),
 
   pendingProjectSearch: null,
   setPendingProjectSearch: (query) => set({ pendingProjectSearch: query }),

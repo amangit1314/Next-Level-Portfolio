@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa6";
 import Image from "next/image";
-import { unbounded, inter } from "@/lib/fonts";
+import { jetbrainsMono, inter } from "@/lib/fonts";
 
 const TestimonialCard = ({
   comment,
@@ -20,20 +20,20 @@ const TestimonialCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group/card relative w-[260px] sm:w-[320px] md:w-[380px] flex flex-col bg-theme-bg-secondary/40 backdrop-blur-sm p-5 sm:p-7 rounded-2xl border border-theme-border/30 hover:border-theme-primary/40 transition-all duration-300 shadow-md overflow-hidden cursor-default"
+      className="group/card relative w-[260px] sm:w-[320px] md:w-[380px] flex flex-col bg-theme-bg-secondary/40 p-5 sm:p-7 rounded-none border border-theme-border/30 hover:border-theme-primary/40 transition-all duration-300 shadow-md overflow-hidden cursor-default"
     >
       {/* Hover glow bg — scoped to this card */}
-      <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/6 via-transparent to-theme-secondary/6 rounded-2xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-400 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/6 via-transparent to-theme-secondary/6 opacity-0 group-hover/card:opacity-100 transition-opacity duration-400 pointer-events-none" />
 
       {/* Top-right corner accent */}
-      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-theme-primary/0 group-hover/card:border-theme-primary/50 rounded-tr-2xl transition-all duration-300" />
+      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-theme-primary/0 group-hover/card:border-theme-primary/50 transition-all duration-300" />
       {/* Bottom-left corner accent */}
-      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-theme-secondary/0 group-hover/card:border-theme-secondary/50 rounded-bl-2xl transition-all duration-300" />
+      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-theme-secondary/0 group-hover/card:border-theme-secondary/50 transition-all duration-300" />
 
       <div className="relative z-10 flex flex-col h-full">
         {/* Quote icon + stars row */}
         <div className="flex items-start justify-between mb-4 sm:mb-5">
-          <div className="w-10 h-10 rounded-xl bg-theme-primary/10 group-hover/card:bg-theme-primary/20 flex items-center justify-center transition-colors duration-300">
+          <div className="w-10 h-10 rounded-none bg-theme-primary/10 group-hover/card:bg-theme-primary/20 flex items-center justify-center transition-colors duration-300">
             <FaQuoteLeft className="text-theme-primary text-base" />
           </div>
           {/* Stars */}
@@ -68,7 +68,7 @@ const TestimonialCard = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className={`text-theme-text-primary font-bold text-sm leading-tight truncate group-hover/card:text-theme-primary transition-colors duration-300 ${unbounded.className}`}>
+            <p className={`text-theme-text-primary font-bold text-sm leading-tight truncate group-hover/card:text-theme-primary transition-colors duration-300 ${jetbrainsMono.className}`}>
               {name}
             </p>
             <p className={`text-theme-text-muted text-xs mt-0.5 truncate ${inter.className}`}>

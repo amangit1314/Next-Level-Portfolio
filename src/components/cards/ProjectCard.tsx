@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { unbounded } from "@/lib/fonts";
+import { anton, jetbrainsMono } from "@/lib/fonts";
 
 interface ProjectCardProps {
   index: number;
@@ -54,7 +54,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setHovered(true)}
-      className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-theme-bg-secondary/50 backdrop-blur-xl border border-theme-border hover:border-theme-primary/50 transition-all duration-500 shadow-sm shadow-black/[0.06]"
+      className="group relative overflow-hidden rounded-none bg-theme-bg-secondary/50 border border-theme-border hover:border-theme-primary/50 transition-all duration-500 shadow-sm shadow-black/[0.06]"
     >
       {/* Cursor glow */}
       <div
@@ -69,7 +69,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-theme-primary/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
       {/* Border glow */}
-      <div className="absolute inset-0 rounded-2xl sm:rounded-3xl overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-[-2px] bg-gradient-to-r from-theme-primary via-transparent to-theme-secondary opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
       </div>
 
@@ -111,7 +111,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
           {/* Title */}
           <Link href={project.link || ""}>
             <h3
-              className={`text-sm sm:text-base font-bold text-theme-text-primary leading-snug line-clamp-3 mb-2 group-hover:text-theme-primary transition-colors duration-300 ${unbounded.className}`}
+              className={`text-sm sm:text-base uppercase leading-snug line-clamp-3 mb-2 group-hover:text-theme-primary transition-colors duration-300 ${anton.className}`}
             >
               {project.title}
             </h3>
@@ -127,7 +127,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
             {project.technologies?.slice(0, 3).map((tech: string, i: number) => (
               <span
                 key={i}
-                className={`px-2 py-0.5 text-[9px] font-semibold rounded-md border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted ${unbounded.className}`}
+                className={`px-2 py-0.5 text-[9px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted uppercase ${jetbrainsMono.className}`}
               >
                 {tech}
               </span>
@@ -163,7 +163,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
                 initial={{ x: -100, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2 * index, duration: 0.5 }}
-                className="absolute top-6 left-6 px-3 py-1 bg-theme-bg-primary/60 backdrop-blur-md rounded-full border border-theme-primary/30"
+                className="absolute top-6 left-6 px-3 py-1 bg-theme-bg-primary/60 rounded-none border border-theme-primary/30"
               >
                 <span className="text-xs font-mono text-theme-primary">
                   #{String(index + 1).padStart(2, "0")}
@@ -189,7 +189,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
 
           <Link href={project.link || ""}>
             <motion.h3
-              className={`text-3xl lg:text-4xl font-bold text-theme-text-primary mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-theme-primary group-hover:to-theme-secondary group-hover:bg-clip-text transition-all duration-300 ${unbounded.className}`}
+              className={`text-3xl lg:text-4xl uppercase leading-none text-theme-text-primary mb-4 group-hover:text-theme-primary transition-all duration-300 ${anton.className}`}
             >
               {project.title}
             </motion.h3>
@@ -207,7 +207,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
                 whileHover={{ y: -2 }}
-                className={`px-3 py-1.5 bg-linear-to-br from-theme-bg-tertiary/80 to-theme-bg-primary/80 text-theme-text-secondary rounded-lg border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium backdrop-blur-sm ${unbounded.className}`}
+                className={`px-3 py-1.5 bg-theme-bg-tertiary/80 text-theme-text-secondary rounded-none border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium uppercase ${jetbrainsMono.className}`}
               >
                 {tech}
               </motion.span>

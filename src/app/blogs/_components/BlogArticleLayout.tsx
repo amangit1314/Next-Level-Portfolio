@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiUser, FiArrowLeft, FiShare2 } from "react-icons/fi";
-import { unbounded, inter } from "@/lib/fonts";
+import { anton, inter } from "@/lib/fonts";
 
 interface BlogSection {
   title: string;
@@ -41,7 +41,7 @@ export default function BlogArticleLayout({
         const langLine = lines[0].replace("```", "").trim();
         const code = lines.slice(1, -1).join("\n");
         return (
-          <div key={i} className="my-6 rounded-xl overflow-hidden border border-theme-border/50">
+          <div key={i} className="my-6 rounded-none overflow-hidden border border-theme-border/50">
             {langLine && (
               <div className="px-4 py-2 bg-theme-bg-tertiary/80 border-b border-theme-border/50 text-xs font-mono text-theme-text-muted uppercase tracking-wider">
                 {langLine}
@@ -137,8 +137,6 @@ export default function BlogArticleLayout({
       <article className="relative min-h-screen bg-gradient-to-b from-theme-bg-primary via-theme-bg-secondary to-theme-bg-primary">
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-theme-secondary/5 rounded-full blur-3xl" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
         </div>
 
@@ -162,13 +160,13 @@ export default function BlogArticleLayout({
             className="mb-12"
           >
             {/* Category Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full border border-theme-primary/30 bg-theme-primary/5 text-theme-primary text-xs font-mono uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-none border border-theme-primary/30 bg-theme-primary/5 text-theme-primary text-xs font-mono uppercase tracking-wider">
               <span className="w-1.5 h-1.5 bg-theme-primary rounded-full" />
               {category}
             </div>
 
             <h1
-              className={`text-3xl md:text-4xl lg:text-5xl font-bold text-theme-text-primary mb-6 leading-tight ${unbounded.className}`}
+              className={`text-3xl md:text-4xl lg:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
             >
               {title}
             </h1>
@@ -200,7 +198,7 @@ export default function BlogArticleLayout({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`px-3 py-1 text-xs rounded-lg bg-theme-bg-tertiary/60 text-theme-text-secondary border border-theme-border/40 ${inter.className}`}
+                  className={`px-3 py-1 text-xs rounded-none bg-theme-bg-tertiary/60 text-theme-text-secondary border border-theme-border/40 ${inter.className}`}
                 >
                   {tag}
                 </span>
@@ -221,7 +219,7 @@ export default function BlogArticleLayout({
             {sections.map((section, idx) => (
               <section key={idx}>
                 <h2
-                  className={`text-2xl md:text-3xl font-bold text-theme-text-primary mb-6 ${unbounded.className}`}
+                  className={`text-2xl md:text-3xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
                 >
                   {section.title}
                 </h2>
@@ -235,10 +233,10 @@ export default function BlogArticleLayout({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-16 p-8 rounded-2xl bg-theme-bg-secondary/50 border border-theme-border/50 text-center"
+            className="mt-16 p-8 rounded-none bg-theme-bg-secondary/50 border border-theme-border/50 text-center"
           >
             <h3
-              className={`text-xl font-bold text-theme-text-primary mb-3 ${unbounded.className}`}
+              className={`text-xl uppercase leading-none text-theme-text-primary mb-3 ${anton.className}`}
             >
               Interested in my work?
             </h3>
@@ -250,13 +248,13 @@ export default function BlogArticleLayout({
             <div className="flex gap-4 justify-center">
               <a
                 href="/projects"
-                className="px-6 py-3 theme-gradient-primary rounded-xl text-white font-semibold text-sm hover:opacity-90 transition-opacity"
+                className="px-6 py-3 theme-gradient-primary rounded-none text-theme-bg-primary font-semibold text-sm hover:opacity-90 transition-opacity"
               >
                 View Projects
               </a>
               <a
                 href="/#contact"
-                className="px-6 py-3 border border-theme-border rounded-xl text-theme-text-secondary font-semibold text-sm hover:border-theme-primary hover:text-theme-primary transition-all"
+                className="px-6 py-3 border border-theme-border rounded-none text-theme-text-secondary font-semibold text-sm hover:border-theme-primary hover:text-theme-primary transition-all"
               >
                 Get in Touch
               </a>

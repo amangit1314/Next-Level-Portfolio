@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Button } from "@/components/ui/button"; // optional (not used)
-import { unbounded } from "@/lib/fonts"; // <-- adjust path if needed
+import { jetbrainsMono } from "@/lib/fonts";
 
 export function BugReportDialog() {
   const [title, setTitle] = useState("");
@@ -57,18 +57,18 @@ export function BugReportDialog() {
       {/* THEME BUTTON */}
       <DialogTrigger asChild>
         <button
-          className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
+          className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 rounded-none border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
         >
-          <span className={`${unbounded.className} text-xs`}>Report Bug</span>
+          <span className={`${jetbrainsMono.className} uppercase tracking-wide text-xs`}>Report Bug</span>
           <FiAlertTriangle className="w-4 h-4" />
         </button>
       </DialogTrigger>
 
       {/* THEME-FRIENDLY DIALOG */}
-      <DialogContent className="bg-theme-bg-secondary/60 backdrop-blur-xl border border-theme-border/40 shadow-xl rounded-2xl">
+      <DialogContent className="bg-theme-bg-secondary/60 border border-theme-border/40 shadow-xl rounded-none">
         <DialogHeader>
           <DialogTitle
-            className={`${unbounded.className} text-sm text-theme-text-primary`}
+            className={`${jetbrainsMono.className} uppercase tracking-wide text-sm text-theme-text-primary`}
           >
             Report a bug
           </DialogTitle>
@@ -103,9 +103,9 @@ export function BugReportDialog() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 backdrop-blur-sm rounded-xl border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300"
+            className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 rounded-none border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300"
           >
-            <span className={`${unbounded.className} text-xs`}>
+            <span className={`${jetbrainsMono.className} uppercase tracking-wide text-xs`}>
               {submitting ? "Sending..." : "Submit bug"}
             </span>
           </button>

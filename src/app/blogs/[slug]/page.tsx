@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { FiArrowLeft, FiCalendar, FiClock, FiUser } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogBySlugQuery } from "@/sanity/lib/queries";
-import { unbounded, inter, jetbrainsMono } from "@/lib/fonts";
+import { anton, inter, jetbrainsMono } from "@/lib/fonts";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { BlogPostSkeleton } from "@/components/skeletons/BlogPostSkeleton";
@@ -76,7 +76,7 @@ const BlogPostPage = () => {
   const portableTextComponents = {
     types: {
       image: ({ value }: any) => (
-        <div className="relative w-full h-96 my-8 rounded-xl overflow-hidden border border-theme-border">
+        <div className="relative w-full h-96 my-8 rounded-none overflow-hidden border border-theme-border">
           <Image
             src={value.asset.url}
             alt={value.alt || value.caption || "Blog image"}
@@ -96,21 +96,21 @@ const BlogPostPage = () => {
       ),
       code: ({ value }: any) => (
         <div className="relative my-6 group">
-          <div className="flex items-center justify-between bg-theme-bg-secondary px-4 py-2 rounded-t-xl border-b border-theme-border">
+          <div className="flex items-center justify-between bg-theme-bg-secondary px-4 py-2 border-b border-theme-border">
             <span
-              className={`text-sm text-theme-text-muted ${unbounded.className}`}
+              className={`text-sm text-theme-text-muted ${jetbrainsMono.className}`}
             >
               {value.language || "code"}
             </span>
             <button
               onClick={() => handleCopyCode(value.code)}
-              className={`px-3 py-1 text-xs bg-theme-bg-tertiary hover:bg-theme-bg-hover text-theme-text-secondary rounded-md transition-colors ${unbounded.className}`}
+              className={`px-3 py-1 text-xs bg-theme-bg-tertiary hover:bg-theme-bg-hover text-theme-text-secondary rounded-none transition-colors ${jetbrainsMono.className}`}
             >
               {copied ? "Copied!" : "Copy"}
             </button>
           </div>
           <pre
-            className={`bg-theme-bg-primary p-4 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+            className={`bg-theme-bg-primary p-4 overflow-x-auto ${jetbrainsMono.className}`}
           >
             <code className="text-sm text-theme-text-secondary">
               {value.code}
@@ -122,28 +122,28 @@ const BlogPostPage = () => {
     block: {
       h1: ({ children }: any) => (
         <h1
-          className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${unbounded.className}`}
+          className={`text-4xl uppercase leading-none text-theme-text-primary mb-6 mt-12 ${anton.className}`}
         >
           {children}
         </h1>
       ),
       h2: ({ children }: any) => (
         <h2
-          className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${unbounded.className}`}
+          className={`text-3xl uppercase leading-none text-theme-text-primary mb-5 mt-10 ${anton.className}`}
         >
           {children}
         </h2>
       ),
       h3: ({ children }: any) => (
         <h3
-          className={`text-2xl font-bold text-theme-text-primary mb-4 mt-8 ${unbounded.className}`}
+          className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 mt-8 ${anton.className}`}
         >
           {children}
         </h3>
       ),
       h4: ({ children }: any) => (
         <h4
-          className={`text-xl font-bold text-theme-text-primary mb-3 mt-6 ${unbounded.className}`}
+          className={`text-xl uppercase leading-none text-theme-text-primary mb-3 mt-6 ${anton.className}`}
         >
           {children}
         </h4>
@@ -219,7 +219,7 @@ const BlogPostPage = () => {
       <>
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
-            className={`text-4xl font-bold text-theme-text-primary mb-4 ${unbounded.className}`}
+            className={`text-4xl uppercase leading-none text-theme-text-primary mb-4 ${anton.className}`}
           >
             Blog post not found
           </h1>
@@ -243,8 +243,6 @@ const BlogPostPage = () => {
       <div className="min-h-screen bg-linear-to-br from-theme-bg-primary via-theme-bg-secondary to-theme-bg-tertiary/80 pt-20">
         {/* Background Effects */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-theme-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 -left-20 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />
           <div className="absolute inset-0 bg-theme-bg-primary/40" />
         </div>
@@ -253,7 +251,7 @@ const BlogPostPage = () => {
           {/* Back Button */}
           <Link
             href="/blogs"
-            className={`inline-flex items-center gap-2 text-theme-primary hover:text-theme-primary-light mb-8 transition-colors ${unbounded.className}`}
+            className={`inline-flex items-center gap-2 uppercase tracking-wide text-theme-primary hover:text-theme-primary-light mb-8 transition-colors ${jetbrainsMono.className}`}
           >
             <FiArrowLeft /> Back to Blogs
           </Link>
@@ -267,13 +265,13 @@ const BlogPostPage = () => {
           >
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span
-                className={`px-3 py-1 text-xs bg-theme-primary/10 border border-theme-primary/30 text-theme-primary rounded-full uppercase ${unbounded.className}`}
+                className={`px-3 py-1 text-xs bg-theme-primary/10 border border-theme-primary/30 text-theme-primary rounded-none uppercase ${jetbrainsMono.className}`}
               >
                 {blog.category?.replace("-", " ")}
               </span>
               {blog.featured && (
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-bold text-theme-text-primary theme-gradient-accent ${unbounded.className}`}
+                  className={`px-3 py-1 rounded-none text-xs font-bold text-theme-bg-primary theme-gradient-accent uppercase ${jetbrainsMono.className}`}
                 >
                   Featured
                 </span>
@@ -281,7 +279,7 @@ const BlogPostPage = () => {
             </div>
 
             <h1
-              className={`text-4xl md:text-5xl font-black text-theme-text-primary mb-6 leading-tight ${unbounded.className}`}
+              className={`text-4xl md:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
             >
               {blog.title}
             </h1>
@@ -310,7 +308,7 @@ const BlogPostPage = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <FiUser className="w-4 h-4 text-theme-text-muted" />
                     <span
-                      className={`text-theme-text-secondary ${unbounded.className}`}
+                      className={`text-theme-text-secondary ${jetbrainsMono.className}`}
                     >
                       {authorName}
                     </span>
@@ -347,7 +345,7 @@ const BlogPostPage = () => {
                 {blog.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className={`px-3 py-1 text-sm bg-theme-bg-secondary text-theme-text-secondary rounded-lg border border-theme-border ${inter.className}`}
+                    className={`px-3 py-1 text-sm bg-theme-bg-secondary text-theme-text-secondary rounded-none border border-theme-border ${inter.className}`}
                   >
                     #{tag}
                   </span>
@@ -362,7 +360,7 @@ const BlogPostPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative w-full h-96 rounded-2xl overflow-hidden mb-12 border border-theme-border"
+              className="relative w-full h-96 rounded-none overflow-hidden mb-12 border border-theme-border"
             >
               <Image
                 src={blog.coverImage.asset.url}
@@ -393,10 +391,10 @@ const BlogPostPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-16 p-8 bg-linear-to-br from-theme-primary/10 to-theme-secondary/10 rounded-2xl border border-theme-primary/20"
+            className="mt-16 p-8 bg-theme-bg-secondary/40 rounded-none border border-theme-primary/20"
           >
             <h3
-              className={`text-2xl font-bold text-theme-text-primary mb-4 ${unbounded.className}`}
+              className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 ${anton.className}`}
             >
               Enjoyed this article?
             </h3>
@@ -405,7 +403,7 @@ const BlogPostPage = () => {
             </p>
             <Link
               href="/blogs"
-              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-text-primary rounded-xl font-medium hover:opacity-90 transition-all shadow-lg hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] ${unbounded.className}`}
+              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-bg-primary rounded-none font-medium hover:opacity-90 transition-all shadow-lg uppercase tracking-wide ${jetbrainsMono.className}`}
             >
               <FiArrowLeft className="rotate-180" />
               Read More Blogs
