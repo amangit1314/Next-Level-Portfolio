@@ -10,6 +10,7 @@ import { useUIStore } from "@/stores/uiStore";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { ChatRole, CopilotTool, ThemeMode, type ChatMessage, type ToolCall } from "../types";
 import { Route } from "@/types/enums";
+import { scrollToTarget } from "@/lib/lenisScroll";
 
 const WELCOME_MESSAGE: ChatMessage = {
     role: ChatRole.Assistant,
@@ -66,7 +67,7 @@ export function useCopilotChat() {
                 const section = args.section;
                 const element = document.getElementById(section);
                 if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
+                    scrollToTarget(element);
                     addSystemLog(`Scrolled to section: ${section}`);
                 } else {
                     // If on subpage, redirect to home with anchor

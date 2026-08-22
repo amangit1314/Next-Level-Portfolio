@@ -133,7 +133,10 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    /* NOT scroll-behavior: smooth — Lenis (LenisProvider.tsx) now owns all
+       scroll easing. Both smoothing the same scroll at once fights each
+       other (visible as jank), and Next.js already warns about this combo
+       during route transitions. */
     overscroll-behavior-y: none;
     /* Prevents bounce effect */
     overflow-x: hidden;

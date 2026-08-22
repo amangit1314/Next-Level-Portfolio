@@ -10,6 +10,7 @@ import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
 import { HeroSpecializationSwitcher } from "./HeroSpecializationSwitcher";
+import { scrollToTarget } from "@/lib/lenisScroll";
 
 // Local, not CMS-driven — profile.typewriterTexts is a plain string[] with
 // no per-entry label field. Zipped positionally with whatever taglines
@@ -40,8 +41,7 @@ const HeroSection = () => {
   const getIcon = (iconName: string) =>
     (Icons as Record<string, React.ComponentType<{ className?: string }>>)[iconName] ?? Icons.FiLink;
 
-  const handleScrollToProjects = () =>
-    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+  const handleScrollToProjects = () => scrollToTarget("#projects");
 
   if (isLoading || !profile) return <HeroSkeleton />;
 

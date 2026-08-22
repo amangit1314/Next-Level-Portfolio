@@ -21,6 +21,7 @@ import AICopilot from "@/features/ai-copilot/components/AICopilot";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import StructuredData from "@/components/layout/StructuredData";
 import { HudChrome } from "@/components/layout/hud/HudChrome";
+import { LenisProvider } from "@/components/layout/LenisProvider";
 import { SITE_URL } from "@/config/site";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -103,6 +104,7 @@ export default function RootLayout({
       <body className="font-inter" suppressHydrationWarning>
         <StructuredData />
         <Providers>
+          <LenisProvider />
           <HudChrome />
           {children}
           <AICopilot />

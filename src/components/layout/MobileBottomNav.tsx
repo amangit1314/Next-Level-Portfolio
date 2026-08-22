@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { inter } from "@/lib/fonts";
 import { sectionLinks } from "./Header";
 import { SectionId, SectionLabel } from "@/types/enums";
+import { scrollToTarget } from "@/lib/lenisScroll";
 
 // Was its own independently-hardcoded array (same 6 sections, different
 // labels/icons) — real drift risk, since adding/renaming a section in
@@ -29,8 +30,7 @@ const MobileBottomNav = () => {
   const isHome = pathname === "/";
 
   const handleNavClick = useCallback((path: string) => {
-    const el = document.querySelector(path);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToTarget(path);
   }, []);
 
   useEffect(() => {
