@@ -137,10 +137,16 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
 
       {/* ── DESKTOP layout: image left + content right ─── */}
       <div className="relative hidden lg:flex lg:flex-row">
-        {/* Image panel */}
-        <div className="lg:w-1/2 relative overflow-hidden">
+        {/* Image panel — closer to square than the old lg:w-1/2 + h-72/h-80
+            (~2.5:1). Source project images (templateforge.png etc.) are
+            square 1024x1024 illustrations; that wide a slot center-cropped
+            away most of the artwork on both sides. lg:w-2/5 + a taller
+            fixed height brings it to ~1.1:1, showing far more of each
+            asset without touching object-position (center was already
+            optimal — the subject sits dead-center in the source). */}
+        <div className="lg:w-2/5 relative overflow-hidden">
           <Link href={project.link || ""} className="relative block h-full">
-            <div className="relative h-72 xl:h-80 overflow-hidden">
+            <div className="relative h-72 lg:h-[380px] xl:h-[420px] overflow-hidden">
               {!imageError && (
                 <Image
                   src={imgSrc}
@@ -148,7 +154,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
                   alt={project.title}
                   className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                   onError={() => setImageError(true)}
-                  sizes="(max-width: 1280px) 50vw, 640px"
+                  sizes="(max-width: 1280px) 40vw, 512px"
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
@@ -168,7 +174,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
         </div>
 
         {/* Desktop content */}
-        <div className="p-8 lg:p-10 lg:w-1/2 flex flex-col justify-center relative">
+        <div className="p-8 lg:p-10 lg:w-3/5 flex flex-col justify-center relative">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
