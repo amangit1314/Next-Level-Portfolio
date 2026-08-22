@@ -67,15 +67,15 @@ export const AICopilot = () => {
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-none theme-gradient-primary flex items-center justify-center relative shadow-md">
                   <FiZap className="w-5 h-5 text-theme-on-primary" />
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-theme-bg-secondary" />
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-theme-status rounded-full border-2 border-theme-bg-secondary" />
                 </div>
                 <div>
                   <h3 className={`text-base uppercase leading-none text-theme-text-primary ${anton.className}`}>
                     AI Co-pilot
                   </h3>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-ping" />
-                    <span className="text-[10px] font-mono text-green-400">Agentic Engine Online</span>
+                    <span className="w-1.5 h-1.5 bg-theme-status rounded-full animate-ping" />
+                    <span className="text-[10px] font-mono text-theme-status">Agentic Engine Online</span>
                   </div>
                 </div>
               </div>
