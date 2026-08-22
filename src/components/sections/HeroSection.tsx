@@ -3,12 +3,21 @@
 import { inter, anton, jetbrainsMono } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FiArrowDown, FiExternalLink } from "react-icons/fi";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
+import { HeroSpecializationSwitcher } from "./HeroSpecializationSwitcher";
+
+// Local, not CMS-driven — profile.typewriterTexts is a plain string[] with
+// no per-entry label field. Zipped positionally with whatever taglines
+// exist; if you add a 4th typewriterText it just won't get a pill until
+// this list grows too. A real per-entry Sanity field is the correct fix
+// if this needs to be fully content-owned — flagged, not silently worked
+// around further.
+const SPECIALIZATION_LABELS = ["AI Engineer", "Full-Stack", "RAG Systems"];
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -18,9 +27,6 @@ const fadeUp = (delay = 0) => ({
 
 const HeroSection = () => {
   const { data: profile, isLoading } = useProfile();
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
   // projectsCount and aiProjectsCount come from the shared useSanityQuery
   // hooks — single source of truth also used by Skills, so this number
   // can't drift from what Skills/Projects show (same drift bug as the
@@ -31,36 +37,6 @@ const HeroSection = () => {
   const { data: liveProjectsCount } = useProjectsCount();
   const { data: liveAiProjectsCount } = useAiProjectsCount();
 
-  useEffect(() => {
-    if (!profile?.typewriterTexts?.length) return;
-    const currentText = profile.typewriterTexts[currentTextIndex];
-    let timeout: NodeJS.Timeout;
-
-    if (isTyping) {
-      if (displayedText.length < currentText.length) {
-        timeout = setTimeout(() => setDisplayedText(currentText.slice(0, displayedText.length + 1)), 80);
-      } else {
-        timeout = setTimeout(() => setIsTyping(false), 2200);
-      }
-    } else {
-      if (displayedText.length > 0) {
-        timeout = setTimeout(() => setDisplayedText(displayedText.slice(0, -1)), 40);
-      } else {
-        /* eslint-disable react-hooks/set-state-in-effect -- this effect is
-           the typewriter's own sequencer (advance to the next phrase once
-           backspacing hits zero length), not state synced from an external
-           source. Restructuring into a reducer/interval to satisfy the rule
-           risks changing the animation's actual behavior with no way to
-           visually verify the result this session — left as a documented,
-           deliberate exception rather than a blind refactor. */
-        setCurrentTextIndex((prev) => (prev + 1) % (profile.typewriterTexts?.length ?? 1));
-        setIsTyping(true);
-        /* eslint-enable react-hooks/set-state-in-effect */
-      }
-    }
-    return () => clearTimeout(timeout);
-  }, [displayedText, isTyping, currentTextIndex, profile]);
-
   const getIcon = (iconName: string) =>
     (Icons as Record<string, React.ComponentType<{ className?: string }>>)[iconName] ?? Icons.FiLink;
 
@@ -68,6 +44,10 @@ const HeroSection = () => {
     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
 
   if (isLoading || !profile) return <HeroSkeleton />;
+
+  const specializations = (profile.typewriterTexts ?? [])
+    .slice(0, SPECIALIZATION_LABELS.length)
+    .map((tagline, i) => ({ label: SPECIALIZATION_LABELS[i], tagline }));
 
   const stats = [
     { value: profile.stats?.experienceYears, label: "Years Exp" },
@@ -118,12 +98,10 @@ const HeroSection = () => {
               </h1>
             </motion.div>
 
-            {/* Typewriter */}
+            {/* Specialization switcher — replaces the old auto-typing
+                tagline, see HeroSpecializationSwitcher.tsx */}
             <motion.div {...fadeUp(0.15)}>
-              <p className={`text-lg sm:text-xl text-theme-text-muted ${inter.className}`}>
-                <span className="text-theme-primary font-medium">{displayedText}</span>
-                <span className="animate-pulse text-theme-primary">|</span>
-              </p>
+              <HeroSpecializationSwitcher specializations={specializations} />
             </motion.div>
 
             {/* Bio */}
