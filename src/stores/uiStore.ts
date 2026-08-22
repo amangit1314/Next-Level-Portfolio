@@ -18,6 +18,17 @@ interface UIState {
   pendingProjectSearch: string | null;
   setPendingProjectSearch: (query: string) => void;
   clearPendingProjectSearch: () => void;
+
+  // HUD Settings dialog (gear icon, floating right-edge) — open state, plus
+  // the selected accent flavor id. The flavor id alone lives here; actually
+  // applying it as CSS variables happens in HudAccentSync.tsx (a side
+  // effect, doesn't belong in a state store).
+  isSettingsOpen: boolean;
+  openSettings: () => void;
+  closeSettings: () => void;
+  toggleSettings: () => void;
+  accentFlavorId: string;
+  setAccentFlavorId: (id: string) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -29,4 +40,11 @@ export const useUIStore = create<UIState>((set) => ({
   pendingProjectSearch: null,
   setPendingProjectSearch: (query) => set({ pendingProjectSearch: query }),
   clearPendingProjectSearch: () => set({ pendingProjectSearch: null }),
+
+  isSettingsOpen: false,
+  openSettings: () => set({ isSettingsOpen: true }),
+  closeSettings: () => set({ isSettingsOpen: false }),
+  toggleSettings: () => set((s) => ({ isSettingsOpen: !s.isSettingsOpen })),
+  accentFlavorId: "hud-mono",
+  setAccentFlavorId: (id) => set({ accentFlavorId: id }),
 }));

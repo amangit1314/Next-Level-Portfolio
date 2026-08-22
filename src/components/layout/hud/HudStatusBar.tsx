@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { jetbrainsMono } from '@/lib/fonts';
-import { FiActivity, FiSettings, FiCpu } from 'react-icons/fi';
+import { FiCpu } from 'react-icons/fi';
 import { useUIStore } from '@/stores/uiStore';
 
 interface HudStatusBarProps {
   email: string;
   pageIndex: number;
   pageLabel: string;
-  /** Opens HudMenu's popover — triggered by the [n] PAGE pill now, not the
-   * settings icon (that's reserved for a separate settings dialog, not
-   * built yet). */
+  /** Opens HudMenu's popover — triggered by the [n] PAGE pill. Settings
+   * now lives at its own floating trigger, right-edge-center — see
+   * HudChrome.tsx / HudSettingsDialog.tsx. */
   onMenuClick?: () => void;
 }
 
@@ -84,13 +84,11 @@ export function HudStatusBar({
         )}
       </div>
 
-      {/* Right group: activity + page pill + AI Copilot + menu trigger,
-          each its own bordered chip, sharp corners throughout. */}
+      {/* Right group: page pill + AI Copilot, each its own bordered chip,
+          sharp corners throughout. (Waveform/audio-engine icon dropped —
+          audio is explicitly out of scope, see [[project_hud_v2_redesign]].
+          Settings moved out to its own floating right-edge trigger.) */}
       <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
-        <div className="hidden sm:block" style={{ color: 'var(--hud-text-muted)' }}>
-          <FiActivity size={16} />
-        </div>
-
         {/* Page pill — now the menu trigger (anchors HudMenu's popover,
             see HudMenu.tsx). Was the settings icon; that's reserved for a
             separate settings dialog, not built yet. Kept visible at every
@@ -121,16 +119,6 @@ export function HudStatusBar({
           {!isCopilotOpen && (
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           )}
-        </button>
-
-        {/* Settings — reserved for a separate settings dialog (not built
-            yet). No longer opens HudMenu; the page pill does that now. */}
-        <button
-          className="flex items-center justify-center w-9 h-9 rounded-none border transition-colors hover:opacity-75"
-          style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-muted)' }}
-          aria-label="Settings"
-        >
-          <FiSettings size={16} />
         </button>
       </div>
     </div>

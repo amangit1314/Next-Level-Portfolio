@@ -6,8 +6,12 @@
 // `sectionLinks` from Header.tsx, and pageLinks (data only, not the
 // component's render output) is reused below for the numbered nav.
 //
-// Fixed monochrome by design — see globals.css's --hud-* tokens comment.
-// Not wired into the theme-switcher system, deliberately.
+// Background/text/border stay fixed monochrome (globals.css's --hud-*
+// tokens) — NOT wired into v1's ThemeContext/ThemeSwitcher (that system is
+// still single-entry, see themes.ts). What IS user-selectable is the
+// accent color layer (hudAccentFlavors.ts, applied by HudAccentSync) —
+// saifullah.dev's own "theme" is the same idea: a color swap, not a full
+// re-skin. See docs/superpowers/specs and [[project_hud_v2_redesign]].
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,8 +19,12 @@ import { HudTicker } from "./HudTicker";
 import { HudStatusBar } from "./HudStatusBar";
 import { HudMenu } from "./HudMenu";
 import { HudIdentity } from "./HudIdentity";
+import { HudSettingsDialog } from "./HudSettingsDialog";
+import { HudAccentSync } from "./HudAccentSync";
 import { pageLinks } from "@/components/layout/Header";
 import { SOCIAL_LINKS } from "@/constants/socialLinks";
+import { useUIStore } from "@/stores/uiStore";
+import { FiSettings } from "react-icons/fi";
 
 // Matches the real address already used in components/sections/Contact.tsx
 const CONTACT_EMAIL = "amansoni53453@gmail.com";
@@ -25,6 +33,7 @@ export function HudChrome() {
     const pathname = usePathname();
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
+    const toggleSettings = useUIStore((s) => s.toggleSettings);
 
     const isHome = pathname === "/";
     const isPageActive = (path: string) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
@@ -42,6 +51,24 @@ export function HudChrome() {
 
     return (
         <>
+            <HudAccentSync />
+
+            {/* Settings trigger — floating right-edge, vertically centered,
+                roughly where a scrollbar would sit. Matches the reference
+                site's placement; deliberately separate from the bottom-bar
+                chip group (HudStatusBar) and the [n] PAGE pill (that opens
+                HudMenu, navigation — a different concern from settings). */}
+            <button
+                onClick={toggleSettings}
+                data-hud-settings
+                className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 rounded-none border transition-colors hover:opacity-75"
+                style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)", backgroundColor: "var(--hud-bg)" }}
+                aria-label="Open settings"
+            >
+                <FiSettings size={16} />
+            </button>
+            <HudSettingsDialog />
+
             {/* overflow-hidden here (the actual fixed, full-viewport-width box) is
                 load-bearing: html/body's overflow-x:hidden does NOT clip
                 position:fixed descendants (a real CSS quirk, not a Tailwind gap),

@@ -5,6 +5,7 @@
  */
 
 import { Theme, ColorWithRGB } from '@/types/theme';
+import { AccentFlavor } from '@/lib/hudAccentFlavors';
 
 /**
  * Convert camelCase to kebab-case for CSS variable names
@@ -12,6 +13,21 @@ import { Theme, ColorWithRGB } from '@/types/theme';
  */
 export const camelToKebab = (str: string): string => {
     return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+};
+
+/** Sets --theme-{key}, --theme-{key}-rgb, and the -10/20/30/50/70/90 opacity
+ * variants for one ColorWithRGB — the shared step both applyThemeVariables
+ * (v1, full theme) and applyAccentVariables (v2, accent-only) need. */
+const setColorVariable = (root: HTMLElement, key: string, value: ColorWithRGB): void => {
+    const cssKey = camelToKebab(key);
+    root.style.setProperty(`--theme-${cssKey}`, value.hex);
+    root.style.setProperty(`--theme-${cssKey}-rgb`, value.rgb);
+    root.style.setProperty(`--theme-${cssKey}-10`, `rgba(${value.rgb}, 0.1)`);
+    root.style.setProperty(`--theme-${cssKey}-20`, `rgba(${value.rgb}, 0.2)`);
+    root.style.setProperty(`--theme-${cssKey}-30`, `rgba(${value.rgb}, 0.3)`);
+    root.style.setProperty(`--theme-${cssKey}-50`, `rgba(${value.rgb}, 0.5)`);
+    root.style.setProperty(`--theme-${cssKey}-70`, `rgba(${value.rgb}, 0.7)`);
+    root.style.setProperty(`--theme-${cssKey}-90`, `rgba(${value.rgb}, 0.9)`);
 };
 
 /**
@@ -27,22 +43,9 @@ export const applyThemeVariables = (theme: Theme): void => {
     // Apply all color variables
     Object.entries(theme.colors).forEach(([key, value]) => {
         if (typeof value === 'object' && 'hex' in value && 'rgb' in value) {
-            // ColorWithRGB type
-            const cssKey = camelToKebab(key);
-            root.style.setProperty(`--theme-${cssKey}`, value.hex);
-            root.style.setProperty(`--theme-${cssKey}-rgb`, value.rgb);
-
-            // Create opacity variants for common use cases
-            root.style.setProperty(`--theme-${cssKey}-10`, `rgba(${value.rgb}, 0.1)`);
-            root.style.setProperty(`--theme-${cssKey}-20`, `rgba(${value.rgb}, 0.2)`);
-            root.style.setProperty(`--theme-${cssKey}-30`, `rgba(${value.rgb}, 0.3)`);
-            root.style.setProperty(`--theme-${cssKey}-50`, `rgba(${value.rgb}, 0.5)`);
-            root.style.setProperty(`--theme-${cssKey}-70`, `rgba(${value.rgb}, 0.7)`);
-            root.style.setProperty(`--theme-${cssKey}-90`, `rgba(${value.rgb}, 0.9)`);
+            setColorVariable(root, key, value as ColorWithRGB);
         } else if (typeof value === 'string') {
-            // Simple string color
-            const cssKey = camelToKebab(key);
-            root.style.setProperty(`--theme-${cssKey}`, value);
+            root.style.setProperty(`--theme-${camelToKebab(key)}`, value);
         }
     });
 
@@ -54,6 +57,26 @@ export const applyThemeVariables = (theme: Theme): void => {
         document.body.classList.add('theme-dark');
         document.body.classList.remove('theme-light');
     }
+};
+
+/**
+ * v2's theme application — an accent-only layer. Sets ONLY the primary,
+ * secondary, and accent CSS variables (the 7 color keys on AccentFlavor).
+ * Deliberately does NOT touch the bg, text, border, or mode variables —
+ * those stay driven by the fixed hud-mono base theme (see themes.ts) so
+ * the background/text/borders never change, only the accent color does.
+ * See hudAccentFlavors.ts for why.
+ */
+const ACCENT_COLOR_KEYS = [
+    'primaryLight', 'primary', 'primaryDark',
+    'secondaryLight', 'secondary', 'secondaryDark',
+    'accent',
+] as const;
+
+export const applyAccentVariables = (flavor: AccentFlavor): void => {
+    const root = document.documentElement;
+    root.setAttribute('data-accent-flavor', flavor.id);
+    ACCENT_COLOR_KEYS.forEach((key) => setColorVariable(root, key, flavor[key]));
 };
 
 /**
