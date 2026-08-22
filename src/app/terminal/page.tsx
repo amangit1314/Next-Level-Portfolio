@@ -63,7 +63,12 @@ export default function TerminalPage() {
     fetchData();
   }, []);
 
-  // Boot sequence animation
+  // Boot sequence animation — every line appeared twice because React 19
+  // Strict Mode double-invokes effects in dev (mount -> cleanup -> mount)
+  // and this effect scheduled setTimeouts with no cleanup to cancel the
+  // first invocation's timers. They all fired anyway, so the second mount's
+  // full sequence ran on top of the first. Fix: track every timeout id and
+  // clear them all on cleanup, same as any other subscription/timer effect.
   useEffect(() => {
     const sequence = [
       { text: "Initializing Core Dev-Shell v2.4.9...", type: "system" },
@@ -74,22 +79,24 @@ export default function TerminalPage() {
       { text: "", type: "output" },
     ];
 
+    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
+
     let delay = 200;
     sequence.forEach((line, index) => {
-      setTimeout(() => {
+      const id = setTimeout(() => {
         setHistory((prev) => [...prev, line as TerminalLine]);
         if (index === sequence.length - 1) {
           // Render ASCII Art and Help welcome message
-          setTimeout(() => {
+          const innerId = setTimeout(() => {
             setHistory((prev) => [
               ...prev,
               {
                 text: `
- █████  ██ ██████   ██████  ██████  ██ ██      ██████  ████████ 
-██   ██ ██ ██   ██ ██    ██ ██   ██ ██ ██     ██    ██    ██    
-███████ ██ ██████  ██    ██ ██████  ██ ██     ██    ██    ██    
-██   ██ ██ ██   ██ ██    ██ ██      ██ ██     ██    ██    ██    
-██   ██ ██ ██   ██  ██████  ██      ██ ██████  ██████     ██    
+ █████  ██ ██████   ██████  ██████  ██ ██      ██████  ████████
+██   ██ ██ ██   ██ ██    ██ ██   ██ ██ ██     ██    ██    ██
+███████ ██ ██████  ██    ██ ██████  ██ ██     ██    ██    ██
+██   ██ ██ ██   ██ ██    ██ ██      ██ ██     ██    ██    ██
+██   ██ ██ ██   ██  ██████  ██      ██ ██████  ██████     ██
                                                                 `,
                 type: "ascii",
               },
@@ -98,10 +105,16 @@ export default function TerminalPage() {
             ]);
             setBooted(true);
           }, 300);
+          timeoutIds.push(innerId);
         }
       }, delay);
+      timeoutIds.push(id);
       delay += 250;
     });
+
+    return () => {
+      timeoutIds.forEach(clearTimeout);
+    };
   }, []);
 
   const handleCommand = (cmdStr: string) => {
@@ -332,7 +345,7 @@ export default function TerminalPage() {
   return (
     <div className="min-h-screen bg-black flex flex-col">
       <div
-        className="flex-1 text-green-400 font-mono p-4 pt-20 md:p-8 md:pt-24 flex flex-col relative overflow-hidden select-none"
+        className="flex-1 text-theme-primary font-mono p-4 pt-20 md:p-8 md:pt-24 flex flex-col relative overflow-hidden select-none"
         onClick={() => inputRef.current?.focus()}
       >
       {/* CRT Scanline and flicker visual effects */}
@@ -358,18 +371,18 @@ export default function TerminalPage() {
               return (
                 <pre
                   key={index}
-                  className="leading-none text-cyan-400 text-[10px] sm:text-xs overflow-x-auto select-text font-bold whitespace-pre mt-2 mb-4"
+                  className="leading-none text-theme-primary text-[10px] sm:text-xs overflow-x-auto select-text font-bold whitespace-pre mt-2 mb-4"
                 >
                   {line.text}
                 </pre>
               );
             }
 
-            let colorClass = "text-green-400";
+            let colorClass = "text-theme-primary";
             if (line.type === "system") colorClass = "text-zinc-500 font-bold";
             if (line.type === "error") colorClass = "text-red-400 font-bold";
             if (line.type === "input") colorClass = "text-white";
-            if (line.type === "output") colorClass = "text-green-300/95 select-text";
+            if (line.type === "output") colorClass = "text-theme-primary/90 select-text";
 
             return (
               <div
@@ -383,7 +396,7 @@ export default function TerminalPage() {
 
           {booted && (
             <div className="flex items-center text-sm mt-2 text-white">
-              <span className="text-cyan-400 font-bold mr-2">visitor@amansoni.dev:~$</span>
+              <span className="text-theme-primary font-bold mr-2">visitor@amansoni.dev:~$</span>
               <input
                 ref={inputRef}
                 type="text"
