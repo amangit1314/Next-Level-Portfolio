@@ -17,6 +17,13 @@ import {
   SiHuggingface, SiOpenai, SiJupyter, SiTensorflow, SiFastapi, SiDocker,
 } from "react-icons/si";
 
+// Sanity's techStackPreview is free-text ("Fast Api" vs "FastAPI" vs
+// "fastapi" have all shown up) — normalizing both the map's keys and the
+// lookup to bare lowercase alphanumerics means spacing/punctuation/casing
+// variants all resolve to the same icon instead of silently missing and
+// falling back to the JS icon (happened twice: FastAPI, then Docker).
+const normalizeTechName = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 const skillToIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "Next.js": SiNextdotjs,
   NestJS: SiNestjs,
@@ -49,6 +56,10 @@ const skillToIconMap: Record<string, React.ComponentType<{ className?: string }>
   Docker: SiDocker,
 };
 
+const normalizedIconMap: Record<string, React.ComponentType<{ className?: string }>> = Object.fromEntries(
+  Object.entries(skillToIconMap).map(([name, icon]) => [normalizeTechName(name), icon])
+);
+
 export const AboutSection = () => {
   const { data: profile, isLoading } = useProfile();
   const headerRef = useRef<HTMLDivElement>(null);
@@ -59,7 +70,7 @@ export const AboutSection = () => {
   useScrollReveal(rightColRef, "stagger-lines", { deps: [profile] });
 
   const getTechIcon = (techName: string) =>
-    skillToIconMap[techName.trim()] ?? SiJavascript;
+    normalizedIconMap[normalizeTechName(techName)] ?? SiJavascript;
 
   if (isLoading || !profile) return <AboutSkeleton />;
 
