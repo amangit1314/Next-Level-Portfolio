@@ -158,7 +158,7 @@ export const AICopilot = () => {
                       <span className="w-2 h-2 bg-theme-secondary rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
                       <span className="w-2 h-2 bg-theme-primary rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                     </div>
-                    <span className="text-xs font-mono opacity-80">Groq thinking...</span>
+                    <span className="text-xs font-mono opacity-80">CORE thinking...</span>
                   </div>
                 </div>
               )}
