@@ -10,7 +10,6 @@ import { inter, jetbrainsMono } from "@/lib/fonts";
 import { BlogListRowSkeleton } from "@/components/skeletons/BlogListRowSkeleton";
 import { BlogListRow } from "./_components/BlogListRow";
 import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
-import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
 import { aiBlogs } from "@/data/ai-blogs";
 import { useRef } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -98,7 +97,6 @@ const BlogsContent = () => {
     <div className="min-h-screen [background-color:var(--hud-bg)] relative overflow-x-hidden">
       <div className="absolute inset-0 pointer-events-none hud-grid-bg" />
 
-      <HudScrollSlider />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         {/* Hero */}

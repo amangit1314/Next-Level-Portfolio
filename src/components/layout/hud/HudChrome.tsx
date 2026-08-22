@@ -21,10 +21,23 @@ import { HudMenu } from "./HudMenu";
 import { HudIdentity } from "./HudIdentity";
 import { HudSettingsDialog } from "./HudSettingsDialog";
 import { HudAccentSync } from "./HudAccentSync";
+import { HudScrollSlider } from "./HudScrollSlider";
 import { pageLinks } from "@/components/layout/Header";
 import { SOCIAL_LINKS } from "@/constants/socialLinks";
 import { useUIStore } from "@/stores/uiStore";
 import { FiSettings } from "react-icons/fi";
+import { Route } from "@/types/enums";
+
+// Routes with a HudScrollSlider — list pages that scroll and have no other
+// scroll feedback. Mounted here (not per-page) because position:fixed
+// stayed correctly pinned to the viewport for the settings button (mounted
+// at this same layout.tsx-level) but drifted with page scroll when mounted
+// from inside each page's own component tree — some ancestor in that
+// per-page tree was creating a containing block, even though nothing
+// obviously did (no transform found). Mounting alongside the settings
+// button sidesteps it entirely, guaranteed identical behavior, and drops
+// three duplicate <HudScrollSlider /> call sites down to one.
+const SCROLL_SLIDER_ROUTES = [Route.Projects, Route.Blogs, Route.Components];
 
 // Matches the real address already used in components/sections/Contact.tsx
 const CONTACT_EMAIL = "amansoni53453@gmail.com";
@@ -36,6 +49,7 @@ export function HudChrome() {
     const toggleSettings = useUIStore((s) => s.toggleSettings);
 
     const isHome = pathname === "/";
+    const showScrollSlider = SCROLL_SLIDER_ROUTES.some((r) => pathname.startsWith(r));
     const isPageActive = (path: string) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
     const currentIndex = Math.max(1, pageLinks.findIndex((link) => isPageActive(link.path)) + 1);
     const currentLabel = pageLinks.find((link) => isPageActive(link.path))?.name ?? "Home";
@@ -52,6 +66,7 @@ export function HudChrome() {
     return (
         <>
             <HudAccentSync />
+            {showScrollSlider && <HudScrollSlider />}
 
             {/* Settings trigger — floating right-edge, vertically centered,
                 roughly where a scrollbar would sit. Matches the reference

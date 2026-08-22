@@ -14,7 +14,7 @@ import { Route } from "@/types/enums";
 const WELCOME_MESSAGE: ChatMessage = {
     role: ChatRole.Assistant,
     content:
-        "Hello! I am your AI Co-pilot. I can answer questions about Aman's experience, skills, and projects, or directly run commands on this website. Try asking me to switch themes, search projects, or scroll to a section!",
+        "I'm CORE — Aman's on-site AI, running real retrieval over his actual work. Ask about his experience, skills, or projects, or have me run commands on this site: switch themes, search projects, scroll to a section.",
 };
 
 export function useCopilotChat() {
@@ -153,7 +153,7 @@ export function useCopilotChat() {
                 }
             }
         } catch (e) {
-            console.error("Co-pilot chat error:", e);
+            console.error("CORE chat error:", e);
             setMessages((prev) => [
                 ...prev,
                 {

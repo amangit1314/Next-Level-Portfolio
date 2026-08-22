@@ -71,7 +71,7 @@ export const AICopilot = () => {
                 </div>
                 <div>
                   <h3 className={`text-base uppercase leading-none text-theme-text-primary ${anton.className}`}>
-                    AI Co-pilot
+                    CORE
                   </h3>
                   <div className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 bg-theme-status rounded-full animate-ping" />
@@ -189,7 +189,7 @@ export const AICopilot = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask co-pilot or run tools..."
+                placeholder="Ask CORE or run tools..."
                 rows={1}
                 className={`flex-1 max-h-20 p-3 bg-theme-bg-tertiary/40 border border-theme-border rounded-none focus:border-theme-primary/60 focus:ring-1 focus:ring-theme-primary/30 outline-none text-sm text-theme-text-primary resize-none placeholder-theme-text-muted/60 ${inter.className}`}
               />

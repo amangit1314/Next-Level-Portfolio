@@ -97,7 +97,7 @@ export function HudStatusBar({
             hiding it on mobile would strand that content. */}
         <button
           onClick={onMenuClick}
-          className="rounded-none border px-3 py-2 text-xs transition-colors hover:opacity-75"
+          className="rounded-none border px-3 py-2 text-xs cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
           style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-primary)' }}
           aria-label="Open menu"
         >
@@ -113,7 +113,7 @@ export function HudStatusBar({
             borderColor: isCopilotOpen ? 'var(--theme-primary)' : 'var(--hud-border)',
             color: isCopilotOpen ? 'var(--theme-primary)' : 'var(--hud-text-muted)',
           }}
-          aria-label={isCopilotOpen ? 'Close AI Co-pilot' : 'Open AI Co-pilot'}
+          aria-label={isCopilotOpen ? 'Close CORE' : 'Open CORE'}
         >
           <FiZap size={16} />
           {!isCopilotOpen && (
