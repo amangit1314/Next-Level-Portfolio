@@ -9,14 +9,17 @@ interface HudStatusBarProps {
   email: string;
   pageIndex: number;
   pageLabel: string;
-  onSettingsClick?: () => void;
+  /** Opens HudMenu's popover — triggered by the [n] PAGE pill now, not the
+   * settings icon (that's reserved for a separate settings dialog, not
+   * built yet). */
+  onMenuClick?: () => void;
 }
 
 export function HudStatusBar({
   email,
   pageIndex,
   pageLabel,
-  onSettingsClick,
+  onMenuClick,
 }: HudStatusBarProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState('');
@@ -88,12 +91,20 @@ export function HudStatusBar({
           <FiActivity size={16} />
         </div>
 
-        <div
-          className="hidden sm:block rounded-none border px-3 py-2 text-xs"
+        {/* Page pill — now the menu trigger (anchors HudMenu's popover,
+            see HudMenu.tsx). Was the settings icon; that's reserved for a
+            separate settings dialog, not built yet. Kept visible at every
+            breakpoint (unlike the old settings icon's sm:block gate) —
+            it's the only way to reach the social links in HudMenu, so
+            hiding it on mobile would strand that content. */}
+        <button
+          onClick={onMenuClick}
+          className="rounded-none border px-3 py-2 text-xs transition-colors hover:opacity-75"
           style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-primary)' }}
+          aria-label="Open menu"
         >
           [{pageIndex}] {pageLabel.toUpperCase()}
-        </div>
+        </button>
 
         {/* AI Copilot toggle — same chip styling as the settings trigger
             beside it, instead of a visually orphaned floating button. */}
@@ -112,12 +123,12 @@ export function HudStatusBar({
           )}
         </button>
 
-        {/* Menu trigger — anchors HudMenu's compact popover, see HudMenu.tsx */}
+        {/* Settings — reserved for a separate settings dialog (not built
+            yet). No longer opens HudMenu; the page pill does that now. */}
         <button
-          onClick={onSettingsClick}
           className="flex items-center justify-center w-9 h-9 rounded-none border transition-colors hover:opacity-75"
           style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-muted)' }}
-          aria-label="Open menu"
+          aria-label="Settings"
         >
           <FiSettings size={16} />
         </button>

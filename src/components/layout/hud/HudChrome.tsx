@@ -59,7 +59,7 @@ export function HudChrome() {
                 email={CONTACT_EMAIL}
                 pageIndex={currentIndex}
                 pageLabel={currentLabel}
-                onSettingsClick={() => setMenuOpen(true)}
+                onMenuClick={() => setMenuOpen(true)}
             />
 
             <HudMenu
