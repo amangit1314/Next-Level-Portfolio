@@ -15,7 +15,7 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { inter, jetbrainsMono } from "@/lib/fonts";
+import { jetbrainsMono } from "@/lib/fonts";
 
 export interface Specialization {
   label: string;
@@ -79,8 +79,12 @@ export function HeroSpecializationSwitcher({ specializations }: { specialization
           </button>
         ))}
       </div>
-      <p ref={textRef} className={`text-lg sm:text-xl text-theme-primary font-medium ${inter.className}`}>
-        {current.tagline}
+      {/* System-readout line, not a marketing sentence — mono, prefixed,
+          uppercase label — matches the ticker/menu register instead of
+          reading as body copy competing with the bio paragraph below it. */}
+      <p ref={textRef} className={`text-xs sm:text-sm tracking-wide ${jetbrainsMono.className}`}>
+        <span className="text-theme-primary">{">"} FOCUS:</span>{" "}
+        <span className="text-theme-text-secondary">{current.tagline}</span>
       </p>
     </div>
   );
