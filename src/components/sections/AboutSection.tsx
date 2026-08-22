@@ -194,30 +194,44 @@ export const AboutSection = () => {
               ))}
             </div>
 
-            {/* Bio */}
+            {/* Bio — was two self-introductions back to back (a hardcoded
+                "I'm {name}, a {role}..." sentence, then longBio restating
+                the same "I'm Aman, a full-stack engineer..." beat).
+                longBio is the real, CMS-owned bio; the hardcoded one was
+                redundant filler, not a second data point. */}
             <div data-reveal-item className="space-y-4">
               <h3 className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                 {profile.headline ?? "What I Actually Build"}
               </h3>
-              <p className={`text-theme-text-secondary leading-relaxed ${inter.className}`}>
-                I&apos;m{" "}
-                <span className="text-theme-primary font-semibold">{profile.name}</span>
-                , a {profile.role} focused on production AI systems — RAG pipelines, document
-                extraction agents, and full-stack applications that ship reliably.
-              </p>
-              {profile.longBio && (
-                <p className={`hidden sm:block text-theme-text-secondary/80 leading-relaxed ${inter.className}`}>
+              {profile.longBio ? (
+                <p className={`text-theme-text-secondary leading-relaxed ${inter.className}`}>
                   {profile.longBio}
+                </p>
+              ) : (
+                <p className={`text-theme-text-secondary leading-relaxed ${inter.className}`}>
+                  I&apos;m <span className="text-theme-primary font-semibold">{profile.name}</span>
+                  , a {profile.role} focused on production AI systems — RAG pipelines, document
+                  extraction agents, and full-stack applications that ship reliably.
                 </p>
               )}
             </div>
 
-            {/* Key Strengths */}
+            {/* Key Strengths — indexed HUD-style rows instead of generic
+                bullet-dot sentences, matching the ticker/menu register
+                (bracketed index, mono, bordered) rather than reading like
+                a plain marketing list. */}
             {(profile.keyStrengths?.length ?? 0) > 0 && (
-              <div data-reveal-item className="space-y-2.5">
-                {profile.keyStrengths!.map((strength: string) => (
-                  <div key={strength} className="flex items-start gap-3 group">
-                    <div className="w-1.5 h-1.5 rounded-full bg-theme-primary mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300" />
+              <div data-reveal-item className="space-y-0 border-t border-theme-border/40">
+                {profile.keyStrengths!.map((strength: string, i: number) => (
+                  <div
+                    key={strength}
+                    className="group flex items-start gap-4 py-3 border-b border-theme-border/40"
+                  >
+                    <span
+                      className={`text-xs font-semibold text-theme-primary shrink-0 pt-0.5 ${jetbrainsMono.className}`}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span className={`text-theme-text-secondary text-sm leading-relaxed ${inter.className}`}>
                       {strength}
                     </span>

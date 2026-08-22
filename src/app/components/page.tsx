@@ -136,7 +136,7 @@ const ComponentsContent = () => {
                 className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className}`}
                 style={
                   selectedCategory === cat.value
-                    ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                    ? { borderColor: "var(--theme-primary)", color: "var(--theme-primary)" }
                     : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
                 }
               >

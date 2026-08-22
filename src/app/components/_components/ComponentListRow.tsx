@@ -38,8 +38,8 @@ export function ComponentListRow({
         onMouseLeave={() => setIsHovering(false)}
       >
         <div
-          className={`text-3xl font-bold ${jetbrainsMono.className} flex-shrink-0`}
-          style={{ color: "var(--hud-text-muted)" }}
+          className={`text-3xl font-bold ${jetbrainsMono.className} flex-shrink-0 transition-colors duration-200`}
+          style={{ color: isHovering ? "var(--theme-primary)" : "var(--hud-text-muted)" }}
         >
           {paddedIndex}
         </div>

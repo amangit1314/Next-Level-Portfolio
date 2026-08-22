@@ -155,7 +155,7 @@ const ProjectsContent = () => {
                 className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className}`}
                 style={
                   selectedCategory === cat
-                    ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                    ? { borderColor: "var(--theme-primary)", color: "var(--theme-primary)" }
                     : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
                 }
               >
@@ -219,7 +219,7 @@ const ProjectsContent = () => {
                       className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-4 py-2 border transition-all duration-200 ${jetbrainsMono.className}`}
                       style={
                         tab === t.key
-                          ? { borderColor: "var(--hud-text-primary)", color: "var(--hud-text-primary)" }
+                          ? { borderColor: "var(--theme-primary)", color: "var(--theme-primary)" }
                           : { borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }
                       }
                     >

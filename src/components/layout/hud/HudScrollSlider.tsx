@@ -33,11 +33,13 @@ export function HudScrollSlider() {
         className="relative w-px h-32"
         style={{ backgroundColor: "var(--hud-border)" }}
       >
-        {/* Moving thumb indicator */}
+        {/* Moving thumb indicator — accent-flavor colored (var(--theme-primary),
+            not the fixed --hud-text-primary) so the selected theme actually
+            reaches these standalone pages, not just Home/Playground. */}
         <div
           className="absolute w-1 h-1 rounded-full left-1/2 -translate-x-1/2"
           style={{
-            backgroundColor: "var(--hud-text-primary)",
+            backgroundColor: "var(--theme-primary)",
             top: `${progress * 100}%`,
           }}
         />
