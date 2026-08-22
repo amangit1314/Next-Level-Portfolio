@@ -46,83 +46,60 @@ export function HudStatusBar({
   }, []);
 
   return (
-    // Floating HUD overlay, not a panel — no border/background fill. The
-    // reference site's bottom elements sit directly on the page background;
-    // an enclosing bar read as "UI chrome" instead of a weightless readout.
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between px-4 sm:px-8 py-4 pointer-events-none ${jetbrainsMono.className}`}
+      className={`fixed bottom-0 left-0 right-0 z-40 flex items-end justify-between gap-4 px-4 sm:px-8 py-4 pointer-events-none ${jetbrainsMono.className}`}
     >
-      {/* Left Section: Say Hello */}
-      <div className="pointer-events-auto flex flex-col gap-1 sm:gap-2">
-        <span
-          className="text-xs"
-          style={{ color: 'var(--hud-text-muted)' }}
-        >
-          Wanna Say Hello?
-        </span>
-        <a
-          href={`mailto:${email}`}
-          className="text-sm transition-opacity hover:opacity-75"
-          style={{ color: 'var(--hud-text-primary)' }}
-        >
-          {email}
-        </a>
-      </div>
-
-      {/* Center Section: Local Time (hidden on mobile) */}
-      {mounted && (
-        <div className="hidden flex-col gap-2 sm:flex">
-          <span
-            className="text-xs"
-            style={{ color: 'var(--hud-text-muted)' }}
-          >
-            Local Time
+      {/* Left group: Say Hello + Local Time share one bordered/textured
+          panel (sharp corners — this branch's identity, reference uses
+          rounded) instead of floating free or a full-width bar. */}
+      <div
+        className="hud-grid-bg pointer-events-auto flex items-center gap-6 sm:gap-10 rounded-none border px-4 sm:px-6 py-3"
+        style={{ borderColor: 'var(--hud-border)', backgroundColor: 'color-mix(in srgb, var(--hud-bg-elevated) 70%, transparent)' }}
+      >
+        <div className="flex flex-col gap-1 sm:gap-2">
+          <span className="text-xs" style={{ color: 'var(--hud-text-muted)' }}>
+            Wanna Say Hello?
           </span>
-          <span
-            className="text-sm font-medium"
+          <a
+            href={`mailto:${email}`}
+            className="text-sm transition-opacity hover:opacity-75"
             style={{ color: 'var(--hud-text-primary)' }}
           >
-            {time}
-          </span>
-        </div>
-      )}
-
-      {/* Right Section */}
-      <div className="pointer-events-auto flex items-center gap-3 sm:gap-4">
-        {/* Activity + Settings + Page pill — hidden on mobile, unchanged */}
-        <div className="hidden items-center gap-4 sm:flex">
-          <div style={{ color: 'var(--hud-text-muted)' }}>
-            <FiActivity size={16} />
-          </div>
-
-          <button
-            onClick={onSettingsClick}
-            className="transition-opacity hover:opacity-75"
-            style={{ color: 'var(--hud-text-muted)' }}
-            aria-label="Settings"
-          >
-            <FiSettings size={16} />
-          </button>
-
-          <div
-            className="rounded-none border border-[1px] px-2 py-1 text-xs"
-            style={{
-              borderColor: 'var(--hud-border)',
-              color: 'var(--hud-text-primary)',
-            }}
-          >
-            [{pageIndex}] {pageLabel.toUpperCase()}
-          </div>
+            {email}
+          </a>
         </div>
 
-        {/* AI Copilot toggle — moved here from a floating FAB that overlapped
-            page content bottom-right (see AICopilot.tsx). Deliberately NOT
-            inside the sm:flex group above: the status bar is the one piece
-            of chrome that's always on screen on every breakpoint, which is
-            the whole point of putting it here instead of a corner button. */}
+        {mounted && (
+          <div className="hidden flex-col gap-2 sm:flex">
+            <span className="text-xs" style={{ color: 'var(--hud-text-muted)' }}>
+              Local Time
+            </span>
+            <span className="text-sm font-medium" style={{ color: 'var(--hud-text-primary)' }}>
+              {time}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Right group: activity + page pill + AI Copilot + menu trigger,
+          each its own bordered chip, sharp corners throughout. */}
+      <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+        <div className="hidden sm:block" style={{ color: 'var(--hud-text-muted)' }}>
+          <FiActivity size={16} />
+        </div>
+
+        <div
+          className="hidden sm:block rounded-none border px-3 py-2 text-xs"
+          style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-primary)' }}
+        >
+          [{pageIndex}] {pageLabel.toUpperCase()}
+        </div>
+
+        {/* AI Copilot toggle — same chip styling as the settings trigger
+            beside it, instead of a visually orphaned floating button. */}
         <button
           onClick={toggleCopilot}
-          className="relative flex items-center justify-center w-8 h-8 border transition-colors"
+          className="relative flex items-center justify-center w-9 h-9 rounded-none border transition-colors"
           style={{
             borderColor: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-border)',
             color: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-text-muted)',
@@ -133,6 +110,16 @@ export function HudStatusBar({
           {!isCopilotOpen && (
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           )}
+        </button>
+
+        {/* Menu trigger — anchors HudMenu's compact popover, see HudMenu.tsx */}
+        <button
+          onClick={onSettingsClick}
+          className="flex items-center justify-center w-9 h-9 rounded-none border transition-colors hover:opacity-75"
+          style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-muted)' }}
+          aria-label="Open menu"
+        >
+          <FiSettings size={16} />
         </button>
       </div>
     </div>

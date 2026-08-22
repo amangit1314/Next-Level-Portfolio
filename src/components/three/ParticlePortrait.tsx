@@ -17,9 +17,10 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "@/lib/gsap";
 
 const INTRO_DURATION = 2.2;
-const SAMPLE_SIZE = 96; // downsampled image resolution — point count is roughly this squared / step
-const SAMPLE_STEP = 2; // read every Nth pixel row/col — keeps point count sane
-const LUMINANCE_THRESHOLD = 25; // below this, a pixel is "background" and skipped
+const SAMPLE_SIZE = 128; // downsampled image resolution — higher than before since we now sample edges, not every bright pixel
+const SAMPLE_STEP = 1; // edge detection needs neighbor pixels, so sample densely and let EDGE_THRESHOLD do the thinning
+const EDGE_THRESHOLD = 18; // minimum luminance gradient magnitude to count as a contour (hair, glasses, jaw line)
+const MIN_LUMINANCE = 12; // still skip near-pure-black background even if it has noise gradient
 
 interface SampledPoint {
     x: number;
@@ -37,8 +38,14 @@ function supportsWebGL(): boolean {
     }
 }
 
-// Draws the image to an offscreen canvas and samples pixels above the
-// luminance threshold into normalized [-1.5, 1.5]-ish local space.
+// Draws the image to an offscreen canvas and traces its contours into
+// normalized [-1.5, 1.5]-ish local space. Originally sampled every pixel
+// above a luminance floor — that filled solid bright regions (a whole
+// cheek, a whole shirt) with scattered dots, reading as noise/grain rather
+// than a portrait. A sketch-scan look needs points concentrated on edges
+// (hairline, glasses rim, jaw, collar), so this samples the luminance
+// *gradient* instead: flat regions (skin, background) produce near-zero
+// gradient and get skipped, contours produce a spike and get kept.
 async function sampleImageToPoints(imageUrl: string): Promise<SampledPoint[]> {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -63,21 +70,33 @@ async function sampleImageToPoints(imageUrl: string): Promise<SampledPoint[]> {
     // Throws if the canvas got CORS-tainted — caller's try/catch handles it.
     const { data } = ctx.getImageData(0, 0, SAMPLE_SIZE, SAMPLE_SIZE);
 
+    // Precompute the luminance grid once — the gradient check below reads
+    // each neighbor multiple times, so this avoids recomputing luminance
+    // from raw RGBA per lookup.
+    const luminance = new Float32Array(SAMPLE_SIZE * SAMPLE_SIZE);
+    for (let p = 0; p < luminance.length; p++) {
+        const i = p * 4;
+        luminance[p] = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+    }
+    const lumAt = (x: number, y: number) =>
+        luminance[Math.min(SAMPLE_SIZE - 1, Math.max(0, y)) * SAMPLE_SIZE + Math.min(SAMPLE_SIZE - 1, Math.max(0, x))];
+
     const points: SampledPoint[] = [];
     for (let py = 0; py < SAMPLE_SIZE; py += SAMPLE_STEP) {
         for (let px = 0; px < SAMPLE_SIZE; px += SAMPLE_STEP) {
-            const i = (py * SAMPLE_SIZE + px) * 4;
-            const r = data[i];
-            const g = data[i + 1];
-            const b = data[i + 2];
-            const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-            if (luminance < LUMINANCE_THRESHOLD) continue;
+            const here = lumAt(px, py);
+            if (here < MIN_LUMINANCE) continue;
+
+            const gx = lumAt(px + 1, py) - lumAt(px - 1, py);
+            const gy = lumAt(px, py + 1) - lumAt(px, py - 1);
+            const magnitude = Math.sqrt(gx * gx + gy * gy);
+            if (magnitude < EDGE_THRESHOLD) continue;
 
             points.push({
                 x: (px / SAMPLE_SIZE - 0.5) * 3,
                 y: -(py / SAMPLE_SIZE - 0.5) * 3,
                 z: (Math.random() - 0.5) * 0.3,
-                brightness: luminance / 255,
+                brightness: Math.min(1, magnitude / 180),
             });
         }
     }
