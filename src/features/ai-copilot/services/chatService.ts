@@ -8,13 +8,17 @@ import { buildSystemInstruction } from "./systemPrompt";
 import { copilotTools } from "./tools";
 import { searchContent } from "./retrieval";
 import { logInteraction } from "./interactionLog";
-import { ChatRole, CopilotTool } from "../types";
+import { ChatRole, CopilotTool, type RetrievedSource } from "../types";
 
 export interface CopilotChatOutcome {
     ok: boolean;
     content: string;
     tool_calls: GroqToolCall[] | null;
     searchedContent: boolean;
+    /** Every source actually retrieved across all searchContent calls this
+     * turn — flows to the client so the answer's retrieval is inspectable,
+     * not asserted. Empty (not omitted) when search ran but found nothing. */
+    sources: RetrievedSource[];
     errorText?: string;
     status?: number;
 }
@@ -22,7 +26,7 @@ export interface CopilotChatOutcome {
 export async function runCopilotChat(messages: unknown[]): Promise<CopilotChatOutcome> {
     const apiKey = process.env.GROQ_API_KEY;
     if (!apiKey) {
-        return { ok: false, content: "", tool_calls: null, searchedContent: false, errorText: "GROQ_API_KEY not set", status: 500 };
+        return { ok: false, content: "", tool_calls: null, searchedContent: false, sources: [], errorText: "GROQ_API_KEY not set", status: 500 };
     }
 
     const systemInstruction = await buildSystemInstruction();
@@ -31,21 +35,29 @@ export async function runCopilotChat(messages: unknown[]): Promise<CopilotChatOu
 
     let result = await groqChatCompletion({ apiKey, model: modelName, messages: apiMessages, tools: copilotTools });
     if (!result.ok) {
-        return { ok: false, content: "", tool_calls: null, searchedContent: false, errorText: result.errorText, status: result.status };
+        return { ok: false, content: "", tool_calls: null, searchedContent: false, sources: [], errorText: result.errorText, status: result.status };
     }
 
     const searchCalls = (result.message?.tool_calls || []).filter(
         (tc: GroqToolCall) => tc.function?.name === CopilotTool.SearchContent
     );
 
+    let sources: RetrievedSource[] = [];
+
     if (searchCalls.length > 0) {
-        const toolResultMessages = await Promise.all(
+        const searchResults = await Promise.all(
             searchCalls.map(async (tc: GroqToolCall) => {
                 const args = tc.function?.arguments ? JSON.parse(tc.function.arguments) : {};
-                const content = await searchContent(args.query || "");
-                return { role: "tool", tool_call_id: tc.id, content };
+                const searchResult = await searchContent(args.query || "");
+                return { toolCallId: tc.id, result: searchResult };
             })
         );
+        sources = searchResults.flatMap((r) => r.result.sources);
+        const toolResultMessages = searchResults.map((r) => ({
+            role: "tool",
+            tool_call_id: r.toolCallId,
+            content: r.result.text,
+        }));
 
         apiMessages.push(
             { role: ChatRole.Assistant, content: result.message?.content || null, tool_calls: result.message?.tool_calls },
@@ -54,7 +66,7 @@ export async function runCopilotChat(messages: unknown[]): Promise<CopilotChatOu
 
         result = await groqChatCompletion({ apiKey, model: modelName, messages: apiMessages, tools: copilotTools });
         if (!result.ok) {
-            return { ok: false, content: "", tool_calls: null, searchedContent: true, errorText: result.errorText, status: result.status };
+            return { ok: false, content: "", tool_calls: null, searchedContent: true, sources, errorText: result.errorText, status: result.status };
         }
     }
 
@@ -63,6 +75,7 @@ export async function runCopilotChat(messages: unknown[]): Promise<CopilotChatOu
         content: result.message?.content || "",
         tool_calls: result.message?.tool_calls || null,
         searchedContent: searchCalls.length > 0,
+        sources,
     };
 
     // Fire-and-forget: never let logging failure or latency affect the

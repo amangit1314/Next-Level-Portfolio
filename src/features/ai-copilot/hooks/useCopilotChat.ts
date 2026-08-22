@@ -140,7 +140,8 @@ export function useCopilotChat() {
             // looked stuck even though the action had already completed. Skip
             // the empty bubble and add a real confirmation once the tool runs.
             if (data.content) {
-                setMessages((prev) => [...prev, { role: ChatRole.Assistant, content: data.content }]);
+                const sources = Array.isArray(data.sources) && data.sources.length > 0 ? data.sources : undefined;
+                setMessages((prev) => [...prev, { role: ChatRole.Assistant, content: data.content, sources }]);
             }
 
             if (data.tool_calls && Array.isArray(data.tool_calls)) {

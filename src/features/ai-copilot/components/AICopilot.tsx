@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiX, FiSend, FiZap } from "react-icons/fi";
-import { anton, inter } from "@/lib/fonts";
+import { anton, inter, jetbrainsMono } from "@/lib/fonts";
 import { ChatRole } from "../types";
 import { useCopilotChat } from "../hooks/useCopilotChat";
 import { Route } from "@/types/enums";
@@ -110,7 +110,7 @@ export const AICopilot = () => {
                 return (
                   <div
                     key={index}
-                    className={`flex ${isUser ? "justify-end" : "justify-start"}`}
+                    className={`flex flex-col ${isUser ? "items-end" : "items-start"}`}
                   >
                     <div
                       className={`max-w-[85%] p-3.5 rounded-none text-sm leading-relaxed border transition-all duration-300
@@ -125,6 +125,27 @@ export const AICopilot = () => {
                     >
                       <p className={inter.className}>{msg.content}</p>
                     </div>
+
+                    {/* Sources — this answer's actual retrieval, not an
+                        assertion. Empty/undefined for tool-free replies (no
+                        search ran) rather than showing a misleading row.
+                        The whole point: RAG you can inspect, not a black
+                        box chatbot. */}
+                    {!isUser && msg.sources && msg.sources.length > 0 && (
+                      <div className="max-w-[85%] mt-1.5 flex flex-wrap gap-1.5">
+                        {msg.sources.map((source, i) => (
+                          <span
+                            key={i}
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] rounded-none border border-theme-border/40 bg-theme-bg-tertiary/20 text-theme-text-muted uppercase tracking-wide ${jetbrainsMono.className}`}
+                            title={source.title}
+                          >
+                            <span className="text-theme-text-muted/70">{source.sourceType}</span>
+                            <span className="text-theme-text-secondary truncate max-w-[140px]">{source.title}</span>
+                            <span className="text-theme-primary/80">{Math.round(source.similarity * 100)}%</span>
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 );
               })}

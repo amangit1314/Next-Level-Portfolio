@@ -34,10 +34,20 @@ export enum PortfolioSection {
     Contact = "contact",
 }
 
+// A chunk the RAG pipeline actually retrieved and fed to the model for this
+// answer — surfaced in the UI (AICopilot.tsx) so "search my content" isn't a
+// black box. See retrieval.ts for where this gets populated.
+export interface RetrievedSource {
+    sourceType: string;
+    title: string;
+    similarity: number;
+}
+
 export interface ChatMessage {
     role: ChatRole;
     content: string;
     isError?: boolean;
+    sources?: RetrievedSource[];
 }
 
 export interface ToolCall {

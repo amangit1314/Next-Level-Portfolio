@@ -58,7 +58,12 @@ export async function POST(req: NextRequest) {
 
         console.log("Copilot chat completion:", { latencyMs, searchedContent: outcome.searchedContent });
 
-        return NextResponse.json({ role: ChatRole.Assistant, content: outcome.content, tool_calls: outcome.tool_calls });
+        return NextResponse.json({
+            role: ChatRole.Assistant,
+            content: outcome.content,
+            tool_calls: outcome.tool_calls,
+            sources: outcome.sources,
+        });
     } catch (e) {
         console.error("Error inside chat route handler:", e);
         return NextResponse.json({ error: "Internal Server Error in chat handler" }, { status: 500 });
