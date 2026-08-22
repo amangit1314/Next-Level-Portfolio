@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { jetbrainsMono } from "@/lib/fonts";
+import { jetbrainsMono, anton } from "@/lib/fonts";
 
 interface Pill {
   label: string;
@@ -36,14 +36,10 @@ export function HudTicker() {
   );
 
   return (
-    <div className="overflow-hidden w-full">
-      <div
-        ref={trackRef}
-        className={`flex gap-4 ${jetbrainsMono.className}`}
-        style={{
-          width: "200%",
-        }}
-      >
+    // hud-grid-bg + bottom border makes this read as one continuous data
+    // strip (reference site's treatment) instead of loose floating pills.
+    <div className="hud-grid-bg overflow-hidden w-full border-b" style={{ borderColor: "var(--hud-border)" }}>
+      <div ref={trackRef} className="flex items-center" style={{ width: "200%" }}>
         {/* First pass */}
         {PILLS.map((pill, idx) => (
           <TickerPill key={`pill-1-${idx}`} pill={pill} />
@@ -58,28 +54,26 @@ export function HudTicker() {
   );
 }
 
-// Two adjoining chips per stat — a dim label chip next to a bold value chip
-// — instead of one combined box. Reads more like a live data readout,
-// matches the reference HUD's ticker treatment.
+// Label stays a small bordered JetBrains Mono chip; the value is bold Anton
+// display text with no box around it — matches the reference's readout feel
+// (a bordered tag next to a bold headline word, not two equal boxes). A "|"
+// divider separates each stat group instead of relying on gap alone.
 function TickerPill({ pill }: { pill: Pill }) {
   return (
-    <div className="flex-shrink-0 flex items-stretch gap-1 text-sm">
+    <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3">
       <div
-        className="px-2.5 py-1.5 rounded-none border"
+        className={`px-2 py-1 rounded-none border text-xs ${jetbrainsMono.className}`}
         style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }}
       >
         {pill.label}
       </div>
       <div
-        className="px-2.5 py-1.5 rounded-none border font-semibold"
-        style={{
-          backgroundColor: "var(--hud-bg-elevated)",
-          borderColor: "var(--hud-border)",
-          color: "var(--hud-text-primary)",
-        }}
+        className={`text-lg sm:text-xl uppercase leading-none ${anton.className}`}
+        style={{ color: "var(--hud-text-primary)" }}
       >
         {pill.value}
       </div>
+      <div className="w-px self-stretch" style={{ backgroundColor: "var(--hud-border)" }} />
     </div>
   );
 }
