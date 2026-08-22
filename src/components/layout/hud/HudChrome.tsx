@@ -14,6 +14,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { HudTicker } from "./HudTicker";
 import { HudStatusBar } from "./HudStatusBar";
 import { HudMenu } from "./HudMenu";
+import { HudIdentity } from "./HudIdentity";
 import { pageLinks } from "@/components/layout/Header";
 import { SOCIAL_LINKS } from "@/constants/socialLinks";
 
@@ -45,7 +46,10 @@ export function HudChrome() {
                 position:fixed descendants (a real CSS quirk, not a Tailwind gap),
                 so without this the ticker's marquee track bled past the browser
                 edge — visible as pills overflowing off-screen. */}
-            <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none overflow-hidden">
+            <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none overflow-hidden flex items-start justify-between gap-4">
+                <div className="pointer-events-auto shrink-0 hidden sm:block">
+                    <HudIdentity />
+                </div>
                 <div className="pointer-events-auto max-w-2xl ml-auto">
                     <HudTicker />
                 </div>

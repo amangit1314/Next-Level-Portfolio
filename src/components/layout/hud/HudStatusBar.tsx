@@ -46,15 +46,14 @@ export function HudStatusBar({
   }, []);
 
   return (
+    // Floating HUD overlay, not a panel — no border/background fill. The
+    // reference site's bottom elements sit directly on the page background;
+    // an enclosing bar read as "UI chrome" instead of a weightless readout.
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between border-t-[1px] px-4 sm:px-8 py-3 ${jetbrainsMono.className}`}
-      style={{
-        backgroundColor: 'var(--hud-bg)',
-        borderTopColor: 'var(--hud-border)',
-      }}
+      className={`fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between px-4 sm:px-8 py-4 pointer-events-none ${jetbrainsMono.className}`}
     >
       {/* Left Section: Say Hello */}
-      <div className="flex flex-col gap-1 sm:gap-2">
+      <div className="pointer-events-auto flex flex-col gap-1 sm:gap-2">
         <span
           className="text-xs"
           style={{ color: 'var(--hud-text-muted)' }}
@@ -89,7 +88,7 @@ export function HudStatusBar({
       )}
 
       {/* Right Section */}
-      <div className="flex items-center gap-3 sm:gap-4">
+      <div className="pointer-events-auto flex items-center gap-3 sm:gap-4">
         {/* Activity + Settings + Page pill — hidden on mobile, unchanged */}
         <div className="hidden items-center gap-4 sm:flex">
           <div style={{ color: 'var(--hud-text-muted)' }}>
@@ -106,7 +105,7 @@ export function HudStatusBar({
           </button>
 
           <div
-            className="rounded border border-[1px] px-2 py-1 text-xs"
+            className="rounded-none border border-[1px] px-2 py-1 text-xs"
             style={{
               borderColor: 'var(--hud-border)',
               color: 'var(--hud-text-primary)',

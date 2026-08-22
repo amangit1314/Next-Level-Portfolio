@@ -46,45 +46,39 @@ export function HudTicker() {
       >
         {/* First pass */}
         {PILLS.map((pill, idx) => (
-          <div
-            key={`pill-1-${idx}`}
-            className="flex-shrink-0 px-3 py-1.5 rounded border"
-            style={{
-              backgroundColor: "var(--hud-bg-elevated)",
-              borderColor: "var(--hud-border)",
-              color: "var(--hud-text-primary)",
-            }}
-          >
-            <span className="font-normal text-sm">{pill.label}</span>
-            <span
-              className="ml-1 text-sm"
-              style={{ color: "var(--hud-text-muted)" }}
-            >
-              [{pill.value}]
-            </span>
-          </div>
+          <TickerPill key={`pill-1-${idx}`} pill={pill} />
         ))}
 
         {/* Duplicate pass for seamless loop */}
         {PILLS.map((pill, idx) => (
-          <div
-            key={`pill-2-${idx}`}
-            className="flex-shrink-0 px-3 py-1.5 rounded border"
-            style={{
-              backgroundColor: "var(--hud-bg-elevated)",
-              borderColor: "var(--hud-border)",
-              color: "var(--hud-text-primary)",
-            }}
-          >
-            <span className="font-normal text-sm">{pill.label}</span>
-            <span
-              className="ml-1 text-sm"
-              style={{ color: "var(--hud-text-muted)" }}
-            >
-              [{pill.value}]
-            </span>
-          </div>
+          <TickerPill key={`pill-2-${idx}`} pill={pill} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+// Two adjoining chips per stat — a dim label chip next to a bold value chip
+// — instead of one combined box. Reads more like a live data readout,
+// matches the reference HUD's ticker treatment.
+function TickerPill({ pill }: { pill: Pill }) {
+  return (
+    <div className="flex-shrink-0 flex items-stretch gap-1 text-sm">
+      <div
+        className="px-2.5 py-1.5 rounded-none border"
+        style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }}
+      >
+        {pill.label}
+      </div>
+      <div
+        className="px-2.5 py-1.5 rounded-none border font-semibold"
+        style={{
+          backgroundColor: "var(--hud-bg-elevated)",
+          borderColor: "var(--hud-border)",
+          color: "var(--hud-text-primary)",
+        }}
+      >
+        {pill.value}
       </div>
     </div>
   );
