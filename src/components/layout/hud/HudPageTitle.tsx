@@ -19,7 +19,7 @@ export function HudPageTitle({ title, breadcrumb }: HudPageTitleProps) {
       >
         <Link
           href={Route.Home}
-          className="cursor-pointer font-normal transition-all hover:font-bold hover:[color:var(--theme-primary)]"
+          className="inline-block cursor-pointer font-normal transition-all hover:font-bold hover:text-[var(--theme-primary)]"
         >
           {first}
         </Link>
