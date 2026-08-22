@@ -97,6 +97,13 @@ export const applyAccentVariables = (flavor: AccentFlavor): void => {
     // future flavor doesn't silently repeat this bug.
     const onPrimary = relativeLuminance(flavor.primary.rgb) > 0.5 ? '#0a0a0a' : '#f5f5f5';
     root.style.setProperty('--theme-on-primary', onPrimary);
+
+    // --theme-status: "system online" pulse dots (Copilot trigger, chat
+    // header). Was hardcoded green everywhere — now the accent color, since
+    // a colored flavor should reach the Copilot too. Mono's own primary is
+    // near-white, which reads as "off"/invisible for a status dot, not
+    // "online" — gold substitutes there specifically, per explicit ask.
+    root.style.setProperty('--theme-status', flavor.id === 'hud-mono' ? '#f5c518' : flavor.primary.hex);
 };
 
 /**

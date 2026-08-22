@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { jetbrainsMono } from '@/lib/fonts';
-import { FiCpu } from 'react-icons/fi';
+import { FiZap } from 'react-icons/fi';
 import { useUIStore } from '@/stores/uiStore';
 
 interface HudStatusBarProps {
@@ -108,16 +108,16 @@ export function HudStatusBar({
             beside it, instead of a visually orphaned floating button. */}
         <button
           onClick={toggleCopilot}
-          className="relative flex items-center justify-center w-9 h-9 rounded-none border transition-colors"
+          className="relative flex items-center justify-center w-9 h-9 rounded-none border cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
           style={{
-            borderColor: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-border)',
-            color: isCopilotOpen ? 'var(--hud-text-primary)' : 'var(--hud-text-muted)',
+            borderColor: isCopilotOpen ? 'var(--theme-primary)' : 'var(--hud-border)',
+            color: isCopilotOpen ? 'var(--theme-primary)' : 'var(--hud-text-muted)',
           }}
           aria-label={isCopilotOpen ? 'Close AI Co-pilot' : 'Open AI Co-pilot'}
         >
-          <FiCpu size={16} />
+          <FiZap size={16} />
           {!isCopilotOpen && (
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-theme-status animate-pulse" />
           )}
         </button>
       </div>

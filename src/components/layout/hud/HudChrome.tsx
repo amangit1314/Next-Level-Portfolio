@@ -61,7 +61,7 @@ export function HudChrome() {
             <button
                 onClick={toggleSettings}
                 data-hud-settings
-                className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 rounded-none border transition-colors hover:opacity-75"
+                className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 rounded-none border cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
                 style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)", backgroundColor: "var(--hud-bg)" }}
                 aria-label="Open settings"
             >

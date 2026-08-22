@@ -51,6 +51,10 @@
      (orange/green/indigo/magenta/...) needs white instead. */
   --color-theme-on-primary: var(--theme-on-primary);
 
+  /* "System online" pulse dots — accent-colored (gold for Mono), not
+     hardcoded green. See applyAccentVariables() in themeUtils.ts. */
+  --color-theme-status: var(--theme-status);
+
   --color-theme-bg-primary: var(--theme-bg-primary);
   --color-theme-bg-secondary: var(--theme-bg-secondary);
   --color-theme-bg-tertiary: var(--theme-bg-tertiary);
@@ -197,6 +201,7 @@
   /* Default (Mono flavor, near-white primary) — HudAccentSync recomputes
      this per accent flavor on mount, see applyAccentVariables(). */
   --theme-on-primary: #0a0a0a;
+  --theme-status: #f5c518;
 
   /* Background colors */
   --theme-bg-primary: #0a0a0a;
@@ -304,12 +309,14 @@
 
   /* Scrollbar hide utility */
   .no-scrollbar::-webkit-scrollbar,
-  .scrollbar-none::-webkit-scrollbar {
+  .scrollbar-none::-webkit-scrollbar,
+  html::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar,
-  .scrollbar-none {
+  .scrollbar-none,
+  html {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }

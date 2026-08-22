@@ -19,7 +19,7 @@ export function HudScrollSlider() {
   }, []);
 
   return (
-    <div className="fixed left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-center gap-2">
+    <div className="fixed left-4 sm:left-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col items-center gap-2">
       {/* Top label */}
       <div
         className={`${jetbrainsMono.className} text-[10px]`}
