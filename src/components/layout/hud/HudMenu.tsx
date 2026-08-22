@@ -99,10 +99,13 @@ export function HudMenu({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm transition-all hover:opacity-75 ${jetbrainsMono.className}`}
-                    style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-primary)' }}
+                    // Real color invert on hover (bg <-> text swap), not
+                    // just an opacity fade — matches the filled/inverted
+                    // treatment used elsewhere for "this is clickable".
+                    className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm transition-colors text-[var(--hud-text-primary)] hover:bg-[var(--hud-text-primary)] hover:text-[var(--hud-bg)] ${jetbrainsMono.className}`}
+                    style={{ borderColor: 'var(--hud-border)' }}
                   >
-                    <span aria-hidden style={{ color: 'var(--hud-text-muted)' }}>•</span>
+                    <span aria-hidden style={{ color: 'currentColor', opacity: 0.55 }}>•</span>
                     {link.name}
                   </a>
                 ))}
@@ -125,20 +128,17 @@ export function HudMenu({
                     className="w-full flex items-center justify-between border-b px-5 py-4 text-left transition-colors"
                     style={{
                       borderBottomColor: 'var(--hud-border)',
-                      backgroundColor: isActive ? 'transparent' : 'var(--hud-text-primary)',
+                      backgroundColor: isActive ? 'var(--hud-text-primary)' : 'transparent',
                     }}
                   >
                     <span
                       className={`text-lg uppercase leading-none ${anton.className}`}
-                      style={{ color: isActive ? 'var(--hud-text-primary)' : 'var(--hud-bg)' }}
+                      style={{ color: isActive ? 'var(--hud-bg)' : 'var(--hud-text-primary)' }}
                     >
                       [{link.index}] {link.name}
                     </span>
                     {!isActive && (
-                      <span
-                        className={`text-xs ${jetbrainsMono.className}`}
-                        style={{ color: 'var(--hud-bg)', opacity: 0.55 }}
-                      >
+                      <span className={`text-xs ${jetbrainsMono.className}`} style={{ color: 'var(--hud-text-muted)' }}>
                         GO
                       </span>
                     )}
