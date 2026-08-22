@@ -14,7 +14,7 @@ import {
   SiReact, SiNodedotjs, SiMongodb, SiTypescript, SiNextdotjs, SiTailwindcss,
   SiFramer, SiGithub, SiGit, SiSupabase, SiPostgresql, SiRedis,
   SiJavascript, SiExpress, SiNestjs, SiPython, SiPytorch,
-  SiHuggingface, SiOpenai, SiJupyter, SiTensorflow,
+  SiHuggingface, SiOpenai, SiJupyter, SiTensorflow, SiFastapi, SiDocker,
 } from "react-icons/si";
 
 const skillToIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -45,6 +45,8 @@ const skillToIconMap: Record<string, React.ComponentType<{ className?: string }>
   OpenAI: SiOpenai,
   LangChain: SiOpenai,
   Jupyter: SiJupyter,
+  FastAPI: SiFastapi,
+  Docker: SiDocker,
 };
 
 export const AboutSection = () => {
