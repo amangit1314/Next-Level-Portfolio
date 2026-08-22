@@ -125,17 +125,20 @@ export function HudMenu({
                     className="w-full flex items-center justify-between border-b px-5 py-4 text-left transition-colors"
                     style={{
                       borderBottomColor: 'var(--hud-border)',
-                      backgroundColor: isActive ? 'var(--hud-text-primary)' : 'transparent',
+                      backgroundColor: isActive ? 'transparent' : 'var(--hud-text-primary)',
                     }}
                   >
                     <span
                       className={`text-lg uppercase leading-none ${anton.className}`}
-                      style={{ color: isActive ? 'var(--hud-bg)' : 'var(--hud-text-primary)' }}
+                      style={{ color: isActive ? 'var(--hud-text-primary)' : 'var(--hud-bg)' }}
                     >
                       [{link.index}] {link.name}
                     </span>
                     {!isActive && (
-                      <span className={`text-xs ${jetbrainsMono.className}`} style={{ color: 'var(--hud-text-muted)' }}>
+                      <span
+                        className={`text-xs ${jetbrainsMono.className}`}
+                        style={{ color: 'var(--hud-bg)', opacity: 0.55 }}
+                      >
                         GO
                       </span>
                     )}
