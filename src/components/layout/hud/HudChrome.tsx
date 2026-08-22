@@ -22,6 +22,8 @@ import { HudIdentity } from "./HudIdentity";
 import { HudSettingsDialog } from "./HudSettingsDialog";
 import { HudAccentSync } from "./HudAccentSync";
 import { HudScrollSlider } from "./HudScrollSlider";
+import { HudBootLoader } from "./HudBootLoader";
+import { HudCursorTrail } from "./HudCursorTrail";
 import { pageLinks } from "@/components/layout/Header";
 import { SOCIAL_LINKS } from "@/constants/socialLinks";
 import { useUIStore } from "@/stores/uiStore";
@@ -66,6 +68,8 @@ export function HudChrome() {
     return (
         <>
             <HudAccentSync />
+            <HudBootLoader />
+            <HudCursorTrail />
             {showScrollSlider && <HudScrollSlider />}
 
             {/* Settings trigger — floating right-edge, vertically centered,

@@ -12,8 +12,10 @@
 // Pulls the name from the existing useProfile() cache — no new fetch, per
 // the don't-hand-roll-a-client.fetch() rule in CLAUDE.md.
 
+import Link from "next/link";
 import { anton } from "@/lib/fonts";
 import { useProfile } from "@/hooks/useSanityQuery";
+import { Route } from "@/types/enums";
 
 export function HudIdentity() {
     const { data: profile } = useProfile();
@@ -24,13 +26,15 @@ export function HudIdentity() {
     const initials = `${first[0] ?? ""}${last[0] ?? ""}`.toUpperCase();
 
     return (
-        <div
-            className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-none border"
+        <Link
+            href={Route.Home}
+            className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 cursor-pointer items-center justify-center rounded-none border transition-colors hover:border-[var(--theme-primary)]"
             style={{ borderColor: "var(--hud-border)", backgroundColor: "var(--hud-bg-elevated)" }}
+            aria-label="Go to home"
         >
             <span className={`${anton.className} text-sm sm:text-base leading-none`} style={{ color: "var(--theme-primary)" }}>
                 {initials}
             </span>
-        </div>
+        </Link>
     );
 }
