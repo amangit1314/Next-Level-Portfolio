@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FiExternalLink, FiArrowRight } from "react-icons/fi";
 import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import { useExperiences } from "@/hooks/useSanityQuery";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import type { ExperiencesQueryResult } from "../../../sanity.types";
 
 type ExperienceItem = ExperiencesQueryResult[number];
@@ -37,20 +38,27 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
     setHovered(false);
   };
 
+  const itemRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(itemRef, "fade-up", {
+    from: { opacity: 0, x: -16 },
+    to: { opacity: 1, x: 0 },
+    duration: 0.45,
+    delay: index * 0.1,
+  });
+  useScrollReveal(dotRef, "fade-up", {
+    from: { scale: 0 },
+    to: { scale: 1 },
+    ease: "back.out(2)",
+    duration: 0.4,
+    delay: index * 0.12 + 0.1,
+  });
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -16 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      className="relative pl-10 sm:pl-14"
-    >
+    <div ref={itemRef} className="relative pl-10 sm:pl-14">
       {/* Timeline dot */}
-      <motion.div
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 220, delay: index * 0.12 + 0.1 }}
+      <div
+        ref={dotRef}
         className="absolute left-0 top-6 w-3.5 h-3.5 rounded-full bg-theme-primary border-[3px] border-theme-bg-primary z-10"
         style={{ boxShadow: "0 0 12px var(--theme-primary)" }}
       />
@@ -125,12 +133,18 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
           )}
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
 const Experience = () => {
   const { data: experiences = [] } = useExperiences();
+  const headerRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(headerRef, "fade-up");
+  useScrollReveal(lineRef, "fade-up", { from: { scaleY: 0 }, to: { scaleY: 1 }, duration: 1.2 });
+  useScrollReveal(ctaRef, "fade-up", { delay: 0.1 });
 
   return (
     <section id="experience" className="v2-section bg-theme-bg-secondary/30 relative">
@@ -140,13 +154,7 @@ const Experience = () => {
 
       <div className="v2-container relative z-10">
         {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 space-y-4 text-center"
-        >
+        <div ref={headerRef} className="mb-16 space-y-4 text-center">
           <div className="v2-label">
             <div className="v2-label-line" />
             <span className={`v2-label-text ${jetbrainsMono.className}`}>Career</span>
@@ -156,16 +164,13 @@ const Experience = () => {
             Professional Experience
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
-        </motion.div>
+        </div>
 
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto">
           {/* Vertical line */}
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          <div
+            ref={lineRef}
             className="absolute left-[6px] sm:left-[7px] top-0 bottom-0 w-px bg-gradient-to-b from-theme-primary via-theme-primary/30 to-transparent origin-top"
           />
 
@@ -177,13 +182,7 @@ const Experience = () => {
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="mt-16 max-w-3xl mx-auto"
-        >
+        <div ref={ctaRef} className="mt-16 max-w-3xl mx-auto">
           <div className="relative group">
             {/* Outer glow on hover */}
             {/* Card */}
@@ -222,7 +221,7 @@ const Experience = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

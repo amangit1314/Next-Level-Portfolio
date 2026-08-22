@@ -12,6 +12,8 @@ import { BlogListRow } from "./_components/BlogListRow";
 import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
 import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
 import { aiBlogs } from "@/data/ai-blogs";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Blog {
   _id: string;
@@ -68,6 +70,9 @@ const BlogsContent = () => {
     const matchesCat = selectedCategory === "all" || blog.category === selectedCategory;
     return matchesSearch && matchesCat;
   });
+
+  const rowsRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(rowsRef, "stagger-rows", { deps: [filtered.length] });
 
   const clearFilters = () => {
     void setSearchQuery("");
@@ -172,10 +177,10 @@ const BlogsContent = () => {
             </p>
           </motion.div>
         ) : (
-          <div className="pb-24">
+          <div ref={rowsRef} className="pb-24">
             {filtered.map((blog, i) => (
+              <div key={blog._id} data-reveal-item>
               <BlogListRow
-                key={blog._id}
                 index={i + 1}
                 slug={blog.slug.current}
                 title={blog.title}
@@ -193,6 +198,7 @@ const BlogsContent = () => {
                 readingTime={blog.readingTime}
                 imageUrl={blog.coverImage?.asset?.url}
               />
+              </div>
             ))}
           </div>
         )}

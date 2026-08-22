@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap";
 import { jetbrainsMono } from "@/lib/fonts";
 
 interface Pill {
@@ -18,25 +19,21 @@ const PILLS: Pill[] = [
 
 export function HudTicker() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const contextRef = useRef<gsap.Context | null>(null);
 
-  useEffect(() => {
-    if (!trackRef.current) return;
-
-    // Create GSAP context for cleanup
-    contextRef.current = gsap.context(() => {
+  // useGSAP (the official React binding) replaces the hand-rolled
+  // gsap.context()/useEffect pair — `scope` auto-cleans on unmount and
+  // handles React 19 Strict Mode's dev-only double-invoke correctly.
+  useGSAP(
+    () => {
       gsap.to(trackRef.current, {
         xPercent: -50,
         duration: 30,
         repeat: -1,
         ease: "none",
       });
-    });
-
-    return () => {
-      contextRef.current?.revert();
-    };
-  }, []);
+    },
+    { scope: trackRef }
+  );
 
   return (
     <div className="overflow-hidden w-full">

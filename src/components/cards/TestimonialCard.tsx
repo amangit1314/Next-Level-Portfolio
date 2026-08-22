@@ -1,9 +1,9 @@
 import { Testimonial } from "@/types/testimonial";
-import { motion } from "framer-motion";
-import React from "react";
+import React, { useRef } from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa6";
 import Image from "next/image";
 import { jetbrainsMono, inter } from "@/lib/fonts";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const TestimonialCard = ({
   comment,
@@ -13,13 +13,12 @@ const TestimonialCard = ({
   index,
 }: Testimonial) => {
   const [imgSrc, setImgSrc] = React.useState(image);
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollReveal(ref, "fade-up", { duration: 0.6, delay: index * 0.1 });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      viewport={{ once: true }}
+    <div
+      ref={ref}
       className="group/card relative w-[260px] sm:w-[320px] md:w-[380px] flex flex-col bg-theme-bg-secondary/40 p-5 sm:p-7 rounded-none border border-theme-border/30 hover:border-theme-primary/40 transition-all duration-300 shadow-md overflow-hidden cursor-default"
     >
       {/* Hover glow bg — scoped to this card */}
@@ -77,7 +76,7 @@ const TestimonialCard = ({
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

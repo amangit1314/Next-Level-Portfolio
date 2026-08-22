@@ -39,17 +39,11 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
     setHovered(false);
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 32 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
-  };
-
   const imgSrc = project.image?.asset?.url || "/placeholder.png";
 
   return (
     <motion.div
       ref={ref}
-      variants={cardVariants}
       style={{ rotateX, rotateY, transformStyle: "preserve-3d" } as React.CSSProperties}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

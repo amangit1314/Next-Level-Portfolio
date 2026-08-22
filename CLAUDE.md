@@ -50,7 +50,7 @@ Pattern repetition rule: if the same mistake appears twice in Session Learnings,
 | Framework | Next.js 16 (App Router) | React 19, server + client components |
 | Language | TypeScript (strict) | All files typed |
 | Styling | Tailwind v4 + shadcn/ui | Custom CSS variable theme system — NOT next-themes |
-| Animations | Framer Motion 12 | All animations go here, no CSS keyframes |
+| Animations | GSAP + ScrollTrigger (scroll-driven), Framer Motion 12 (hover/tap/layout/exit) | No raw CSS keyframes. See "Animation split" below |
 | CMS | Sanity v5 | Single source of truth for all content |
 | Fonts | Inter, Poppins, Caveat, Unbounded, Righteous | All in `src/lib/fonts.ts` |
 | Hosting | Vercel (assumed) | `metadataBase` set to `amansoni.dev` |
@@ -234,7 +234,13 @@ free-tier project from pausing after 7 days idle. Full reasoning:
 - No new features unless explicitly scoped
 - Files < 500 lines — split if over
 - NEVER commit `.env` or secrets
-- All animations → Framer Motion. No raw CSS keyframes for component animations
+- **Animation split (2026-08-22, feat/hud-chrome):** scroll-driven animation
+  (section reveals, stagger, scroll-linked parallax) → GSAP + ScrollTrigger via
+  `useScrollReveal` (`src/hooks/useScrollReveal.ts`) — don't hand-roll a new
+  ScrollTrigger, extend the hook. Everything non-scroll (hover/tap, layout
+  animations, `AnimatePresence` unmounts, filter-switch transitions) stays
+  Framer Motion. No raw CSS keyframes either way. Full rationale:
+  `docs/superpowers/specs/2026-08-22-gsap-scroll-animation-core-design.md`
 - All new icons → `react-icons/fi` (Feather) or `react-icons/si` (Simple Icons) — already imported
 - shadcn `ui/` components: regenerate via `npx shadcn add`, never hand-edit
 - Sanity schema changes: always ask before modifying — they affect Studio and all queries
@@ -258,6 +264,8 @@ re-survey the whole tree.
 | `src/components/layout/Header.tsx` | `pageLinks` (uses `Route` enum) + `sectionLinks`, hamburger sidebar, ThemeSwitcher, Resume download |
 | `src/components/sections/*.tsx` | One file per home-page section (Hero, About, Skills, Experience, Projects, Testimonials, Contact) — each owns its own `<section id>`, uses `useProfile()` from `useSanityQuery.ts` |
 | `src/hooks/useSanityQuery.ts` | Every Sanity read goes through here — `useSkills/useExperiences/useProjects/useBlogs/useProfile/useTestimonials/useComponents/useProjectsCount/useAiProjectsCount`. All use `QueryKey` enum + `STALE_TIME` from `config/query.ts`. Single source of truth — don't hand-roll a `client.fetch()` elsewhere. |
+| `src/lib/gsap.ts` | Client-only `ScrollTrigger` + `useGSAP` registration, one place, mirrors `fonts.ts`/`themes.ts`. |
+| `src/hooks/useScrollReveal.ts` | The one scroll-animation primitive — `fade-up`/`stagger-lines`/`stagger-rows` variants, `data-reveal-item` marks stagger children (direct children only, via `:scope >`), `prefers-reduced-motion` handled once inside it. Used by every section + `ProjectCard`/`SkillCard`/`TestimonialCard` + the 3 list pages. Pass `deps` when the ref sits behind a conditional/loading-gated render (see `AboutSection.tsx`) — otherwise the effect fires once while `ref.current` is still null and never retries. |
 | `src/features/ai-copilot/` | AI Copilot — see "RAG infra" note below, full detail in `docs/DECISIONS.md` |
 | `src/app/api/chat/route.ts` | Thin HTTP wrapper — rate-limits, calls `runCopilotChat()` (chatService.ts), returns JSON |
 | `src/app/dashboard/` | Password-gated analytics dashboard (`page.tsx`, `login/page.tsx`, `layout.tsx`) — gated by `middleware.ts` checking a `dashboard_session` cookie set by `api/dashboard/auth/route.ts`. `api/dashboard/analytics/route.ts` reads Vercel Analytics via `DASHBOARD_VERCEL_TOKEN`. Real domain logic, correctly organized as an App Router route (not `src/features/` — it's a page, not a cross-cutting widget). |

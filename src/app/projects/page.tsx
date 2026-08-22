@@ -13,6 +13,8 @@ import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
 import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
 import { aiProjects } from "@/data/ai-projects";
 import { useUIStore } from "@/stores/uiStore";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Project {
   _id: string;
@@ -80,6 +82,9 @@ const ProjectsContent = () => {
       selectedCategory === "All" || p.technologies?.includes(selectedCategory);
     return matchesSearch && matchesCat;
   });
+
+  const rowsRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(rowsRef, "stagger-rows", { deps: [filtered.length, activeTab] });
 
   const clearFilters = () => {
     void setSearchQuery("");
@@ -225,17 +230,18 @@ const ProjectsContent = () => {
                 </div>
               )}
 
-              <div>
+              <div ref={rowsRef}>
                 {visible.map((project, i) => (
-                  <ProjectListRow
-                    key={project._id}
-                    index={i + 1}
-                    title={project.title}
-                    description={project.description}
-                    tags={[project.isAI ? "AI SYSTEM" : "WEB APP", ...(project.technologies?.slice(0, 1) ?? [])]}
-                    imageUrl={project.image?.asset?.url}
-                    href={project.link || project.code}
-                  />
+                  <div key={project._id} data-reveal-item>
+                    <ProjectListRow
+                      index={i + 1}
+                      title={project.title}
+                      description={project.description}
+                      tags={[project.isAI ? "AI SYSTEM" : "WEB APP", ...(project.technologies?.slice(0, 1) ?? [])]}
+                      imageUrl={project.image?.asset?.url}
+                      href={project.link || project.code}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

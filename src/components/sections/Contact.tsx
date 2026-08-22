@@ -5,31 +5,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaMailBulk } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
-import React from "react";
+import React, { useRef } from "react";
 import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Contact = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        // ease: "easeOut",
-      },
-    },
-  };
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const socialGridRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(sectionRef, "fade-up", { duration: 0.6 });
+  useScrollReveal(cardRef, "stagger-lines", { stagger: 0.1 });
+  useScrollReveal(socialGridRef, "stagger-rows", { stagger: 0.06 });
 
   return (
     <section
@@ -39,15 +25,9 @@ const Contact = () => {
       <div className="absolute inset-0 pointer-events-none hud-grid-bg" />
 
       <div className="v2-container max-w-3xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="space-y-8 sm:space-y-16"
-        >
+        <div ref={sectionRef} className="space-y-8 sm:space-y-16">
           {/* Section Header */}
-          <motion.div className="text-center space-y-4">
+          <div className="text-center space-y-4">
             <div className="v2-label mb-4">
               <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
               <span className={`v2-label-text ${jetbrainsMono.className} [color:var(--hud-text-muted)] uppercase tracking-widest`}>
@@ -63,37 +43,35 @@ const Contact = () => {
               Ready to bring your next project to life? Let&apos;s discuss how
               we can work together.
             </p>
-          </motion.div>
+          </div>
 
           {/* Contact Card */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+          <div
+            ref={cardRef}
             className="relative p-5 sm:p-8 md:p-12 overflow-hidden group border"
             style={{ backgroundColor: "var(--hud-bg-elevated)", borderColor: "var(--hud-border)" }}
           >
 
             <div className="relative z-10 space-y-5 sm:space-y-8">
               {/* Intro Text */}
-              <motion.p
-                variants={itemVariants}
+              <p
+                data-reveal-item
                 className={`text-center ${jetbrainsMono.className} text-sm sm:text-base leading-relaxed [color:var(--hud-text-muted)]`}
               >
                 Have a project in mind or want to collaborate? I&apos;m always
                 open to discussing new opportunities and creative ideas.
-              </motion.p>
+              </p>
 
               {/* Social Links Grid */}
-              <motion.div
-                variants={containerVariants}
+              <div
+                ref={socialGridRef}
+                data-reveal-item
                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4"
               >
                 {SOCIAL_LINKS.map((social) => (
-                  <motion.div
+                  <div
                     key={social.name}
-                    variants={itemVariants}
+                    data-reveal-item
                     className="flex justify-center"
                   >
                     <Link
@@ -118,13 +96,13 @@ const Contact = () => {
                         </span>
                       </motion.div>
                     </Link>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
 
               {/* Email Section */}
-              <motion.div
-                variants={itemVariants}
+              <div
+                data-reveal-item
                 className="text-center pt-5 sm:pt-8 border-t"
                 style={{ borderColor: "var(--hud-border)" }}
               >
@@ -148,21 +126,21 @@ const Contact = () => {
                     <FiArrowUpRight className="w-4 h-4 opacity-0 group-hover/email:opacity-100 transition-opacity duration-300 flex-shrink-0" />
                   </Link>
                 </motion.div>
-              </motion.div>
+              </div>
 
               {/* CTA */}
-              <motion.div variants={itemVariants} className="text-center pt-6">
+              <div data-reveal-item className="text-center pt-6">
                 <p className={`text-sm [color:var(--hud-text-muted)] ${jetbrainsMono.className}`}>
                   I typically respond within 24 hours
                 </p>
-              </motion.div>
+              </div>
             </div>
 
             {/* Decorative corner brackets — technical HUD framing detail */}
             <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: "var(--hud-text-muted)" }} />
             <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ borderColor: "var(--hud-text-muted)" }} />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

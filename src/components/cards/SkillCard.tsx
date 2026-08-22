@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, useRef } from "react";
 import { jetbrainsMono } from "@/lib/fonts";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Skill } from "@/types/skill";
 import type { IconType } from "react-icons";
 import * as FaIcons from "react-icons/fa";
@@ -39,13 +39,12 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
   // respect inline eslint-disable comments) is downgraded for this file in
   // eslint.config.mjs instead.
   const Icon = useMemo(() => getIconComponent(skill.iconName ?? undefined), [skill.iconName]);
+  const ref = useRef<HTMLDivElement>(null);
+  useScrollReveal(ref, "fade-up", { from: { opacity: 0, y: 10 }, duration: 0.35, delay: index * 0.025, start: "top 95%" });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-16px" }}
-      transition={{ delay: index * 0.025, duration: 0.35, ease: "easeOut" }}
+    <div
+      ref={ref}
       className="group relative flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-none border border-theme-border/50 bg-theme-bg-secondary/40 hover:border-theme-primary/50 hover:bg-theme-bg-secondary/70 transition-all duration-200 cursor-default"
     >
       <div className="shrink-0 w-5 h-5 flex items-center justify-center">
@@ -69,7 +68,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
       >
         {skill.name}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -10,9 +10,11 @@
 // e.g. a CORS-tainted canvas from a misconfigured asset host. Never a
 // broken/blank hero.
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "@/lib/gsap";
 
 const INTRO_DURATION = 2.2;
 const SAMPLE_SIZE = 96; // downsampled image resolution — point count is roughly this squared / step
@@ -82,7 +84,17 @@ async function sampleImageToPoints(imageUrl: string): Promise<SampledPoint[]> {
     return points;
 }
 
-function PointCloud({ points, skipIntro }: { points: SampledPoint[]; skipIntro: boolean }) {
+function PointCloud({
+    points,
+    skipIntro,
+    scrollProgress,
+}: {
+    points: SampledPoint[];
+    skipIntro: boolean;
+    /** 0→1 across the hero's own scroll range, driven by ScrollTrigger in
+     * the parent (see ParticlePortrait) — read here, not written. */
+    scrollProgress: RefObject<number>;
+}) {
     const pointsRef = useRef<THREE.Points>(null);
     const groupRef = useRef<THREE.Group>(null);
     const startTime = useRef<number | null>(null);
@@ -132,10 +144,15 @@ function PointCloud({ points, skipIntro }: { points: SampledPoint[]; skipIntro: 
             group.rotation.y = (1 - eased) * Math.PI * 0.5;
         } else {
             // Idle: snap to target (intro's lerp already lands there at t=1),
-            // gentle constant rotation + cursor tilt on the whole group.
+            // gentle constant rotation + cursor tilt + scroll-linked drift
+            // on the whole group. scrollProgress comes from a ScrollTrigger
+            // (scrub: true) in the parent — same scroll-observation system
+            // driving the DOM reveals, not a second one just for the canvas.
+            const scrollY = (scrollProgress.current - 0.5) * 0.6;
             group.rotation.y += 0.0015;
             group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, -pointer.current.y * 0.15, 0.05);
             group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, pointer.current.x * 0.1, 0.05);
+            group.position.y = THREE.MathUtils.lerp(group.position.y, scrollY, 0.05);
         }
     });
 
@@ -156,6 +173,27 @@ export function ParticlePortrait({ imageUrl }: { imageUrl: string }) {
     const [points, setPoints] = useState<SampledPoint[] | null>(null);
     const [failed, setFailed] = useState(false);
     const [skipIntro, setSkipIntro] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    // Written by ScrollTrigger's onUpdate, read every useFrame tick — a
+    // ref so scroll doesn't trigger React re-renders on every pixel.
+    const scrollProgress = useRef(0.5);
+
+    useGSAP(
+        () => {
+            if (skipIntro) return; // prefers-reduced-motion — no scroll-linked drift either
+            const st = ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                onUpdate: (self) => {
+                    scrollProgress.current = self.progress;
+                },
+            });
+            return () => st.kill();
+        },
+        { scope: containerRef, dependencies: [skipIntro] }
+    );
 
     useEffect(() => {
         // Capability checks (WebGL, prefers-reduced-motion) can only run
@@ -179,9 +217,9 @@ export function ParticlePortrait({ imageUrl }: { imageUrl: string }) {
     if (failed || !points) return null;
 
     return (
-        <div className="absolute inset-0" aria-hidden="true">
+        <div ref={containerRef} className="absolute inset-0" aria-hidden="true">
             <Canvas camera={{ position: [0, 0, 3.2], fov: 45 }} dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
-                <PointCloud points={points} skipIntro={skipIntro} />
+                <PointCloud points={points} skipIntro={skipIntro} scrollProgress={scrollProgress} />
             </Canvas>
         </div>
     );

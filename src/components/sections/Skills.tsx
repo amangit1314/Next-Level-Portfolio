@@ -3,9 +3,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import SkillCard from "../cards/SkillCard";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSkills, useProjectsCount } from "@/hooks/useSanityQuery";
 import { useProfile } from "@/hooks/useSanityQuery";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ORDERED_CATEGORIES = [
   "Frontend",
@@ -40,6 +41,11 @@ const Skills = () => {
 
   const filteredFlat = skills.filter((s) => s.category === activeCategory);
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(headerRef, "stagger-lines");
+  useScrollReveal(statsRef, "stagger-rows");
+
   return (
     <section id="skills" className="v2-section bg-theme-bg-primary relative">
       {/* Background */}
@@ -48,39 +54,29 @@ const Skills = () => {
       </div>
 
       <div className="v2-container relative z-10">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 sm:mb-12 space-y-4"
-        >
-          <div className="v2-label">
+        {/* Section header + tabs — one GSAP stagger, replaces two separate
+            whileInView blocks (see useScrollReveal) */}
+        <div ref={headerRef} className="mb-10 sm:mb-12 space-y-4">
+          <div data-reveal-item className="v2-label">
             <div className="v2-label-line" />
             <span className={`v2-label-text ${jetbrainsMono.className}`}>Technical Arsenal</span>
             <div className="v2-label-line" />
           </div>
 
           <h2
+            data-reveal-item
             className={`text-4xl sm:text-6xl uppercase leading-none text-center text-theme-text-primary ${anton.className}`}
           >
             Skills
           </h2>
 
-          <p className={`text-center text-theme-text-muted text-sm max-w-md mx-auto ${inter.className}`}>
+          <p data-reveal-item className={`text-center text-theme-text-muted text-sm max-w-md mx-auto ${inter.className}`}>
             Technologies I use to design, build, and ship production systems.
           </p>
-        </motion.div>
+        </div>
 
         {/* Category tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15, duration: 0.4 }}
-          className="mb-10 -mx-4 sm:mx-0"
-        >
+        <div className="mb-10 -mx-4 sm:mx-0">
           <div className="flex overflow-x-auto scrollbar-none gap-2 px-4 sm:px-0 sm:flex-wrap sm:justify-center pb-1">
             {tabs.map((tab) => (
               <button
@@ -96,7 +92,7 @@ const Skills = () => {
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Skills display */}
         <AnimatePresence mode="wait">
@@ -156,11 +152,8 @@ const Skills = () => {
         </AnimatePresence>
 
         {/* Stats row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+        <div
+          ref={statsRef}
           className="mt-10 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-px bg-theme-border/30 rounded-none overflow-hidden border border-theme-border/30"
         >
           {[
@@ -171,6 +164,7 @@ const Skills = () => {
           ].map((stat, i) => (
             <div
               key={i}
+              data-reveal-item
               className="flex flex-col items-center justify-center py-5 sm:py-8 bg-theme-bg-secondary/30 hover:bg-theme-bg-secondary/60 transition-colors duration-200"
             >
               <div
@@ -183,7 +177,7 @@ const Skills = () => {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

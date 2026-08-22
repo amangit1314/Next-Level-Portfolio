@@ -11,6 +11,8 @@ import { ComponentListRowSkeleton } from "@/components/skeletons/ComponentListRo
 import { ComponentListRow } from "./_components/ComponentListRow";
 import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
 import { HudScrollSlider } from "@/components/layout/hud/HudScrollSlider";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 interface Component {
   _id: string;
@@ -67,6 +69,9 @@ const ComponentsContent = () => {
     const matchesCat = selectedCategory === "all" || c.category === selectedCategory;
     return matchesSearch && matchesCat;
   });
+
+  const rowsRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(rowsRef, "stagger-rows", { deps: [filtered.length] });
 
   const clearFilters = () => {
     void setSearchQuery("");
@@ -165,18 +170,19 @@ const ComponentsContent = () => {
             </p>
           </motion.div>
         ) : (
-          <div className="pb-24">
+          <div ref={rowsRef} className="pb-24">
             {filtered.map((component, i) => (
-              <ComponentListRow
-                key={component._id}
-                index={i + 1}
-                slug={component.slug.current}
-                title={component.title}
-                description={component.description}
-                category={component.category}
-                difficulty={component.difficulty}
-                imageUrl={component.previewImage?.asset?.url}
-              />
+              <div key={component._id} data-reveal-item>
+                <ComponentListRow
+                  index={i + 1}
+                  slug={component.slug.current}
+                  title={component.title}
+                  description={component.description}
+                  category={component.category}
+                  difficulty={component.difficulty}
+                  imageUrl={component.previewImage?.asset?.url}
+                />
+              </div>
             ))}
           </div>
         )}

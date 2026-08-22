@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import { FiCode, FiServer, FiArrowRight, FiAward, FiUsers, FiTrendingUp, FiCpu } from "react-icons/fi";
 import ExperienceCard from "../cards/ExperienceCard";
 import { inter, jetbrainsMono, anton } from "@/lib/fonts";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   SiReact, SiNodedotjs, SiMongodb, SiTypescript, SiNextdotjs, SiTailwindcss,
   SiFramer, SiGithub, SiGit, SiSupabase, SiPostgresql, SiRedis,
@@ -45,17 +47,14 @@ const skillToIconMap: Record<string, React.ComponentType<{ className?: string }>
   Jupyter: SiJupyter,
 };
 
-const reveal = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const, delay: i * 0.07 },
-  }),
-};
-
 export const AboutSection = () => {
   const { data: profile, isLoading } = useProfile();
+  const headerRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
+  useScrollReveal(headerRef, "fade-up", { deps: [profile] });
+  useScrollReveal(avatarRef, "fade-up", { from: { opacity: 0, x: -24 }, deps: [profile] });
+  useScrollReveal(rightColRef, "stagger-lines", { deps: [profile] });
 
   const getTechIcon = (techName: string) =>
     skillToIconMap[techName.trim()] ?? SiJavascript;
@@ -78,13 +77,7 @@ export const AboutSection = () => {
       <div className="v2-container space-y-10 lg:space-y-16">
 
         {/* ── Section Header ─────────────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={reveal}
-          className="text-center space-y-4"
-        >
+        <div ref={headerRef} className="text-center space-y-4">
           <div className="v2-label">
             <div className="v2-label-line" />
             <span className={`v2-label-text ${jetbrainsMono.className}`}>About Me</span>
@@ -94,19 +87,13 @@ export const AboutSection = () => {
             The Engineer Behind the Code
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
-        </motion.div>
+        </div>
 
         {/* ── Main Grid ──────────────────────────────── */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
 
           {/* LEFT: Image + Tech Stack — hidden on mobile (avatar already shown in Hero) */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={reveal}
-            className="space-y-6 hidden lg:block"
-          >
+          <div ref={avatarRef} className="space-y-6 hidden lg:block">
             {/* Avatar */}
             <div className="relative group">
               {/* Glow */}
@@ -174,37 +161,28 @@ export const AboutSection = () => {
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
 
           {/* RIGHT: Text Content */}
-          <div className="space-y-8">
+          <div ref={rightColRef} className="space-y-8">
             {/* Experience Cards */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
+            <div
+              data-reveal-item
               className="flex gap-3 overflow-x-auto py-3 snap-x snap-mandatory lg:grid lg:grid-cols-3 lg:overflow-x-visible lg:py-0 lg:items-stretch"
             >
               {[
                 { field: "AI Engineering", duration: profile.experienceAreas?.ai ?? "2+ Years", icon: <FiCpu className="w-6 h-6" />, description: "Agentic systems & RAG" },
                 { field: "Full Stack", duration: profile.experienceAreas?.fullStack ?? "4+ Years", icon: <FiCode className="w-6 h-6" />, description: "Next.js & systems" },
                 { field: "Backend Scale", duration: profile.experienceAreas?.backend ?? "4+ Years", icon: <FiServer className="w-6 h-6" />, description: "APIs & Pgvector" },
-              ].map((card, i) => (
-                <motion.div key={card.field} custom={i} variants={reveal} className="flex-shrink-0 w-[68%] sm:w-[45%] snap-start lg:w-auto h-full">
+              ].map((card) => (
+                <div key={card.field} className="flex-shrink-0 w-[68%] sm:w-[45%] snap-start lg:w-auto h-full">
                   <ExperienceCard {...card} gradient="from-theme-primary to-theme-secondary" />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
 
             {/* Bio */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={reveal}
-              custom={1}
-              className="space-y-4"
-            >
+            <div data-reveal-item className="space-y-4">
               <h3 className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
                 {profile.headline ?? "What I Actually Build"}
               </h3>
@@ -219,41 +197,24 @@ export const AboutSection = () => {
                   {profile.longBio}
                 </p>
               )}
-            </motion.div>
+            </div>
 
             {/* Key Strengths */}
             {(profile.keyStrengths?.length ?? 0) > 0 && (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="space-y-2.5"
-              >
-                {profile.keyStrengths!.map((strength: string, i: number) => (
-                  <motion.div
-                    key={strength}
-                    custom={i}
-                    variants={reveal}
-                    className="flex items-start gap-3 group"
-                  >
+              <div data-reveal-item className="space-y-2.5">
+                {profile.keyStrengths!.map((strength: string) => (
+                  <div key={strength} className="flex items-start gap-3 group">
                     <div className="w-1.5 h-1.5 rounded-full bg-theme-primary mt-2 flex-shrink-0 group-hover:scale-150 transition-transform duration-300" />
                     <span className={`text-theme-text-secondary text-sm leading-relaxed ${inter.className}`}>
                       {strength}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             )}
 
             {/* CTA */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={reveal}
-              custom={2}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div data-reveal-item whileTap={{ scale: 0.98 }}>
               <Link
                 href="#contact"
                 className="inline-flex items-center justify-center gap-3 v2-btn-primary w-full sm:w-auto"
