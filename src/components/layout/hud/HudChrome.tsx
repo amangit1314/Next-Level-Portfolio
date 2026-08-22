@@ -26,6 +26,7 @@ export function HudChrome() {
     const router = useRouter();
     const [menuOpen, setMenuOpen] = useState(false);
 
+    const isHome = pathname === "/";
     const isPageActive = (path: string) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
     const currentIndex = Math.max(1, pageLinks.findIndex((link) => isPageActive(link.path)) + 1);
     const currentLabel = pageLinks.find((link) => isPageActive(link.path))?.name ?? "Home";
@@ -46,13 +47,20 @@ export function HudChrome() {
                 position:fixed descendants (a real CSS quirk, not a Tailwind gap),
                 so without this the ticker's marquee track bled past the browser
                 edge — visible as pills overflowing off-screen. */}
+            {/* Ticker is home-only — "AVAILABILITY: OPEN / STACK: ..." reads
+                as a system-status readout on the hero, not as chrome that
+                belongs on every inner page (it was showing up over the
+                Projects/Components/Blogs catalog pages with no context).
+                Identity mark stays everywhere — it's branding, not status. */}
             <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none overflow-hidden flex items-start justify-between gap-4">
                 <div className="pointer-events-auto shrink-0 hidden sm:block">
                     <HudIdentity />
                 </div>
-                <div className="pointer-events-auto max-w-2xl ml-auto">
-                    <HudTicker />
-                </div>
+                {isHome && (
+                    <div className="pointer-events-auto max-w-2xl ml-auto">
+                        <HudTicker />
+                    </div>
+                )}
             </div>
 
             <HudStatusBar

@@ -187,14 +187,6 @@
   --theme-accent: #f5f5f5;
   --theme-accent-rgb: 245, 245, 245;
 
-  /* Scroll progress bar gradient */
-  --scroll-progress-gradient: linear-gradient(
-    to right,
-    var(--theme-primary),
-    var(--theme-secondary),
-    var(--theme-accent)
-  );
-
   /* Background colors */
   --theme-bg-primary: #0a0a0a;
   --theme-bg-secondary: #141414;
@@ -399,11 +391,6 @@
     @apply h-8 w-px bg-theme-border;
   }
 
-  /* Scroll progress bar */
-  .scroll-progress-bar {
-    background: var(--scroll-progress-gradient);
-    will-change: transform;
-  }
 }
 
 /* ============================================================

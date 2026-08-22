@@ -17,7 +17,6 @@ const inter = Inter({
 });
 
 import { Providers } from "@/components/layout/Providers";
-import ScrollProgress from "@/components/layout/ScrollProgress";
 import AICopilot from "@/features/ai-copilot/components/AICopilot";
 import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import StructuredData from "@/components/layout/StructuredData";
@@ -104,7 +103,6 @@ export default function RootLayout({
       <body className="font-inter" suppressHydrationWarning>
         <StructuredData />
         <Providers>
-          <ScrollProgress />
           <HudChrome />
           {children}
           <AICopilot />

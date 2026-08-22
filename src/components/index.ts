@@ -14,7 +14,6 @@ export { default as Contact } from "./sections/Contact";
 // data exports (pageLinks, sectionLinks — imported directly from
 // "./layout/Header" by HudChrome.tsx and MobileBottomNav.tsx).
 export { default as MobileBottomNav } from "./layout/MobileBottomNav";
-export { default as ScrollProgress } from "./layout/ScrollProgress";
 export { Providers } from "./layout/Providers";
 
 // Features
