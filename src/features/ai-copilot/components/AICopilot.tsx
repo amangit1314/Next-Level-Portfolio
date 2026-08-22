@@ -80,7 +80,7 @@ export const AICopilot = () => {
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={() => closeCopilot()}
                 className="p-1.5 rounded-none hover:bg-theme-bg-hover/50 text-theme-text-muted hover:text-theme-text-primary transition-colors"
               >
                 <FiX className="w-5 h-5" />
