@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { jetbrainsMono } from '@/lib/fonts';
+import { jetbrainsMono, anton } from '@/lib/fonts';
 import { FiX } from 'react-icons/fi';
 
 interface SocialLink {
@@ -63,12 +63,12 @@ export function HudMenu({
           exit={{ opacity: 0, scale: 0.96, y: 8 }}
           transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
           style={{ transformOrigin: 'bottom right', backgroundColor: 'var(--hud-bg-elevated)', borderColor: 'var(--hud-border)' }}
-          className="fixed bottom-20 sm:bottom-24 right-4 sm:right-8 z-50 w-[min(360px,calc(100vw-2rem))] max-h-[70vh] flex flex-col rounded-none border overflow-hidden"
+          className="fixed bottom-20 sm:bottom-24 right-4 sm:right-8 z-50 w-[min(380px,calc(100vw-2rem))] max-h-[75vh] flex flex-col rounded-none border overflow-hidden"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderBottomColor: 'var(--hud-border)' }}>
-            <span className="font-bold" style={{ color: 'var(--hud-text-primary)' }}>
-              Menu
+            <span className={`text-lg ${anton.className}`} style={{ color: 'var(--hud-text-primary)' }}>
+              MENU
             </span>
             <button
               onClick={onClose}
@@ -82,7 +82,9 @@ export function HudMenu({
 
           {/* Scrollable content */}
           <div className="flex-1 overflow-y-auto">
-            {/* Social Links Section */}
+            {/* Social Links — compact bulleted rows, not icon tiles. Reads
+                as a data list (matches the ticker/status-bar chip language
+                elsewhere) rather than an app-icon grid. */}
             <div className="px-5 py-5">
               <label
                 className={`mb-3 block text-xs font-semibold tracking-wider ${jetbrainsMono.className}`}
@@ -97,21 +99,20 @@ export function HudMenu({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center gap-2 rounded-none border px-3 py-2.5 transition-all hover:opacity-80"
-                    style={{
-                      borderColor: 'var(--hud-border)',
-                      color: 'var(--hud-text-primary)',
-                    }}
+                    className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm transition-all hover:opacity-75 ${jetbrainsMono.className}`}
+                    style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-primary)' }}
                   >
-                    <span className="text-lg">{link.icon}</span>
-                    <span className="text-xs text-center">{link.name}</span>
+                    <span aria-hidden style={{ color: 'var(--hud-text-muted)' }}>•</span>
+                    {link.name}
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Navigation Links */}
-            <div>
+            {/* Numbered Nav — Anton display face + a filled active row
+                instead of a small dot, so the current page reads at a
+                glance instead of needing a close look. */}
+            <div className="border-t" style={{ borderTopColor: 'var(--hud-border)' }}>
               {navLinks.map((link) => {
                 const isActive = link.path === currentPath;
                 return (
@@ -121,23 +122,23 @@ export function HudMenu({
                       onNavigate(link.path);
                       onClose();
                     }}
-                    className={`w-full flex items-center justify-between border-b px-5 py-3 text-left transition-all hover:bg-white/5 ${jetbrainsMono.className}`}
+                    className="w-full flex items-center justify-between border-b px-5 py-4 text-left transition-colors"
                     style={{
                       borderBottomColor: 'var(--hud-border)',
-                      color: 'var(--hud-text-primary)',
+                      backgroundColor: isActive ? 'var(--hud-text-primary)' : 'transparent',
                     }}
                   >
-                    <span className="text-sm font-medium">
-                      [{link.index}] {link.name.toUpperCase()}
+                    <span
+                      className={`text-lg uppercase leading-none ${anton.className}`}
+                      style={{ color: isActive ? 'var(--hud-bg)' : 'var(--hud-text-primary)' }}
+                    >
+                      [{link.index}] {link.name}
                     </span>
-                    <div
-                      className="h-2 w-2 rounded-full transition-opacity"
-                      style={{
-                        backgroundColor: isActive
-                          ? 'var(--hud-text-primary)'
-                          : 'var(--hud-text-muted)',
-                      }}
-                    />
+                    {!isActive && (
+                      <span className={`text-xs ${jetbrainsMono.className}`} style={{ color: 'var(--hud-text-muted)' }}>
+                        GO
+                      </span>
+                    )}
                   </button>
                 );
               })}
