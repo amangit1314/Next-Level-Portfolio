@@ -50,6 +50,12 @@ export function BlogListRow({
         </div>
 
         <div className="flex-1 min-w-0">
+          <div
+            className={`text-2xl sm:text-3xl uppercase leading-tight mb-2 ${anton.className}`}
+            style={{ color: "var(--hud-text-primary)" }}
+          >
+            {title}
+          </div>
           <div className="flex items-center gap-3 mb-2">
             <div
               className={`text-xs px-2 py-1 border ${jetbrainsMono.className} uppercase flex-shrink-0`}
@@ -68,13 +74,7 @@ export function BlogListRow({
               </div>
             )}
           </div>
-          <div
-            className={`text-2xl uppercase leading-tight mb-1 ${anton.className}`}
-            style={{ color: "var(--hud-text-primary)" }}
-          >
-            {title}
-          </div>
-          <div className={`text-sm line-clamp-1 ${inter.className}`} style={{ color: "var(--hud-text-primary)" }}>
+          <div className={`text-sm line-clamp-2 ${inter.className}`} style={{ color: "var(--hud-text-muted)" }}>
             {excerpt}
           </div>
         </div>
@@ -90,8 +90,11 @@ export function BlogListRow({
         </motion.div>
 
         {imageUrl && (
-          <div className="hidden sm:block rounded overflow-hidden flex-shrink-0">
-            <Image src={imageUrl} alt={title} width={128} height={80} className="object-cover" />
+          <div
+            className="hidden sm:block rounded-none border overflow-hidden flex-shrink-0"
+            style={{ borderColor: "var(--hud-border)" }}
+          >
+            <Image src={imageUrl} alt={title} width={180} height={140} className="object-cover w-[180px] h-[140px]" />
           </div>
         )}
       </div>

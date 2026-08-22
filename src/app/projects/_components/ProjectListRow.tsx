@@ -41,6 +41,12 @@ export function ProjectListRow({
       </div>
 
       <div className="flex-1 min-w-0">
+        <div
+          className={`text-2xl sm:text-3xl uppercase leading-tight mb-2 ${anton.className}`}
+          style={{ color: "var(--hud-text-primary)" }}
+        >
+          {title}
+        </div>
         <div className="flex gap-2 mb-2">
           {tags.slice(0, 2).map((tag, idx) => (
             <div
@@ -56,14 +62,8 @@ export function ProjectListRow({
           ))}
         </div>
         <div
-          className={`text-2xl uppercase leading-tight mb-1 ${anton.className}`}
-          style={{ color: "var(--hud-text-primary)" }}
-        >
-          {title}
-        </div>
-        <div
-          className="text-sm line-clamp-1"
-          style={{ color: "var(--hud-text-primary)" }}
+          className="text-sm line-clamp-2"
+          style={{ color: "var(--hud-text-muted)" }}
         >
           {description}
         </div>
@@ -85,13 +85,16 @@ export function ProjectListRow({
       )}
 
       {imageUrl && (
-        <div className="hidden sm:block rounded overflow-hidden flex-shrink-0">
+        <div
+          className="hidden sm:block rounded-none border overflow-hidden flex-shrink-0"
+          style={{ borderColor: "var(--hud-border)" }}
+        >
           <Image
             src={imageUrl}
             alt={title}
-            width={128}
-            height={80}
-            className="object-cover"
+            width={180}
+            height={140}
+            className="object-cover w-[180px] h-[140px]"
           />
         </div>
       )}
