@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { jetbrainsMono } from '@/lib/fonts';
-import { FiZap } from 'react-icons/fi';
+import { FiZap, FiSettings } from 'react-icons/fi';
 import { useUIStore } from '@/stores/uiStore';
 
 interface HudStatusBarProps {
@@ -25,6 +25,7 @@ export function HudStatusBar({
   const [time, setTime] = useState('');
   const isCopilotOpen = useUIStore((s) => s.isCopilotOpen);
   const toggleCopilot = useUIStore((s) => s.toggleCopilot);
+  const toggleSettings = useUIStore((s) => s.toggleSettings);
 
   useEffect(() => {
     // Hydration-safety flag, not state synced from an external source —
@@ -119,6 +120,21 @@ export function HudStatusBar({
           {!isCopilotOpen && (
             <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-theme-status animate-pulse" />
           )}
+        </button>
+
+        {/* Settings — mobile/tablet equivalent of HudChrome's floating
+            right-edge trigger (that one's lg:hidden now — it overlapped
+            page content on narrow viewports, see HudChrome.tsx). Same
+            data-hud-settings marker so HudSettingsDialog's click-outside
+            handler treats this as a trigger too, not an outside click. */}
+        <button
+          onClick={toggleSettings}
+          data-hud-settings
+          className="lg:hidden flex items-center justify-center w-9 h-9 rounded-none border cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
+          style={{ borderColor: 'var(--hud-border)', color: 'var(--hud-text-muted)' }}
+          aria-label="Open settings"
+        >
+          <FiSettings size={16} />
         </button>
       </div>
     </div>

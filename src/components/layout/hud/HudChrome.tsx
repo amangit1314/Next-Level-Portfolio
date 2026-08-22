@@ -74,11 +74,17 @@ export function HudChrome() {
                 roughly where a scrollbar would sit. Matches the reference
                 site's placement; deliberately separate from the bottom-bar
                 chip group (HudStatusBar) and the [n] PAGE pill (that opens
-                HudMenu, navigation — a different concern from settings). */}
+                HudMenu, navigation — a different concern from settings).
+                lg-and-up only: vertically centered on the viewport works
+                on wide screens where there's margin outside the content
+                column, but on narrow mobile viewports the content spans
+                nearly edge-to-edge, so this landed directly on top of row
+                content (e.g. Projects list, row #2's tags). HudStatusBar
+                carries an equivalent trigger for lg:hidden. */}
             <button
                 onClick={toggleSettings}
                 data-hud-settings
-                className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 rounded-none border cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
+                className="hidden lg:flex fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 items-center justify-center w-9 h-9 rounded-none border cursor-pointer transition-colors hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)]"
                 style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)", backgroundColor: "var(--hud-bg)" }}
                 aria-label="Open settings"
             >
