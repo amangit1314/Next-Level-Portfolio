@@ -74,7 +74,7 @@ export default function DashboardLoginPage() {
         <button
           type="submit"
           disabled={loading || !password}
-          className={`w-full mt-5 py-2.5 rounded-none bg-theme-primary text-theme-bg-primary text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity uppercase tracking-wide ${jetbrainsMono.className}`}
+          className={`w-full mt-5 py-2.5 rounded-none bg-theme-primary text-theme-on-primary text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity uppercase tracking-wide ${jetbrainsMono.className}`}
         >
           {loading ? "Checking..." : "Enter"}
         </button>

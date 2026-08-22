@@ -271,7 +271,7 @@ const BlogPostPage = () => {
               </span>
               {blog.featured && (
                 <span
-                  className={`px-3 py-1 rounded-none text-xs font-bold text-theme-bg-primary theme-gradient-accent uppercase ${jetbrainsMono.className}`}
+                  className={`px-3 py-1 rounded-none text-xs font-bold text-theme-on-primary theme-gradient-accent uppercase ${jetbrainsMono.className}`}
                 >
                   Featured
                 </span>
@@ -403,7 +403,7 @@ const BlogPostPage = () => {
             </p>
             <Link
               href="/blogs"
-              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-bg-primary rounded-none font-medium hover:opacity-90 transition-all shadow-lg uppercase tracking-wide ${jetbrainsMono.className}`}
+              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-on-primary rounded-none font-medium hover:opacity-90 transition-all shadow-lg uppercase tracking-wide ${jetbrainsMono.className}`}
             >
               <FiArrowLeft className="rotate-180" />
               Read More Blogs

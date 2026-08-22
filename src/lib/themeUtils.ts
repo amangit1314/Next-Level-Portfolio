@@ -73,10 +73,30 @@ const ACCENT_COLOR_KEYS = [
     'accent',
 ] as const;
 
+/** Relative luminance (WCAG formula) of a "r, g, b" string, 0 (black) to 1
+ * (white) — used to pick a foreground color that actually reads against
+ * the accent, instead of assuming "dark text" (only true for Mono, whose
+ * primary happens to be near-white; every saturated flavor — orange,
+ * green, indigo, magenta — needs white on top, not dark-on-dark). */
+const relativeLuminance = (rgb: string): number => {
+    const [r, g, b] = rgb.split(',').map((n) => {
+        const c = parseInt(n.trim(), 10) / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+
 export const applyAccentVariables = (flavor: AccentFlavor): void => {
     const root = document.documentElement;
     root.setAttribute('data-accent-flavor', flavor.id);
     ACCENT_COLOR_KEYS.forEach((key) => setColorVariable(root, key, flavor[key]));
+
+    // --theme-on-primary: the foreground color for anything sitting on a
+    // theme-primary/theme-gradient-primary surface (buttons, icon chips,
+    // badges, tooltips) — computed per flavor instead of hardcoded, so a
+    // future flavor doesn't silently repeat this bug.
+    const onPrimary = relativeLuminance(flavor.primary.rgb) > 0.5 ? '#0a0a0a' : '#f5f5f5';
+    root.style.setProperty('--theme-on-primary', onPrimary);
 };
 
 /**

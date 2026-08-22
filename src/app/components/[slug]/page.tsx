@@ -823,7 +823,7 @@ const ComponentDetailPage = () => {
                   href={component.liveDemo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-primary text-theme-bg-primary rounded-none font-medium hover:brightness-110 transition-all shadow-lg ${jetbrainsMono.className}`}
+                  className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-primary text-theme-on-primary rounded-none font-medium hover:brightness-110 transition-all shadow-lg ${jetbrainsMono.className}`}
                 >
                   <FiExternalLink className="w-4 h-4" />
                   Live Demo
@@ -903,7 +903,7 @@ const ComponentDetailPage = () => {
                 </h2>
                 <button
                   onClick={() => handleCopyCode(component.previewCode!.code)}
-                  className={`px-4 py-2 bg-theme-primary hover:bg-theme-primary-dark text-theme-bg-primary rounded-none transition-colors ${jetbrainsMono.className}`}
+                  className={`px-4 py-2 bg-theme-primary hover:bg-theme-primary-dark text-theme-on-primary rounded-none transition-colors ${jetbrainsMono.className}`}
                 >
                   {copied ? "Copied!" : "Copy Code"}
                 </button>

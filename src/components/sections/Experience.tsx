@@ -209,7 +209,7 @@ const Experience = () => {
                 <motion.div className="shrink-0 w-full sm:w-auto" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                   <Link
                     href="#contact"
-                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-none font-bold text-theme-bg-primary shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto uppercase tracking-wide ${jetbrainsMono.className}`}
+                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-none font-bold text-theme-on-primary shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto uppercase tracking-wide ${jetbrainsMono.className}`}
                   >
                     <div className="absolute inset-0 overflow-hidden rounded-none">
                       <div className="absolute top-0 -left-10 w-7 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />

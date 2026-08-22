@@ -31,7 +31,7 @@ const ExperienceCard = ({
 
       <div className="relative z-10 text-center space-y-3 sm:space-y-4">
         <motion.div
-          className={`inline-flex text-theme-bg-primary items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${gradient} rounded-none shadow-lg group-hover:shadow-xl group-hover:scale-105 sm:group-hover:scale-110 transition-all duration-500`}
+          className={`inline-flex text-theme-on-primary items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r ${gradient} rounded-none shadow-lg group-hover:shadow-xl group-hover:scale-105 sm:group-hover:scale-110 transition-all duration-500`}
           whileHover={{ rotate: 5 }}
         >
           {icon}

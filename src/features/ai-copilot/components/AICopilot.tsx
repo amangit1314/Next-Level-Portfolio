@@ -66,7 +66,7 @@ export const AICopilot = () => {
             <div className="p-4 border-b border-theme-border/50 flex items-center justify-between theme-gradient-primary/5">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-none theme-gradient-primary flex items-center justify-center relative shadow-md">
-                  <FiZap className="w-5 h-5 text-theme-bg-primary" />
+                  <FiZap className="w-5 h-5 text-theme-on-primary" />
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-theme-bg-secondary" />
                 </div>
                 <div>
@@ -196,7 +196,7 @@ export const AICopilot = () => {
               <button
                 onClick={() => handleSendMessage()}
                 disabled={!input.trim() || isLoading}
-                className="w-11 h-11 rounded-none theme-gradient-primary flex items-center justify-center text-theme-bg-primary shadow-md disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-theme-primary/25 transition-shadow"
+                className="w-11 h-11 rounded-none theme-gradient-primary flex items-center justify-center text-theme-on-primary shadow-md disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-theme-primary/25 transition-shadow"
               >
                 <FiSend className="w-4.5 h-4.5" />
               </button>

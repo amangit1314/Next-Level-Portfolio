@@ -248,7 +248,7 @@ export default function BlogArticleLayout({
             <div className="flex gap-4 justify-center">
               <a
                 href="/projects"
-                className="px-6 py-3 theme-gradient-primary rounded-none text-theme-bg-primary font-semibold text-sm hover:opacity-90 transition-opacity"
+                className="px-6 py-3 theme-gradient-primary rounded-none text-theme-on-primary font-semibold text-sm hover:opacity-90 transition-opacity"
               >
                 View Projects
               </a>
