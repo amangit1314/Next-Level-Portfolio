@@ -6,7 +6,8 @@ import Link from "next/link";
 import { FaMailBulk } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import React, { useRef } from "react";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Contact = () => {
@@ -30,16 +31,18 @@ const Contact = () => {
           <div className="text-center space-y-4">
             <div className="v2-label mb-4">
               <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
-              <span className={`v2-label-text ${jetbrainsMono.className} [color:var(--hud-text-muted)] uppercase tracking-widest`}>
+              <span className={`v2-label-text ${secondaryFont.className} [color:var(--hud-text-muted)] uppercase tracking-widest`}>
                 Wanna Say Hello?
               </span>
               <div className="v2-label-line" style={{ backgroundColor: "var(--hud-border)" }} />
             </div>
-            <h2 className={`text-5xl sm:text-7xl uppercase leading-none [color:var(--hud-text-primary)] ${anton.className}`}>
-              Get In Touch
+            <h2>
+              <JitterHeading className={`text-5xl sm:text-7xl uppercase leading-none [color:var(--hud-text-primary)] ${primaryFont.className}`}>
+                Get In Touch
+              </JitterHeading>
             </h2>
             <div className="w-16 h-0.5 mx-auto rounded-full" style={{ backgroundColor: "var(--hud-border)" }} />
-            <p className={`${jetbrainsMono.className} [color:var(--hud-text-muted)] max-w-2xl mx-auto`}>
+            <p className={`${secondaryFont.className} [color:var(--hud-text-muted)] max-w-2xl mx-auto`}>
               Ready to bring your next project to life? Let&apos;s discuss how
               we can work together.
             </p>
@@ -56,7 +59,7 @@ const Contact = () => {
               {/* Intro Text */}
               <p
                 data-reveal-item
-                className={`text-center ${jetbrainsMono.className} text-sm sm:text-base leading-relaxed [color:var(--hud-text-muted)]`}
+                className={`text-center ${secondaryFont.className} text-sm sm:text-base leading-relaxed [color:var(--hud-text-muted)]`}
               >
                 Have a project in mind or want to collaborate? I&apos;m always
                 open to discussing new opportunities and creative ideas.
@@ -91,7 +94,7 @@ const Contact = () => {
                             className: "w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300 [color:var(--hud-text-muted)] group-hover/link:[color:var(--hud-text-primary)]",
                           })}
                         </div>
-                        <span className={`text-xs sm:text-sm font-medium transition-colors duration-300 [color:var(--hud-text-muted)] group-hover/link:[color:var(--hud-text-primary)] ${jetbrainsMono.className} uppercase`}>
+                        <span className={`text-xs sm:text-sm font-medium transition-colors duration-300 [color:var(--hud-text-muted)] group-hover/link:[color:var(--hud-text-primary)] ${secondaryFont.className} uppercase`}>
                           {social.name}
                         </span>
                       </motion.div>
@@ -106,7 +109,7 @@ const Contact = () => {
                 className="text-center pt-5 sm:pt-8 border-t"
                 style={{ borderColor: "var(--hud-border)" }}
               >
-                <p className={`${jetbrainsMono.className} text-sm mb-6 [color:var(--hud-text-muted)]`}>
+                <p className={`${secondaryFont.className} text-sm mb-6 [color:var(--hud-text-muted)]`}>
                   Prefer email? Reach out directly at:
                 </p>
                 <motion.div
@@ -120,7 +123,7 @@ const Contact = () => {
                   </div>
                   <Link
                     href="mailto:amansoni53453@gmail.com"
-                    className={`text-xs sm:text-base font-semibold transition-colors duration-300 flex items-center gap-2 break-all [color:var(--hud-text-primary)] ${jetbrainsMono.className}`}
+                    className={`text-xs sm:text-base font-semibold transition-colors duration-300 flex items-center gap-2 break-all [color:var(--hud-text-primary)] ${secondaryFont.className}`}
                   >
                     amansoni53453@gmail.com
                     <FiArrowUpRight className="w-4 h-4 opacity-0 group-hover/email:opacity-100 transition-opacity duration-300 flex-shrink-0" />
@@ -130,7 +133,7 @@ const Contact = () => {
 
               {/* CTA */}
               <div data-reveal-item className="text-center pt-6">
-                <p className={`text-sm [color:var(--hud-text-muted)] ${jetbrainsMono.className}`}>
+                <p className={`text-sm [color:var(--hud-text-muted)] ${secondaryFont.className}`}>
                   I typically respond within 24 hours
                 </p>
               </div>

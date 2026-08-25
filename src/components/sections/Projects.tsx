@@ -2,22 +2,29 @@
 
 import React, { useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
-import { jetbrainsMono, anton } from "@/lib/fonts";
+import { secondaryFont, primaryFont } from "@/lib/fonts";
 import ProjectCard from "../cards/ProjectCard";
 import { Route } from "@/types/enums";
 import { aiProjects } from "@/data/ai-projects";
 import { useProjects } from "@/hooks/useSanityQuery";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ProjectsSkeleton } from "@/components/skeletons/ProjectsSkeleton";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 
 const Projects = () => {
-  const { data: sanityProjects = [] } = useProjects();
+  const { data: sanityProjects = [], isLoading } = useProjects();
   const projects = [...aiProjects.filter((p) => !p.hidden), ...sanityProjects];
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const viewAllRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(headerRef, "fade-up");
-  useScrollReveal(gridRef, "stagger-rows", { deps: [projects.length] });
-  useScrollReveal(viewAllRef, "fade-up", { delay: 0.15 });
+  useScrollReveal(headerRef, "fade-up", { deps: [isLoading] });
+  useScrollReveal(gridRef, "stagger-rows", { deps: [projects.length, isLoading] });
+  useScrollReveal(viewAllRef, "fade-up", { delay: 0.15, deps: [isLoading] });
+
+  // Static aiProjects entries alone usually fill the first 2 slots before
+  // Sanity resolves, but that's not guaranteed if they're hidden/filtered —
+  // gate on isLoading itself, not projects.length, so it's correct either way.
+  if (isLoading) return <ProjectsSkeleton />;
 
   return (
     <section id="projects" className="v2-section bg-theme-bg-primary">
@@ -30,13 +37,15 @@ const Projects = () => {
         <div ref={headerRef} className="text-center mb-10 sm:mb-20 space-y-4">
           <div className="v2-label mb-4">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${jetbrainsMono.className}`}>
+            <span className={`v2-label-text ${secondaryFont.className}`}>
               Portfolio Showcase
             </span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
-            Featured Projects
+          <h2>
+            <JitterHeading className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
+              Featured Projects
+            </JitterHeading>
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
           <p className="max-w-2xl mx-auto text-lg text-theme-text-muted">
@@ -57,7 +66,7 @@ const Projects = () => {
         <div ref={viewAllRef} className="text-center mt-10 sm:mt-16">
           <a
             href={Route.Projects}
-            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-none border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${jetbrainsMono.className}`}
+            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-none border border-theme-primary/30 hover:border-theme-primary/60 bg-theme-bg-secondary/40 hover:bg-theme-primary/5 transition-all duration-300 text-xs font-medium text-theme-primary ${secondaryFont.className}`}
           >
             Discover All Projects
             <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

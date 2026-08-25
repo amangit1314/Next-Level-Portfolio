@@ -1,18 +1,22 @@
 "use client";
 
 import React, { useRef } from "react";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
 import Marquee from "../magicui/marquee";
 import TestimonialCard from "../cards/TestimonialCard";
 import { useTestimonials } from "@/hooks/useSanityQuery";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { TestimonialsSkeleton } from "@/components/skeletons/TestimonialsSkeleton";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 
 const Testimonials = () => {
-  const { data: testimonials = [] } = useTestimonials();
+  const { data: testimonials = [], isLoading } = useTestimonials();
   const headerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(headerRef, "fade-up", { duration: 0.6 });
-  useScrollReveal(marqueeRef, "fade-up", { duration: 0.8, delay: 0.2 });
+  useScrollReveal(headerRef, "fade-up", { duration: 0.6, deps: [isLoading] });
+  useScrollReveal(marqueeRef, "fade-up", { duration: 0.8, delay: 0.2, deps: [isLoading] });
+
+  if (isLoading) return <TestimonialsSkeleton />;
 
   return (
     <section id="testimonials" className="v2-section bg-theme-bg-primary">
@@ -25,13 +29,15 @@ const Testimonials = () => {
         <div ref={headerRef} className="text-center mb-10 sm:mb-16 space-y-4">
           <div className="v2-label mb-4">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${jetbrainsMono.className}`}>
+            <span className={`v2-label-text ${secondaryFont.className}`}>
               Client Feedback
             </span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
-            Testimonials
+          <h2>
+            <JitterHeading className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
+              Testimonials
+            </JitterHeading>
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
           <p className={`text-theme-text-muted max-w-xl mx-auto ${inter.className}`}>

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { FiArrowLeft, FiCalendar, FiClock, FiUser } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { blogBySlugQuery } from "@/sanity/lib/queries";
-import { anton, inter, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, inter, secondaryFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { BlogPostSkeleton } from "@/components/skeletons/BlogPostSkeleton";
@@ -98,19 +98,19 @@ const BlogPostPage = () => {
         <div className="relative my-6 group">
           <div className="flex items-center justify-between bg-theme-bg-secondary px-4 py-2 border-b border-theme-border">
             <span
-              className={`text-sm text-theme-text-muted ${jetbrainsMono.className}`}
+              className={`text-sm text-theme-text-muted ${secondaryFont.className}`}
             >
               {value.language || "code"}
             </span>
             <button
               onClick={() => handleCopyCode(value.code)}
-              className={`px-3 py-1 text-xs bg-theme-bg-tertiary hover:bg-theme-bg-hover text-theme-text-secondary rounded-none transition-colors ${jetbrainsMono.className}`}
+              className={`px-3 py-1 text-xs bg-theme-bg-tertiary hover:bg-theme-bg-hover text-theme-text-secondary rounded-none transition-colors ${secondaryFont.className}`}
             >
               {copied ? "Copied!" : "Copy"}
             </button>
           </div>
           <pre
-            className={`bg-theme-bg-primary p-4 overflow-x-auto ${jetbrainsMono.className}`}
+            className={`bg-theme-bg-primary p-4 overflow-x-auto ${secondaryFont.className}`}
           >
             <code className="text-sm text-theme-text-secondary">
               {value.code}
@@ -122,28 +122,28 @@ const BlogPostPage = () => {
     block: {
       h1: ({ children }: any) => (
         <h1
-          className={`text-4xl uppercase leading-none text-theme-text-primary mb-6 mt-12 ${anton.className}`}
+          className={`text-4xl uppercase leading-none text-theme-text-primary mb-6 mt-12 ${primaryFont.className}`}
         >
           {children}
         </h1>
       ),
       h2: ({ children }: any) => (
         <h2
-          className={`text-3xl uppercase leading-none text-theme-text-primary mb-5 mt-10 ${anton.className}`}
+          className={`text-3xl uppercase leading-none text-theme-text-primary mb-5 mt-10 ${primaryFont.className}`}
         >
           {children}
         </h2>
       ),
       h3: ({ children }: any) => (
         <h3
-          className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 mt-8 ${anton.className}`}
+          className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 mt-8 ${primaryFont.className}`}
         >
           {children}
         </h3>
       ),
       h4: ({ children }: any) => (
         <h4
-          className={`text-xl uppercase leading-none text-theme-text-primary mb-3 mt-6 ${anton.className}`}
+          className={`text-xl uppercase leading-none text-theme-text-primary mb-3 mt-6 ${primaryFont.className}`}
         >
           {children}
         </h4>
@@ -166,7 +166,7 @@ const BlogPostPage = () => {
     marks: {
       code: ({ children }: any) => (
         <code
-          className={`px-2 py-1 bg-theme-bg-secondary text-theme-primary rounded text-sm ${jetbrainsMono.className}`}
+          className={`px-2 py-1 bg-theme-bg-secondary text-theme-primary rounded text-sm ${secondaryFont.className}`}
         >
           {children}
         </code>
@@ -219,7 +219,7 @@ const BlogPostPage = () => {
       <>
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
-            className={`text-4xl uppercase leading-none text-theme-text-primary mb-4 ${anton.className}`}
+            className={`text-4xl uppercase leading-none text-theme-text-primary mb-4 ${primaryFont.className}`}
           >
             Blog post not found
           </h1>
@@ -251,7 +251,7 @@ const BlogPostPage = () => {
           {/* Back Button */}
           <Link
             href="/blogs"
-            className={`inline-flex items-center gap-2 uppercase tracking-wide text-theme-primary hover:text-theme-primary-light mb-8 transition-colors ${jetbrainsMono.className}`}
+            className={`inline-flex items-center gap-2 uppercase tracking-wide text-theme-primary hover:text-theme-primary-light mb-8 transition-colors ${secondaryFont.className}`}
           >
             <FiArrowLeft /> Back to Blogs
           </Link>
@@ -265,13 +265,13 @@ const BlogPostPage = () => {
           >
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span
-                className={`px-3 py-1 text-xs bg-theme-primary/10 border border-theme-primary/30 text-theme-primary rounded-none uppercase ${jetbrainsMono.className}`}
+                className={`px-3 py-1 text-xs bg-theme-primary/10 border border-theme-primary/30 text-theme-primary rounded-none uppercase ${secondaryFont.className}`}
               >
                 {blog.category?.replace("-", " ")}
               </span>
               {blog.featured && (
                 <span
-                  className={`px-3 py-1 rounded-none text-xs font-bold text-theme-on-primary theme-gradient-accent uppercase ${jetbrainsMono.className}`}
+                  className={`px-3 py-1 rounded-none text-xs font-bold text-theme-on-primary theme-gradient-accent uppercase ${secondaryFont.className}`}
                 >
                   Featured
                 </span>
@@ -279,7 +279,7 @@ const BlogPostPage = () => {
             </div>
 
             <h1
-              className={`text-4xl md:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
+              className={`text-4xl md:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${primaryFont.className}`}
             >
               {blog.title}
             </h1>
@@ -308,7 +308,7 @@ const BlogPostPage = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <FiUser className="w-4 h-4 text-theme-text-muted" />
                     <span
-                      className={`text-theme-text-secondary ${jetbrainsMono.className}`}
+                      className={`text-theme-text-secondary ${secondaryFont.className}`}
                     >
                       {authorName}
                     </span>
@@ -394,7 +394,7 @@ const BlogPostPage = () => {
             className="mt-16 p-8 bg-theme-bg-secondary/40 rounded-none border border-theme-primary/20"
           >
             <h3
-              className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 ${anton.className}`}
+              className={`text-2xl uppercase leading-none text-theme-text-primary mb-4 ${primaryFont.className}`}
             >
               Enjoyed this article?
             </h3>
@@ -403,7 +403,7 @@ const BlogPostPage = () => {
             </p>
             <Link
               href="/blogs"
-              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-on-primary rounded-none font-medium hover:opacity-90 transition-all shadow-lg uppercase tracking-wide ${jetbrainsMono.className}`}
+              className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-accent text-theme-on-primary rounded-none font-medium hover:opacity-90 transition-all shadow-lg uppercase tracking-wide ${secondaryFont.className}`}
             >
               <FiArrowLeft className="rotate-180" />
               Read More Blogs

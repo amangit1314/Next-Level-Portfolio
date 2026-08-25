@@ -25,10 +25,21 @@ export function LenisProvider() {
     useEffect(() => {
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+        // lerp mode, not duration+easing — Lenis only runs its lerp
+        // smoothing when `duration` is unset; passing `duration` (the
+        // previous config) switches it to a per-scroll-event tween that
+        // eases to a target and stops, which reads as "ease after each
+        // wheel tick" rather than a continuously rolling scroll. lerp
+        // instead re-chases the target position every animation frame via
+        // exponential smoothing, which is the actual mechanism behind the
+        // heavier "liquid" momentum feel on reference sites like
+        // saifullah.dev. Lower lerp = more viscous/heavier lag behind the
+        // input; 0.075 sits between Lenis's smoothWheel default (0.1,
+        // lighter) and its touch default (0.075) — chosen for noticeably
+        // more roll without going so low it feels unresponsive.
         const lenis = new Lenis({
             autoRaf: false,
-            duration: 1.1,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            lerp: 0.075,
         });
         setLenisInstance(lenis);
         lenis.on("scroll", ScrollTrigger.update);

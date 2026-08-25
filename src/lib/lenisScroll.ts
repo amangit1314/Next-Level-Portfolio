@@ -14,6 +14,11 @@ export const setLenisInstance = (instance: Lenis | null) => {
     lenisInstance = instance;
 };
 
+// Read access for anything that needs to hook Lenis's own scroll event
+// (e.g. HudScrollSlider deriving progress from Lenis's eased position
+// instead of raw window.scrollY) rather than drive scroll itself.
+export const getLenisInstance = () => lenisInstance;
+
 export function scrollToTarget(target: string | HTMLElement, options?: { offset?: number }) {
     const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
     if (!el) return;

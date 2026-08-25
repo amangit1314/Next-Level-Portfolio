@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiEye, FiUsers, FiLogOut, FiRefreshCw } from "react-icons/fi";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
 
 interface DailyPoint {
   timestamp: string;
@@ -79,7 +79,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className={`text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+            <h1 className={`text-2xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
               Portfolio Analytics
             </h1>
             <p className={`text-xs text-theme-text-muted mt-1 ${inter.className}`}>
@@ -110,7 +110,7 @@ export default function DashboardPage() {
             <button
               key={r}
               onClick={() => setDays(r)}
-              className={`text-xs px-3 py-1.5 rounded-none border transition-colors uppercase tracking-wide ${jetbrainsMono.className} ${
+              className={`text-xs px-3 py-1.5 rounded-none border transition-colors uppercase tracking-wide ${secondaryFont.className} ${
                 days === r
                   ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
                   : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30"
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                   <FiEye className="w-3.5 h-3.5" />
                   <span className={`text-xs uppercase tracking-wide ${inter.className}`}>Pageviews</span>
                 </div>
-                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                   {data.totals?.pageviews?.toLocaleString() ?? 0}
                 </div>
               </div>
@@ -152,7 +152,7 @@ export default function DashboardPage() {
                   <FiUsers className="w-3.5 h-3.5" />
                   <span className={`text-xs uppercase tracking-wide ${inter.className}`}>Visitors</span>
                 </div>
-                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+                <div className={`text-3xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                   {data.totals?.visitors?.toLocaleString() ?? 0}
                 </div>
               </div>

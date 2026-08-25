@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { jetbrainsMono, anton } from "@/lib/fonts";
+import { secondaryFont, primaryFont } from "@/lib/fonts";
 import { FiX, FiCheck } from "react-icons/fi";
 import { useUIStore } from "@/stores/uiStore";
 import { accentFlavors } from "@/lib/hudAccentFlavors";
@@ -46,7 +46,7 @@ export function HudSettingsDialog() {
                     className="fixed right-16 sm:right-20 top-1/2 -translate-y-1/2 z-50 w-[min(320px,calc(100vw-2rem))] max-h-[70vh] flex flex-col rounded-none border overflow-hidden"
                 >
                     <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderBottomColor: "var(--hud-border)" }}>
-                        <span className={`text-lg ${anton.className}`} style={{ color: "var(--hud-text-primary)" }}>
+                        <span className={`text-lg ${primaryFont.className}`} style={{ color: "var(--hud-text-primary)" }}>
                             SYSTEM
                         </span>
                         <button
@@ -61,7 +61,7 @@ export function HudSettingsDialog() {
 
                     <div className="flex-1 overflow-y-auto px-5 py-5">
                         <label
-                            className={`mb-3 block text-xs font-semibold tracking-wider ${jetbrainsMono.className}`}
+                            className={`mb-3 block text-xs font-semibold tracking-wider ${secondaryFont.className}`}
                             style={{ color: "var(--hud-text-muted)" }}
                         >
                             CORE THEME
@@ -73,7 +73,7 @@ export function HudSettingsDialog() {
                                     <button
                                         key={flavor.id}
                                         onClick={() => setAccentFlavorId(flavor.id)}
-                                        className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-left text-sm transition-all hover:opacity-80 ${jetbrainsMono.className}`}
+                                        className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-left text-sm transition-all hover:opacity-80 ${secondaryFont.className}`}
                                         style={{
                                             borderColor: isActive ? flavor.primary.hex : "var(--hud-border)",
                                             color: "var(--hud-text-primary)",

@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { anton, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, secondaryFont } from "@/lib/fonts";
+import { HudMediaFrame } from "@/components/primitives/HudMediaFrame";
+import Marquee from "@/components/magicui/marquee";
 
 interface ProjectListRowProps {
   index: number;
@@ -34,7 +35,7 @@ export function ProjectListRow({
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`text-3xl font-bold ${jetbrainsMono.className} flex-shrink-0 transition-colors duration-200`}
+        className={`text-3xl font-bold ${secondaryFont.className} flex-shrink-0 transition-colors duration-200`}
         style={{ color: isHovering ? "var(--theme-primary)" : "var(--hud-text-muted)" }}
       >
         {paddedIndex}
@@ -42,7 +43,7 @@ export function ProjectListRow({
 
       <div className="flex-1 min-w-0">
         <div
-          className={`text-2xl sm:text-3xl uppercase leading-tight mb-2 ${anton.className}`}
+          className={`text-2xl sm:text-3xl uppercase leading-tight mb-3 ${primaryFont.className}`}
           style={{ color: "var(--hud-text-primary)" }}
         >
           {title}
@@ -51,7 +52,7 @@ export function ProjectListRow({
           {tags.slice(0, 2).map((tag, idx) => (
             <div
               key={idx}
-              className={`text-xs px-2 py-1 border ${jetbrainsMono.className} uppercase flex-shrink-0`}
+              className={`text-xs px-2 py-1 border ${secondaryFont.className} uppercase flex-shrink-0`}
               style={{
                 borderColor: "var(--hud-border)",
                 color: "var(--hud-text-muted)",
@@ -74,28 +75,18 @@ export function ProjectListRow({
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovering ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          className={`text-xs px-3 py-1 border ${jetbrainsMono.className} uppercase whitespace-nowrap flex-shrink-0`}
-          style={{
-            borderColor: "var(--hud-border)",
-            color: "var(--hud-text-muted)",
-          }}
+          className={`w-28 border ${secondaryFont.className} uppercase flex-shrink-0 overflow-hidden`}
+          style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }}
         >
-          View Project
+          <Marquee repeat={2} className="[--duration:6s] py-1 text-xs">
+            <span className="px-2">View Project</span>
+          </Marquee>
         </motion.div>
       )}
 
       {imageUrl && (
-        <div
-          className="hidden sm:block rounded-none border overflow-hidden flex-shrink-0"
-          style={{ borderColor: "var(--hud-border)" }}
-        >
-          <Image
-            src={imageUrl}
-            alt={title}
-            width={180}
-            height={140}
-            className="object-cover w-[180px] h-[140px]"
-          />
+        <div className="hidden sm:block flex-shrink-0">
+          <HudMediaFrame src={imageUrl} alt={title} />
         </div>
       )}
     </div>

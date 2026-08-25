@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { jetbrainsMono, anton } from "@/lib/fonts";
+import { secondaryFont, primaryFont } from "@/lib/fonts";
 
 interface Pill {
   label: string;
@@ -38,7 +38,10 @@ export function HudTicker() {
   return (
     // hud-grid-bg + bottom border makes this read as one continuous data
     // strip (reference site's treatment) instead of loose floating pills.
-    <div className="hud-grid-bg overflow-hidden w-full border-b" style={{ borderColor: "var(--hud-border)" }}>
+    <div
+      className="hud-grid-bg relative overflow-hidden w-full border-b"
+      style={{ borderColor: "var(--hud-border)" }}
+    >
       <div ref={trackRef} className="flex items-center" style={{ width: "200%" }}>
         {/* First pass */}
         {PILLS.map((pill, idx) => (
@@ -50,6 +53,19 @@ export function HudTicker() {
           <TickerPill key={`pill-2-${idx}`} pill={pill} />
         ))}
       </div>
+
+      {/* Edge fades — same treatment as Testimonials' marquee, so pills
+          scroll out softly instead of hard-clipping at the container edge.
+          --hud-bg (not --theme-bg-primary) since this strip lives in the
+          HUD chrome's own fixed-monochrome token set, not the v2 theme. */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 w-8 sm:w-16 h-full z-10"
+        style={{ background: "linear-gradient(to right, var(--hud-bg), transparent)" }}
+      />
+      <div
+        className="pointer-events-none absolute right-0 top-0 w-8 sm:w-16 h-full z-10"
+        style={{ background: "linear-gradient(to left, var(--hud-bg), transparent)" }}
+      />
     </div>
   );
 }
@@ -62,13 +78,13 @@ function TickerPill({ pill }: { pill: Pill }) {
   return (
     <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3">
       <div
-        className={`px-2 py-1 rounded-none border text-xs ${jetbrainsMono.className}`}
+        className={`px-2 py-1 rounded-none border text-xs ${secondaryFont.className}`}
         style={{ borderColor: "var(--hud-border)", color: "var(--hud-text-muted)" }}
       >
         {pill.label}
       </div>
       <div
-        className={`text-lg sm:text-xl uppercase leading-none ${anton.className}`}
+        className={`text-lg sm:text-xl uppercase leading-none ${primaryFont.className}`}
         style={{ color: "var(--hud-text-primary)" }}
       >
         {pill.value}

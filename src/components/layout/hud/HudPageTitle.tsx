@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { anton, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, secondaryFont } from "@/lib/fonts";
 import { Route } from "@/types/enums";
 
 interface HudPageTitleProps {
@@ -15,7 +15,7 @@ export function HudPageTitle({ title, breadcrumb }: HudPageTitleProps) {
   return (
     <div className="text-right pt-24 sm:pt-32">
       <p
-        className={`${jetbrainsMono.className} text-xs uppercase tracking-widest mb-4 [color:var(--hud-text-muted)]`}
+        className={`${secondaryFont.className} text-xs uppercase tracking-widest mb-4 [color:var(--hud-text-muted)]`}
       >
         <Link
           href={Route.Home}
@@ -26,7 +26,7 @@ export function HudPageTitle({ title, breadcrumb }: HudPageTitleProps) {
         {rest.length > 0 && ` / ${rest.join(" / ")}`}
       </p>
       <h1
-        className={`${anton.className} text-6xl sm:text-8xl lg:text-9xl font-bold leading-none [color:var(--hud-text-primary)]`}
+        className={`${primaryFont.className} text-6xl sm:text-8xl lg:text-9xl font-bold leading-none [color:var(--hud-text-primary)]`}
       >
         {title}
       </h1>

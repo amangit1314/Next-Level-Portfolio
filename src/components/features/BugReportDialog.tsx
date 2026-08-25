@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Button } from "@/components/ui/button"; // optional (not used)
-import { jetbrainsMono } from "@/lib/fonts";
+import { secondaryFont } from "@/lib/fonts";
 
 export function BugReportDialog() {
   const [title, setTitle] = useState("");
@@ -59,7 +59,7 @@ export function BugReportDialog() {
         <button
           className="flex items-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 rounded-none border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300 hover:scale-105"
         >
-          <span className={`${jetbrainsMono.className} uppercase tracking-wide text-xs`}>Report Bug</span>
+          <span className={`${secondaryFont.className} uppercase tracking-wide text-xs`}>Report Bug</span>
           <FiAlertTriangle className="w-4 h-4" />
         </button>
       </DialogTrigger>
@@ -68,7 +68,7 @@ export function BugReportDialog() {
       <DialogContent className="bg-theme-bg-secondary/60 border border-theme-border/40 shadow-xl rounded-none">
         <DialogHeader>
           <DialogTitle
-            className={`${jetbrainsMono.className} uppercase tracking-wide text-sm text-theme-text-primary`}
+            className={`${secondaryFont.className} uppercase tracking-wide text-sm text-theme-text-primary`}
           >
             Report a bug
           </DialogTitle>
@@ -105,7 +105,7 @@ export function BugReportDialog() {
             disabled={submitting}
             className="w-full flex items-center justify-center space-x-2 px-4 py-2 bg-theme-bg-secondary/50 rounded-none border border-theme-border/50 hover:border-theme-primary/50 text-theme-text-muted hover:text-theme-text-primary transition-all duration-300"
           >
-            <span className={`${jetbrainsMono.className} uppercase tracking-wide text-xs`}>
+            <span className={`${secondaryFont.className} uppercase tracking-wide text-xs`}>
               {submitting ? "Sending..." : "Submit bug"}
             </span>
           </button>

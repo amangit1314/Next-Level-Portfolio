@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { jetbrainsMono } from '@/lib/fonts';
+import { secondaryFont } from '@/lib/fonts';
 import { FiZap, FiSettings } from 'react-icons/fi';
 import { useUIStore } from '@/stores/uiStore';
 
@@ -51,13 +51,16 @@ export function HudStatusBar({
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 flex items-end justify-between gap-4 px-4 sm:px-8 py-4 pointer-events-none ${jetbrainsMono.className}`}
+      className={`fixed bottom-0 left-0 right-0 z-40 flex items-end justify-between gap-4 px-4 sm:px-8 py-4 pointer-events-none ${secondaryFont.className}`}
     >
       {/* Left group: Say Hello + Local Time share one bordered/textured
           panel (sharp corners — this branch's identity, reference uses
-          rounded) instead of floating free or a full-width bar. */}
+          rounded) instead of floating free or a full-width bar. Hidden
+          below sm — on mobile it was just "Wanna Say Hello?" anyway
+          (Local Time already hides there), and the right group (menu/
+          Copilot/settings) is what needs the room. */}
       <div
-        className="hud-grid-bg pointer-events-auto flex items-center gap-6 sm:gap-10 rounded-none border px-4 sm:px-6 py-3"
+        className="hud-grid-bg pointer-events-auto hidden sm:flex items-center gap-6 sm:gap-10 rounded-none border px-4 sm:px-6 py-3"
         style={{ borderColor: 'var(--hud-border)', backgroundColor: 'color-mix(in srgb, var(--hud-bg-elevated) 70%, transparent)' }}
       >
         <div className="flex flex-col gap-1 sm:gap-2">
@@ -89,7 +92,7 @@ export function HudStatusBar({
           sharp corners throughout. (Waveform/audio-engine icon dropped —
           audio is explicitly out of scope, see [[project_hud_v2_redesign]].
           Settings moved out to its own floating right-edge trigger.) */}
-      <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
+      <div className="pointer-events-auto flex items-center gap-2 sm:gap-3 ml-auto">
         {/* Page pill — now the menu trigger (anchors HudMenu's popover,
             see HudMenu.tsx). Was the settings icon; that's reserved for a
             separate settings dialog, not built yet. Kept visible at every

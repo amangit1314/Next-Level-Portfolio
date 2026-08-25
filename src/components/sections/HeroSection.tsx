@@ -1,12 +1,13 @@
 "use client";
 
-import { inter, anton, jetbrainsMono } from "@/lib/fonts";
+import { inter, primaryFont, secondaryFont } from "@/lib/fonts";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import { FiArrowDown, FiExternalLink } from "react-icons/fi";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { HeroSkeleton } from "@/components/skeletons/HeroSkeleton";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 import * as Icons from "react-icons/fi";
 import { useProjectsCount, useAiProjectsCount } from "@/hooks/useSanityQuery";
 import { HeroSpecializationSwitcher } from "./HeroSpecializationSwitcher";
@@ -53,7 +54,8 @@ const HeroSection = () => {
     { value: profile.stats?.experienceYears, label: "Years Exp" },
     { value: liveProjectsCount ? `${liveProjectsCount}+` : profile.stats?.projectsCount, label: "Projects" },
     { value: liveAiProjectsCount ? `${liveAiProjectsCount}+` : undefined, label: "AI Systems" },
-    { value: profile.stats?.agentsDeployed, label: "Agents" },
+    // "Agents" (profile.stats.agentsDeployed) dropped — redundant with "AI
+    // Systems" right next to it, both reading as the same claim.
   ].filter((s) => s.value);
 
   return (
@@ -88,13 +90,13 @@ const HeroSection = () => {
 
             {/* Name */}
             <motion.div {...fadeUp(0.1)}>
-              <h1 className={`uppercase leading-[0.95] tracking-tight ${anton.className}`}>
-                <span className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
-                  {profile.name?.split(" ")[0]}
-                </span>
-                <span className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
-                  {profile.name?.split(" ")[1]}
-                </span>
+              <h1 className={`uppercase leading-[0.95] tracking-tight ${primaryFont.className}`}>
+                <JitterHeading className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
+                  {profile.name?.split(" ")[0] ?? ""}
+                </JitterHeading>
+                <JitterHeading className="block text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-theme-text-primary">
+                  {profile.name?.split(" ")[1] ?? ""}
+                </JitterHeading>
               </h1>
             </motion.div>
 
@@ -117,7 +119,7 @@ const HeroSection = () => {
                 {stats.map((stat, i) => (
                   <React.Fragment key={stat.label}>
                     <div>
-                      <div className={`text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+                      <div className={`text-2xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                         {stat.value}
                       </div>
                       <div className={`text-xs text-theme-text-muted mt-0.5 ${inter.className}`}>
@@ -208,7 +210,7 @@ const HeroSection = () => {
 
               {/* Role badge — bottom right */}
               <div className="absolute -bottom-3 -right-3 px-4 py-2.5 v2-card shadow-lg">
-                <div className={`text-xs font-semibold text-theme-text-primary uppercase tracking-wide ${jetbrainsMono.className}`}>
+                <div className={`text-xs font-semibold text-theme-text-primary uppercase tracking-wide ${secondaryFont.className}`}>
                   {profile.role}
                 </div>
               </div>

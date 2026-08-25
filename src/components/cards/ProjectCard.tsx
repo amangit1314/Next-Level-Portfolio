@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { anton, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, secondaryFont } from "@/lib/fonts";
 
 interface ProjectCardProps {
   index: number;
@@ -48,6 +48,11 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setHovered(true)}
+      // whileTap — the mouse-tilt glow above is desktop-only (driven by
+      // mousemove); this is the only feedback touch users get on tap,
+      // since the card wraps several separate <Link>s rather than being
+      // one click target.
+      whileTap={{ scale: 0.98 }}
       className="group relative overflow-hidden rounded-none bg-theme-bg-secondary/50 border border-theme-border hover:border-theme-primary/50 transition-all duration-500 shadow-sm shadow-black/[0.06]"
     >
       {/* Cursor glow */}
@@ -105,7 +110,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
           {/* Title */}
           <Link href={project.link || ""}>
             <h3
-              className={`text-sm sm:text-base uppercase leading-snug line-clamp-3 mb-2 group-hover:text-theme-primary transition-colors duration-300 ${anton.className}`}
+              className={`text-sm sm:text-base uppercase leading-snug line-clamp-3 mb-2 group-hover:text-theme-primary transition-colors duration-300 ${primaryFont.className}`}
             >
               {project.title}
             </h3>
@@ -121,7 +126,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
             {project.technologies?.slice(0, 3).map((tech: string, i: number) => (
               <span
                 key={i}
-                className={`px-2 py-0.5 text-[9px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted uppercase ${jetbrainsMono.className}`}
+                className={`px-2 py-0.5 text-[9px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted uppercase ${secondaryFont.className}`}
               >
                 {tech}
               </span>
@@ -189,7 +194,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
 
           <Link href={project.link || ""}>
             <motion.h3
-              className={`text-3xl lg:text-4xl uppercase leading-none text-theme-text-primary mb-4 group-hover:text-theme-primary transition-all duration-300 ${anton.className}`}
+              className={`text-3xl lg:text-4xl uppercase leading-none text-theme-text-primary mb-4 group-hover:text-theme-primary transition-all duration-300 ${primaryFont.className}`}
             >
               {project.title}
             </motion.h3>
@@ -207,7 +212,7 @@ const ProjectCard = ({ index, project }: ProjectCardProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i }}
                 whileHover={{ y: -2 }}
-                className={`px-3 py-1.5 bg-theme-bg-tertiary/80 text-theme-text-secondary rounded-none border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium uppercase ${jetbrainsMono.className}`}
+                className={`px-3 py-1.5 bg-theme-bg-tertiary/80 text-theme-text-secondary rounded-none border border-theme-border/50 hover:border-theme-primary/50 hover:text-theme-primary-light transition-all duration-300 text-xs font-medium uppercase ${secondaryFont.className}`}
               >
                 {tech}
               </motion.span>

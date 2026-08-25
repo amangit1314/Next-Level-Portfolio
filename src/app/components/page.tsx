@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { FiSearch, FiX } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { componentsQuery } from "@/sanity/lib/queries";
-import { inter, jetbrainsMono } from "@/lib/fonts";
+import { inter, secondaryFont } from "@/lib/fonts";
 import { ComponentListRowSkeleton } from "@/components/skeletons/ComponentListRowSkeleton";
 import { ComponentListRow } from "./_components/ComponentListRow";
 import { HudPageTitle } from "@/components/layout/hud/HudPageTitle";
@@ -70,7 +70,7 @@ const ComponentsContent = () => {
   });
 
   const rowsRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(rowsRef, "stagger-rows", { deps: [filtered.length] });
+  useScrollReveal(rowsRef, "tilt-rows", { deps: [filtered.length] });
 
   const clearFilters = () => {
     void setSearchQuery("");
@@ -131,7 +131,7 @@ const ComponentsContent = () => {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className}`}
+                className={`shrink-0 text-[11px] px-3 py-1.5 border transition-all duration-200 uppercase tracking-wide ${secondaryFont.className}`}
                 style={
                   selectedCategory === cat.value
                     ? { borderColor: "var(--theme-primary)", color: "var(--theme-primary)" }
@@ -146,7 +146,7 @@ const ComponentsContent = () => {
 
         <div className="mb-5 flex items-center gap-3">
           <span className={`text-sm ${inter.className} [color:var(--hud-text-muted)]`}>
-            <span className={`font-semibold ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}>
+            <span className={`font-semibold ${secondaryFont.className} [color:var(--hud-text-primary)]`}>
               {filtered.length}
             </span>{" "}
             {filtered.length === 1 ? "component" : "components"}
@@ -154,7 +154,7 @@ const ComponentsContent = () => {
           {(searchQuery || selectedCategory !== "all") && (
             <button
               onClick={clearFilters}
-              className={`text-xs hover:underline underline-offset-2 uppercase tracking-wide ${jetbrainsMono.className} [color:var(--hud-text-primary)]`}
+              className={`text-xs hover:underline underline-offset-2 uppercase tracking-wide ${secondaryFont.className} [color:var(--hud-text-primary)]`}
             >
               Clear
             </button>
@@ -168,7 +168,7 @@ const ComponentsContent = () => {
             </p>
           </motion.div>
         ) : (
-          <div ref={rowsRef} className="pb-24">
+          <div ref={rowsRef} className="pb-24" style={{ perspective: "1000px" }}>
             {filtered.map((component, i) => (
               <div key={component._id} data-reveal-item>
                 <ComponentListRow

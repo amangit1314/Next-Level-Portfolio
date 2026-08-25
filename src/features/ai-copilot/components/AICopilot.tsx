@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiX, FiSend, FiZap } from "react-icons/fi";
-import { anton, inter, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, inter, secondaryFont } from "@/lib/fonts";
 import { ChatRole } from "../types";
 import { useCopilotChat } from "../hooks/useCopilotChat";
 import { Route } from "@/types/enums";
@@ -70,7 +70,7 @@ export const AICopilot = () => {
                   <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-theme-status rounded-full border-2 border-theme-bg-secondary" />
                 </div>
                 <div>
-                  <h3 className={`text-base uppercase leading-none text-theme-text-primary ${anton.className}`}>
+                  <h3 className={`text-base uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                     CORE
                   </h3>
                   <div className="flex items-center gap-1.5">
@@ -136,7 +136,7 @@ export const AICopilot = () => {
                         {msg.sources.map((source, i) => (
                           <span
                             key={i}
-                            className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] rounded-none border border-theme-border/40 bg-theme-bg-tertiary/20 text-theme-text-muted uppercase tracking-wide ${jetbrainsMono.className}`}
+                            className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] rounded-none border border-theme-border/40 bg-theme-bg-tertiary/20 text-theme-text-muted uppercase tracking-wide ${secondaryFont.className}`}
                             title={source.title}
                           >
                             <span className="text-theme-text-muted/70">{source.sourceType}</span>
@@ -174,7 +174,7 @@ export const AICopilot = () => {
                     <button
                       key={pill.text}
                       onClick={() => handleSendMessage(pill.prompt)}
-                      className="px-3 py-1.5 text-xs rounded-none bg-theme-bg-tertiary/40 border border-theme-border hover:border-theme-primary/60 hover:text-theme-primary text-theme-text-secondary transition-all duration-300 uppercase tracking-wide"
+                      className="px-3 py-1.5 text-xs rounded-none bg-theme-bg-tertiary/40 border border-theme-border hover:border-theme-primary/60 hover:text-theme-primary text-theme-text-secondary transition-all duration-300 uppercase tracking-wide cursor-pointer"
                     >
                       {pill.text}
                     </button>

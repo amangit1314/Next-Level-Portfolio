@@ -372,10 +372,11 @@
     @apply h-px w-12 bg-theme-border;
   }
 
-  /* Font comes from each caller's jetbrainsMono.className (next/font
+  /* Font comes from each caller's secondaryFont.className (next/font
      generates a scoped class, not a CSS var, so it can't be set here) —
      About/Skills/Experience's labels were on unbounded.className before,
-     fixed to jetbrainsMono to match Testimonials/Projects. */
+     fixed to match Testimonials/Projects' monospace label font
+     (secondaryFont — aliased from jetbrainsMono in lib/fonts.ts). */
   .v2-label-text {
     @apply text-xs tracking-[0.2em] uppercase text-theme-text-muted font-medium;
   }

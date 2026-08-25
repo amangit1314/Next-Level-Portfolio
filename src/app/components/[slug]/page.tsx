@@ -13,7 +13,7 @@
 // } from "react-icons/fi";
 // import { client } from "@/sanity/lib/client";
 // import { componentBySlugQuery } from "@/sanity/lib/queries";
-// import { inter, jetbrainsMono } from "@/lib/fonts";
+// import { inter, secondaryFont } from "@/lib/fonts";
 // import Header from "@/components/layout/Header";
 // import { useParams } from "next/navigation";
 // import { PortableText } from "@portabletext/react";
@@ -98,18 +98,18 @@
 //       code: ({ value }: any) => (
 //         <div className="relative my-6 group">
 //           <div className="flex items-center justify-between bg-zinc-900 px-4 py-2 rounded-t-xl border-b border-zinc-800">
-//             <span className={`text-sm text-zinc-400 ${jetbrainsMono.className}`}>
+//             <span className={`text-sm text-zinc-400 ${secondaryFont.className}`}>
 //               {value.language || "code"}
 //             </span>
 //             <button
 //               onClick={() => handleCopyCode(value.code)}
-//               className={`px-3 py-1 text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-md transition-colors ${jetbrainsMono.className}`}
+//               className={`px-3 py-1 text-xs bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded-md transition-colors ${secondaryFont.className}`}
 //             >
 //               {copied ? "Copied!" : "Copy"}
 //             </button>
 //           </div>
 //           <pre
-//             className={`bg-zinc-950 p-4 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+//             className={`bg-zinc-950 p-4 rounded-b-xl overflow-x-auto ${secondaryFont.className}`}
 //           >
 //             <code className="text-sm text-zinc-300">{value.code}</code>
 //           </pre>
@@ -119,21 +119,21 @@
 //     block: {
 //       h1: ({ children }: any) => (
 //         <h1
-//           className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${jetbrainsMono.className}`}
+//           className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${secondaryFont.className}`}
 //         >
 //           {children}
 //         </h1>
 //       ),
 //       h2: ({ children }: any) => (
 //         <h2
-//           className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${jetbrainsMono.className}`}
+//           className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${secondaryFont.className}`}
 //         >
 //           {children}
 //         </h2>
 //       ),
 //       h3: ({ children }: any) => (
 //         <h3
-//           className={`text-2xl font-bold text-white mb-4 mt-8 ${jetbrainsMono.className}`}
+//           className={`text-2xl font-bold text-white mb-4 mt-8 ${secondaryFont.className}`}
 //         >
 //           {children}
 //         </h3>
@@ -147,7 +147,7 @@
 //     marks: {
 //       code: ({ children }: any) => (
 //         <code
-//           className={`px-2 py-1 bg-zinc-900 text-purple-400 rounded text-sm ${jetbrainsMono.className}`}
+//           className={`px-2 py-1 bg-zinc-900 text-purple-400 rounded text-sm ${secondaryFont.className}`}
 //         >
 //           {children}
 //         </code>
@@ -182,7 +182,7 @@
 //         <Header />
 //         <div className="min-h-screen bg-black flex flex-col items-center justify-center pt-20">
 //           <h1
-//             className={`text-4xl font-bold text-white mb-4 ${jetbrainsMono.className}`}
+//             className={`text-4xl font-bold text-white mb-4 ${secondaryFont.className}`}
 //           >
 //             Component not found
 //           </h1>
@@ -213,7 +213,7 @@
 //           {/* Back Button */}
 //           <Link
 //             href="/components"
-//             className={`inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-8 transition-colors ${jetbrainsMono.className}`}
+//             className={`inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-8 transition-colors ${secondaryFont.className}`}
 //           >
 //             <FiArrowLeft /> Back to Components
 //           </Link>
@@ -227,7 +227,7 @@
 //           >
 //             <div className="flex flex-wrap items-center gap-3 mb-6">
 //               <span
-//                 className={`px-3 py-1 text-xs bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-full uppercase ${jetbrainsMono.className}`}
+//                 className={`px-3 py-1 text-xs bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-full uppercase ${secondaryFont.className}`}
 //               >
 //                 {component.category}
 //               </span>
@@ -237,7 +237,7 @@
 //                     difficultyColors[
 //                       component.difficulty as keyof typeof difficultyColors
 //                     ] || "from-zinc-500 to-zinc-600"
-//                   } capitalize ${jetbrainsMono.className}`}
+//                   } capitalize ${secondaryFont.className}`}
 //                 >
 //                   {component.difficulty}
 //                 </span>
@@ -255,7 +255,7 @@
 //             </div>
 
 //             <h1
-//               className={`text-4xl md:text-5xl font-black text-theme-text-primary mb-6 ${jetbrainsMono.className}`}
+//               className={`text-4xl md:text-5xl font-black text-theme-text-primary mb-6 ${secondaryFont.className}`}
 //             >
 //               {component.title}
 //             </h1>
@@ -285,7 +285,7 @@
 //                   href={component.liveDemo}
 //                   target="_blank"
 //                   rel="noopener noreferrer"
-//                   className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/25 ${jetbrainsMono.className}`}
+//                   className={`inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium hover:from-purple-700 hover:to-pink-700 transition-all shadow-lg hover:shadow-purple-500/25 ${secondaryFont.className}`}
 //                 >
 //                   <FiExternalLink className="w-4 h-4" />
 //                   Live Demo
@@ -296,7 +296,7 @@
 //                   href={component.codeRepository}
 //                   target="_blank"
 //                   rel="noopener noreferrer"
-//                   className={`inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white rounded-xl font-medium hover:bg-zinc-800 transition-all border border-zinc-800 ${jetbrainsMono.className}`}
+//                   className={`inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white rounded-xl font-medium hover:bg-zinc-800 transition-all border border-zinc-800 ${secondaryFont.className}`}
 //                 >
 //                   <FiGithub className="w-4 h-4" />
 //                   View Code
@@ -331,7 +331,7 @@
 //               className="mb-12 p-6 bg-zinc-900/80 rounded-2xl border border-zinc-800"
 //             >
 //               <h2
-//                 className={`text-xl font-bold text-white mb-4 flex items-center gap-2 ${jetbrainsMono.className}`}
+//                 className={`text-xl font-bold text-white mb-4 flex items-center gap-2 ${secondaryFont.className}`}
 //               >
 //                 <FiPackage className="w-5 h-5 text-purple-400" />
 //                 Dependencies
@@ -340,7 +340,7 @@
 //                 {component.dependencies.map((dep, idx) => (
 //                   <code
 //                     key={idx}
-//                     className={`px-3 py-1 bg-zinc-950 text-purple-400 rounded-lg text-sm ${jetbrainsMono.className}`}
+//                     className={`px-3 py-1 bg-zinc-950 text-purple-400 rounded-lg text-sm ${secondaryFont.className}`}
 //                   >
 //                     {dep}
 //                   </code>
@@ -359,19 +359,19 @@
 //             >
 //               <div className="flex items-center justify-between bg-zinc-900 px-4 py-3 rounded-t-xl border-b border-zinc-800">
 //                 <h2
-//                   className={`text-lg font-bold text-white ${jetbrainsMono.className}`}
+//                   className={`text-lg font-bold text-white ${secondaryFont.className}`}
 //                 >
 //                   Component Code
 //                 </h2>
 //                 <button
 //                   onClick={() => handleCopyCode(component.previewCode!.code)}
-//                   className={`px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors ${jetbrainsMono.className}`}
+//                   className={`px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors ${secondaryFont.className}`}
 //                 >
 //                   {copied ? "Copied!" : "Copy Code"}
 //                 </button>
 //               </div>
 //               <pre
-//                 className={`bg-zinc-950 p-6 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+//                 className={`bg-zinc-950 p-6 rounded-b-xl overflow-x-auto ${secondaryFont.className}`}
 //               >
 //                 <code className="text-sm text-zinc-300">
 //                   {component.previewCode.code}
@@ -417,7 +417,7 @@ import {
 } from "react-icons/fi";
 import { client } from "@/sanity/lib/client";
 import { componentBySlugQuery } from "@/sanity/lib/queries";
-import { inter, jetbrainsMono } from "@/lib/fonts";
+import { inter, secondaryFont } from "@/lib/fonts";
 import { useParams } from "next/navigation";
 import { PortableText } from "@portabletext/react";
 import { ComponentDetailSkeleton } from "@/components/skeletons/ComponentDetailSkeleton";
@@ -501,18 +501,18 @@ const ComponentDetailPage = () => {
   //       code: ({ value }: any) => (
   //         <div className="relative my-6 group">
   //           <div className="flex items-center justify-between bg-theme-bg-tertiary px-4 py-2 rounded-t-xl border-b border-theme-border">
-  //             <span className={`text-sm text-theme-text-muted ${jetbrainsMono.className}`}>
+  //             <span className={`text-sm text-theme-text-muted ${secondaryFont.className}`}>
   //               {value.language || "code"}
   //             </span>
   //             <button
   //               onClick={() => handleCopyCode(value.code)}
-  //               className={`px-3 py-1 text-xs bg-theme-bg-hover hover:bg-theme-bg-light text-theme-text-secondary rounded-none transition-colors ${jetbrainsMono.className}`}
+  //               className={`px-3 py-1 text-xs bg-theme-bg-hover hover:bg-theme-bg-light text-theme-text-secondary rounded-none transition-colors ${secondaryFont.className}`}
   //             >
   //               {copied ? "Copied!" : "Copy"}
   //             </button>
   //           </div>
   //           <pre
-  //             className={`bg-theme-bg-primary p-4 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+  //             className={`bg-theme-bg-primary p-4 rounded-b-xl overflow-x-auto ${secondaryFont.className}`}
   //           >
   //             <code className="text-sm text-theme-text-secondary">{value.code}</code>
   //           </pre>
@@ -522,21 +522,21 @@ const ComponentDetailPage = () => {
   //     block: {
   //       h1: ({ children }: any) => (
   //         <h1
-  //           className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${jetbrainsMono.className}`}
+  //           className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${secondaryFont.className}`}
   //         >
   //           {children}
   //         </h1>
   //       ),
   //       h2: ({ children }: any) => (
   //         <h2
-  //           className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${jetbrainsMono.className}`}
+  //           className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${secondaryFont.className}`}
   //         >
   //           {children}
   //         </h2>
   //       ),
   //       h3: ({ children }: any) => (
   //         <h3
-  //           className={`text-2xl font-bold text-theme-text-primary mb-4 mt-8 ${jetbrainsMono.className}`}
+  //           className={`text-2xl font-bold text-theme-text-primary mb-4 mt-8 ${secondaryFont.className}`}
   //         >
   //           {children}
   //         </h3>
@@ -552,7 +552,7 @@ const ComponentDetailPage = () => {
   //     marks: {
   //       code: ({ children }: any) => (
   //         <code
-  //           className={`px-2 py-1 bg-theme-bg-tertiary text-theme-primary rounded text-sm ${jetbrainsMono.className}`}
+  //           className={`px-2 py-1 bg-theme-bg-tertiary text-theme-primary rounded text-sm ${secondaryFont.className}`}
   //         >
   //           {children}
   //         </code>
@@ -586,19 +586,19 @@ const ComponentDetailPage = () => {
         <div className="relative my-6 group">
           <div className="flex items-center justify-between bg-theme-bg-tertiary px-4 py-2 rounded-t-xl border-b border-theme-border">
             <span
-              className={`text-sm text-theme-text-muted ${jetbrainsMono.className}`}
+              className={`text-sm text-theme-text-muted ${secondaryFont.className}`}
             >
               {value.language || "code"}
             </span>
             <button
               onClick={() => handleCopyCode(value.code)}
-              className={`px-3 py-1 text-xs bg-theme-bg-hover hover:bg-theme-bg-light text-theme-text-secondary rounded-none transition-colors ${jetbrainsMono.className}`}
+              className={`px-3 py-1 text-xs bg-theme-bg-hover hover:bg-theme-bg-light text-theme-text-secondary rounded-none transition-colors ${secondaryFont.className}`}
             >
               {copied ? "Copied!" : "Copy"}
             </button>
           </div>
           <pre
-            className={`bg-theme-bg-primary p-4 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+            className={`bg-theme-bg-primary p-4 rounded-b-xl overflow-x-auto ${secondaryFont.className}`}
           >
             <code className="text-sm text-theme-text-secondary">
               {value.code}
@@ -610,28 +610,28 @@ const ComponentDetailPage = () => {
     block: {
       h1: ({ children }: any) => (
         <h1
-          className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${jetbrainsMono.className}`}
+          className={`text-4xl font-bold text-theme-text-primary mb-6 mt-12 ${secondaryFont.className}`}
         >
           {children}
         </h1>
       ),
       h2: ({ children }: any) => (
         <h2
-          className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${jetbrainsMono.className}`}
+          className={`text-3xl font-bold text-theme-text-primary mb-5 mt-10 ${secondaryFont.className}`}
         >
           {children}
         </h2>
       ),
       h3: ({ children }: any) => (
         <h3
-          className={`text-2xl font-bold text-theme-text-primary mb-4 mt-8 ${jetbrainsMono.className}`}
+          className={`text-2xl font-bold text-theme-text-primary mb-4 mt-8 ${secondaryFont.className}`}
         >
           {children}
         </h3>
       ),
       h4: ({ children }: any) => (
         <h4
-          className={`text-xl font-bold text-theme-text-primary mb-3 mt-6 ${jetbrainsMono.className}`}
+          className={`text-xl font-bold text-theme-text-primary mb-3 mt-6 ${secondaryFont.className}`}
         >
           {children}
         </h4>
@@ -682,7 +682,7 @@ const ComponentDetailPage = () => {
       ),
       code: ({ children }: any) => (
         <code
-          className={`px-2 py-1 bg-theme-bg-tertiary text-theme-primary rounded text-sm font-mono ${jetbrainsMono.className}`}
+          className={`px-2 py-1 bg-theme-bg-tertiary text-theme-primary rounded text-sm font-mono ${secondaryFont.className}`}
         >
           {children}
         </code>
@@ -719,7 +719,7 @@ const ComponentDetailPage = () => {
       <>
         <div className="min-h-screen bg-theme-bg-primary flex flex-col items-center justify-center pt-20">
           <h1
-            className={`text-4xl font-bold text-theme-text-primary mb-4 ${jetbrainsMono.className}`}
+            className={`text-4xl font-bold text-theme-text-primary mb-4 ${secondaryFont.className}`}
           >
             Component not found
           </h1>
@@ -747,7 +747,7 @@ const ComponentDetailPage = () => {
           {/* Back Button */}
           <Link
             href="/components"
-            className={`inline-flex items-center gap-2 text-theme-primary hover:text-theme-primary/80 mb-8 transition-colors ${jetbrainsMono.className}`}
+            className={`inline-flex items-center gap-2 text-theme-primary hover:text-theme-primary/80 mb-8 transition-colors ${secondaryFont.className}`}
           >
             <FiArrowLeft /> Back to Components
           </Link>
@@ -761,7 +761,7 @@ const ComponentDetailPage = () => {
           >
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span
-                className={`px-3 py-1 text-xs bg-theme-bg-tertiary border border-theme-border text-theme-text-secondary rounded-none uppercase ${jetbrainsMono.className}`}
+                className={`px-3 py-1 text-xs bg-theme-bg-tertiary border border-theme-border text-theme-text-secondary rounded-none uppercase ${secondaryFont.className}`}
               >
                 {component.category}
               </span>
@@ -772,7 +772,7 @@ const ComponentDetailPage = () => {
                     difficultyColors[
                       component.difficulty as keyof typeof difficultyColors
                     ] || "from-theme-bg-light to-theme-bg-tertiary"
-                  } capitalize ${jetbrainsMono.className}`}
+                  } capitalize ${secondaryFont.className}`}
                 >
                   {component.difficulty}
                 </span>
@@ -791,7 +791,7 @@ const ComponentDetailPage = () => {
             </div>
 
             <h1
-              className={`text-4xl md:text-5xl font-black text-theme-text-primary mb-6 ${jetbrainsMono.className}`}
+              className={`text-4xl md:text-5xl font-black text-theme-text-primary mb-6 ${secondaryFont.className}`}
             >
               {component.title}
             </h1>
@@ -823,7 +823,7 @@ const ComponentDetailPage = () => {
                   href={component.liveDemo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-primary text-theme-on-primary rounded-none font-medium hover:brightness-110 transition-all shadow-lg ${jetbrainsMono.className}`}
+                  className={`inline-flex items-center gap-2 px-6 py-3 theme-gradient-primary text-theme-on-primary rounded-none font-medium hover:brightness-110 transition-all shadow-lg ${secondaryFont.className}`}
                 >
                   <FiExternalLink className="w-4 h-4" />
                   Live Demo
@@ -834,7 +834,7 @@ const ComponentDetailPage = () => {
                   href={component.codeRepository}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 bg-theme-bg-tertiary text-theme-text-primary rounded-none font-medium hover:bg-theme-bg-hover transition-all border border-theme-border ${jetbrainsMono.className}`}
+                  className={`inline-flex items-center gap-2 px-6 py-3 bg-theme-bg-tertiary text-theme-text-primary rounded-none font-medium hover:bg-theme-bg-hover transition-all border border-theme-border ${secondaryFont.className}`}
                 >
                   <FiGithub className="w-4 h-4" />
                   View Code
@@ -869,7 +869,7 @@ const ComponentDetailPage = () => {
               className="mb-12 p-6 bg-theme-bg-tertiary rounded-none border border-theme-border"
             >
               <h2
-                className={`text-xl font-bold text-theme-text-primary mb-4 flex items-center gap-2 ${jetbrainsMono.className}`}
+                className={`text-xl font-bold text-theme-text-primary mb-4 flex items-center gap-2 ${secondaryFont.className}`}
               >
                 <FiPackage className="w-5 h-5 text-theme-primary" />
                 Dependencies
@@ -878,7 +878,7 @@ const ComponentDetailPage = () => {
                 {component.dependencies.map((dep, idx) => (
                   <code
                     key={idx}
-                    className={`px-3 py-1 bg-theme-bg-primary text-theme-primary rounded-none text-sm ${jetbrainsMono.className}`}
+                    className={`px-3 py-1 bg-theme-bg-primary text-theme-primary rounded-none text-sm ${secondaryFont.className}`}
                   >
                     {dep}
                   </code>
@@ -897,19 +897,19 @@ const ComponentDetailPage = () => {
             >
               <div className="flex items-center justify-between bg-theme-bg-tertiary px-4 py-3 rounded-t-xl border-b border-theme-border">
                 <h2
-                  className={`text-lg font-bold text-theme-text-primary ${jetbrainsMono.className}`}
+                  className={`text-lg font-bold text-theme-text-primary ${secondaryFont.className}`}
                 >
                   Component Code
                 </h2>
                 <button
                   onClick={() => handleCopyCode(component.previewCode!.code)}
-                  className={`px-4 py-2 bg-theme-primary hover:bg-theme-primary-dark text-theme-on-primary rounded-none transition-colors ${jetbrainsMono.className}`}
+                  className={`px-4 py-2 bg-theme-primary hover:bg-theme-primary-dark text-theme-on-primary rounded-none transition-colors ${secondaryFont.className}`}
                 >
                   {copied ? "Copied!" : "Copy Code"}
                 </button>
               </div>
               <pre
-                className={`bg-theme-bg-primary p-6 rounded-b-xl overflow-x-auto ${jetbrainsMono.className}`}
+                className={`bg-theme-bg-primary p-6 rounded-b-xl overflow-x-auto ${secondaryFont.className}`}
               >
                 <code className="text-sm text-theme-text-secondary">
                   {component.previewCode.code}

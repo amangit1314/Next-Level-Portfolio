@@ -15,7 +15,7 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
-import { jetbrainsMono } from "@/lib/fonts";
+import { secondaryFont } from "@/lib/fonts";
 
 export interface Specialization {
   label: string;
@@ -69,7 +69,7 @@ export function HeroSpecializationSwitcher({ specializations }: { specialization
           <button
             key={spec.label}
             onClick={() => setActiveIndex(i)}
-            className={`px-3 py-1.5 text-xs rounded-none border uppercase tracking-wide transition-colors ${jetbrainsMono.className} ${
+            className={`px-3 py-1.5 text-xs rounded-none border uppercase tracking-wide transition-[color,border-color,transform] duration-150 hover:scale-[1.04] active:scale-95 ${secondaryFont.className} ${
               i === activeIndex
                 ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
                 : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary"
@@ -82,7 +82,7 @@ export function HeroSpecializationSwitcher({ specializations }: { specialization
       {/* System-readout line, not a marketing sentence — mono, prefixed,
           uppercase label — matches the ticker/menu register instead of
           reading as body copy competing with the bio paragraph below it. */}
-      <p ref={textRef} className={`text-xs sm:text-sm tracking-wide ${jetbrainsMono.className}`}>
+      <p ref={textRef} className={`text-xs sm:text-sm tracking-wide ${secondaryFont.className}`}>
         <span className="text-theme-primary">{">"} FOCUS:</span>{" "}
         <span className="text-theme-text-secondary">{current.tagline}</span>
       </p>

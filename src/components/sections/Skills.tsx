@@ -1,12 +1,14 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
 import SkillCard from "../cards/SkillCard";
 import { useRef, useState } from "react";
 import { useSkills, useProjectsCount } from "@/hooks/useSanityQuery";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { SkillsSkeleton } from "@/components/skeletons/SkillsSkeleton";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 
 const ORDERED_CATEGORIES = [
   "Frontend",
@@ -19,7 +21,7 @@ const ORDERED_CATEGORIES = [
 ];
 
 const Skills = () => {
-  const { data: skills = [] } = useSkills();
+  const { data: skills = [], isLoading } = useSkills();
   const { data: profile } = useProfile();
   const { data: liveProjectsCount } = useProjectsCount();
   const [activeCategory, setActiveCategory] = useState("All");
@@ -43,8 +45,13 @@ const Skills = () => {
 
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(headerRef, "stagger-lines");
-  useScrollReveal(statsRef, "stagger-rows");
+  // deps: [isLoading] — these refs sit behind the isLoading-gated skeleton
+  // below, so ref.current is null on first mount; see useScrollReveal's
+  // deps doc comment.
+  useScrollReveal(headerRef, "stagger-lines", { deps: [isLoading] });
+  useScrollReveal(statsRef, "stagger-rows", { deps: [isLoading] });
+
+  if (isLoading) return <SkillsSkeleton />;
 
   return (
     <section id="skills" className="v2-section bg-theme-bg-primary relative">
@@ -59,15 +66,14 @@ const Skills = () => {
         <div ref={headerRef} className="mb-10 sm:mb-12 space-y-4">
           <div data-reveal-item className="v2-label">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${jetbrainsMono.className}`}>Technical Arsenal</span>
+            <span className={`v2-label-text ${secondaryFont.className}`}>Technical Arsenal</span>
             <div className="v2-label-line" />
           </div>
 
-          <h2
-            data-reveal-item
-            className={`text-4xl sm:text-6xl uppercase leading-none text-center text-theme-text-primary ${anton.className}`}
-          >
-            Skills
+          <h2 data-reveal-item className="flex justify-center">
+            <JitterHeading className={`text-4xl sm:text-6xl uppercase leading-none text-center text-theme-text-primary ${primaryFont.className}`}>
+              Skills
+            </JitterHeading>
           </h2>
 
           <p data-reveal-item className={`text-center text-theme-text-muted text-sm max-w-md mx-auto ${inter.className}`}>
@@ -82,7 +88,7 @@ const Skills = () => {
               <button
                 key={tab}
                 onClick={() => setActiveCategory(tab)}
-                className={`shrink-0 text-[11px] px-4 py-2 rounded-none border transition-all duration-200 uppercase tracking-wide ${jetbrainsMono.className} ${
+                className={`shrink-0 text-[11px] px-4 py-2 rounded-none border transition-all duration-200 uppercase tracking-wide ${secondaryFont.className} ${
                   activeCategory === tab
                     ? "border-theme-primary/70 bg-theme-primary/12 text-theme-primary"
                     : "border-theme-border/50 text-theme-text-muted hover:border-theme-primary/30 hover:text-theme-text-secondary"
@@ -111,7 +117,7 @@ const Skills = () => {
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-theme-primary" />
                     <span
-                      className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${jetbrainsMono.className}`}
+                      className={`text-xs font-semibold text-theme-text-muted uppercase tracking-widest ${secondaryFont.className}`}
                     >
                       {category}
                     </span>
@@ -168,7 +174,7 @@ const Skills = () => {
               className="flex flex-col items-center justify-center py-5 sm:py-8 bg-theme-bg-secondary/30 hover:bg-theme-bg-secondary/60 transition-colors duration-200"
             >
               <div
-                className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary mb-1 ${anton.className}`}
+                className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary mb-1 ${primaryFont.className}`}
               >
                 {stat.value}
               </div>

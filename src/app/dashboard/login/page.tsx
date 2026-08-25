@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { FiLock } from "react-icons/fi";
-import { inter, anton, jetbrainsMono } from "@/lib/fonts";
+import { inter, primaryFont, secondaryFont } from "@/lib/fonts";
 
 export default function DashboardLoginPage() {
   const router = useRouter();
@@ -47,7 +47,7 @@ export default function DashboardLoginPage() {
       >
         <div className="flex items-center gap-2 mb-6">
           <FiLock className="w-4 h-4 text-theme-primary" />
-          <h1 className={`text-lg uppercase leading-none text-theme-text-primary ${anton.className}`}>
+          <h1 className={`text-lg uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
             Dashboard
           </h1>
         </div>
@@ -74,7 +74,7 @@ export default function DashboardLoginPage() {
         <button
           type="submit"
           disabled={loading || !password}
-          className={`w-full mt-5 py-2.5 rounded-none bg-theme-primary text-theme-on-primary text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity uppercase tracking-wide ${jetbrainsMono.className}`}
+          className={`w-full mt-5 py-2.5 rounded-none bg-theme-primary text-theme-on-primary text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-opacity uppercase tracking-wide ${secondaryFont.className}`}
         >
           {loading ? "Checking..." : "Enter"}
         </button>

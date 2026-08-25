@@ -2,7 +2,7 @@ import { Testimonial } from "@/types/testimonial";
 import React, { useRef } from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa6";
 import Image from "next/image";
-import { jetbrainsMono, inter } from "@/lib/fonts";
+import { secondaryFont, inter } from "@/lib/fonts";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const TestimonialCard = ({
@@ -67,7 +67,7 @@ const TestimonialCard = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className={`text-theme-text-primary font-bold text-sm leading-tight truncate group-hover/card:text-theme-primary transition-colors duration-300 ${jetbrainsMono.className}`}>
+            <p className={`text-theme-text-primary font-bold text-sm leading-tight truncate group-hover/card:text-theme-primary transition-colors duration-300 ${secondaryFont.className}`}>
               {name}
             </p>
             <p className={`text-theme-text-muted text-xs mt-0.5 truncate ${inter.className}`}>

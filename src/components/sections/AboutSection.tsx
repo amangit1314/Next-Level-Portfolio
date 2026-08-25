@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { FiCode, FiServer, FiArrowRight, FiAward, FiUsers, FiTrendingUp, FiCpu } from "react-icons/fi";
 import ExperienceCard from "../cards/ExperienceCard";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -93,10 +93,10 @@ export const AboutSection = () => {
         <div ref={headerRef} className="text-center space-y-4">
           <div className="v2-label">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${jetbrainsMono.className}`}>About Me</span>
+            <span className={`v2-label-text ${secondaryFont.className}`}>About Me</span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
             The Engineer Behind the Code
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
@@ -136,7 +136,7 @@ export const AboutSection = () => {
                           className="flex-1 v2-card p-3 text-center bg-theme-bg-secondary/80"
                         >
                           <stat.icon className="w-3.5 h-3.5 text-theme-primary mx-auto mb-1" />
-                          <div className={`text-sm font-bold text-theme-text-primary ${anton.className}`}>
+                          <div className={`text-sm font-bold text-theme-text-primary ${primaryFont.className}`}>
                             {stat.value}
                           </div>
                           <div className="text-[10px] text-theme-text-muted">{stat.label}</div>
@@ -151,7 +151,7 @@ export const AboutSection = () => {
             {/* Tech Stack */}
             {(profile.techStackPreview?.length ?? 0) > 0 && (
               <div className="v2-card p-5">
-                <div className={`text-sm font-semibold text-theme-text-primary mb-4 uppercase tracking-wide ${jetbrainsMono.className}`}>
+                <div className={`text-sm font-semibold text-theme-text-primary mb-4 uppercase tracking-wide ${secondaryFont.className}`}>
                   Tech Stack
                 </div>
                 <div className="flex flex-wrap gap-4">
@@ -200,7 +200,7 @@ export const AboutSection = () => {
                 longBio is the real, CMS-owned bio; the hardcoded one was
                 redundant filler, not a second data point. */}
             <div data-reveal-item className="space-y-4">
-              <h3 className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+              <h3 className={`text-2xl sm:text-3xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                 {profile.headline ?? "What I Actually Build"}
               </h3>
               {profile.longBio ? (
@@ -228,7 +228,7 @@ export const AboutSection = () => {
                     className="group flex items-start gap-4 py-3 border-b border-theme-border/40"
                   >
                     <span
-                      className={`text-xs font-semibold text-theme-primary shrink-0 pt-0.5 ${jetbrainsMono.className}`}
+                      className={`text-xs font-semibold text-theme-primary shrink-0 pt-0.5 ${secondaryFont.className}`}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>

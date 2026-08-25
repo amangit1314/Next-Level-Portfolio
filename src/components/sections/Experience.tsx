@@ -4,9 +4,11 @@ import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { FiExternalLink, FiArrowRight } from "react-icons/fi";
-import { inter, jetbrainsMono, anton } from "@/lib/fonts";
+import { inter, secondaryFont, primaryFont } from "@/lib/fonts";
 import { useExperiences } from "@/hooks/useSanityQuery";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { ExperienceSkeleton } from "@/components/skeletons/ExperienceSkeleton";
+import { JitterHeading } from "@/components/primitives/JitterHeading";
 import type { ExperiencesQueryResult } from "../../../sanity.types";
 
 type ExperienceItem = ExperiencesQueryResult[number];
@@ -89,7 +91,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
             <div className="space-y-1.5">
               <h3
-                className={`text-xl lg:text-2xl uppercase leading-none text-theme-text-primary ${anton.className}`}
+                className={`text-xl lg:text-2xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}
               >
                 {experience.role}
               </h3>
@@ -97,7 +99,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
                 href={experience.companyLink || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1.5 text-theme-text-secondary hover:text-theme-primary transition-colors duration-200 text-sm font-semibold ${jetbrainsMono.className}`}
+                className={`inline-flex items-center gap-1.5 text-theme-text-secondary hover:text-theme-primary transition-colors duration-200 text-sm font-semibold ${secondaryFont.className}`}
               >
                 {experience.company}
                 <FiExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -106,7 +108,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
 
             {experience.year && (
               <span
-                className={`shrink-0 self-start px-3 py-1.5 rounded-none border border-theme-primary/25 bg-theme-primary/8 text-xs font-semibold text-theme-primary ${jetbrainsMono.className}`}
+                className={`shrink-0 self-start px-3 py-1.5 rounded-none border border-theme-primary/25 bg-theme-primary/8 text-xs font-semibold text-theme-primary ${secondaryFont.className}`}
               >
                 {experience.year}
               </span>
@@ -124,7 +126,7 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
               {experience.technologies!.map((tech: string, i: number) => (
                 <span
                   key={i}
-                  className={`px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${jetbrainsMono.className}`}
+                  className={`px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] font-semibold rounded-none border border-theme-border/60 bg-theme-bg-tertiary/80 text-theme-text-muted hover:border-theme-primary/40 hover:text-theme-primary transition-all duration-200 cursor-default ${secondaryFont.className}`}
                 >
                   {tech}
                 </span>
@@ -138,13 +140,15 @@ const ExperienceItem = ({ experience, index }: { experience: ExperienceItem; ind
 };
 
 const Experience = () => {
-  const { data: experiences = [] } = useExperiences();
+  const { data: experiences = [], isLoading } = useExperiences();
   const headerRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  useScrollReveal(headerRef, "fade-up");
-  useScrollReveal(lineRef, "fade-up", { from: { scaleY: 0 }, to: { scaleY: 1 }, duration: 1.2 });
-  useScrollReveal(ctaRef, "fade-up", { delay: 0.1 });
+  useScrollReveal(headerRef, "fade-up", { deps: [isLoading] });
+  useScrollReveal(lineRef, "fade-up", { from: { scaleY: 0 }, to: { scaleY: 1 }, duration: 1.2, deps: [isLoading] });
+  useScrollReveal(ctaRef, "fade-up", { delay: 0.1, deps: [isLoading] });
+
+  if (isLoading) return <ExperienceSkeleton />;
 
   return (
     <section id="experience" className="v2-section bg-theme-bg-secondary/30 relative">
@@ -157,11 +161,13 @@ const Experience = () => {
         <div ref={headerRef} className="mb-16 space-y-4 text-center">
           <div className="v2-label">
             <div className="v2-label-line" />
-            <span className={`v2-label-text ${jetbrainsMono.className}`}>Career</span>
+            <span className={`v2-label-text ${secondaryFont.className}`}>Career</span>
             <div className="v2-label-line" />
           </div>
-          <h2 className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
-            Professional Experience
+          <h2>
+            <JitterHeading className={`text-4xl sm:text-6xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
+              Professional Experience
+            </JitterHeading>
           </h2>
           <div className="w-16 h-0.5 theme-gradient-primary mx-auto rounded-none" />
         </div>
@@ -196,7 +202,7 @@ const Experience = () => {
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 p-6 sm:p-8 lg:p-10">
                 {/* Text */}
                 <div className="space-y-2">
-                  <h3 className={`text-2xl lg:text-3xl uppercase leading-none text-theme-text-primary ${anton.className}`}>
+                  <h3 className={`text-2xl lg:text-3xl uppercase leading-none text-theme-text-primary ${primaryFont.className}`}>
                     Ready to Build Something{" "}
                     <span className="theme-text-gradient bg-clip-text text-transparent">Amazing?</span>
                   </h3>
@@ -209,7 +215,7 @@ const Experience = () => {
                 <motion.div className="shrink-0 w-full sm:w-auto" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
                   <Link
                     href="#contact"
-                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-none font-bold text-theme-on-primary shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto uppercase tracking-wide ${jetbrainsMono.className}`}
+                    className={`group/cta inline-flex items-center justify-center gap-3 px-7 py-4 theme-gradient-accent rounded-none font-bold text-theme-on-primary shadow-lg hover:shadow-theme-primary/25 transition-all duration-300 overflow-hidden relative w-full sm:w-auto uppercase tracking-wide ${secondaryFont.className}`}
                   >
                     <div className="absolute inset-0 overflow-hidden rounded-none">
                       <div className="absolute top-0 -left-10 w-7 h-full bg-white/20 skew-x-12 transition-all duration-700 ease-out group-hover/cta:left-[120%]" />

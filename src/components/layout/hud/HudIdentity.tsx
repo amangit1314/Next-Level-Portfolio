@@ -13,7 +13,7 @@
 // the don't-hand-roll-a-client.fetch() rule in CLAUDE.md.
 
 import Link from "next/link";
-import { anton } from "@/lib/fonts";
+import { primaryFont } from "@/lib/fonts";
 import { useProfile } from "@/hooks/useSanityQuery";
 import { Route } from "@/types/enums";
 
@@ -32,7 +32,7 @@ export function HudIdentity() {
             style={{ borderColor: "var(--hud-border)", backgroundColor: "var(--hud-bg-elevated)" }}
             aria-label="Go to home"
         >
-            <span className={`${anton.className} text-sm sm:text-base leading-none`} style={{ color: "var(--theme-primary)" }}>
+            <span className={`${primaryFont.className} text-sm sm:text-base leading-none`} style={{ color: "var(--theme-primary)" }}>
                 {initials}
             </span>
         </Link>

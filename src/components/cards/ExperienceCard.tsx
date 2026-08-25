@@ -1,5 +1,5 @@
 import React, { JSX } from "react";
-import { anton, jetbrainsMono } from "@/lib/fonts";
+import { primaryFont, secondaryFont } from "@/lib/fonts";
 import { motion } from "framer-motion";
 
 // Hard-edged HUD card — matches the rest of the site's rounded-none/
@@ -22,7 +22,10 @@ const ExperienceCard = ({
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className="group relative h-full bg-theme-bg-secondary/70 rounded-none p-4 sm:p-6 border border-theme-border/60 hover:border-theme-primary/50 transition-all duration-300 cursor-pointer shadow-sm shadow-black/[0.05]"
+      // No cursor-pointer — this card has no onClick/Link, it's a static
+      // stat display (About section's experience-years summary). The old
+      // cursor-pointer promised interactivity that didn't exist.
+      className="group relative h-full bg-theme-bg-secondary/70 rounded-none p-4 sm:p-6 border border-theme-border/60 hover:border-theme-primary/50 transition-all duration-300 shadow-sm shadow-black/[0.05]"
     >
       {/* Hover glow */}
       <div
@@ -40,12 +43,12 @@ const ExperienceCard = ({
         <div className="space-y-1 sm:space-y-3">
           <div className="">
             <div
-              className={`uppercase leading-tight text-theme-text-primary text-base sm:text-lg ${anton.className}`}
+              className={`uppercase leading-tight text-theme-text-primary text-base sm:text-lg ${primaryFont.className}`}
             >
               {field}
             </div>
             <div
-              className={`font-semibold text-theme-text-secondary text-sm sm:text-base ${jetbrainsMono.className}`}
+              className={`font-semibold text-theme-text-secondary text-sm sm:text-base ${secondaryFont.className}`}
             >
               {duration}
             </div>

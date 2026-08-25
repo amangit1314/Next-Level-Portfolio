@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef } from "react";
-import { jetbrainsMono } from "@/lib/fonts";
+import { secondaryFont } from "@/lib/fonts";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Skill } from "@/types/skill";
 import type { IconType } from "react-icons";
@@ -55,7 +55,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         )}
       </div>
       <span
-        className={`text-[11px] sm:text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-[1.15] ${jetbrainsMono.className}`}
+        className={`text-[11px] sm:text-sm font-semibold text-theme-text-secondary group-hover:text-theme-text-primary transition-colors duration-200 truncate leading-[1.15] ${secondaryFont.className}`}
       >
         {skill.name}
       </span>
@@ -64,7 +64,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
           unreadable with no way to see the full text — worse than not
           truncating at all. Floating tooltip on hover shows it in full. */}
       <div
-        className={`pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 z-50 whitespace-nowrap px-3 py-1.5 rounded-none bg-theme-bg-primary border border-theme-border text-xs text-theme-text-primary shadow-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 ${jetbrainsMono.className}`}
+        className={`pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 z-50 whitespace-nowrap px-3 py-1.5 rounded-none bg-theme-bg-primary border border-theme-border text-xs text-theme-text-primary shadow-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 ${secondaryFont.className}`}
       >
         {skill.name}
       </div>

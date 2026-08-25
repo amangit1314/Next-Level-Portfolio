@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { jetbrainsMono, anton } from '@/lib/fonts';
+import { secondaryFont, primaryFont } from '@/lib/fonts';
 import { FiX } from 'react-icons/fi';
+import { JitterHeading } from '@/components/primitives/JitterHeading';
 
 interface SocialLink {
   name: string;
@@ -67,7 +68,7 @@ export function HudMenu({
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderBottomColor: 'var(--hud-border)' }}>
-            <span className={`text-lg ${anton.className}`} style={{ color: 'var(--hud-text-primary)' }}>
+            <span className={`text-lg ${primaryFont.className}`} style={{ color: 'var(--hud-text-primary)' }}>
               MENU
             </span>
             <button
@@ -87,7 +88,7 @@ export function HudMenu({
                 elsewhere) rather than an app-icon grid. */}
             <div className="px-5 py-5">
               <label
-                className={`mb-3 block text-xs font-semibold tracking-wider ${jetbrainsMono.className}`}
+                className={`mb-3 block text-xs font-semibold tracking-wider ${secondaryFont.className}`}
                 style={{ color: 'var(--hud-text-muted)' }}
               >
                 NAVIGATION
@@ -102,7 +103,7 @@ export function HudMenu({
                     // Real color invert on hover (bg <-> text swap), not
                     // just an opacity fade — matches the filled/inverted
                     // treatment used elsewhere for "this is clickable".
-                    className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm transition-colors text-[var(--hud-text-primary)] hover:bg-[var(--hud-text-primary)] hover:text-[var(--hud-bg)] ${jetbrainsMono.className}`}
+                    className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm transition-colors text-[var(--hud-text-primary)] hover:bg-[var(--hud-text-primary)] hover:text-[var(--hud-bg)] ${secondaryFont.className}`}
                     style={{ borderColor: 'var(--hud-border)' }}
                   >
                     <span aria-hidden style={{ color: 'currentColor', opacity: 0.55 }}>•</span>
@@ -131,14 +132,14 @@ export function HudMenu({
                       backgroundColor: isActive ? 'var(--hud-text-primary)' : 'transparent',
                     }}
                   >
-                    <span
-                      className={`text-lg uppercase leading-none ${anton.className}`}
+                    <JitterHeading
+                      className={`text-lg uppercase leading-none ${primaryFont.className}`}
                       style={{ color: isActive ? 'var(--hud-bg)' : 'var(--hud-text-primary)' }}
                     >
-                      [{link.index}] {link.name}
-                    </span>
+                      {`[${link.index}] ${link.name}`}
+                    </JitterHeading>
                     {!isActive && (
-                      <span className={`text-xs ${jetbrainsMono.className}`} style={{ color: 'var(--hud-text-muted)' }}>
+                      <span className={`text-xs ${secondaryFont.className}`} style={{ color: 'var(--hud-text-muted)' }}>
                         GO
                       </span>
                     )}

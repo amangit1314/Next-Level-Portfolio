@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiCalendar, FiClock, FiUser, FiArrowLeft, FiShare2 } from "react-icons/fi";
-import { anton, inter } from "@/lib/fonts";
+import { primaryFont, inter } from "@/lib/fonts";
 
 interface BlogSection {
   title: string;
@@ -166,7 +166,7 @@ export default function BlogArticleLayout({
             </div>
 
             <h1
-              className={`text-3xl md:text-4xl lg:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
+              className={`text-3xl md:text-4xl lg:text-5xl uppercase leading-none text-theme-text-primary mb-6 ${primaryFont.className}`}
             >
               {title}
             </h1>
@@ -219,7 +219,7 @@ export default function BlogArticleLayout({
             {sections.map((section, idx) => (
               <section key={idx}>
                 <h2
-                  className={`text-2xl md:text-3xl uppercase leading-none text-theme-text-primary mb-6 ${anton.className}`}
+                  className={`text-2xl md:text-3xl uppercase leading-none text-theme-text-primary mb-6 ${primaryFont.className}`}
                 >
                   {section.title}
                 </h2>
@@ -236,7 +236,7 @@ export default function BlogArticleLayout({
             className="mt-16 p-8 rounded-none bg-theme-bg-secondary/50 border border-theme-border/50 text-center"
           >
             <h3
-              className={`text-xl uppercase leading-none text-theme-text-primary mb-3 ${anton.className}`}
+              className={`text-xl uppercase leading-none text-theme-text-primary mb-3 ${primaryFont.className}`}
             >
               Interested in my work?
             </h3>
