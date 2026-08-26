@@ -176,8 +176,16 @@ export const AboutSection = () => {
             )}
           </div>
 
-          {/* RIGHT: Text Content */}
-          <div ref={rightColRef} className="space-y-8">
+          {/* RIGHT: Text Content — min-w-0 overrides CSS Grid's default
+              min-width:auto on grid items. `grid` above applies at every
+              breakpoint (only grid-cols-2 is lg:-gated), so on mobile this
+              is a grid item; without min-w-0, the Experience Cards row's
+              non-shrinking flex-shrink-0 children force this item's
+              intrinsic width past the viewport instead of scrolling
+              within their own overflow-x-auto bounds — the whole column
+              (bio, key strengths, CTA button) then gets silently clipped
+              on the right by the app's global overflow-x-hidden. */}
+          <div ref={rightColRef} className="space-y-8 min-w-0">
             {/* Experience Cards */}
             <div
               data-reveal-item

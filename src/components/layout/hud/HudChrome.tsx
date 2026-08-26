@@ -105,7 +105,7 @@ export function HudChrome() {
                 Projects/Components/Blogs catalog pages with no context).
                 Identity mark stays everywhere — it's branding, not status. */}
             <div className="fixed top-0 left-0 right-0 z-30 px-4 sm:px-8 py-3 pointer-events-none overflow-hidden flex items-start justify-between gap-4">
-                <div className="pointer-events-auto shrink-0 hidden sm:block">
+                <div className="pointer-events-auto shrink-0">
                     <HudIdentity />
                 </div>
                 {isHome && (
