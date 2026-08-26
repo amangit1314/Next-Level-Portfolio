@@ -68,7 +68,13 @@ const HeroSection = () => {
         <div className="v2-grid-bg absolute inset-0" />
       </div>
 
-      <div className="v2-container py-14 lg:py-24 w-full">
+      {/* pt-24 (not py-14's old 56px) reserves clearance for HudChrome's
+          fixed top-0 strip (HudTicker + HudIdentity, ~70-90px tall) —
+          on lg+ the 2-col grid dodges it via vertical centering, but
+          below lg the grid collapses to a single stacked column with the
+          avatar order-1 (first), landing it directly under this padding
+          with no other buffer. Was 56px, overlapping the fixed bar. */}
+      <div className="v2-container pt-24 pb-14 lg:pb-24 w-full">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
           {/* ── Left: Text ─────────────────────────────── */}

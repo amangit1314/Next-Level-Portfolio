@@ -29,13 +29,32 @@ interface JitterHeadingProps {
   children: string;
 }
 
+// Deterministic stand-in for Math.random() — a pure function of the
+// character + its index, so the same text always produces the same
+// per-letter jitter (stable across re-renders, no reshuffling mid-hover)
+// without needing state/effects to work around react-hooks/purity
+// (useMemo's callback runs during render; calling an actually-impure
+// function like Math.random() there is exactly what that rule flags).
+// Knuth's multiplicative hash constant; output normalized to [0, 1).
+function seededRandom(char: string, index: number): number {
+  let h = (index + 1) * 2654435761;
+  for (let i = 0; i < char.length; i++) {
+    h = Math.imul(h ^ char.charCodeAt(i), 2654435761);
+    h ^= h >>> 15;
+  }
+  return (h >>> 0) / 4294967295;
+}
+
 export function JitterHeading({ className = "", style, children }: JitterHeadingProps) {
   const [hovered, setHovered] = useState(false);
   const wrapRef = useRef<HTMLSpanElement>(null);
 
-  // One random seed per character, generated once per mount/text-change —
-  // stable across re-renders so the jitter doesn't reshuffle mid-hover.
-  const chars = useMemo(() => Array.from(children).map((char) => ({ char, seed: Math.random() })), [children]);
+  // One seed per character, generated once per mount/text-change — stable
+  // across re-renders so the jitter doesn't reshuffle mid-hover.
+  const chars = useMemo(
+    () => Array.from(children).map((char, i) => ({ char, seed: seededRandom(char, i) })),
+    [children]
+  );
 
   // Native mouseleave alone isn't reliable here: once hovered, the letters
   // themselves translate/rotate under an otherwise-stationary cursor, and
