@@ -14,8 +14,8 @@
 // the incoming one, and actually run an exit before the enter. `mode="wait"`
 // holds the enter until the exit finishes, so nothing overlaps.
 //
-// Only wraps {children} (the page content) — HudChrome/AICopilot/
-// MobileBottomNav stay outside, mounted once, untouched by route changes.
+// Only wraps {children} (the page content) — HudChrome/AICopilot stay
+// outside, mounted once, untouched by route changes.
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";

@@ -18,7 +18,6 @@ const inter = Inter({
 
 import { Providers } from "@/components/layout/Providers";
 import AICopilot from "@/features/ai-copilot/components/AICopilot";
-import MobileBottomNav from "@/components/layout/MobileBottomNav";
 import StructuredData from "@/components/layout/StructuredData";
 import { HudChrome } from "@/components/layout/hud/HudChrome";
 import { LenisProvider } from "@/components/layout/LenisProvider";
@@ -109,7 +108,6 @@ export default function RootLayout({
           <HudChrome />
           <PageTransition>{children}</PageTransition>
           <AICopilot />
-          <MobileBottomNav />
           <Analytics />
           <SpeedInsights />
         </Providers>

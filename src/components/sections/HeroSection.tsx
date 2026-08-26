@@ -140,8 +140,11 @@ const HeroSection = () => {
               </motion.div>
             )}
 
-            {/* CTAs */}
-            <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+            {/* CTAs — justify-center lg:justify-start matches every sibling
+                row in this column (stats, social links); this one was
+                missing it, so once sm:flex-row kicked in the buttons hugged
+                flex-start instead of centering like everything around them. */}
+            <motion.div {...fadeUp(0.3)} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
               <motion.button
                 onClick={handleScrollToProjects}
                 whileHover={{ scale: 1.03 }}

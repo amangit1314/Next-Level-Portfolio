@@ -18,6 +18,11 @@ interface NavLink {
   index: number;
 }
 
+interface SectionLink {
+  name: string;
+  id: string;
+}
+
 interface HudMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,6 +30,16 @@ interface HudMenuProps {
   socialLinks: SocialLink[];
   currentPath: string;
   onNavigate: (path: string) => void;
+  /** Home-only in-page section jumps (About/Skills/Work/Contact, etc.) —
+   * absent/empty on every other page. Folded in here to retire the
+   * standalone MobileBottomNav.tsx, which duplicated this exact
+   * capability in an unconverted glass-morphism bar that started
+   * visually colliding with this component's own trigger + the AI
+   * Copilot toggle below `lg` (two independent "mobile bottom chrome"
+   * systems from different design eras, never reconciled). This is now
+   * the one canonical place for it. */
+  sectionLinks?: SectionLink[];
+  onNavigateSection?: (id: string) => void;
 }
 
 export function HudMenu({
@@ -34,6 +49,8 @@ export function HudMenu({
   socialLinks,
   currentPath,
   onNavigate,
+  sectionLinks = [],
+  onNavigateSection,
 }: HudMenuProps) {
   // Click-outside close — a compact anchored popover (not a full-screen
   // drawer anymore, see the panel below) doesn't cover the page, so there's
@@ -91,7 +108,7 @@ export function HudMenu({
                 className={`mb-3 block text-xs font-semibold tracking-wider ${secondaryFont.className}`}
                 style={{ color: 'var(--hud-text-muted)' }}
               >
-                NAVIGATION
+                CONNECT
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {socialLinks.map((link) => (
@@ -113,10 +130,49 @@ export function HudMenu({
               </div>
             </div>
 
+            {/* Sections — home-only in-page jumps, folded in from the
+                retired MobileBottomNav.tsx. Bulleted like CONNECT above
+                (not numbered — these are anchors within one page, not
+                separate routes like PAGES below). */}
+            {sectionLinks.length > 0 && (
+              <div className="border-t px-5 py-5" style={{ borderTopColor: 'var(--hud-border)' }}>
+                <label
+                  className={`mb-3 block text-xs font-semibold tracking-wider ${secondaryFont.className}`}
+                  style={{ color: 'var(--hud-text-muted)' }}
+                >
+                  SECTIONS
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {sectionLinks.map((link) => (
+                    <button
+                      key={link.id}
+                      onClick={() => {
+                        onNavigateSection?.(link.id);
+                        onClose();
+                      }}
+                      className={`flex items-center gap-2 rounded-none border px-3 py-2.5 text-sm text-left transition-colors text-[var(--hud-text-primary)] hover:bg-[var(--hud-text-primary)] hover:text-[var(--hud-bg)] ${secondaryFont.className}`}
+                      style={{ borderColor: 'var(--hud-border)' }}
+                    >
+                      <span aria-hidden style={{ color: 'currentColor', opacity: 0.55 }}>•</span>
+                      {link.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Numbered Nav — Anton display face + a filled active row
                 instead of a small dot, so the current page reads at a
                 glance instead of needing a close look. */}
-            <div className="border-t" style={{ borderTopColor: 'var(--hud-border)' }}>
+            <div className="border-t px-5 pt-4 pb-1" style={{ borderTopColor: 'var(--hud-border)' }}>
+              <label
+                className={`mb-1 block text-xs font-semibold tracking-wider ${secondaryFont.className}`}
+                style={{ color: 'var(--hud-text-muted)' }}
+              >
+                PAGES
+              </label>
+            </div>
+            <div>
               {navLinks.map((link) => {
                 const isActive = link.path === currentPath;
                 return (

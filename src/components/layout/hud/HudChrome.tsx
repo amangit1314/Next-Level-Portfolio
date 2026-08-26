@@ -2,9 +2,9 @@
 
 // Global HUD chrome — replaces Header/Footer's rendered output everywhere
 // (mounted once here, in layout.tsx, instead of per-page). Header.tsx and
-// Footer.tsx are NOT deleted: MobileBottomNav.tsx still imports
-// `sectionLinks` from Header.tsx, and pageLinks (data only, not the
-// component's render output) is reused below for the numbered nav.
+// Footer.tsx are NOT deleted: pageLinks/sectionLinks (data only, not
+// either component's old render output) are reused below for HudMenu's
+// PAGES and home-only SECTIONS groups.
 //
 // Background/text/border stay fixed monochrome (globals.css's --hud-*
 // tokens) — NOT wired into v1's ThemeContext/ThemeSwitcher (that system is
@@ -24,10 +24,11 @@ import { HudAccentSync } from "./HudAccentSync";
 import { HudScrollSlider } from "./HudScrollSlider";
 import { HudBootLoader } from "./HudBootLoader";
 import { HudCursorTrail } from "./HudCursorTrail";
-import { pageLinks } from "@/components/layout/Header";
+import { pageLinks, sectionLinks } from "@/components/layout/Header";
 import { SOCIAL_LINKS } from "@/constants/socialLinks";
 import { useUIStore } from "@/stores/uiStore";
 import { FiSettings } from "react-icons/fi";
+import { scrollToTarget } from "@/lib/lenisScroll";
 
 // Mounted globally (every route, including Home) here rather than per-page
 // — position:fixed stayed correctly pinned to the viewport for the settings
@@ -64,6 +65,11 @@ export function HudChrome() {
         .reverse();
 
     const socialLinks = SOCIAL_LINKS.map((s) => ({ name: s.name, url: s.url, icon: s.icon }));
+
+    // Home-only in-page jumps — folded in from the retired
+    // MobileBottomNav.tsx (see HudMenu.tsx for why). Empty array on every
+    // other page, which HudMenu treats as "don't render this group".
+    const homeSectionLinks = isHome ? sectionLinks.map((s) => ({ name: s.name, id: s.id })) : [];
 
     return (
         <>
@@ -132,6 +138,8 @@ export function HudChrome() {
                     setMenuOpen(false);
                     router.push(path);
                 }}
+                sectionLinks={homeSectionLinks}
+                onNavigateSection={(id) => scrollToTarget(`#${id}`)}
             />
         </>
     );

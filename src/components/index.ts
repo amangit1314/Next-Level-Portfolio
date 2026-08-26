@@ -8,12 +8,12 @@ export { default as Testimonials } from "./sections/Testimonials";
 export { default as Contact } from "./sections/Contact";
 
 // Layout
-// Header/Footer are NOT re-exported here anymore — their rendered output
-// was replaced site-wide by src/components/layout/hud/HudChrome.tsx
-// (mounted once in layout.tsx). The files themselves still exist for their
-// data exports (pageLinks, sectionLinks — imported directly from
-// "./layout/Header" by HudChrome.tsx and MobileBottomNav.tsx).
-export { default as MobileBottomNav } from "./layout/MobileBottomNav";
+// Header/Footer/MobileBottomNav are NOT re-exported here anymore — their
+// rendered output was replaced site-wide by
+// src/components/layout/hud/HudChrome.tsx (mounted once in layout.tsx;
+// MobileBottomNav's section-jump links folded into HudMenu's SECTIONS
+// group). Header.tsx itself still exists for its data exports
+// (pageLinks, sectionLinks — imported directly from "./layout/Header").
 export { Providers } from "./layout/Providers";
 
 // Features

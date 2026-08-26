@@ -27,7 +27,7 @@ export const pageLinks = [
   { name: "Blogs", path: Route.Blogs, icon: FiFileText },
 ];
 
-// SECTION NAV (used only on home page, by MobileBottomNav)
+// SECTION NAV (home page only — HudMenu's SECTIONS group, HudChrome.tsx)
 export const sectionLinks = [
   { name: SectionLabel.Intro, id: SectionId.Home, icon: FiHome },
   { name: SectionLabel.About, id: SectionId.About, icon: FiBriefcase },

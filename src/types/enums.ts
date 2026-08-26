@@ -31,8 +31,8 @@ export enum Route {
 }
 
 /** DOM anchor ids for home-page sections — scrolled to via `#id`, distinct
- * from `Route` (URL paths). Shared by Header's sectionLinks and
- * MobileBottomNav (previously its own independently-hardcoded id list). */
+ * from `Route` (URL paths). Shared by Header's sectionLinks, consumed by
+ * HudMenu's home-only SECTIONS group (HudChrome.tsx). */
 export enum SectionId {
   Home = "home",
   About = "about",

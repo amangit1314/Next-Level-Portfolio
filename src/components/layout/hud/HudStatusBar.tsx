@@ -51,7 +51,14 @@ export function HudStatusBar({
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 flex items-end justify-between gap-4 px-4 sm:px-8 py-4 pointer-events-none ${secondaryFont.className}`}
+      // items-center, not items-end: the left "Say Hello/Local Time" panel
+      // (two text rows + padding) is taller than the right group's 36px
+      // icon buttons — bottom-aligning them left the pill/Copilot/Settings
+      // row sitting flush with the panel's bottom edge instead of centered
+      // against it, only visible once both groups render side-by-side
+      // (sm+ width; below that the left panel is hidden, nothing to
+      // misalign against).
+      className={`fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between gap-4 px-4 sm:px-8 py-4 pointer-events-none ${secondaryFont.className}`}
     >
       {/* Left group: Say Hello + Local Time share one bordered/textured
           panel (sharp corners — this branch's identity, reference uses
